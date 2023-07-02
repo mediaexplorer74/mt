@@ -1,13 +1,13 @@
-# mt (Modding Terraria codename; mt-1.3.5.3)
+# mt (Modding Terraria codename; mt-1.2.4.1)
 
 ![](Images/intro.png)
 
 ## The object to explore
 
-:: Terraria 1.3.5.3 ::
+:: Terraria 1.2.4.1 ::
 
 ### Content
-This repo contains the decompiled source of the Terraria client and server binaries, from version 1.3.5.3. Decompiled with [JetBrains dotPeek](https://www.jetbrains.com/decompiler/). 
+This repo contains the decompiled source of the Terraria (client / single-player) binaries, from version 1.2.4.1. Decompiled with [JetBrains dotPeek](https://www.jetbrains.com/decompiler/). 
 
 ### Important
 - This repo does not include the game content.
@@ -27,7 +27,7 @@ I am just providing the decompiled code as a reference and making it easily acce
 - https://github.com/UTINKA/Terraria Terraria Version 1.3.5.3 (decomp/raw)
 - https://github.com/MikeyIsBaeYT/Terraria-Source-Code Version ??? (decomp/raw)
 - https://habr.com/ru/articles/142349/ Terraria: или пишите игры правильно (in Rus.)
-- https://habr.com/ru/articles/122839/ Игра «Terraria» и её «хорошая» система шифрования профайлов(in Rus.)
+- https://habr.com/ru/articles/122839/ Игра «Terraria» и её «хорошая» система шифрования профайлов (in Rus.)
 
 ## ..
 As is. No support. Educational use/purpose only. DIY
