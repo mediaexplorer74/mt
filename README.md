@@ -9,6 +9,10 @@
 ### Content
 This repo contains the decompiled source of the Terraria (client / single-player) binaries, from version 1.2.4.1. Decompiled with [JetBrains dotPeek](https://www.jetbrains.com/decompiler/). 
 
+## Screenshots
+![](Images/shot1.png)
+![](Images/shot2.png)
+
 ### Important
 - This repo does not include the game content.
 If you want the content, buy the game on Steam, then place it at *Src\Contents* folder. 
