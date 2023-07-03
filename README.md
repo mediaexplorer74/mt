@@ -1,17 +1,18 @@
-# mt (Modding Terraria codename; mt-1.2.4.1)
+# mt (Modding Terraria codename; desktop-uwp-1.3 branch)
 
 ![](Images/intro.png)
 
 ## The object to explore
 
-:: Terraria 1.2.4.1 ::
+:: Terraria 1.3.x.x ::
+
+## Progress of porting to uwp
+
+:: Draft ::
+
 
 ### Content
-This repo contains the decompiled source of the Terraria (client / single-player) binaries, from version 1.2.4.1. Decompiled with [JetBrains dotPeek](https://www.jetbrains.com/decompiler/). 
-
-## Screenshots
-![](Images/shot1.png)
-![](Images/shot2.png)
+This repo contains the decompiled source of the Terraria client binaries, from version 1.3.x.x. Decompiled with [JetBrains dotPeek](https://www.jetbrains.com/decompiler/). 
 
 ### Important
 - This repo does not include the game content.
