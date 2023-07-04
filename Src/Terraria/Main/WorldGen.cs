@@ -11660,7 +11660,9 @@ namespace GameManager
 
         public static void CreateNewWorld(GenerationProgress progress = null)
         {
-            ThreadPool.QueueUserWorkItem(new WaitCallback(worldGenCallBack), progress);
+            //RnD
+            //ThreadPool.QueueUserWorkItem(new WaitCallback(worldGenCallBack), progress);
+            worldGenCallBack(default);
         }
 
         public static void CrimEnt(Vector2 position, int crimDir)
@@ -38134,7 +38136,9 @@ namespace GameManager
 
         public static void playWorld()
         {
-            ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.playWorldCallBack), 1);
+            // RnD
+            //ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.playWorldCallBack), 1);
+            WorldGen.playWorldCallBack(default);
         }
 
         public static void playWorldCallBack(object threadContext)
@@ -39297,7 +39301,9 @@ namespace GameManager
 
         public static void saveAndPlay()
         {
-            ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.saveAndPlayCallBack), 1);
+            //RnD
+            //ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.saveAndPlayCallBack), 1);
+            WorldGen.saveAndPlayCallBack(default);
         }
 
         public static void saveAndPlayCallBack(object threadContext)
@@ -39308,7 +39314,9 @@ namespace GameManager
         public static void SaveAndQuit(Action callback = null)
         {
             Main.PlaySound(11, -1, -1, 1);
-            ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.SaveAndQuitCallBack), callback);
+            //RnD
+            //ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.SaveAndQuitCallBack), callback);
+            WorldGen.SaveAndQuitCallBack(default);
         }
 
         public static void SaveAndQuitCallBack(object threadContext)
@@ -39354,7 +39362,9 @@ namespace GameManager
 
         public static void saveToonWhilePlaying()
         {
-            ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.saveToonWhilePlayingCallBack), 1);
+            //RnD
+            //ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.saveToonWhilePlayingCallBack), 1);
+            WorldGen.saveToonWhilePlayingCallBack(default);
         }
 
         public static void saveToonWhilePlayingCallBack(object threadContext)
@@ -39615,7 +39625,9 @@ namespace GameManager
 
         public static void serverLoadWorld()
         {
-            ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.serverLoadWorldCallBack), 1);
+            //RnD
+            //ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.serverLoadWorldCallBack), 1);
+            WorldGen.serverLoadWorldCallBack(default);
         }
 
         public static void serverLoadWorldCallBack(object threadContext)
@@ -41492,7 +41504,10 @@ namespace GameManager
             {
                 Main.hardMode = true;
                 Main.InitLifeBytes();
-                ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.smCallBack), 1);
+
+                //RnD
+                //ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.smCallBack), 1);
+                WorldGen.smCallBack(default);
             }
         }
 

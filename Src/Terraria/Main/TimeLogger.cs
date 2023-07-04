@@ -170,7 +170,7 @@ namespace GameManager
                     TimeLogger.logBuilder.Clear();
                     TimeLogger.logBuilder = (StringBuilder)null;
                     TimeLogger.logWriter.Flush();
-                    TimeLogger.logWriter.Close();
+                    TimeLogger.logWriter.Dispose();//.Close();
                     TimeLogger.logWriter = (StreamWriter)null;
                     TimeLogger.framesToLog = -1;
                     TimeLogger.currentFrame = 0;

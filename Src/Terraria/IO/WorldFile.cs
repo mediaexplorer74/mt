@@ -1,12 +1,4 @@
-﻿/*
-  _____                 ____                 
- | ____|_ __ ___  _   _|  _ \  _____   _____ 
- |  _| | '_ ` _ \| | | | | | |/ _ \ \ / / __|
- | |___| | | | | | |_| | |_| |  __/\ V /\__ \
- |_____|_| |_| |_|\__,_|____/ \___| \_/ |___/
-          <http://emudevs.com>
-             Terraria 1.3
-*/
+﻿// WorldFile
 
 using System;
 using System.Collections.Generic;
@@ -278,7 +270,7 @@ namespace GameManager.IO
                             if (num <= 0x57)
                             {
                                 str = reader.ReadString();
-                                reader.Close();
+                                reader.Dispose();//.Close();
                                 return str;
                             }
                             if (num >= 0x87)
@@ -289,7 +281,7 @@ namespace GameManager.IO
                             reader.ReadInt16();
                             stream.Position = reader.ReadInt32();
                             str = reader.ReadString();
-                            reader.Close();
+                            reader.Dispose();//.Close();
                             return str;
                         }
                     }
@@ -804,8 +796,8 @@ namespace GameManager.IO
                         }
                         if (num2 < 0x8d)
                             Main.ActiveWorldFileData.CreationTime = File.GetCreationTime(Main.worldPathName);
-                        reader.Close();
-                        stream.Close();
+                        reader.Dispose();//.Close();
+                        stream.Dispose();//.Close();
                         if (num3 != 0)
                         {
                             WorldGen.loadFailed = true;
@@ -864,8 +856,8 @@ namespace GameManager.IO
                         WorldGen.loadSuccess = false;
                         try
                         {
-                            reader.Close();
-                            stream.Close();
+                            reader.Dispose();//.Close();
+                            stream.Dispose();//.Close();
                         }
                         catch
                         {
@@ -1939,7 +1931,10 @@ namespace GameManager.IO
                             {
                                 SaveWorld_Version2(writer);
                                 writer.Flush();
-                                data = stream.GetBuffer();
+
+                                //RnD
+
+                                data = default;//stream.GetBuffer();
                                 length = (int)stream.Length;
                             }
                         }
@@ -2489,12 +2484,12 @@ namespace GameManager.IO
             }
             catch (Exception exception)
             {
-                using (StreamWriter writer = new StreamWriter("client-crashlog.txt", true))
-                {
-                    writer.WriteLine(DateTime.Now);
-                    writer.WriteLine(exception);
-                    writer.WriteLine("");
-                }
+                //using (StreamWriter writer = new StreamWriter("client-crashlog.txt", true))
+                //{
+                //    writer.WriteLine(DateTime.Now);
+                //    writer.WriteLine(exception);
+                //    writer.WriteLine("");
+                //}
                 return false;
             }
         }

@@ -1,12 +1,4 @@
-﻿/*
-  _____                 ____                 
- | ____|_ __ ___  _   _|  _ \  _____   _____ 
- |  _| | '_ ` _ \| | | | | | |/ _ \ \ / / __|
- | |___| | | | | | |_| | |_| |  __/\ V /\__ \
- |_____|_| |_| |_|\__,_|____/ \___| \_/ |___/
-          <http://emudevs.com>
-             Terraria 1.3
-*/
+﻿// MapHelper
 
 using Microsoft.Xna.Framework;
 using System;
@@ -2121,12 +2113,13 @@ namespace GameManager.Map
                 }
                 catch (Exception value)
                 {
-                    using (StreamWriter streamWriter = new StreamWriter("client-crashlog.txt", true))
-                    {
-                        streamWriter.WriteLine(DateTime.Now);
-                        streamWriter.WriteLine(value);
-                        streamWriter.WriteLine("");
-                    }
+                    //RnD
+                    //using (StreamWriter streamWriter = new StreamWriter("client-crashlog.txt", true))
+                    //{
+                    //    streamWriter.WriteLine(DateTime.Now);
+                    //    streamWriter.WriteLine(value);
+                    //    streamWriter.WriteLine("");
+                    //}
                 }
                 MapHelper.saveLock = false;
             }
@@ -2655,7 +2648,7 @@ namespace GameManager.Map
                     }
                 }
             }
-            binaryReader.Close();
+            binaryReader.Dispose();//.Close();
         }
     }
 }

@@ -270,7 +270,7 @@ namespace GameManager
         public static int musicBox = -1;
         public static int musicBox2 = -1;
         public static byte hbPosition = 1;
-        public static bool cEd = false;
+        public static bool cEd = false; // "Bunny"
         public static float wFrCounter = 0f;
         public static float wFrame = 0f;
         public static float upTimer;
@@ -490,7 +490,10 @@ namespace GameManager
         public static SpriteBatch spriteBatch;
         public static TileBatch tileBatch;
         public static GenerationProgress AutogenProgress = new GenerationProgress();
-        private Process tServer = new Process();
+
+        //RnD
+        //private Process tServer = new Process();
+        
         private static Stopwatch saveTime = new Stopwatch();
         public static MouseState mouseState;
         public static MouseState oldMouseState;
@@ -2286,12 +2289,14 @@ namespace GameManager
         {
             try
             {
-                RegistryKey registryKey = Registry.CurrentUser;
-                registryKey = registryKey.CreateSubKey("Software\\Terraria");
-                if (registryKey != null && registryKey.GetValue("Bunny") != null && registryKey.GetValue("Bunny").ToString() == "1")
-                {
+                //RegistryKey registryKey = Registry.CurrentUser;
+                //registryKey = registryKey.CreateSubKey("Software\\Terraria");
+
+                //if (registryKey != null && registryKey.GetValue("Bunny") != null 
+                //    && registryKey.GetValue("Bunny").ToString() == "1")
+                //{
                     Main.cEd = true;
-                }
+                //}
             }
             catch
             {
@@ -2444,8 +2449,9 @@ namespace GameManager
                                 }
                                 if (num >= 91 && binaryReader.ReadBoolean())
                                 {
-                                    Form form = (Form)Control.FromHandle(base.Window.Handle);
-                                    form.WindowState = FormWindowState.Maximized;
+                                    //RnD
+                                    //Form form = (Form)Control.FromHandle(base.Window.Handle);
+                                    //form.WindowState = FormWindowState.Maximized;
                                 }
                                 if (num >= 4)
                                 {
@@ -2709,6 +2715,8 @@ namespace GameManager
         {
             Main.motd = newMOTD;
         }
+
+        // Load Dedicated Server Config ?
         public void LoadDedConfig(string configPath)
         {
             if (File.Exists(configPath))
@@ -2758,30 +2766,31 @@ namespace GameManager
                                     int num2 = Convert.ToInt32(value3);
                                     if (num2 >= 0 && num2 <= 5)
                                     {
-                                        Process currentProcess = Process.GetCurrentProcess();
+                                        //RnD
+                                        //Process currentProcess = Process.GetCurrentProcess();
                                         if (num2 == 0)
                                         {
-                                            currentProcess.PriorityClass = ProcessPriorityClass.RealTime;
+                                            //currentProcess.PriorityClass = ProcessPriorityClass.RealTime;
                                         }
                                         else if (num2 == 1)
                                         {
-                                            currentProcess.PriorityClass = ProcessPriorityClass.High;
+                                            //currentProcess.PriorityClass = ProcessPriorityClass.High;
                                         }
                                         else if (num2 == 2)
                                         {
-                                            currentProcess.PriorityClass = ProcessPriorityClass.AboveNormal;
+                                            //currentProcess.PriorityClass = ProcessPriorityClass.AboveNormal;
                                         }
                                         else if (num2 == 3)
                                         {
-                                            currentProcess.PriorityClass = ProcessPriorityClass.Normal;
+                                            //currentProcess.PriorityClass = ProcessPriorityClass.Normal;
                                         }
                                         else if (num2 == 4)
                                         {
-                                            currentProcess.PriorityClass = ProcessPriorityClass.BelowNormal;
+                                            //currentProcess.PriorityClass = ProcessPriorityClass.BelowNormal;
                                         }
                                         else if (num2 == 5)
                                         {
-                                            currentProcess.PriorityClass = ProcessPriorityClass.Idle;
+                                            //currentProcess.PriorityClass = ProcessPriorityClass.Idle;
                                         }
                                     }
                                 }
@@ -2893,6 +2902,8 @@ namespace GameManager
                 }
             }
         }
+
+
         public void SetNetPlayers(int mPlayers)
         {
             Main.maxNetPlayers = mPlayers;
@@ -2909,10 +2920,12 @@ namespace GameManager
         {
             Main.autoShutdown = true;
         }
-        [DllImport("user32.dll")]
-        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-        [DllImport("user32.dll")]
-        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        //[DllImport("user32.dll")]
+        //public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        
+        //[DllImport("user32.dll")]
+        //private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
         public void AutoPass()
         {
             Main.autoPass = true;
@@ -2935,6 +2948,8 @@ namespace GameManager
             Main.libPath = path;
             Main.LoadLibrary(Main.libPath);
         }
+
+        // DedServ()
         public void DedServ()
         {
             Main.rand = new Random();
@@ -2942,11 +2957,13 @@ namespace GameManager
             {
                 string text = "terraria" + Main.rand.Next(2147483647);
                 Console.Title = text;
-                IntPtr intPtr = Main.FindWindow(null, text);
-                if (intPtr != IntPtr.Zero)
-                {
-                    Main.ShowWindow(intPtr, 0);
-                }
+
+                //IntPtr intPtr = Main.FindWindow(null, text);
+                //if (intPtr != IntPtr.Zero)
+                //{
+                //    Main.ShowWindow(intPtr, 0);
+                //}
+                Debug.WriteLine("[i] " + text);
             }
             else
             {
@@ -3121,7 +3138,8 @@ namespace GameManager
                             Console.WriteLine("");
                             Console.Write("Enter world name: ");
                             Main.newWorldName = Console.ReadLine();
-                            if (Main.newWorldName != "" && Main.newWorldName != " " && Main.newWorldName != null)
+                            if (Main.newWorldName != "" && Main.newWorldName != " " 
+                                && Main.newWorldName != null)
                             {
                                 flag2 = false;
                             }
@@ -3134,7 +3152,8 @@ namespace GameManager
                             }
                         }
                         Main.worldName = Main.newWorldName;
-                        Main.ActiveWorldFileData = WorldFile.CreateMetadata(Main.worldName, false, Main.expertMode);
+                        Main.ActiveWorldFileData = WorldFile.CreateMetadata(
+                            Main.worldName, false, Main.expertMode);
                         Main.menuMode = 10;
                         Main.serverGenLock = true;
                         GenerationProgress generationProgress = new GenerationProgress();
@@ -3380,7 +3399,9 @@ namespace GameManager
 
         public static void startDedInput()
         {
-            ThreadPool.QueueUserWorkItem(new WaitCallback(Main.startDedInputCallBack), 1);
+            //RnD
+            //ThreadPool.QueueUserWorkItem(new WaitCallback(Main.startDedInputCallBack), 1);
+            Main.startDedInputCallBack(default);
         }
 
         public static void startDedInputCallBack(object threadContext)
@@ -12462,6 +12483,7 @@ namespace GameManager
         {
             if (!Main.hasFocus)
                 return oldString;
+
             Main.inputTextEnter = false;
             Main.inputTextEscape = false;
             string str1 = oldString;
@@ -12483,9 +12505,13 @@ namespace GameManager
                     // RnD
                     //Thread thread = new Thread((ThreadStart)(() =>
                     //{
-                        if (oldString.Length <= 0)
-                            return;
-                        Clipboard.SetText(oldString);
+
+                    if (oldString.Length <= 0)
+                    {
+                        return "";//return;
+                    }
+
+                        //Clipboard.SetText(oldString);
                     //}));
 
 
@@ -12499,14 +12525,18 @@ namespace GameManager
                     || Main.inputText.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Insert) 
                     && !Main.oldInputText.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Insert))
                 {
-                    //Thread thread = new Thread((ThreadStart)(() =>
-                    //{
+                    Thread thread = new Thread((ThreadStart)(() =>
+                    {
                         if (oldString.Length <= 0)
+                        {
+                            //RnD
                             return;
-                        Clipboard.SetText(oldString);
-                    //}));
+                        }
+
+                        //Clipboard.SetText(oldString);
+                    }));
                     //thread.SetApartmentState(ApartmentState.STA);
-                    //thread.Start();
+                    thread.Start();
 
                     while (thread.IsAlive)
                     {
@@ -12516,9 +12546,10 @@ namespace GameManager
                 else if (Main.inputText.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.V)
                     && !Main.oldInputText.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.V))
                 {
-                    //Thread thread = new Thread((ThreadStart)(() =>
-                    //{
-                        string str2 = Clipboard.GetText();
+                    Thread thread = new Thread((ThreadStart)(() =>
+                    {
+                        //RnD
+                        string str2 = "";//Clipboard.GetText();
                         for (int index = 0; index < str2.Length; ++index)
                         {
                             if ((int)str2[index] < 32 || (int)str2[index] == (int)sbyte.MaxValue)
@@ -12526,10 +12557,10 @@ namespace GameManager
                         }
                         // ISSUE: reference to a compiler-generated field
                         newKeys += str2;
-                    //}));
+                    }));
                     
                     //thread.SetApartmentState(ApartmentState.STA);
-                    //thread.Start();
+                    thread.Start();
                     while (thread.IsAlive) ;
                 }
             }
@@ -12544,21 +12575,27 @@ namespace GameManager
                         Thread thread = new Thread((ThreadStart)(() =>
                         {
                             if (oldString.Length <= 0)
+                            {
+                                //RnD
                                 return;
-                            Clipboard.SetText(oldString);
+                            }
+
+                            //Clipboard.SetText(oldString);
                         }));
 
-                        thread.SetApartmentState(ApartmentState.STA);
+                        //thread.SetApartmentState(ApartmentState.STA);
                         thread.Start();
+                        
                         while (thread.IsAlive) ;
+                        
                         str1 = "";
                     }
                     if (Main.inputText.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Insert)
                         && !Main.oldInputText.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Insert))
                     {
-                        //Thread thread = new Thread((ThreadStart)(() =>
-                        //{
-                            string str2 = Clipboard.GetText();
+                        Thread thread = new Thread((ThreadStart)(() =>
+                        {
+                        string str2 = "";// Clipboard.GetText();
                             for (int index = 0; index < str2.Length; ++index)
                             {
                                 if ((int)str2[index] < 32 || (int)str2[index] == (int)sbyte.MaxValue)
@@ -12566,11 +12603,14 @@ namespace GameManager
                             }
                             // ISSUE: reference to a compiler-generated field
                             newKeys += str2;
-                        //}));
+                        }));
                         //thread.SetApartmentState(ApartmentState.STA);
-                        //thread.Start();
-                        
-                        while (thread.IsAlive) ;
+                        thread.Start();
+
+                        while (thread.IsAlive)
+                        {
+                            ; 
+                        }
                     }
                 }
                 for (int index = 0; index < Main.keyCount; ++index)
@@ -36098,6 +36138,9 @@ namespace GameManager
             }
             return t1;
         }
+
+
+        // rgbToHsl
         public static Vector3 rgbToHsl(Microsoft.Xna.Framework.Color newColor)
         {
             float num = (float)newColor.R;
@@ -36137,6 +36180,9 @@ namespace GameManager
             }
             return new Vector3(num6, y, num7);
         }
+
+
+        // DrawThickCursor
         public static void DrawThickCursor(bool smart = false)
         {
             if (Main.ThickMouse)
@@ -36167,10 +36213,15 @@ namespace GameManager
                             break;
                     }
                     vector *= 1f;
-                    Main.spriteBatch.Draw(texture, new Vector2((float)Main.mouseX, (float)Main.mouseY) + vector, null, black, 0f, new Vector2(2f), Main.cursorScale * 1.1f, SpriteEffects.None, 0f);
+                    Main.spriteBatch.Draw(texture, new Vector2((float)Main.mouseX, 
+                        (float)Main.mouseY) + vector, null, black, 0f, new Vector2(2f), 
+                        Main.cursorScale * 1.1f, SpriteEffects.None, 0f);
                 }
             }
         }
+
+
+        // DrawMenu
         protected void DrawMenu(GameTime gameTime)
         {
             if (!Main.IsEngineLoaded)
@@ -36204,7 +36255,8 @@ namespace GameManager
             Main.screenPosition.Y = (float)(Main.worldSurface * 16.0 - (double)Main.screenHeight);
             if (Main.grabSky)
             {
-                Main.screenPosition.X = Main.screenPosition.X + (float)(Main.mouseX - Main.screenWidth / 2) * 0.02f;
+                Main.screenPosition.X = 
+                    Main.screenPosition.X + (float)(Main.mouseX - Main.screenWidth / 2) * 0.02f;
             }
             else
             {
@@ -36220,7 +36272,9 @@ namespace GameManager
             }
             Main.background = 0;
             byte b = (byte)((255 + Main.tileColor.R * 2) / 3);
-            Microsoft.Xna.Framework.Color color = new Microsoft.Xna.Framework.Color((int)b, (int)b, (int)b, 255);
+            Microsoft.Xna.Framework.Color color = 
+                new Microsoft.Xna.Framework.Color((int)b, (int)b, (int)b, 255);
+
             this.logoRotation += this.logoRotationSpeed * 3E-05f;
             if ((double)this.logoRotation > 0.1)
             {
@@ -36255,10 +36309,29 @@ namespace GameManager
             {
                 this.logoScaleSpeed -= 1f;
             }
-            Microsoft.Xna.Framework.Color color2 = new Microsoft.Xna.Framework.Color((int)((byte)((float)color.R * ((float)Main.LogoA / 255f))), (int)((byte)((float)color.G * ((float)Main.LogoA / 255f))), (int)((byte)((float)color.B * ((float)Main.LogoA / 255f))), (int)((byte)((float)color.A * ((float)Main.LogoA / 255f))));
-            Microsoft.Xna.Framework.Color color3 = new Microsoft.Xna.Framework.Color((int)((byte)((float)color.R * ((float)Main.LogoB / 255f))), (int)((byte)((float)color.G * ((float)Main.LogoB / 255f))), (int)((byte)((float)color.B * ((float)Main.LogoB / 255f))), (int)((byte)((float)color.A * ((float)Main.LogoB / 255f))));
-            Main.spriteBatch.Draw(Main.logoTexture, new Vector2((float)(Main.screenWidth / 2), 100f), new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, Main.logoTexture.Width, Main.logoTexture.Height)), color2, this.logoRotation, new Vector2((float)(Main.logoTexture.Width / 2), (float)(Main.logoTexture.Height / 2)), this.logoScale, SpriteEffects.None, 0f);
-            Main.spriteBatch.Draw(Main.logo2Texture, new Vector2((float)(Main.screenWidth / 2), 100f), new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, Main.logoTexture.Width, Main.logoTexture.Height)), color3, this.logoRotation, new Vector2((float)(Main.logoTexture.Width / 2), (float)(Main.logoTexture.Height / 2)), this.logoScale, SpriteEffects.None, 0f);
+            Microsoft.Xna.Framework.Color color2 = 
+                new Microsoft.Xna.Framework.Color((int)((byte)((float)color.R * ((float)Main.LogoA / 255f))),
+                (int)((byte)((float)color.G * ((float)Main.LogoA / 255f))),
+                (int)((byte)((float)color.B * ((float)Main.LogoA / 255f))),
+                (int)((byte)((float)color.A * ((float)Main.LogoA / 255f))));
+            Microsoft.Xna.Framework.Color color3 = 
+                new Microsoft.Xna.Framework.Color((int)((byte)((float)color.R * ((float)Main.LogoB / 255f))),
+                (int)((byte)((float)color.G * ((float)Main.LogoB / 255f))),
+                (int)((byte)((float)color.B * ((float)Main.LogoB / 255f))),
+                (int)((byte)((float)color.A * ((float)Main.LogoB / 255f))));
+
+            Main.spriteBatch.Draw(Main.logoTexture, new Vector2((float)(Main.screenWidth / 2), 100f), 
+                new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(
+                    0, 0, Main.logoTexture.Width, Main.logoTexture.Height)), color2, this.logoRotation,
+                new Vector2((float)(Main.logoTexture.Width / 2), (float)(Main.logoTexture.Height / 2)),
+                this.logoScale, SpriteEffects.None, 0f);
+
+            Main.spriteBatch.Draw(Main.logo2Texture, new Vector2((float)(Main.screenWidth / 2), 100f),
+                new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(
+                    0, 0, Main.logoTexture.Width, Main.logoTexture.Height)), color3, this.logoRotation,
+                new Vector2((float)(Main.logoTexture.Width / 2), (float)(Main.logoTexture.Height / 2)),
+                this.logoScale, SpriteEffects.None, 0f);
+
             if (Main.dayTime)
             {
                 Main.LogoA += 2;
@@ -36558,7 +36631,7 @@ namespace GameManager
                     Main.netMode = 0;
                     try
                     {
-                        this.tServer.Kill();
+                        //this.tServer.Kill();
                         goto IL_4157;
                     }
                     catch
@@ -36645,6 +36718,9 @@ namespace GameManager
 							Lang.lang
 						});
                         text = text + " -world \"" + Main.worldPathName + "\"";
+
+                        //RnD
+                        /*
                         this.tServer.StartInfo.FileName = "TerrariaServer.exe";
                         this.tServer.StartInfo.Arguments = text;
                         if (Main.libPath != "")
@@ -36655,6 +36731,7 @@ namespace GameManager
                         this.tServer.StartInfo.UseShellExecute = false;
                         this.tServer.StartInfo.CreateNoWindow = true;
                         this.tServer.Start();
+                        */
                         Netplay.SetRemoteIP("127.0.0.1");
                         Main.autoPass = true;
                         Main.statusText = Lang.menu[8];
@@ -52431,6 +52508,9 @@ namespace GameManager
             {
             }
         }
+
+
+        // SelectPlayer
         public static void SelectPlayer(PlayerFileData data)
         {
             if (Main._pendingCharacterSelect != null)
@@ -52472,26 +52552,36 @@ namespace GameManager
             Main.menuMode = 13;
             Main.clrInput();
         }
+
+
+        //RnD
         public static void ToggleFullScreen()
         {
             Main.SetFullScreen(!Main.graphics.IsFullScreen);
         }
+
+        //RnD
         public static void SetFullScreen(bool fullscreen)
         {
             Main.SetDisplayMode(Main.PendingResolutionWidth, Main.PendingResolutionHeight, fullscreen);
         }
+
+        //RnD
         public static void SetResolution(int width, int height)
         {
             Main.SetDisplayMode(width, height, Main.graphics.IsFullScreen);
         }
+
+        //RnD
         public static void SetDisplayMode(int width, int height, bool fullscreen)
         {
+            /*
             if (Main.graphics.IsFullScreen != fullscreen)
             {
                 Main.graphics.ToggleFullScreen();
             }
-            Main.screenMaximized = (((Form)Control.FromHandle(Main.instance.Window.Handle)).WindowState == FormWindowState.Maximized);
-            Form form = (Form)Control.FromHandle(Main.instance.Window.Handle);
+            //Main.screenMaximized = (((Form)Control.FromHandle(Main.instance.Window.Handle)).WindowState == FormWindowState.Maximized);
+            //Form form = (Form)Control.FromHandle(Main.instance.Window.Handle);
             if (!Main.instance.IsActive && (Main.screenMaximized || Main.graphics.IsFullScreen))
             {
                 return;
@@ -52582,11 +52672,16 @@ namespace GameManager
                 Main.graphics.SynchronizeWithVerticalRetrace = true;
                 Main.graphics.ApplyChanges();
             }
+            */
         }
+
+
         public void UpdateDisplaySettings()
         {
             Main.SetResolution(base.GraphicsDevice.Viewport.Width, base.GraphicsDevice.Viewport.Height);
         }
+        
+        
         public static void OpenPlayerSelect(Main.OnPlayerSelected method)
         {
             if (Main.gameMenu && (Main.menuMode == 10 || Main.menuMode == 14))
@@ -52606,6 +52701,8 @@ namespace GameManager
             Main.LoadPlayers();
             Main.menuMode = 1;
         }
+        
+        
         public static void SwitchNetMode(int mode)
         {
             if (mode >= 0 && mode <= 2)

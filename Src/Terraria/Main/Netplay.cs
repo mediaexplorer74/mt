@@ -1,12 +1,4 @@
-﻿/*
-  _____                 ____                 
- | ____|_ __ ___  _   _|  _ \  _____   _____ 
- |  _| | '_ ` _ \| | | | | | |/ _ \ \ / / __|
- | |___| | | | | | |_| | |_| |  __/\ V /\__ \
- |_____|_| |_| |_|\__,_|____/ \___| \_/ |___/
-          <http://emudevs.com>
-             Terraria 1.3
-*/
+﻿// NetPlay
 
 using System;
 using System.IO;
@@ -56,14 +48,19 @@ namespace GameManager
         public static string GetLocalIPAddress()
         {
             string str = "";
-            foreach (IPAddress ipAddress in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
-            {
-                if (ipAddress.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    str = ipAddress.ToString();
-                    break;
-                }
-            }
+
+            //RnD
+            str = "127.0.0.1";
+            //foreach (IPAddress ipAddress in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
+            //{
+            //    if (ipAddress.AddressFamily == AddressFamily.InterNetwork)
+            //    {
+            //        str = ipAddress.ToString();
+            //        break;
+            //    }
+            //}
+
+
             return str;
         }
 
@@ -96,12 +93,13 @@ namespace GameManager
 
         public static void AddBan(int plr)
         {
-            RemoteAddress remoteAddress = Netplay.Clients[plr].Socket.GetRemoteAddress();
-            using (StreamWriter streamWriter = new StreamWriter(Netplay.BanFilePath, true))
-            {
-                streamWriter.WriteLine("//" + Main.player[plr].name);
-                streamWriter.WriteLine(remoteAddress.GetIdentifier());
-            }
+            //RnD
+            //RemoteAddress remoteAddress = Netplay.Clients[plr].Socket.GetRemoteAddress();
+            //using (StreamWriter streamWriter = new StreamWriter(Netplay.BanFilePath, true))
+            //{
+            //    streamWriter.WriteLine("//" + Main.player[plr].name);
+            //    streamWriter.WriteLine(remoteAddress.GetIdentifier());
+            //}
         }
 
         public static bool IsBanned(RemoteAddress address)
@@ -109,17 +107,19 @@ namespace GameManager
             try
             {
                 string identifier = address.GetIdentifier();
+
+                // RnD
                 if (System.IO.File.Exists(Netplay.BanFilePath))
                 {
-                    using (StreamReader streamReader = new StreamReader(Netplay.BanFilePath))
-                    {
-                        string str;
-                        while ((str = streamReader.ReadLine()) != null)
-                        {
-                            if (str == identifier)
-                                return true;
-                        }
-                    }
+                //    using (StreamReader streamReader = new StreamReader(Netplay.BanFilePath))
+                //    {
+                //        string str;
+                //        while ((str = streamReader.ReadLine()) != null)
+                //        {
+                //            if (str == identifier)
+                //                return true;
+                //        }
+                //    }
                 }
             }
             catch
@@ -330,12 +330,12 @@ namespace GameManager
             {
                 try
                 {
-                    using (StreamWriter streamWriter = new StreamWriter("client-crashlog.txt", true))
-                    {
-                        streamWriter.WriteLine((object)DateTime.Now);
-                        streamWriter.WriteLine((object)ex);
-                        streamWriter.WriteLine("");
-                    }
+                    //using (StreamWriter streamWriter = new StreamWriter("client-crashlog.txt", true))
+                    //{
+                    //    streamWriter.WriteLine((object)DateTime.Now);
+                    //    streamWriter.WriteLine((object)ex);
+                    //    streamWriter.WriteLine("");
+                    //}
                 }
                 catch
                 {
@@ -573,17 +573,20 @@ namespace GameManager
 
         public static void StartSocialClient(ISocket socket)
         {
-            ThreadPool.QueueUserWorkItem(new WaitCallback(Netplay.SocialClientLoop), (object)socket);
+            //ThreadPool.QueueUserWorkItem(new WaitCallback(Netplay.SocialClientLoop), (object)socket);
+            Netplay.SocialClientLoop(default);
         }
 
         public static void StartTcpClient()
         {
-            ThreadPool.QueueUserWorkItem(new WaitCallback(Netplay.TcpClientLoop), (object)1);
+            //ThreadPool.QueueUserWorkItem(new WaitCallback(Netplay.TcpClientLoop), (object)1);
+            Netplay.TcpClientLoop(default);
         }
 
         public static void StartServer()
         {
-            ThreadPool.QueueUserWorkItem(new WaitCallback(Netplay.ServerLoop), (object)1);
+            //ThreadPool.QueueUserWorkItem(new WaitCallback(Netplay.ServerLoop), (object)1);
+            Netplay.ServerLoop(default);
         }
 
         public static bool SetRemoteIP(string remoteAddress)
@@ -597,7 +600,9 @@ namespace GameManager
                     Netplay.ServerIPText = address.ToString();
                     return true;
                 }
-                IPAddress[] addressList = Dns.GetHostEntry(remoteAddress).AddressList;
+
+                // RnD
+                IPAddress[] addressList = default;//Dns.GetHostEntry(remoteAddress).AddressList;
                 for (int index = 0; index < addressList.Length; ++index)
                 {
                     if (addressList[index].AddressFamily == AddressFamily.InterNetwork)

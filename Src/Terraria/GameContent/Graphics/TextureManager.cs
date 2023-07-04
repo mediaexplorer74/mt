@@ -18,15 +18,21 @@ namespace GameManager.Graphics
 {
     internal static class TextureManager
     {
-        private static ConcurrentDictionary<string, Texture2D> _textures = new ConcurrentDictionary<string, Texture2D>();
+        private static ConcurrentDictionary<string, Texture2D> _textures = 
+            new ConcurrentDictionary<string, Texture2D>();
+
         private static ConcurrentQueue<LoadPair> _loadQueue = new ConcurrentQueue<LoadPair>();
+
         private static readonly object _loadThreadLock = new object();
         public static Texture2D BlankTexture;
 
         public static void Initialize()
         {
             BlankTexture = new Texture2D(Main.graphics.GraphicsDevice, 4, 4);
-            ThreadPool.QueueUserWorkItem(new WaitCallback(Run));
+
+            //RnD
+            //ThreadPool.QueueUserWorkItem(new WaitCallback(Run));
+            Run(default);
         }
 
         public static Texture2D Load(string name)

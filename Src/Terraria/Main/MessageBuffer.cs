@@ -60,7 +60,11 @@ namespace GameManager
         public void ResetReader()
         {
             if (this.readerStream != null)
-                this.readerStream.Close();
+            {
+                //this.readerStream.Close();
+                this.readerStream.Dispose();
+            }
+
             this.readerStream = new MemoryStream(this.readBuffer);
             this.reader = new BinaryReader((Stream)this.readerStream);
         }
@@ -68,7 +72,11 @@ namespace GameManager
         public void ResetWriter()
         {
             if (this.writerStream != null)
-                this.writerStream.Close();
+            {
+                //this.writerStream.Close();
+                this.writerStream.Dispose();
+            }
+
             this.writerStream = new MemoryStream(this.writeBuffer);
             this.writer = new BinaryWriter((Stream)this.writerStream);
         }

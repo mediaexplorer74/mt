@@ -1,12 +1,4 @@
-﻿/*
-  _____                 ____                 
- | ____|_ __ ___  _   _|  _ \  _____   _____ 
- |  _| | '_ ` _ \| | | | | | |/ _ \ \ / / __|
- | |___| | | | | | |_| | |_| |  __/\ V /\__ \
- |_____|_| |_| |_|\__,_|____/ \___| \_/ |___/
-          <http://emudevs.com>
-             Terraria 1.3
-*/
+﻿// CaptureInterface
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -52,7 +44,8 @@ namespace GameManager.Graphics.Capture
 
         public static Rectangle GetArea()
         {
-            return new Rectangle(Math.Min(EdgeA.X, EdgeB.X), Math.Min(EdgeA.Y, EdgeB.Y), Math.Abs(EdgeA.X - EdgeB.X) + 1, Math.Abs(EdgeA.Y - EdgeB.Y) + 1);
+            return new Rectangle(Math.Min(EdgeA.X, EdgeB.X), Math.Min(EdgeA.Y, EdgeB.Y), 
+                Math.Abs(EdgeA.X - EdgeB.X) + 1, Math.Abs(EdgeA.Y - EdgeB.Y) + 1);
         }
 
         public void Update()
@@ -62,8 +55,10 @@ namespace GameManager.Graphics.Capture
                 return;
 
             bool flag = Main.keyState.IsKeyDown(Keys.F1);
-            if (flag && !KeyToggleActiveHeld && (Main.mouseItem.itemId == 0 || Active) && !Main.CaptureModeDisabled)
+            if (flag && !KeyToggleActiveHeld && (Main.mouseItem.itemId == 0 || Active) 
+                && !Main.CaptureModeDisabled)
                 ToggleCamera(!Active);
+
             KeyToggleActiveHeld = flag;
             if (!Active)
                 return;
@@ -92,7 +87,8 @@ namespace GameManager.Graphics.Capture
             Main.instance.GUIBarsDraw();
             DrawButtons(sb);
             Main.instance.DrawMouseOver();
-            Utils.DrawBorderStringBig(sb, Lang.inter[81], new Vector2((float)Main.screenWidth * 0.5f, 100f), Color.White, 1f, 0.5f, 0.5f, -1);
+            Utils.DrawBorderStringBig(sb, Lang.inter[81], new Vector2((float)Main.screenWidth * 0.5f, 100f),
+                Color.White, 1f, 0.5f, 0.5f, -1);
             Utils.DrawCursorSingle(sb, Main.cursorColor, float.NaN, Main.cursorScale, new Vector2(), 0, 0);
             DrawCameraLock(sb);
         }
@@ -130,12 +126,16 @@ namespace GameManager.Graphics.Capture
                     int num4 = num2;
                     int num5 = 1;
                     int num6 = num4 + num5;
+                    
                     if (num3 == num4 && flag2)
                     {
                         CaptureSettings settings = new CaptureSettings();
                         Point point1 = Utils.ToTileCoordinates(Main.screenPosition);
-                        Point point2 = Utils.ToTileCoordinates(Main.screenPosition + new Vector2((float)Main.screenWidth, (float)Main.screenHeight));
-                        settings.Area = new Rectangle(point1.X, point1.Y, point2.X - point1.X + 1, point2.Y - point1.Y + 1);
+                        Point point2 = Utils.ToTileCoordinates(Main.screenPosition
+                            + new Vector2((float)Main.screenWidth, (float)Main.screenHeight));
+                        settings.Area = new Rectangle(point1.X, point1.Y, 
+                            point2.X - point1.X + 1, point2.Y - point1.Y + 1);
+
                         settings.Biome = CaptureBiome.Biomes[Settings.BiomeChoice];
                         settings.CaptureBackground = !Settings.TransparentBackground;
                         settings.CaptureEntities = Settings.IncludeEntities;
@@ -147,7 +147,9 @@ namespace GameManager.Graphics.Capture
                     int num8 = num6;
                     int num9 = 1;
                     int num10 = num8 + num9;
+
                     if (num7 == num8 && flag2 && (EdgeAPinned && EdgeBPinned))
+                    {
                         StartCamera(new CaptureSettings()
                         {
                             Area = GetArea(),
@@ -156,6 +158,7 @@ namespace GameManager.Graphics.Capture
                             CaptureEntities = Settings.IncludeEntities,
                             UseScaling = Settings.PackImage
                         });
+                    }
 
                     int num11 = index;
                     int num12 = num10;
@@ -203,13 +206,20 @@ namespace GameManager.Graphics.Capture
                     int num32 = num30;
                     int num33 = 1;
                     int num34 = num32 + num33;
+
                     if (num31 == num32 && flag2 && flag1)
-                        Process.Start(string.Concat(new object[4] { "Data", Path.DirectorySeparatorChar, "Captures", Path.DirectorySeparatorChar }));
+                    {
+                        //RnD
+                        //Process.Start(string.Concat(new object[4]
+                        //{ "Data", Path.DirectorySeparatorChar, "Captures", Path.DirectorySeparatorChar }));
+                    
+                    }
 
                     int num35 = index;
                     int num36 = num34;
                     int num37 = 1;
                     int num38 = num36 + num37;
+                    
                     if (num35 == num36 && flag2)
                     {
                         ToggleCamera(false);

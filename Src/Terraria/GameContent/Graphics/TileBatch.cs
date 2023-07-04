@@ -51,12 +51,16 @@ namespace GameManager.Graphics
         {
             if (vertexBuffer == null || vertexBuffer.IsDisposed)
             {
-                vertexBuffer = new DynamicVertexBuffer(graphicsDevice, typeof(VertexPositionColorTexture), 8192, BufferUsage.WriteOnly);
+                vertexBuffer = new DynamicVertexBuffer(
+                    graphicsDevice, typeof(VertexPositionColorTexture), 8192, BufferUsage.WriteOnly);
+
                 vertexBufferPosition = 0;
-                vertexBuffer.ContentLost += delegate(object sender, EventArgs e)
-                {
-                    vertexBufferPosition = 0;
-                };
+
+                //RnD
+                //vertexBuffer.ContentLost += delegate(object sender, EventArgs e)
+                //{
+                //    vertexBufferPosition = 0;
+                //};
             }
 
             if (indexBuffer == null || indexBuffer.IsDisposed)
@@ -77,10 +81,12 @@ namespace GameManager.Graphics
 
                 indexBuffer = new DynamicIndexBuffer(graphicsDevice, typeof(short), 12288, BufferUsage.WriteOnly);
                 indexBuffer.SetData<short>(fallbackIndexData);
-                indexBuffer.ContentLost += delegate(object sender, EventArgs e)
-                {
-                    indexBuffer.SetData<short>(fallbackIndexData);
-                };
+
+                //RnD
+                //indexBuffer.ContentLost += delegate(object sender, EventArgs e)
+                //{
+                //    indexBuffer.SetData<short>(fallbackIndexData);
+                //};
             }
         }
 

@@ -5,11 +5,12 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
+//using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 using GameManager;
+using Windows.Foundation;
 
 namespace GameManager.Graphics.Capture
 {
@@ -94,7 +95,8 @@ namespace GameManager.Graphics.Capture
                 _outputImageSize = new Size((int)MathHelper.Clamp((float)(num1 * (rectangle.Width << 4)), 
                     1f, 4096f), (int)MathHelper.Clamp((float)(num1 * (rectangle.Height << 4)), 1f, 4096f));
 
-                _outputData = new byte[4 * _outputImageSize.Width * _outputImageSize.Height];
+                //RnD (int), +1 
+                _outputData = new byte[(int)(4 * _outputImageSize.Width * _outputImageSize.Height)+1];
                 int num2 = (int)Math.Floor(num1 * 2048.0);
                 _scaledFrameData = new byte[4 * num2 * num2];
                 _scaledFrameBuffer = new RenderTarget2D(_graphics, num2, num2, false, 
@@ -146,13 +148,15 @@ namespace GameManager.Graphics.Capture
                 _spriteBatch.End();
                 _graphics.SetRenderTarget((RenderTarget2D)null);
                 _scaledFrameBuffer.GetData<byte>(_scaledFrameData, 0, _scaledFrameBuffer.Width * _scaledFrameBuffer.Height * 4);
-                DrawBytesToBuffer(_scaledFrameData, _outputData, _scaledFrameBuffer.Width, _outputImageSize.Width, captureChunk.ScaledArea);
+                //RnD (int)
+                DrawBytesToBuffer(_scaledFrameData, _outputData, _scaledFrameBuffer.Width, (int)_outputImageSize.Width, captureChunk.ScaledArea);
             }
             else
             {
                 _graphics.SetRenderTarget((RenderTarget2D)null);
-                SaveImage((Texture2D)_frameBuffer, captureChunk.ScaledArea.Width, captureChunk.ScaledArea.Height, ImageFormat.Png, _activeSettings.OutputName,
-                    string.Concat(new object[4] { captureChunk.Area.X, "-", captureChunk.Area.Y, ".png" }));
+                //RnD
+                //SaveImage((Texture2D)_frameBuffer, captureChunk.ScaledArea.Width, captureChunk.ScaledArea.Height, ImageFormat.Png, _activeSettings.OutputName,
+                //    string.Concat(new object[4] { captureChunk.Area.X, "-", captureChunk.Area.Y, ".png" }));
             }
 
             _tilesProcessed += (float)(captureChunk.Area.Width * captureChunk.Area.Height);
@@ -196,6 +200,8 @@ namespace GameManager.Graphics.Capture
 
         private bool SaveImage(int width, int height, ImageFormat imageFormat, string filename)
         {
+            //RnD
+            /*
             try
             {
                 Directory.CreateDirectory(string.Concat(new object[4] { "Data", Path.DirectorySeparatorChar, "Captures", Path.DirectorySeparatorChar }));
@@ -215,9 +221,14 @@ namespace GameManager.Graphics.Capture
             {
                 return false;
             }
+            */
+            return default;
         }
 
-        private void SaveImage(Texture2D texture, int width, int height, ImageFormat imageFormat, string foldername, string filename)
+        //RnD
+        /*
+        private void SaveImage(Texture2D texture, int width, int height, 
+            ImageFormat imageFormat, string foldername, string filename)
         {
             Directory.CreateDirectory("Data\\Captures" + Path.DirectorySeparatorChar + foldername);
             using (Bitmap bitmap = new Bitmap(width, height))
@@ -248,6 +259,7 @@ namespace GameManager.Graphics.Capture
                 bitmap.Save("Data\\Captures" + Path.DirectorySeparatorChar + foldername + Path.DirectorySeparatorChar + filename, imageFormat);
             }
         }
+        */
 
         private void FinishCapture()
         {
@@ -256,8 +268,9 @@ namespace GameManager.Graphics.Capture
                 int num = 0;
                 do
                 {
-                    if (!SaveImage(_outputImageSize.Width, _outputImageSize.Height, ImageFormat.Png, "Data\\Captures" + Path.DirectorySeparatorChar +
-                        _activeSettings.OutputName + ".png"))
+                    //RnD
+                    if (true)//(!SaveImage(_outputImageSize.Width, _outputImageSize.Height, ImageFormat.Png, "Data\\Captures" + Path.DirectorySeparatorChar +
+                       // _activeSettings.OutputName + ".png"))
                     {
                         GC.Collect();
                         Thread.Sleep(5);
@@ -309,5 +322,9 @@ namespace GameManager.Graphics.Capture
                 ScaledArea = scaledArea;
             }
         }
+    }
+
+    internal class ImageFormat
+    {
     }
 }

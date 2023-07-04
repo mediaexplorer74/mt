@@ -1189,7 +1189,7 @@ namespace GameManager
                     {
                         memoryStream1.CopyTo((Stream)deflateStream);
                         deflateStream.Flush();
-                        deflateStream.Close();
+                        //deflateStream.Close();
                         deflateStream.Dispose();
                     }
                     if (memoryStream1.Length <= memoryStream2.Length)
@@ -1432,7 +1432,8 @@ namespace GameManager
                     using (DeflateStream deflateStream = new DeflateStream((Stream)memoryStream1, CompressionMode.Decompress, true))
                     {
                         deflateStream.CopyTo((Stream)memoryStream3);
-                        deflateStream.Close();
+                        //deflateStream.Close();
+                        deflateStream.Dispose();//?
                     }
                     memoryStream2 = memoryStream3;
                     memoryStream2.Position = 0L;

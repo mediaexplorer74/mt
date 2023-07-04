@@ -1,12 +1,4 @@
-﻿/*
-  _____                 ____                 
- | ____|_ __ ___  _   _|  _ \  _____   _____ 
- |  _| | '_ ` _ \| | | | | | |/ _ \ \ / / __|
- | |___| | | | | | |_| | |_| |  __/\ V /\__ \
- |_____|_| |_| |_|\__,_|____/ \___| \_/ |___/
-          <http://emudevs.com>
-             Terraria 1.3
-*/
+﻿// TcpSocket
 
 using System;
 using System.Net;
@@ -42,7 +34,7 @@ namespace GameManager.Net.Sockets
         void ISocket.Close()
         {
             this._remoteAddress = (RemoteAddress)null;
-            this._connection.Close();
+            this._connection.Dispose();//.Close();
         }
 
         bool ISocket.IsConnected()
@@ -55,22 +47,27 @@ namespace GameManager.Net.Sockets
         void ISocket.Connect(RemoteAddress address)
         {
             TcpAddress tcpAddress = (TcpAddress)address;
-            this._connection.Connect(tcpAddress.Address, tcpAddress.Port);
+            this._connection.ConnectAsync(tcpAddress.Address, tcpAddress.Port);//.Connect(tcpAddress.Address, tcpAddress.Port);
             this._remoteAddress = address;
         }
 
         private void ReadCallback(IAsyncResult result)
         {
             Tuple<SocketReceiveCallback, object> tuple = (Tuple<SocketReceiveCallback, object>)result.AsyncState;
-            tuple.Item1(tuple.Item2, this._connection.GetStream().EndRead(result));
+
+            //RnD
+            // tuple.Item1(tuple.Item2, this._connection.GetStream().EndRead(result));
+            
         }
 
         private void SendCallback(IAsyncResult result)
         {
             Tuple<SocketSendCallback, object> tuple = (Tuple<SocketSendCallback, object>)result.AsyncState;
             try
+            
             {
-                this._connection.GetStream().EndWrite(result);
+                // RnD
+                //this._connection.GetStream().EndWrite(result);
                 tuple.Item1(tuple.Item2);
             }
             catch
@@ -81,12 +78,17 @@ namespace GameManager.Net.Sockets
 
         void ISocket.AsyncSend(byte[] data, int offset, int size, SocketSendCallback callback, object state)
         {
-            this._connection.GetStream().BeginWrite(data, 0, size, new AsyncCallback(this.SendCallback), (object)new Tuple<SocketSendCallback, object>(callback, state));
+            //RnD
+           // this._connection.GetStream().BeginWrite(data, 0, size,
+           // new AsyncCallback(this.SendCallback),
+           // (object)new Tuple<SocketSendCallback, object>(callback, state));
         }
 
         void ISocket.AsyncReceive(byte[] data, int offset, int size, SocketReceiveCallback callback, object state)
         {
-            this._connection.GetStream().BeginRead(data, offset, size, new AsyncCallback(this.ReadCallback), (object)new Tuple<SocketReceiveCallback, object>(callback, state));
+            //this._connection.GetStream().BeginRead(data, offset, size,
+            //new AsyncCallback(this.ReadCallback),
+            //(object)new Tuple<SocketReceiveCallback, object>(callback, state));
         }
 
         bool ISocket.IsDataAvailable()
@@ -113,7 +115,10 @@ namespace GameManager.Net.Sockets
             {
                 return false;
             }
-            ThreadPool.QueueUserWorkItem(new WaitCallback(this.ListenLoop));
+
+            //RnD
+            //ThreadPool.QueueUserWorkItem(new WaitCallback(this.ListenLoop));
+            this.ListenLoop(default);
             return true;
         }
 
@@ -130,8 +135,10 @@ namespace GameManager.Net.Sockets
                 {
                     try
                     {
-                        ISocket client = (ISocket)new TcpSocket(this._listener.AcceptTcpClient());
-                        Console.WriteLine((string)(object)client.GetRemoteAddress() + (object)" is connecting...");
+                        //RnD
+                        ISocket client = (ISocket)new TcpSocket();//(ISocket)new TcpSocket(this._listener.AcceptTcpClient());
+                        Console.WriteLine((string)(object)client.GetRemoteAddress()
+                            + (object)" is connecting...");
                         this._listenerCallback(client);
                     }
                     catch { }

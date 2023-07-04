@@ -2474,7 +2474,10 @@ namespace GameManager
                             --num5;
                         }
                         lightingSwipeData.outerLoopEnd = num6;
-                        ThreadPool.QueueUserWorkItem(new WaitCallback(Lighting.callback_LightingSwipe), (object)lightingSwipeData);
+
+                        //RnD
+                        //ThreadPool.QueueUserWorkItem(new WaitCallback(Lighting.callback_LightingSwipe), (object)lightingSwipeData);
+                        Lighting.callback_LightingSwipe(default);
                     }
                     Lighting.countdown.Wait();
                 }

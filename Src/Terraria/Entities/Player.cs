@@ -21,6 +21,7 @@ using GameManager.UI;
 using GameManager.UI.Chat;
 using GameManager.Utilities;
 using GameManager.World.Generation;
+using GameManager.Achievements;
 
 namespace GameManager
 {
@@ -27464,12 +27465,17 @@ namespace GameManager
             }
             if (Main.ServerSideCharacter || path == null || path == "")
                 return;
+
             if (FileUtilities.Exists(path))
                 FileUtilities.Copy(path, path + ".bak");
+
             RijndaelManaged rijndaelManaged = new RijndaelManaged();
+            
             using (Stream stream = new FileStream(path, FileMode.Create))
             {
-                using (CryptoStream cryptoStream = new CryptoStream(stream, rijndaelManaged.CreateEncryptor(Player.ENCRYPTION_KEY, Player.ENCRYPTION_KEY), CryptoStreamMode.Write))
+                using (CryptoStream cryptoStream = new CryptoStream(stream, 
+                    rijndaelManaged.CreateEncryptor(Player.ENCRYPTION_KEY, Player.ENCRYPTION_KEY), 
+                    CryptoStreamMode.Write))
                 {
                     using (BinaryWriter writer = new BinaryWriter(cryptoStream))
                     {

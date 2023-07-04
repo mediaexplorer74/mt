@@ -1,31 +1,24 @@
-﻿/*
-  _____                 ____                 
- | ____|_ __ ___  _   _|  _ \  _____   _____ 
- |  _| | '_ ` _ \| | | | | | |/ _ \ \ / / __|
- | |___| | | | | | |_| | |_| |  __/\ V /\__ \
- |_____|_| |_| |_|\__,_|____/ \___| \_/ |___/
-          <http://emudevs.com>
-             Terraria 1.3
-*/
+﻿// Program
 
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows.Forms;
+//using System.Windows.Forms;
 
 namespace GameManager
 {
-    internal static class Program
+    internal static class Program1
     {
         public const bool IsServer = false;
         public static Dictionary<string, string> LaunchParameters = new Dictionary<string, string>();
-        public static void Main(string[] args)
+        public static void Main1(string[] args)
         {
             try
             {
                 using (Main main = new Main())
                 {
-                    Program.LaunchParameters = Utils.ParseArguements(args);
+                    Program1.LaunchParameters = Utils.ParseArguements(args);
                     for (int i = 0; i < args.Length; i++)
                     {
                         if (args[i].ToLower() == "-port" || args[i].ToLower() == "-p")
@@ -71,13 +64,16 @@ namespace GameManager
             {
                 try
                 {
-                    using (StreamWriter streamWriter = new StreamWriter("client-crashlog.txt", true))
+                    //RnD
+                    using (StreamWriter streamWriter = new StreamWriter(/*"client-crashlog.txt"*/default, 
+                            /*true*/default))
                     {
                         streamWriter.WriteLine(DateTime.Now);
                         streamWriter.WriteLine(ex);
                         streamWriter.WriteLine("");
                     }
-                    MessageBox.Show(ex.ToString(), "Terraria: Error");
+                    //RnD
+                    //MessageBox.Show(ex.ToString(), "Terraria: Error");
                 }
                 catch { }
             }

@@ -9,6 +9,7 @@
 */
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using GameManager.Net.Sockets;
 
@@ -62,12 +63,14 @@ namespace GameManager
             {
                 try
                 {
-                    using (StreamWriter streamWriter = new StreamWriter("client-crashlog.txt", true))
-                    {
-                        streamWriter.WriteLine((object)DateTime.Now);
-                        streamWriter.WriteLine((object)ex);
-                        streamWriter.WriteLine("");
-                    }
+                    Debug.WriteLine("[ex] " + (object)DateTime.Now);
+                    Debug.WriteLine("[ex] " + ex.Message);
+                    //using (StreamWriter streamWriter = new StreamWriter("client-crashlog.txt", true))
+                    //{
+                    //    streamWriter.WriteLine((object)DateTime.Now);
+                    //    streamWriter.WriteLine((object)ex);
+                    //    streamWriter.WriteLine("");
+                    //}
                 }
                 catch
                 {

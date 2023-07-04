@@ -394,7 +394,6 @@
     <Compile Include="Utilities\FileUtilities.cs" />
     <Compile Include="Utilities\MultiTimer.cs" />
     <Compile Include="Utilities\Utils.cs" />
-    <Compile Include="WorldSections.cs" />
     <Compile Include="World\Generation\Actions.cs" />
     <Compile Include="World\Generation\BiomeCollection.cs" />
     <Compile Include="World\Generation\Biomes.cs" />
@@ -456,11 +455,17 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite.Core">
+      <Version>2.0.0-preview1-final</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.8</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="SQLitePCLRaw.bundle_green">
+      <Version>1.0.1</Version>
     </PackageReference>
     <PackageReference Include="System.Threading.Thread">
       <Version>4.3.0</Version>
@@ -472,7 +477,6 @@
       <Name>MonoGame.Framework.WindowsUAP</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Content\db\terraria.sqlite">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

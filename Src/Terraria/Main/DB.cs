@@ -1,5 +1,6 @@
 ﻿// DB
 
+using Microsoft.Data.Sqlite;
 using System;
 //using System.Data.SQLite;
 using System.Collections.Generic;
@@ -28,8 +29,8 @@ namespace GameManager
 
     public class DB
     {
-        private SQLiteConnection connection;
-        private SQLiteDataReader reader;
+        private SqliteConnection connection;
+        private SqliteDataReader reader;
         private const string folderName = "db";
 
         public static Dictionary<string, int> Tiles = new Dictionary<string, int>();
@@ -38,13 +39,18 @@ namespace GameManager
 
         public DB()
         {
-            SQLiteDataReader tempReader = Load("terraria", "SELECT name, id FROM tiles");
+            SqliteDataReader tempReader = Load(
+                "terraria", "SELECT name, id FROM tiles");
+
             while (tempReader.Read())
                 Tiles.Add(GetString(tempReader, 0), GetInt32(tempReader, 1));
 
             tempReader = Load("terraria", "SELECT name, id FROM buffs");
+
             while (tempReader.Read())
+            {
                 Buffs.Add(GetString(tempReader, 0), GetInt32(tempReader, 1));
+            }
 
             tempReader = Load("terraria", "SELECT id, name_en, name_de, name_it, name_fr, name_es, damageMod, knockbackMod, speedMod, " + 
                 "sizeMod, velocityMod, manaCostMod, critStrikeMod, sellValueMod FROM item_prefix");
@@ -69,18 +75,21 @@ namespace GameManager
             }
 
             if (!tempReader.IsClosed)
-                tempReader.Close();
+            {
+                tempReader.Dispose();
+               //tempReader.Close();
+            }
             CloseConnections();
         }
 
-        private SQLiteDataReader Load(string file, string query)
+        private SqliteDataReader Load(string file, string query)
         {
             string str = string.Format(@"Data Source={0}\{1}.sqlite;", folderName, file);
-            connection = new SQLiteConnection(str);
+            connection = new SqliteConnection(str);
             try
             {
                 connection.Open();
-                using (SQLiteCommand command = connection.CreateCommand())
+                using (SqliteCommand command = connection.CreateCommand())
                 {
                     command.CommandText = query;
                     reader = command.ExecuteReader();
@@ -89,23 +98,25 @@ namespace GameManager
             }
             catch
             {
-                reader.Close();
+                //reader.Close();
+                reader.Dispose();
+
                 connection.Close();
                 return null;
             }
         }
 
-        private float GetFloat(SQLiteDataReader reader, int col)
+        private float GetFloat(SqliteDataReader reader, int col)
         {
             return reader.IsDBNull(col) ? 0 : reader.GetFloat(col);
         }
 
-        private string GetString(SQLiteDataReader reader, int col)
+        private string GetString(SqliteDataReader reader, int col)
         {
             return reader.IsDBNull(col) ? string.Empty : reader.GetString(col);
         }
 
-        private Int32 GetInt32(SQLiteDataReader reader, int col)
+        private Int32 GetInt32(SqliteDataReader reader, int col)
         {
             return reader.IsDBNull(col) ? 0 : reader.GetInt32(col);
         }
@@ -113,7 +124,11 @@ namespace GameManager
         private void CloseConnections()
         {
             if (!reader.IsClosed)
-                reader.Close();
+            {
+                //reader.Close();
+                reader.Dispose();
+            }
+
             if (connection.State == System.Data.ConnectionState.Open)
                 connection.Close();
         }

@@ -30,21 +30,25 @@ namespace GameManager.Utilities
         public static void CreateFull()
         {
             DateTime dateTime = DateTime.Now.ToLocalTime();
-            using (FileStream fileStream = File.Create("DMP-FULL Terraria " + Main.versionNumber + " " + dateTime.Year.ToString("D4") + "-" + dateTime.Month.ToString("D2") + "-" + dateTime.Day.ToString("D2") + " " + dateTime.Hour.ToString("D2") + "_" + dateTime.Minute.ToString("D2") + "_" + dateTime.Second.ToString("D2") + ".dmp"))
+            using (FileStream fileStream = File.Create("DMP-FULL Terraria " + 
+                Main.versionNumber + " " + dateTime.Year.ToString("D4") + "-" + dateTime.Month.ToString("D2") + "-" + dateTime.Day.ToString("D2") + " " + dateTime.Hour.ToString("D2") + "_" + dateTime.Minute.ToString("D2") + "_" + dateTime.Second.ToString("D2") + ".dmp"))
             {
-                Process currentProcess = Process.GetCurrentProcess();
-                CrashDump.MiniDumpWriteDump(currentProcess.Handle, currentProcess.Id, fileStream.SafeFileHandle.DangerousGetHandle(), CrashDump.MINIDUMP_TYPE.MiniDumpWithFullMemory, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
+                //RnD
+                //Process currentProcess = Process.GetCurrentProcess();
+                //CrashDump.MiniDumpWriteDump(currentProcess.Handle, currentProcess.Id,
+                //fileStream.SafeFileHandle.DangerousGetHandle(), CrashDump.MINIDUMP_TYPE.MiniDumpWithFullMemory, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
             }
         }
 
         public static void Create(string path)
         {
-            bool flag = Program.LaunchParameters.ContainsKey("-fulldump");
-            using (FileStream fileStream = File.Create(path))
-            {
-                Process currentProcess = Process.GetCurrentProcess();
-                CrashDump.MiniDumpWriteDump(currentProcess.Handle, currentProcess.Id, fileStream.SafeFileHandle.DangerousGetHandle(), flag ? CrashDump.MINIDUMP_TYPE.MiniDumpWithFullMemory : CrashDump.MINIDUMP_TYPE.MiniDumpWithIndirectlyReferencedMemory, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
-            }
+            //RnD
+           // bool flag = Program.LaunchParameters.ContainsKey("-fulldump");
+           // using (FileStream fileStream = File.Create(path))
+           // {
+           //     Process currentProcess = Process.GetCurrentProcess();
+           //     CrashDump.MiniDumpWriteDump(currentProcess.Handle, currentProcess.Id, fileStream.SafeFileHandle.DangerousGetHandle(), flag ? CrashDump.MINIDUMP_TYPE.MiniDumpWithFullMemory : CrashDump.MINIDUMP_TYPE.MiniDumpWithIndirectlyReferencedMemory, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
+           // }
         }
 
         internal enum MINIDUMP_TYPE
