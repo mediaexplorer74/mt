@@ -37,44 +37,44 @@ namespace GameManager
 
         public static int NewDust(Vector2 Position, int Width, int Height, int Type, float SpeedX = 0.0f, float SpeedY = 0.0f, int Alpha = 0, Color newColor = default(Color), float Scale = 1f)
         {
-            if (Main.gameMenu)
+            if (Game1.gameMenu)
                 return 6000;
-            if (Main.rand == null)
-                Main.rand = new Random((int)DateTime.Now.Ticks);
-            if (Main.gamePaused || WorldGen.gen || Main.netMode == 2)
+            if (Game1.rand == null)
+                Game1.rand = new Random((int)DateTime.Now.Ticks);
+            if (Game1.gamePaused || WorldGen.gen || Game1.netMode == 2)
                 return 6000;
             int num1 = (int)(400.0 * (1.0 - (double)Dust.dCount));
-            if (!new Rectangle((int)((double)Main.screenPosition.X - (double)num1), (int)((double)Main.screenPosition.Y - (double)num1), Main.screenWidth + num1 * 2, Main.screenHeight + num1 * 2).Intersects(new Rectangle((int)Position.X, (int)Position.Y, 10, 10)))
+            if (!new Rectangle((int)((double)Game1.screenPosition.X - (double)num1), (int)((double)Game1.screenPosition.Y - (double)num1), Game1.screenWidth + num1 * 2, Game1.screenHeight + num1 * 2).Intersects(new Rectangle((int)Position.X, (int)Position.Y, 10, 10)))
                 return 6000;
             int num2 = 6000;
             for (int index = 0; index < 6000; ++index)
             {
-                Dust dust = Main.dust[index];
+                Dust dust = Game1.dust[index];
                 if (!dust.active)
                 {
-                    if ((double)index > (double)Main.numDust * 0.9)
+                    if ((double)index > (double)Game1.numDust * 0.9)
                     {
-                        if (Main.rand.Next(4) != 0)
+                        if (Game1.rand.Next(4) != 0)
                             return 5999;
                     }
-                    else if ((double)index > (double)Main.numDust * 0.8)
+                    else if ((double)index > (double)Game1.numDust * 0.8)
                     {
-                        if (Main.rand.Next(3) != 0)
+                        if (Game1.rand.Next(3) != 0)
                             return 5999;
                     }
-                    else if ((double)index > (double)Main.numDust * 0.7)
+                    else if ((double)index > (double)Game1.numDust * 0.7)
                     {
-                        if (Main.rand.Next(2) == 0)
+                        if (Game1.rand.Next(2) == 0)
                             return 5999;
                     }
-                    else if ((double)index > (double)Main.numDust * 0.6)
+                    else if ((double)index > (double)Game1.numDust * 0.6)
                     {
-                        if (Main.rand.Next(4) == 0)
+                        if (Game1.rand.Next(4) == 0)
                             return 5999;
                     }
-                    else if ((double)index > (double)Main.numDust * 0.5)
+                    else if ((double)index > (double)Game1.numDust * 0.5)
                     {
-                        if (Main.rand.Next(5) == 0)
+                        if (Game1.rand.Next(5) == 0)
                             return 5999;
                     }
                     else
@@ -92,12 +92,12 @@ namespace GameManager
                     dust.noGravity = false;
                     dust.color = newColor;
                     dust.alpha = Alpha;
-                    dust.position.X = (float)((double)Position.X + (double)Main.rand.Next(num3 - 4) + 4.0);
-                    dust.position.Y = (float)((double)Position.Y + (double)Main.rand.Next(num4 - 4) + 4.0);
-                    dust.velocity.X = (float)Main.rand.Next(-20, 21) * 0.1f + SpeedX;
-                    dust.velocity.Y = (float)Main.rand.Next(-20, 21) * 0.1f + SpeedY;
+                    dust.position.X = (float)((double)Position.X + (double)Game1.rand.Next(num3 - 4) + 4.0);
+                    dust.position.Y = (float)((double)Position.Y + (double)Game1.rand.Next(num4 - 4) + 4.0);
+                    dust.velocity.X = (float)Game1.rand.Next(-20, 21) * 0.1f + SpeedX;
+                    dust.velocity.Y = (float)Game1.rand.Next(-20, 21) * 0.1f + SpeedY;
                     dust.frame.X = 10 * Type;
-                    dust.frame.Y = 10 * Main.rand.Next(3);
+                    dust.frame.Y = 10 * Game1.rand.Next(3);
                     dust.shader = (ArmorShaderData)null;
                     dust.customData = (object)null;
                     int num5 = Type;
@@ -110,13 +110,13 @@ namespace GameManager
                     dust.frame.Width = 8;
                     dust.frame.Height = 8;
                     dust.rotation = 0.0f;
-                    dust.scale = (float)(1.0 + (double)Main.rand.Next(-20, 21) * 0.00999999977648258);
+                    dust.scale = (float)(1.0 + (double)Game1.rand.Next(-20, 21) * 0.00999999977648258);
                     dust.scale *= Scale;
                     dust.noLight = false;
                     dust.firstFrame = true;
                     if (dust.type == 228 || dust.type == 135 || (dust.type == 6 || dust.type == 242) || (dust.type == 75 || dust.type == 169 || dust.type == 29) || (dust.type >= 59 && dust.type <= 65 || dust.type == 158))
                     {
-                        dust.velocity.Y = (float)Main.rand.Next(-10, 6) * 0.1f;
+                        dust.velocity.Y = (float)Game1.rand.Next(-10, 6) * 0.1f;
                         dust.velocity.X *= 0.3f;
                         dust.scale *= 0.7f;
                     }
@@ -154,12 +154,12 @@ namespace GameManager
 
         public static Dust CloneDust(int dustIndex)
         {
-            return Dust.CloneDust(Main.dust[dustIndex]);
+            return Dust.CloneDust(Game1.dust[dustIndex]);
         }
 
         public static Dust CloneDust(Dust rf)
         {
-            Dust dust = Main.dust[Dust.NewDust(rf.position, 0, 0, rf.type, 0.0f, 0.0f, 0, new Color(), 1f)];
+            Dust dust = Game1.dust[Dust.NewDust(rf.position, 0, 0, rf.type, 0.0f, 0.0f, 0, new Color(), 1f)];
             dust.position = rf.position;
             dust.velocity = rf.velocity;
             dust.fadeIn = rf.fadeIn;
@@ -179,7 +179,7 @@ namespace GameManager
 
         public static Dust QuickDust(Point tileCoords, Color color)
         {
-            Dust dust = Main.dust[Dust.NewDust(Utils.ToVector2(tileCoords) * 16f, 0, 0, 267, 0.0f, 0.0f, 0, new Color(), 1f)];
+            Dust dust = Game1.dust[Dust.NewDust(Utils.ToVector2(tileCoords) * 16f, 0, 0, 267, 0.0f, 0.0f, 0, new Color(), 1f)];
             dust.position = Utils.ToVector2(tileCoords) * 16f + new Vector2(8f);
             dust.velocity = Vector2.Zero;
             dust.fadeIn = 1f;
@@ -191,7 +191,7 @@ namespace GameManager
 
         public static Dust QuickDust(Vector2 pos, Color color)
         {
-            Dust dust = Main.dust[Dust.NewDust(pos, 0, 0, 6, 0.0f, 0.0f, 0, new Color(), 1f)];
+            Dust dust = Game1.dust[Dust.NewDust(pos, 0, 0, 6, 0.0f, 0.0f, 0, new Color(), 1f)];
             dust.position = pos;
             dust.velocity = Vector2.Zero;
             dust.fadeIn = 1f;
@@ -216,7 +216,7 @@ namespace GameManager
 
         public static int dustWater()
         {
-            switch (Main.waterStyle)
+            switch (Game1.waterStyle)
             {
                 case 2:
                     return 98;
@@ -245,11 +245,11 @@ namespace GameManager
         {
             int num1 = 0;
             Dust.lavaBubbles = 0;
-            Main.snowDust = 0;
+            Game1.snowDust = 0;
             for (int index1 = 0; index1 < 6000; ++index1)
             {
-                Dust dust = Main.dust[index1];
-                if (index1 < Main.numDust)
+                Dust dust = Game1.dust[index1];
+                if (index1 < Game1.numDust)
                 {
                     if (dust.active)
                     {
@@ -258,14 +258,14 @@ namespace GameManager
                             dust.active = false;
                         if (dust.firstFrame && !ChildSafety.Disabled && ChildSafety.DangerousDust(dust.type))
                         {
-                            if (Main.rand.Next(2) == 0)
+                            if (Game1.rand.Next(2) == 0)
                             {
                                 dust.firstFrame = false;
                                 dust.type = 16;
-                                dust.scale = (float)((double)Utils.NextFloat(Main.rand) * 1.60000002384186 + 0.300000011920929);
+                                dust.scale = (float)((double)Utils.NextFloat(Game1.rand) * 1.60000002384186 + 0.300000011920929);
                                 dust.color = Color.Transparent;
                                 dust.frame.X = 10 * dust.type;
-                                dust.frame.Y = 10 * Main.rand.Next(3);
+                                dust.frame.Y = 10 * Game1.rand.Next(3);
                                 dust.shader = (ArmorShaderData)null;
                                 dust.customData = (object)null;
                                 int num2 = dust.type / 100;
@@ -600,7 +600,7 @@ namespace GameManager
                         }
                         if (dust.type == 235)
                         {
-                            Vector2 vector2 = new Vector2((float)Main.rand.Next(-100, 101), (float)Main.rand.Next(-100, 101));
+                            Vector2 vector2 = new Vector2((float)Game1.rand.Next(-100, 101), (float)Game1.rand.Next(-100, 101));
                             vector2.Normalize();
                             vector2 *= 15f;
                             dust.scale -= 0.01f;
@@ -726,9 +726,9 @@ namespace GameManager
                                     }
                                     else if (num3 == 7)
                                     {
-                                        num4 = (float)(0.5 * (double)Main.demonTorch + 1.0 * (1.0 - (double)Main.demonTorch));
+                                        num4 = (float)(0.5 * (double)Game1.demonTorch + 1.0 * (1.0 - (double)Game1.demonTorch));
                                         num5 = 0.3f;
-                                        num6 = (float)(1.0 * (double)Main.demonTorch + 0.5 * (1.0 - (double)Main.demonTorch));
+                                        num6 = (float)(1.0 * (double)Game1.demonTorch + 0.5 * (1.0 - (double)Game1.demonTorch));
                                     }
                                     Lighting.AddLight((int)((double)dust.position.X / 16.0), (int)((double)dust.position.Y / 16.0), num2 * num4, num2 * num5, num2 * num6);
                                 }
@@ -764,7 +764,7 @@ namespace GameManager
                             {
                                 if ((double)dust.scale < 0.699999988079071)
                                     dust.velocity *= 1.075f;
-                                else if (Main.rand.Next(2) == 0)
+                                else if (Game1.rand.Next(2) == 0)
                                     dust.velocity *= -0.95f;
                                 else
                                     dust.velocity *= 1.05f;
@@ -774,13 +774,13 @@ namespace GameManager
                             {
                                 dust.scale += 0.005f;
                                 dust.velocity *= 0.9f;
-                                dust.velocity.X += (float)Main.rand.Next(-10, 11) * 0.02f;
-                                dust.velocity.Y += (float)Main.rand.Next(-10, 11) * 0.02f;
-                                if (Main.rand.Next(5) == 0)
+                                dust.velocity.X += (float)Game1.rand.Next(-10, 11) * 0.02f;
+                                dust.velocity.Y += (float)Game1.rand.Next(-10, 11) * 0.02f;
+                                if (Game1.rand.Next(5) == 0)
                                 {
                                     int index2 = Dust.NewDust(dust.position, 4, 4, dust.type, 0.0f, 0.0f, 0, new Color(), 1f);
-                                    Main.dust[index2].noGravity = true;
-                                    Main.dust[index2].scale = dust.scale * 2.5f;
+                                    Game1.dust[index2].noGravity = true;
+                                    Game1.dust[index2].scale = dust.scale * 2.5f;
                                 }
                             }
                         }
@@ -794,7 +794,7 @@ namespace GameManager
                             {
                                 if ((double)dust.scale < 0.699999988079071)
                                     dust.velocity *= 1.075f;
-                                else if (Main.rand.Next(2) == 0)
+                                else if (Game1.rand.Next(2) == 0)
                                     dust.velocity *= -0.95f;
                                 else
                                     dust.velocity *= 1.05f;
@@ -804,13 +804,13 @@ namespace GameManager
                             {
                                 dust.scale -= 0.005f;
                                 dust.velocity *= 0.9f;
-                                dust.velocity.X += (float)Main.rand.Next(-10, 11) * 0.02f;
-                                dust.velocity.Y += (float)Main.rand.Next(-10, 11) * 0.02f;
-                                if (Main.rand.Next(5) == 0)
+                                dust.velocity.X += (float)Game1.rand.Next(-10, 11) * 0.02f;
+                                dust.velocity.Y += (float)Game1.rand.Next(-10, 11) * 0.02f;
+                                if (Game1.rand.Next(5) == 0)
                                 {
                                     int index2 = Dust.NewDust(dust.position, 4, 4, dust.type, 0.0f, 0.0f, 0, new Color(), 1f);
-                                    Main.dust[index2].noGravity = true;
-                                    Main.dust[index2].scale = dust.scale * 2.5f;
+                                    Game1.dust[index2].noGravity = true;
+                                    Game1.dust[index2].scale = dust.scale * 2.5f;
                                 }
                             }
                         }
@@ -823,21 +823,21 @@ namespace GameManager
                             if (dust.noGravity)
                             {
                                 dust.velocity *= 0.8f;
-                                dust.velocity.X += (float)Main.rand.Next(-20, 21) * 0.01f;
-                                dust.velocity.Y += (float)Main.rand.Next(-20, 21) * 0.01f;
+                                dust.velocity.X += (float)Game1.rand.Next(-20, 21) * 0.01f;
+                                dust.velocity.Y += (float)Game1.rand.Next(-20, 21) * 0.01f;
                                 dust.scale -= 0.01f;
                             }
                             else
                             {
                                 dust.scale -= 0.015f;
                                 dust.velocity *= 0.8f;
-                                dust.velocity.X += (float)Main.rand.Next(-10, 11) * 0.005f;
-                                dust.velocity.Y += (float)Main.rand.Next(-10, 11) * 0.005f;
-                                if (Main.rand.Next(10) == 10)
+                                dust.velocity.X += (float)Game1.rand.Next(-10, 11) * 0.005f;
+                                dust.velocity.Y += (float)Game1.rand.Next(-10, 11) * 0.005f;
+                                if (Game1.rand.Next(10) == 10)
                                 {
                                     int index2 = Dust.NewDust(dust.position, 4, 4, dust.type, 0.0f, 0.0f, 0, new Color(), 1f);
-                                    Main.dust[index2].noGravity = true;
-                                    Main.dust[index2].scale = dust.scale;
+                                    Game1.dust[index2].noGravity = true;
+                                    Game1.dust[index2].scale = dust.scale;
                                 }
                             }
                         }
@@ -861,20 +861,20 @@ namespace GameManager
                             if (dust.noGravity)
                             {
                                 dust.velocity *= 0.8f;
-                                dust.velocity.X += (float)Main.rand.Next(-20, 21) * 0.04f;
-                                dust.velocity.Y += (float)Main.rand.Next(-20, 21) * 0.04f;
+                                dust.velocity.X += (float)Game1.rand.Next(-20, 21) * 0.04f;
+                                dust.velocity.Y += (float)Game1.rand.Next(-20, 21) * 0.04f;
                                 dust.scale -= 0.1f;
                             }
                             else
                             {
                                 dust.scale -= 0.1f;
-                                dust.velocity.X += (float)Main.rand.Next(-10, 11) * 0.02f;
-                                dust.velocity.Y += (float)Main.rand.Next(-10, 11) * 0.02f;
-                                if ((double)dust.scale > 0.3 && Main.rand.Next(50) == 0)
+                                dust.velocity.X += (float)Game1.rand.Next(-10, 11) * 0.02f;
+                                dust.velocity.Y += (float)Game1.rand.Next(-10, 11) * 0.02f;
+                                if ((double)dust.scale > 0.3 && Game1.rand.Next(50) == 0)
                                 {
                                     int index2 = Dust.NewDust(new Vector2(dust.position.X - 4f, dust.position.Y - 4f), 1, 1, dust.type, 0.0f, 0.0f, 0, new Color(), 1f);
-                                    Main.dust[index2].noGravity = true;
-                                    Main.dust[index2].scale = dust.scale * 1.5f;
+                                    Game1.dust[index2].noGravity = true;
+                                    Game1.dust[index2].scale = dust.scale * 1.5f;
                                 }
                             }
                         }
@@ -885,8 +885,8 @@ namespace GameManager
                                 R = 0.55f;
                             Lighting.AddLight((int)((double)dust.position.X / 16.0), (int)((double)dust.position.Y / 16.0), R, 0.0f, R * 0.8f);
                             dust.scale += 0.03f;
-                            dust.velocity.X += (float)Main.rand.Next(-10, 11) * 0.02f;
-                            dust.velocity.Y += (float)Main.rand.Next(-10, 11) * 0.02f;
+                            dust.velocity.X += (float)Game1.rand.Next(-10, 11) * 0.02f;
+                            dust.velocity.Y += (float)Game1.rand.Next(-10, 11) * 0.02f;
                             dust.velocity *= 0.99f;
                         }
                         else if (dust.type >= 139 && dust.type < 143)
@@ -1157,10 +1157,10 @@ namespace GameManager
                                 dust.scale -= 0.06f;
                                 if ((double)dust.scale < 1.0)
                                     dust.scale -= 0.06f;
-                                if (Main.player[Main.myPlayer].wet)
-                                    dust.position += Main.player[Main.myPlayer].velocity * 0.5f;
+                                if (Game1.player[Game1.myPlayer].wet)
+                                    dust.position += Game1.player[Game1.myPlayer].velocity * 0.5f;
                                 else
-                                    dust.position += Main.player[Main.myPlayer].velocity;
+                                    dust.position += Game1.player[Game1.myPlayer].velocity;
                             }
                             if ((double)B > 1.0)
                                 B = 1f;
@@ -1208,10 +1208,10 @@ namespace GameManager
                         {
                             int num2 = (int)dust.position.X / 16;
                             int num3 = (int)dust.position.Y / 16;
-                            ++Main.snowDust;
+                            ++Game1.snowDust;
                             dust.scale += 0.009f;
                             if (!dust.noLight)
-                                dust.position += Main.player[Main.myPlayer].velocity * 0.2f;
+                                dust.position += Game1.player[Game1.myPlayer].velocity * 0.2f;
                         }
                         else if (!dust.noGravity && dust.type != 41 && dust.type != 44)
                         {
@@ -1312,7 +1312,7 @@ namespace GameManager
                             }
                             else
                             {
-                                dust.alpha += Main.rand.Next(2);
+                                dust.alpha += Game1.rand.Next(2);
                                 if (dust.alpha > (int)byte.MaxValue)
                                     dust.scale = 0.0f;
                                 dust.velocity.Y = -0.5f;
@@ -1326,7 +1326,7 @@ namespace GameManager
                                     dust.scale -= 0.01f;
                                     dust.velocity.Y = -0.2f;
                                 }
-                                dust.velocity.X += (float)Main.rand.Next(-10, 10) * (1.0f / 500.0f);
+                                dust.velocity.X += (float)Game1.rand.Next(-10, 10) * (1.0f / 500.0f);
                                 if ((double)dust.velocity.X < -0.25)
                                     dust.velocity.X = -0.25f;
                                 if ((double)dust.velocity.X > 0.25)
@@ -1356,8 +1356,8 @@ namespace GameManager
                         }
                         if (dust.type == 41)
                         {
-                            dust.velocity.X += (float)Main.rand.Next(-10, 11) * 0.01f;
-                            dust.velocity.Y += (float)Main.rand.Next(-10, 11) * 0.01f;
+                            dust.velocity.X += (float)Game1.rand.Next(-10, 11) * 0.01f;
+                            dust.velocity.Y += (float)Game1.rand.Next(-10, 11) * 0.01f;
                             if ((double)dust.velocity.X > 0.75)
                                 dust.velocity.X = 0.75f;
                             if ((double)dust.velocity.X < -0.75)
@@ -1374,8 +1374,8 @@ namespace GameManager
                         }
                         else if (dust.type == 44)
                         {
-                            dust.velocity.X += (float)Main.rand.Next(-10, 11) * (3.0f / 1000.0f);
-                            dust.velocity.Y += (float)Main.rand.Next(-10, 11) * (3.0f / 1000.0f);
+                            dust.velocity.X += (float)Game1.rand.Next(-10, 11) * (3.0f / 1000.0f);
+                            dust.velocity.Y += (float)Game1.rand.Next(-10, 11) * (3.0f / 1000.0f);
                             if ((double)dust.velocity.X > 0.35)
                                 dust.velocity.X = 0.35f;
                             if ((double)dust.velocity.X < -0.35)
@@ -1402,7 +1402,7 @@ namespace GameManager
                                 int index2 = (int)dust.fadeIn - 1;
                                 if (index2 >= 0 && index2 <= (int)byte.MaxValue)
                                 {
-                                    Vector2 vector2 = dust.position - Main.player[index2].Center;
+                                    Vector2 vector2 = dust.position - Game1.player[index2].Center;
                                     float num2 = 100f - vector2.Length();
                                     if ((double)num2 > 0.0)
                                         dust.scale -= num2 * 0.0015f;
@@ -1513,7 +1513,7 @@ namespace GameManager
                             if ((double)dust.fadeIn == 0.0)
                                 dust.scale -= 0.04f;
                         }
-                        if ((double)dust.position.Y > (double)Main.screenPosition.Y + (double)Main.screenHeight)
+                        if ((double)dust.position.Y > (double)Game1.screenPosition.Y + (double)Game1.screenHeight)
                             dust.active = false;
                         float num10 = 0.1f;
                         if ((double)Dust.dCount == 0.5)
@@ -1544,15 +1544,15 @@ namespace GameManager
                     dust.active = false;
             }
             int num11 = num1;
-            if ((double)num11 > (double)Main.numDust * 0.9)
+            if ((double)num11 > (double)Game1.numDust * 0.9)
                 Dust.dCount = 0.9f;
-            else if ((double)num11 > (double)Main.numDust * 0.8)
+            else if ((double)num11 > (double)Game1.numDust * 0.8)
                 Dust.dCount = 0.8f;
-            else if ((double)num11 > (double)Main.numDust * 0.7)
+            else if ((double)num11 > (double)Game1.numDust * 0.7)
                 Dust.dCount = 0.7f;
-            else if ((double)num11 > (double)Main.numDust * 0.6)
+            else if ((double)num11 > (double)Game1.numDust * 0.6)
                 Dust.dCount = 0.6f;
-            else if ((double)num11 > (double)Main.numDust * 0.5)
+            else if ((double)num11 > (double)Game1.numDust * 0.5)
                 Dust.dCount = 0.5f;
             else
                 Dust.dCount = 0.0f;
@@ -1649,7 +1649,7 @@ namespace GameManager
                 int num3 = num2 = (int)byte.MaxValue;
                 int num4 = num2;
                 int num5 = num2;
-                float num6 = (float)((double)Main.mouseTextColor / 100.0 - 1.60000002384186);
+                float num6 = (float)((double)Game1.mouseTextColor / 100.0 - 1.60000002384186);
                 int num7 = (int)((double)num5 * (double)num6);
                 int num8 = (int)((double)num4 * (double)num6);
                 int num9 = (int)((double)num3 * (double)num6);

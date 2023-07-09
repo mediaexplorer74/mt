@@ -42,9 +42,9 @@ namespace GameManager
                     if (streamLength == 0)
                     {
                         Netplay.disconnect = true;
-                        Main.statusText = "Lost connection";
+                        Game1.statusText = "Lost connection";
                     }
-                    else if (Main.ignoreErrors)
+                    else if (Game1.ignoreErrors)
                     {
                         try
                         {

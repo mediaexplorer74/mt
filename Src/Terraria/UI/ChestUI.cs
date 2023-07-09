@@ -28,7 +28,7 @@ namespace GameManager.UI
             if (hovering)
             {
                 if (!ChestUI.ButtonHovered[ID])
-                    Main.PlaySound(12, -1, -1, 1);
+                    Game1.PlaySound(12, -1, -1, 1);
                 ChestUI.ButtonHovered[ID] = true;
                 ChestUI.ButtonScale[ID] += 0.05f;
                 if ((double)ChestUI.ButtonScale[ID] <= 1.0)
@@ -47,11 +47,11 @@ namespace GameManager.UI
 
         public static void Draw(SpriteBatch spritebatch)
         {
-            if (Main.player[Main.myPlayer].chest != -1 && !Main.recBigList)
+            if (Game1.player[Game1.myPlayer].chest != -1 && !Game1.recBigList)
             {
-                Main.inventoryScale = 0.755f;
-                if (Utils.FloatIntersect((float)Main.mouseX, (float)Main.mouseY, 0.0f, 0.0f, 73f, (float)Main.instance.invBottom, 560f * Main.inventoryScale, 224f * Main.inventoryScale))
-                    Main.player[Main.myPlayer].mouseInterface = true;
+                Game1.inventoryScale = 0.755f;
+                if (Utils.FloatIntersect((float)Game1.mouseX, (float)Game1.mouseY, 0.0f, 0.0f, 73f, (float)Game1.instance.invBottom, 560f * Game1.inventoryScale, 224f * Game1.inventoryScale))
+                    Game1.player[Game1.myPlayer].mouseInterface = true;
                 ChestUI.DrawName(spritebatch);
                 ChestUI.DrawButtons(spritebatch);
                 ChestUI.DrawSlots(spritebatch);
@@ -68,56 +68,56 @@ namespace GameManager.UI
 
         private static void DrawName(SpriteBatch spritebatch)
         {
-            Player player = Main.player[Main.myPlayer];
+            Player player = Game1.player[Game1.myPlayer];
             string text = string.Empty;
-            if (Main.editChest)
+            if (Game1.editChest)
             {
-                text = Main.npcChatText;
-                ++Main.instance.textBlinkerCount;
-                if (Main.instance.textBlinkerCount >= 20)
+                text = Game1.npcChatText;
+                ++Game1.instance.textBlinkerCount;
+                if (Game1.instance.textBlinkerCount >= 20)
                 {
-                    Main.instance.textBlinkerState = Main.instance.textBlinkerState != 0 ? 0 : 1;
-                    Main.instance.textBlinkerCount = 0;
+                    Game1.instance.textBlinkerState = Game1.instance.textBlinkerState != 0 ? 0 : 1;
+                    Game1.instance.textBlinkerCount = 0;
                 }
-                if (Main.instance.textBlinkerState == 1)
+                if (Game1.instance.textBlinkerState == 1)
                     text += "|";
             }
             else if (player.chest > -1)
             {
-                if (Main.chest[player.chest] == null)
-                    Main.chest[player.chest] = new Chest(false);
-                Chest chest = Main.chest[player.chest];
+                if (Game1.chest[player.chest] == null)
+                    Game1.chest[player.chest] = new Chest(false);
+                Chest chest = Game1.chest[player.chest];
                 if (chest.name != "")
                     text = chest.name;
-                else if ((int)Main.tile[player.chestX, player.chestY].type == 21)
-                    text = Lang.chestType[(int)Main.tile[player.chestX, player.chestY].frameX / 36];
-                else if ((int)Main.tile[player.chestX, player.chestY].type == 88)
-                    text = Lang.dresserType[(int)Main.tile[player.chestX, player.chestY].frameX / 54];
+                else if ((int)Game1.tile[player.chestX, player.chestY].type == 21)
+                    text = Lang.chestType[(int)Game1.tile[player.chestX, player.chestY].frameX / 36];
+                else if ((int)Game1.tile[player.chestX, player.chestY].type == 88)
+                    text = Lang.dresserType[(int)Game1.tile[player.chestX, player.chestY].frameX / 54];
             }
             else if (player.chest == -2)
                 text = Lang.inter[32];
             else if (player.chest == -3)
                 text = Lang.inter[33];
-            Color color = new Color((int)Main.mouseTextColor, (int)Main.mouseTextColor, (int)Main.mouseTextColor, (int)Main.mouseTextColor);
-            Color baseColor = Color.White * (float)(1.0 - ((double)byte.MaxValue - (double)Main.mouseTextColor) / (double)byte.MaxValue * 0.5);
+            Color color = new Color((int)Game1.mouseTextColor, (int)Game1.mouseTextColor, (int)Game1.mouseTextColor, (int)Game1.mouseTextColor);
+            Color baseColor = Color.White * (float)(1.0 - ((double)byte.MaxValue - (double)Game1.mouseTextColor) / (double)byte.MaxValue * 0.5);
             baseColor.A = byte.MaxValue;
             int lineAmount;
-            Utils.WordwrapString(text, Main.fontMouseText, 200, 1, out lineAmount);
+            Utils.WordwrapString(text, Game1.fontMouseText, 200, 1, out lineAmount);
             ++lineAmount;
             for (int index = 0; index < lineAmount; ++index)
-                ChatManager.DrawColorCodedStringWithShadow(spritebatch, Main.fontMouseText, text, new Vector2(504f, (float)(Main.instance.invBottom + index * 26)), baseColor, 0.0f, Vector2.Zero, Vector2.One, -1f, 1.5f);
+                ChatManager.DrawColorCodedStringWithShadow(spritebatch, Game1.fontMouseText, text, new Vector2(504f, (float)(Game1.instance.invBottom + index * 26)), baseColor, 0.0f, Vector2.Zero, Vector2.One, -1f, 1.5f);
         }
 
         private static void DrawButtons(SpriteBatch spritebatch)
         {
             for (int ID = 0; ID < 6; ++ID)
-                ChestUI.DrawButton(spritebatch, ID, 506, Main.instance.invBottom + 40);
+                ChestUI.DrawButton(spritebatch, ID, 506, Game1.instance.invBottom + 40);
         }
 
         private static void DrawButton(SpriteBatch spriteBatch, int ID, int X, int Y)
         {
-            Player player = Main.player[Main.myPlayer];
-            if (ID == 4 && player.chest < -1 || ID == 5 && !Main.editChest)
+            Player player = Game1.player[Game1.myPlayer];
+            if (ID == 4 && player.chest < -1 || ID == 5 && !Game1.editChest)
             {
                 ChestUI.UpdateHover(ID, false);
             }
@@ -141,20 +141,20 @@ namespace GameManager.UI
                         text = Lang.inter[82];
                         break;
                     case 4:
-                        text = Lang.inter[Main.editChest ? 47 : 61];
+                        text = Lang.inter[Game1.editChest ? 47 : 61];
                         break;
                     case 5:
                         text = Lang.inter[63];
                         break;
                 }
-                Vector2 vector2 = Main.fontMouseText.MeasureString(text);
-                Color color = new Color((int)Main.mouseTextColor, (int)Main.mouseTextColor, (int)Main.mouseTextColor, (int)Main.mouseTextColor) * num;
-                Color baseColor = Color.White * 0.97f * (float)(1.0 - ((double)byte.MaxValue - (double)Main.mouseTextColor) / (double)byte.MaxValue * 0.5);
+                Vector2 vector2 = Game1.fontMouseText.MeasureString(text);
+                Color color = new Color((int)Game1.mouseTextColor, (int)Game1.mouseTextColor, (int)Game1.mouseTextColor, (int)Game1.mouseTextColor) * num;
+                Color baseColor = Color.White * 0.97f * (float)(1.0 - ((double)byte.MaxValue - (double)Game1.mouseTextColor) / (double)byte.MaxValue * 0.5);
                 baseColor.A = byte.MaxValue;
                 X += (int)((double)vector2.X * (double)num / 2.0);
-                ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Main.fontMouseText, text, new Vector2((float)X, (float)Y), baseColor, 0.0f, vector2 / 2f, new Vector2(num), -1f, 1.5f);
+                ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Game1.fontMouseText, text, new Vector2((float)X, (float)Y), baseColor, 0.0f, vector2 / 2f, new Vector2(num), -1f, 1.5f);
                 vector2 *= num;
-                if (!Utils.FloatIntersect((float)Main.mouseX, (float)Main.mouseY, 0.0f, 0.0f, (float)X - vector2.X / 2f, (float)Y - vector2.Y / 2f, vector2.X, vector2.Y))
+                if (!Utils.FloatIntersect((float)Game1.mouseX, (float)Game1.mouseY, 0.0f, 0.0f, (float)X - vector2.X / 2f, (float)Y - vector2.Y / 2f, vector2.X, vector2.Y))
                 {
                     ChestUI.UpdateHover(ID, false);
                 }
@@ -162,7 +162,7 @@ namespace GameManager.UI
                 {
                     ChestUI.UpdateHover(ID, true);
                     player.mouseInterface = true;
-                    if (!Main.mouseLeft || !Main.mouseLeftRelease)
+                    if (!Game1.mouseLeft || !Game1.mouseLeftRelease)
                         return;
                     switch (ID)
                     {
@@ -192,13 +192,13 @@ namespace GameManager.UI
 
         private static void DrawSlots(SpriteBatch spriteBatch)
         {
-            Player player = Main.player[Main.myPlayer];
+            Player player = Game1.player[Game1.myPlayer];
             int context = 0;
             Item[] inv = (Item[])null;
             if (player.chest > -1)
             {
                 context = 3;
-                inv = Main.chest[player.chest].item;
+                inv = Game1.chest[player.chest].item;
             }
             if (player.chest == -2)
             {
@@ -210,18 +210,18 @@ namespace GameManager.UI
                 context = 4;
                 inv = player.bank2.item;
             }
-            Main.inventoryScale = 0.755f;
-            if (Utils.FloatIntersect((float)Main.mouseX, (float)Main.mouseY, 0.0f, 0.0f, 73f, (float)Main.instance.invBottom, 560f * Main.inventoryScale, 224f * Main.inventoryScale))
+            Game1.inventoryScale = 0.755f;
+            if (Utils.FloatIntersect((float)Game1.mouseX, (float)Game1.mouseY, 0.0f, 0.0f, 73f, (float)Game1.instance.invBottom, 560f * Game1.inventoryScale, 224f * Game1.inventoryScale))
                 player.mouseInterface = true;
             for (int index1 = 0; index1 < 10; ++index1)
             {
                 for (int index2 = 0; index2 < 4; ++index2)
                 {
-                    int num1 = (int)(73.0 + (double)(index1 * 56) * (double)Main.inventoryScale);
-                    int num2 = (int)((double)Main.instance.invBottom + (double)(index2 * 56) * (double)Main.inventoryScale);
+                    int num1 = (int)(73.0 + (double)(index1 * 56) * (double)Game1.inventoryScale);
+                    int num2 = (int)((double)Game1.instance.invBottom + (double)(index2 * 56) * (double)Game1.inventoryScale);
                     int slot = index1 + index2 * 10;
                     Color color = new Color(100, 100, 100, 100);
-                    if (Utils.FloatIntersect((float)Main.mouseX, (float)Main.mouseY, 0.0f, 0.0f, (float)num1, (float)num2, (float)Main.inventoryBackTexture.Width * Main.inventoryScale, (float)Main.inventoryBackTexture.Height * Main.inventoryScale))
+                    if (Utils.FloatIntersect((float)Game1.mouseX, (float)Game1.mouseY, 0.0f, 0.0f, (float)num1, (float)num2, (float)Game1.inventoryBackTexture.Width * Game1.inventoryScale, (float)Game1.inventoryBackTexture.Height * Game1.inventoryScale))
                     {
                         player.mouseInterface = true;
                         ItemSlot.Handle(inv, context, slot);
@@ -233,17 +233,17 @@ namespace GameManager.UI
 
         public static void LootAll()
         {
-            Player player = Main.player[Main.myPlayer];
+            Player player = Game1.player[Game1.myPlayer];
             if (player.chest > -1)
             {
-                Chest chest = Main.chest[player.chest];
+                Chest chest = Game1.chest[player.chest];
                 for (int index = 0; index < 40; ++index)
                 {
                     if (chest.item[index].itemId > 0)
                     {
                         chest.item[index].position = player.Center;
-                        chest.item[index] = player.GetItem(Main.myPlayer, chest.item[index], false, false);
-                        if (Main.netMode == 1)
+                        chest.item[index] = player.GetItem(Game1.myPlayer, chest.item[index], false, false);
+                        if (Game1.netMode == 1)
                             NetMessage.SendData(32, -1, -1, "", player.chest, (float)index, 0.0f, 0.0f, 0, 0, 0);
                     }
                 }
@@ -255,7 +255,7 @@ namespace GameManager.UI
                     if (player.bank2.item[index].itemId > 0)
                     {
                         player.bank2.item[index].position = player.Center;
-                        player.bank2.item[index] = player.GetItem(Main.myPlayer, player.bank2.item[index], false, false);
+                        player.bank2.item[index] = player.GetItem(Game1.myPlayer, player.bank2.item[index], false, false);
                     }
                 }
             }
@@ -266,7 +266,7 @@ namespace GameManager.UI
                     if (player.bank.item[index].itemId > 0)
                     {
                         player.bank.item[index].position = player.Center;
-                        player.bank.item[index] = player.GetItem(Main.myPlayer, player.bank.item[index], false, false);
+                        player.bank.item[index] = player.GetItem(Game1.myPlayer, player.bank.item[index], false, false);
                     }
                 }
             }
@@ -274,9 +274,9 @@ namespace GameManager.UI
 
         public static void DepositAll()
         {
-            Player player = Main.player[Main.myPlayer];
+            Player player = Game1.player[Game1.myPlayer];
             if (player.chest > -1)
-                ChestUI.MoveCoins(player.inventory, Main.chest[player.chest].item);
+                ChestUI.MoveCoins(player.inventory, Game1.chest[player.chest].item);
             else if (player.chest == -3)
                 ChestUI.MoveCoins(player.inventory, player.bank2.item);
             else
@@ -291,7 +291,7 @@ namespace GameManager.UI
                         {
                             if (player.chest > -1)
                             {
-                                Chest chest = Main.chest[player.chest];
+                                Chest chest = Game1.chest[player.chest];
                                 if (chest.item[index2].stack < chest.item[index2].maxStack && player.inventory[index1].IsTheSameAs(chest.item[index2]))
                                 {
                                     int num = player.inventory[index1].stack;
@@ -299,11 +299,11 @@ namespace GameManager.UI
                                         num = chest.item[index2].maxStack - chest.item[index2].stack;
                                     player.inventory[index1].stack -= num;
                                     chest.item[index2].stack += num;
-                                    Main.PlaySound(7, -1, -1, 1);
+                                    Game1.PlaySound(7, -1, -1, 1);
                                     if (player.inventory[index1].stack <= 0)
                                     {
                                         player.inventory[index1].SetDefaults(0, false);
-                                        if (Main.netMode == 1)
+                                        if (Game1.netMode == 1)
                                         {
                                             NetMessage.SendData(32, -1, -1, "", player.chest, (float)index2, 0.0f, 0.0f, 0, 0, 0);
                                             break;
@@ -315,7 +315,7 @@ namespace GameManager.UI
                                         chest.item[index2] = player.inventory[index1].Clone();
                                         player.inventory[index1].SetDefaults(0, false);
                                     }
-                                    if (Main.netMode == 1)
+                                    if (Game1.netMode == 1)
                                         NetMessage.SendData(32, -1, -1, "", player.chest, (float)index2, 0.0f, 0.0f, 0, 0, 0);
                                 }
                             }
@@ -328,7 +328,7 @@ namespace GameManager.UI
                                         num = player.bank2.item[index2].maxStack - player.bank2.item[index2].stack;
                                     player.inventory[index1].stack -= num;
                                     player.bank2.item[index2].stack += num;
-                                    Main.PlaySound(7, -1, -1, 1);
+                                    Game1.PlaySound(7, -1, -1, 1);
                                     if (player.inventory[index1].stack <= 0)
                                     {
                                         player.inventory[index1].SetDefaults(0, false);
@@ -348,7 +348,7 @@ namespace GameManager.UI
                                     num = player.bank.item[index2].maxStack - player.bank.item[index2].stack;
                                 player.inventory[index1].stack -= num;
                                 player.bank.item[index2].stack += num;
-                                Main.PlaySound(7, -1, -1, 1);
+                                Game1.PlaySound(7, -1, -1, 1);
                                 if (player.inventory[index1].stack <= 0)
                                 {
                                     player.inventory[index1].SetDefaults(0, false);
@@ -368,12 +368,12 @@ namespace GameManager.UI
                         {
                             for (int index2 = 0; index2 < 40; ++index2)
                             {
-                                if (Main.chest[player.chest].item[index2].stack == 0)
+                                if (Game1.chest[player.chest].item[index2].stack == 0)
                                 {
-                                    Main.PlaySound(7, -1, -1, 1);
-                                    Main.chest[player.chest].item[index2] = player.inventory[index1].Clone();
+                                    Game1.PlaySound(7, -1, -1, 1);
+                                    Game1.chest[player.chest].item[index2] = player.inventory[index1].Clone();
                                     player.inventory[index1].SetDefaults(0, false);
-                                    if (Main.netMode == 1)
+                                    if (Game1.netMode == 1)
                                     {
                                         NetMessage.SendData(32, -1, -1, "", player.chest, (float)index2, 0.0f, 0.0f, 0, 0, 0);
                                         break;
@@ -388,7 +388,7 @@ namespace GameManager.UI
                             {
                                 if (player.bank2.item[index2].stack == 0)
                                 {
-                                    Main.PlaySound(7, -1, -1, 1);
+                                    Game1.PlaySound(7, -1, -1, 1);
                                     player.bank2.item[index2] = player.inventory[index1].Clone();
                                     player.inventory[index1].SetDefaults(0, false);
                                     break;
@@ -401,7 +401,7 @@ namespace GameManager.UI
                             {
                                 if (player.bank.item[index2].stack == 0)
                                 {
-                                    Main.PlaySound(7, -1, -1, 1);
+                                    Game1.PlaySound(7, -1, -1, 1);
                                     player.bank.item[index2] = player.inventory[index1].Clone();
                                     player.inventory[index1].SetDefaults(0, false);
                                     break;
@@ -415,7 +415,7 @@ namespace GameManager.UI
 
         public static void QuickStack()
         {
-            Player player = Main.player[Main.myPlayer];
+            Player player = Game1.player[Game1.myPlayer];
             if (player.chest == -3)
                 ChestUI.MoveCoins(player.inventory, player.bank2.item);
             else if (player.chest == -2)
@@ -423,7 +423,7 @@ namespace GameManager.UI
             Item[] objArray1 = player.inventory;
             Item[] objArray2 = player.bank.item;
             if (player.chest > -1)
-                objArray2 = Main.chest[player.chest].item;
+                objArray2 = Game1.chest[player.chest].item;
             else if (player.chest == -2)
                 objArray2 = player.bank.item;
             else if (player.chest == -3)
@@ -466,7 +466,7 @@ namespace GameManager.UI
                         {
                             if (num3 > num4)
                                 num3 = num4;
-                            Main.PlaySound(7, -1, -1, 1);
+                            Game1.PlaySound(7, -1, -1, 1);
                             objArray2[index2].stack += num3;
                             objArray1[keyValuePair.Key].stack -= num3;
                             if (objArray1[keyValuePair.Key].stack == 0)
@@ -494,7 +494,7 @@ namespace GameManager.UI
                 {
                     if (keyValuePair.Value == num2 && objArray1[keyValuePair.Key].netID == num2 || flag && objArray1[keyValuePair.Key].stack > 0)
                     {
-                        Main.PlaySound(7, -1, -1, 1);
+                        Game1.PlaySound(7, -1, -1, 1);
                         if (flag)
                         {
                             num2 = keyValuePair.Value;
@@ -522,7 +522,7 @@ namespace GameManager.UI
                     }
                 }
             }
-            if (Main.netMode == 1 && player.chest >= 0)
+            if (Game1.netMode == 1 && player.chest >= 0)
             {
                 for (int index = 0; index < flagArray.Length; ++index)
                     NetMessage.SendData(32, -1, -1, "", player.chest, (float)index, 0.0f, 0.0f, 0, 0, 0);
@@ -536,30 +536,30 @@ namespace GameManager.UI
 
         public static void RenameChest()
         {
-            Player player = Main.player[Main.myPlayer];
-            if (!Main.editChest)
+            Player player = Game1.player[Game1.myPlayer];
+            if (!Game1.editChest)
             {
-                Main.npcChatText = Main.chest[player.chest].name;
-                if ((int)Main.tile[player.chestX, player.chestY].type == 21)
-                    Main.defaultChestName = Lang.chestType[(int)Main.tile[player.chestX, player.chestY].frameX / 36];
-                if ((int)Main.tile[player.chestX, player.chestY].type == 88)
-                    Main.defaultChestName = Lang.dresserType[(int)Main.tile[player.chestX, player.chestY].frameX / 54];
-                if (Main.npcChatText == "")
-                    Main.npcChatText = Main.defaultChestName;
-                Main.editChest = true;
-                Main.clrInput();
+                Game1.npcChatText = Game1.chest[player.chest].name;
+                if ((int)Game1.tile[player.chestX, player.chestY].type == 21)
+                    Game1.defaultChestName = Lang.chestType[(int)Game1.tile[player.chestX, player.chestY].frameX / 36];
+                if ((int)Game1.tile[player.chestX, player.chestY].type == 88)
+                    Game1.defaultChestName = Lang.dresserType[(int)Game1.tile[player.chestX, player.chestY].frameX / 54];
+                if (Game1.npcChatText == "")
+                    Game1.npcChatText = Game1.defaultChestName;
+                Game1.editChest = true;
+                Game1.clrInput();
             }
             else
             {
-                Main.PlaySound(12, -1, -1, 1);
-                Main.editChest = false;
+                Game1.PlaySound(12, -1, -1, 1);
+                Game1.editChest = false;
                 int index = player.chest;
-                if (Main.npcChatText == Main.defaultChestName)
-                    Main.npcChatText = "";
-                if (!(Main.chest[index].name != Main.npcChatText))
+                if (Game1.npcChatText == Game1.defaultChestName)
+                    Game1.npcChatText = "";
+                if (!(Game1.chest[index].name != Game1.npcChatText))
                     return;
-                Main.chest[index].name = Main.npcChatText;
-                if (Main.netMode != 1)
+                Game1.chest[index].name = Game1.npcChatText;
+                if (Game1.netMode != 1)
                     return;
                 player.editedChestName = true;
             }
@@ -567,18 +567,18 @@ namespace GameManager.UI
 
         public static void RenameChestCancel()
         {
-            Main.PlaySound(12, -1, -1, 1);
-            Main.editChest = false;
-            Main.npcChatText = string.Empty;
+            Game1.PlaySound(12, -1, -1, 1);
+            Game1.editChest = false;
+            Game1.npcChatText = string.Empty;
         }
 
         public static void Restock()
         {
-            Player player = Main.player[Main.myPlayer];
+            Player player = Game1.player[Game1.myPlayer];
             Item[] inv = player.inventory;
             Item[] objArray = player.bank.item;
             if (player.chest > -1)
-                objArray = Main.chest[player.chest].item;
+                objArray = Game1.chest[player.chest].item;
             else if (player.chest == -2)
                 objArray = player.bank.item;
             else if (player.chest == -3)
@@ -622,8 +622,8 @@ namespace GameManager.UI
                             flag1 = true;
                             if (inv[slot].stack == inv[slot].maxStack)
                             {
-                                if (Main.netMode == 1 && Main.player[Main.myPlayer].chest > -1)
-                                    NetMessage.SendData(32, -1, -1, "", Main.player[Main.myPlayer].chest, (float)index1, 0.0f, 0.0f, 0, 0, 0);
+                                if (Game1.netMode == 1 && Game1.player[Game1.myPlayer].chest > -1)
+                                    NetMessage.SendData(32, -1, -1, "", Game1.player[Game1.myPlayer].chest, (float)index1, 0.0f, 0.0f, 0, 0, 0);
                                 list1.RemoveAt(index2);
                                 --index2;
                             }
@@ -631,9 +631,9 @@ namespace GameManager.UI
                             {
                                 objArray[index1] = new Item();
                                 flag2 = true;
-                                if (Main.netMode == 1 && Main.player[Main.myPlayer].chest > -1)
+                                if (Game1.netMode == 1 && Game1.player[Game1.myPlayer].chest > -1)
                                 {
-                                    NetMessage.SendData(32, -1, -1, "", Main.player[Main.myPlayer].chest, (float)index1, 0.0f, 0.0f, 0, 0, 0);
+                                    NetMessage.SendData(32, -1, -1, "", Game1.player[Game1.myPlayer].chest, (float)index1, 0.0f, 0.0f, 0, 0, 0);
                                     break;
                                 }
                                 break;
@@ -661,7 +661,7 @@ namespace GameManager.UI
             }
             if (!flag1)
                 return;
-            Main.PlaySound(7, -1, -1, 1);
+            Game1.PlaySound(7, -1, -1, 1);
         }
 
         public static void MoveCoins(Item[] pInv, Item[] cInv)
@@ -702,7 +702,7 @@ namespace GameManager.UI
             }
             if (!flag)
                 return;
-            Main.PlaySound(7, -1, -1, 1);
+            Game1.PlaySound(7, -1, -1, 1);
             for (int index = 0; index < pInv.Length; ++index)
             {
                 if (index != 58 && pInv[index] != null && pInv[index].stack > 0)
@@ -747,8 +747,8 @@ namespace GameManager.UI
                         numArray1[index3] -= cInv[index2].stack;
                         numArray2[index1] = -1;
                     }
-                    if (Main.netMode == 1 && Main.player[Main.myPlayer].chest > -1)
-                        NetMessage.SendData(32, -1, -1, "", Main.player[Main.myPlayer].chest, (float)index2, 0.0f, 0.0f, 0, 0, 0);
+                    if (Game1.netMode == 1 && Game1.player[Game1.myPlayer].chest > -1)
+                        NetMessage.SendData(32, -1, -1, "", Game1.player[Game1.myPlayer].chest, (float)index2, 0.0f, 0.0f, 0, 0, 0);
                     list2.Remove(index2);
                 }
             }
@@ -773,8 +773,8 @@ namespace GameManager.UI
                         if (numArray1[index3] == 0)
                             --index3;
                     }
-                    if (Main.netMode == 1 && Main.player[Main.myPlayer].chest > -1)
-                        NetMessage.SendData(32, -1, -1, "", Main.player[Main.myPlayer].chest, (float)index2, 0.0f, 0.0f, 0, 0, 0);
+                    if (Game1.netMode == 1 && Game1.player[Game1.myPlayer].chest > -1)
+                        NetMessage.SendData(32, -1, -1, "", Game1.player[Game1.myPlayer].chest, (float)index2, 0.0f, 0.0f, 0, 0, 0);
                     list2.Remove(index2);
                 }
             }
@@ -796,8 +796,8 @@ namespace GameManager.UI
                     if (numArray1[index2] == 0)
                         --index2;
                 }
-                if (Main.netMode == 1 && Main.player[Main.myPlayer].chest > -1)
-                    NetMessage.SendData(32, -1, -1, "", Main.player[Main.myPlayer].chest, (float)list2[0], 0.0f, 0.0f, 0, 0, 0);
+                if (Game1.netMode == 1 && Game1.player[Game1.myPlayer].chest > -1)
+                    NetMessage.SendData(32, -1, -1, "", Game1.player[Game1.myPlayer].chest, (float)list2[0], 0.0f, 0.0f, 0, 0, 0);
                 list2.RemoveAt(0);
             }
             int index4 = 3;
@@ -821,12 +821,12 @@ namespace GameManager.UI
         public static bool TryPlacingInChest(Item I, bool justCheck)
         {
             bool flag1 = false;
-            Player player = Main.player[Main.myPlayer];
+            Player player = Game1.player[Game1.myPlayer];
             Item[] objArray = player.bank.item;
             if (player.chest > -1)
             {
-                objArray = Main.chest[player.chest].item;
-                flag1 = Main.netMode == 1;
+                objArray = Game1.chest[player.chest].item;
+                flag1 = Game1.netMode == 1;
             }
             else if (player.chest == -2)
                 objArray = player.bank.item;
@@ -849,7 +849,7 @@ namespace GameManager.UI
                         }
                         I.stack -= num;
                         objArray[index].stack += num;
-                        Main.PlaySound(7, -1, -1, 1);
+                        Game1.PlaySound(7, -1, -1, 1);
                         if (I.stack <= 0)
                         {
                             I.SetDefaults(0, false);
@@ -881,7 +881,7 @@ namespace GameManager.UI
                             flag2 = true;
                             break;
                         }
-                        Main.PlaySound(7, -1, -1, 1);
+                        Game1.PlaySound(7, -1, -1, 1);
                         objArray[index] = I.Clone();
                         I.SetDefaults(0, false);
                         if (flag1)
@@ -899,13 +899,13 @@ namespace GameManager.UI
         public static bool TryPlacingInPlayer(int slot, bool justCheck)
         {
             bool flag1 = false;
-            Player player = Main.player[Main.myPlayer];
+            Player player = Game1.player[Game1.myPlayer];
             Item[] objArray1 = player.inventory;
             Item[] objArray2 = player.bank.item;
             if (player.chest > -1)
             {
-                objArray2 = Main.chest[player.chest].item;
-                flag1 = Main.netMode == 1;
+                objArray2 = Game1.chest[player.chest].item;
+                flag1 = Game1.netMode == 1;
             }
             else if (player.chest == -2)
                 objArray2 = player.bank.item;
@@ -929,7 +929,7 @@ namespace GameManager.UI
                         }
                         obj.stack -= num;
                         objArray1[index].stack += num;
-                        Main.PlaySound(7, -1, -1, 1);
+                        Game1.PlaySound(7, -1, -1, 1);
                         if (obj.stack <= 0)
                         {
                             obj.SetDefaults(0, false);
@@ -961,7 +961,7 @@ namespace GameManager.UI
                             flag2 = true;
                             break;
                         }
-                        Main.PlaySound(7, -1, -1, 1);
+                        Game1.PlaySound(7, -1, -1, 1);
                         objArray1[index] = obj.Clone();
                         obj.SetDefaults(0, false);
                         if (flag1)

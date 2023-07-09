@@ -55,11 +55,11 @@ namespace GameManager.GameContent.Skies
         {
             if (maxDepth >= 3.40282346638529E+38 && minDepth < 3.40282346638529E+38)
             {
-                spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black * _fadeOpacity);
-                spriteBatch.Draw(_bgTexture, new Rectangle(0, Math.Max(0, (int)((Main.worldSurface * 16.0 - Main.screenPosition.Y - 2400.0) * 0.100000001490116)),
-                    Main.screenWidth, Main.screenHeight), Color.White * Math.Min(1f, (float)((Main.screenPosition.Y - 800.0) / 1000.0) * _fadeOpacity));
-                Vector2 vector2_1 = new Vector2((float)(Main.screenWidth >> 1), (float)(Main.screenHeight >> 1));
-                Vector2 vector2_2 = 0.01f * (new Vector2((float)Main.maxTilesX * 8f, (float)Main.worldSurface / 2f) - Main.screenPosition);
+                spriteBatch.Draw(Game1.blackTileTexture, new Rectangle(0, 0, Game1.screenWidth, Game1.screenHeight), Color.Black * _fadeOpacity);
+                spriteBatch.Draw(_bgTexture, new Rectangle(0, Math.Max(0, (int)((Game1.worldSurface * 16.0 - Game1.screenPosition.Y - 2400.0) * 0.100000001490116)),
+                    Game1.screenWidth, Game1.screenHeight), Color.White * Math.Min(1f, (float)((Game1.screenPosition.Y - 800.0) / 1000.0) * _fadeOpacity));
+                Vector2 vector2_1 = new Vector2((float)(Game1.screenWidth >> 1), (float)(Game1.screenHeight >> 1));
+                Vector2 vector2_2 = 0.01f * (new Vector2((float)Game1.maxTilesX * 8f, (float)Game1.worldSurface / 2f) - Game1.screenPosition);
                 spriteBatch.Draw(_planetTexture, vector2_1 + new Vector2(-200f, -200f) + vector2_2, new Rectangle?(), Color.White * 0.9f * _fadeOpacity, 0.0f,
                     new Vector2((float)(_planetTexture.Width >> 1), (float)(_planetTexture.Height >> 1)), 1f, SpriteEffects.None, 1f);
             }
@@ -80,13 +80,13 @@ namespace GameManager.GameContent.Skies
             if (num1 == -1)
                 return;
 
-            Vector2 vector2_3 = Main.screenPosition + new Vector2((float)(Main.screenWidth >> 1), (float)(Main.screenHeight >> 1));
+            Vector2 vector2_3 = Game1.screenPosition + new Vector2((float)(Game1.screenWidth >> 1), (float)(Game1.screenHeight >> 1));
             Rectangle rectangle = new Rectangle(-1000, -1000, 4000, 4000);
-            float num4 = Math.Min(1f, (float)((Main.screenPosition.Y - 1000.0) / 1000.0));
+            float num4 = Math.Min(1f, (float)((Game1.screenPosition.Y - 1000.0) / 1000.0));
             for (int index1 = num1; index1 < num2; ++index1)
             {
                 Vector2 vector2_1 = new Vector2(1f / _pillars[index1].Depth, 0.9f / _pillars[index1].Depth);
-                Vector2 position = (_pillars[index1].Position - vector2_3) * vector2_1 + vector2_3 - Main.screenPosition;
+                Vector2 position = (_pillars[index1].Position - vector2_3) * vector2_1 + vector2_3 - Game1.screenPosition;
                 if (rectangle.Contains((int)position.X, (int)position.Y))
                 {
                     float num3 = vector2_1.X * 450f;
@@ -95,7 +95,7 @@ namespace GameManager.GameContent.Skies
                     float num5 = 0.0f;
                     while (num5 <= 1.0)
                     {
-                        float num6 = (float)(1.0 - (num5 + Main.GlobalTime * 0.0199999995529652 + Math.Sin(index1)) % 1.0);
+                        float num6 = (float)(1.0 - (num5 + Game1.GlobalTime * 0.0199999995529652 + Math.Sin(index1)) % 1.0);
                         spriteBatch.Draw(this._rockTextures[index2], position + new Vector2((float)(Math.Sin(num5 * 1582.0) * (num3 * 0.5) + num3 * 0.5), num6 * 2000f),
                             new Rectangle?(), Color.White * num6 * num4 * _fadeOpacity, num6 * 20f, new Vector2((float)(_rockTextures[index2].Width >> 1),
                                 (float)(_rockTextures[index2].Height >> 1)), 0.9f, SpriteEffects.None, 0.0f);
@@ -118,7 +118,7 @@ namespace GameManager.GameContent.Skies
             _pillars = new LightPillar[40];
             for (int index = 0; index < this._pillars.Length; ++index)
             {
-                _pillars[index].Position.X = (float)(index / _pillars.Length * ((double)Main.maxTilesX * 16.0 + 20000.0) + Utils.NextFloat(_random) * 40.0 - 20.0 - 20000.0);
+                _pillars[index].Position.X = (float)(index / _pillars.Length * ((double)Game1.maxTilesX * 16.0 + 20000.0) + Utils.NextFloat(_random) * 40.0 - 20.0 - 20000.0);
                 _pillars[index].Position.Y = (float)(Utils.NextFloat(_random) * 200.0 - 2000.0);
                 _pillars[index].Depth = (float)(Utils.NextFloat(_random) * 8.0 + 7.0);
             }

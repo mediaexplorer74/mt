@@ -35,35 +35,35 @@ namespace GameManager
         public static void NewText(Item newItem, int stack, bool noStack = false, bool longText = false)
         {
             bool flag = newItem.itemId >= 71 && newItem.itemId <= 74;
-            if (!Main.showItemText || newItem.name == null || (!newItem.active || Main.netMode == 2))
+            if (!Game1.showItemText || newItem.name == null || (!newItem.active || Game1.netMode == 2))
                 return;
             for (int index = 0; index < 20; ++index)
             {
-                if (Main.itemText[index].active && (Main.itemText[index].name == newItem.AffixName() || flag && Main.itemText[index].coinText) && (!Main.itemText[index].NoStack && !noStack))
+                if (Game1.itemText[index].active && (Game1.itemText[index].name == newItem.AffixName() || flag && Game1.itemText[index].coinText) && (!Game1.itemText[index].NoStack && !noStack))
                 {
                     string text1 = string.Concat(new object[4]
           {
             (object) newItem.name,
             (object) " (",
-            (object) (Main.itemText[index].stack + stack),
+            (object) (Game1.itemText[index].stack + stack),
             (object) ")"
           });
                     string text2 = newItem.name;
-                    if (Main.itemText[index].stack > 1)
+                    if (Game1.itemText[index].stack > 1)
                         text2 = string.Concat(new object[4]
             {
               (object) text2,
               (object) " (",
-              (object) Main.itemText[index].stack,
+              (object) Game1.itemText[index].stack,
               (object) ")"
             });
-                    Main.fontMouseText.MeasureString(text2);
-                    Vector2 vector2 = Main.fontMouseText.MeasureString(text1);
-                    if (Main.itemText[index].lifeTime < 0)
-                        Main.itemText[index].scale = 1f;
-                    if (Main.itemText[index].lifeTime < 60)
-                        Main.itemText[index].lifeTime = 60;
-                    if (flag && Main.itemText[index].coinText)
+                    Game1.fontMouseText.MeasureString(text2);
+                    Vector2 vector2 = Game1.fontMouseText.MeasureString(text1);
+                    if (Game1.itemText[index].lifeTime < 0)
+                        Game1.itemText[index].scale = 1f;
+                    if (Game1.itemText[index].lifeTime < 60)
+                        Game1.itemText[index].lifeTime = 60;
+                    if (flag && Game1.itemText[index].coinText)
                     {
                         int num = 0;
                         if (newItem.itemId == 71)
@@ -74,51 +74,51 @@ namespace GameManager
                             num += 10000 * newItem.stack;
                         else if (newItem.itemId == 74)
                             num += 1000000 * newItem.stack;
-                        Main.itemText[index].coinValue += num;
-                        string text3 = ItemText.ValueToName(Main.itemText[index].coinValue);
-                        vector2 = Main.fontMouseText.MeasureString(text3);
-                        Main.itemText[index].name = text3;
-                        if (Main.itemText[index].coinValue >= 1000000)
+                        Game1.itemText[index].coinValue += num;
+                        string text3 = ItemText.ValueToName(Game1.itemText[index].coinValue);
+                        vector2 = Game1.fontMouseText.MeasureString(text3);
+                        Game1.itemText[index].name = text3;
+                        if (Game1.itemText[index].coinValue >= 1000000)
                         {
-                            if (Main.itemText[index].lifeTime < 300)
-                                Main.itemText[index].lifeTime = 300;
-                            Main.itemText[index].color = new Color(220, 220, 198);
+                            if (Game1.itemText[index].lifeTime < 300)
+                                Game1.itemText[index].lifeTime = 300;
+                            Game1.itemText[index].color = new Color(220, 220, 198);
                         }
-                        else if (Main.itemText[index].coinValue >= 10000)
+                        else if (Game1.itemText[index].coinValue >= 10000)
                         {
-                            if (Main.itemText[index].lifeTime < 240)
-                                Main.itemText[index].lifeTime = 240;
-                            Main.itemText[index].color = new Color(224, 201, 92);
+                            if (Game1.itemText[index].lifeTime < 240)
+                                Game1.itemText[index].lifeTime = 240;
+                            Game1.itemText[index].color = new Color(224, 201, 92);
                         }
-                        else if (Main.itemText[index].coinValue >= 100)
+                        else if (Game1.itemText[index].coinValue >= 100)
                         {
-                            if (Main.itemText[index].lifeTime < 180)
-                                Main.itemText[index].lifeTime = 180;
-                            Main.itemText[index].color = new Color(181, 192, 193);
+                            if (Game1.itemText[index].lifeTime < 180)
+                                Game1.itemText[index].lifeTime = 180;
+                            Game1.itemText[index].color = new Color(181, 192, 193);
                         }
-                        else if (Main.itemText[index].coinValue >= 1)
+                        else if (Game1.itemText[index].coinValue >= 1)
                         {
-                            if (Main.itemText[index].lifeTime < 120)
-                                Main.itemText[index].lifeTime = 120;
-                            Main.itemText[index].color = new Color(246, 138, 96);
+                            if (Game1.itemText[index].lifeTime < 120)
+                                Game1.itemText[index].lifeTime = 120;
+                            Game1.itemText[index].color = new Color(246, 138, 96);
                         }
                     }
-                    Main.itemText[index].stack += stack;
-                    Main.itemText[index].scale = 0.0f;
-                    Main.itemText[index].rotation = 0.0f;
-                    Main.itemText[index].position.X = (float)((double)newItem.position.X + (double)newItem.width * 0.5 - (double)vector2.X * 0.5);
-                    Main.itemText[index].position.Y = (float)((double)newItem.position.Y + (double)newItem.height * 0.25 - (double)vector2.Y * 0.5);
-                    Main.itemText[index].velocity.Y = -7f;
-                    if (!Main.itemText[index].coinText)
+                    Game1.itemText[index].stack += stack;
+                    Game1.itemText[index].scale = 0.0f;
+                    Game1.itemText[index].rotation = 0.0f;
+                    Game1.itemText[index].position.X = (float)((double)newItem.position.X + (double)newItem.width * 0.5 - (double)vector2.X * 0.5);
+                    Game1.itemText[index].position.Y = (float)((double)newItem.position.Y + (double)newItem.height * 0.25 - (double)vector2.Y * 0.5);
+                    Game1.itemText[index].velocity.Y = -7f;
+                    if (!Game1.itemText[index].coinText)
                         return;
-                    Main.itemText[index].stack = 1;
+                    Game1.itemText[index].stack = 1;
                     return;
                 }
             }
             int index1 = -1;
             for (int index2 = 0; index2 < 20; ++index2)
             {
-                if (!Main.itemText[index2].active)
+                if (!Game1.itemText[index2].active)
                 {
                     index1 = index2;
                     break;
@@ -126,13 +126,13 @@ namespace GameManager
             }
             if (index1 == -1)
             {
-                double num = (double)Main.bottomWorld;
+                double num = (double)Game1.bottomWorld;
                 for (int index2 = 0; index2 < 20; ++index2)
                 {
-                    if (num > (double)Main.itemText[index2].position.Y)
+                    if (num > (double)Game1.itemText[index2].position.Y)
                     {
                         index1 = index2;
-                        num = (double)Main.itemText[index2].position.Y;
+                        num = (double)Game1.itemText[index2].position.Y;
                     }
                 }
             }
@@ -147,89 +147,89 @@ namespace GameManager
           (object) stack,
           (object) ")"
         });
-            Vector2 vector2_1 = Main.fontMouseText.MeasureString(text);
-            Main.itemText[index1].alpha = 1f;
-            Main.itemText[index1].alphaDir = -1;
-            Main.itemText[index1].active = true;
-            Main.itemText[index1].scale = 0.0f;
-            Main.itemText[index1].NoStack = noStack;
-            Main.itemText[index1].rotation = 0.0f;
-            Main.itemText[index1].position.X = (float)((double)newItem.position.X + (double)newItem.width * 0.5 - (double)vector2_1.X * 0.5);
-            Main.itemText[index1].position.Y = (float)((double)newItem.position.Y + (double)newItem.height * 0.25 - (double)vector2_1.Y * 0.5);
-            Main.itemText[index1].color = Color.White;
+            Vector2 vector2_1 = Game1.fontMouseText.MeasureString(text);
+            Game1.itemText[index1].alpha = 1f;
+            Game1.itemText[index1].alphaDir = -1;
+            Game1.itemText[index1].active = true;
+            Game1.itemText[index1].scale = 0.0f;
+            Game1.itemText[index1].NoStack = noStack;
+            Game1.itemText[index1].rotation = 0.0f;
+            Game1.itemText[index1].position.X = (float)((double)newItem.position.X + (double)newItem.width * 0.5 - (double)vector2_1.X * 0.5);
+            Game1.itemText[index1].position.Y = (float)((double)newItem.position.Y + (double)newItem.height * 0.25 - (double)vector2_1.Y * 0.5);
+            Game1.itemText[index1].color = Color.White;
             if (newItem.rare == 1)
-                Main.itemText[index1].color = new Color(150, 150, (int)byte.MaxValue);
+                Game1.itemText[index1].color = new Color(150, 150, (int)byte.MaxValue);
             else if (newItem.rare == 2)
-                Main.itemText[index1].color = new Color(150, (int)byte.MaxValue, 150);
+                Game1.itemText[index1].color = new Color(150, (int)byte.MaxValue, 150);
             else if (newItem.rare == 3)
-                Main.itemText[index1].color = new Color((int)byte.MaxValue, 200, 150);
+                Game1.itemText[index1].color = new Color((int)byte.MaxValue, 200, 150);
             else if (newItem.rare == 4)
-                Main.itemText[index1].color = new Color((int)byte.MaxValue, 150, 150);
+                Game1.itemText[index1].color = new Color((int)byte.MaxValue, 150, 150);
             else if (newItem.rare == 5)
-                Main.itemText[index1].color = new Color((int)byte.MaxValue, 150, (int)byte.MaxValue);
+                Game1.itemText[index1].color = new Color((int)byte.MaxValue, 150, (int)byte.MaxValue);
             else if (newItem.rare == -11)
-                Main.itemText[index1].color = new Color((int)byte.MaxValue, 175, 0);
+                Game1.itemText[index1].color = new Color((int)byte.MaxValue, 175, 0);
             else if (newItem.rare == -1)
-                Main.itemText[index1].color = new Color(130, 130, 130);
+                Game1.itemText[index1].color = new Color(130, 130, 130);
             else if (newItem.rare == 6)
-                Main.itemText[index1].color = new Color(210, 160, (int)byte.MaxValue);
+                Game1.itemText[index1].color = new Color(210, 160, (int)byte.MaxValue);
             else if (newItem.rare == 7)
-                Main.itemText[index1].color = new Color(150, (int)byte.MaxValue, 10);
+                Game1.itemText[index1].color = new Color(150, (int)byte.MaxValue, 10);
             else if (newItem.rare == 8)
-                Main.itemText[index1].color = new Color((int)byte.MaxValue, (int)byte.MaxValue, 10);
+                Game1.itemText[index1].color = new Color((int)byte.MaxValue, (int)byte.MaxValue, 10);
             else if (newItem.rare == 9)
-                Main.itemText[index1].color = new Color(5, 200, (int)byte.MaxValue);
+                Game1.itemText[index1].color = new Color(5, 200, (int)byte.MaxValue);
             else if (newItem.rare == 10)
-                Main.itemText[index1].color = new Color((int)byte.MaxValue, 40, 100);
+                Game1.itemText[index1].color = new Color((int)byte.MaxValue, 40, 100);
             else if (newItem.rare >= 11)
-                Main.itemText[index1].color = new Color(180, 40, (int)byte.MaxValue);
-            Main.itemText[index1].expert = newItem.expert;
-            Main.itemText[index1].name = newItem.AffixName();
-            Main.itemText[index1].stack = stack;
-            Main.itemText[index1].velocity.Y = -7f;
-            Main.itemText[index1].lifeTime = 60;
+                Game1.itemText[index1].color = new Color(180, 40, (int)byte.MaxValue);
+            Game1.itemText[index1].expert = newItem.expert;
+            Game1.itemText[index1].name = newItem.AffixName();
+            Game1.itemText[index1].stack = stack;
+            Game1.itemText[index1].velocity.Y = -7f;
+            Game1.itemText[index1].lifeTime = 60;
             if (longText)
-                Main.itemText[index1].lifeTime *= 5;
-            Main.itemText[index1].coinValue = 0;
-            Main.itemText[index1].coinText = newItem.itemId >= 71 && newItem.itemId <= 74;
-            if (!Main.itemText[index1].coinText)
+                Game1.itemText[index1].lifeTime *= 5;
+            Game1.itemText[index1].coinValue = 0;
+            Game1.itemText[index1].coinText = newItem.itemId >= 71 && newItem.itemId <= 74;
+            if (!Game1.itemText[index1].coinText)
                 return;
             if (newItem.itemId == 71)
-                Main.itemText[index1].coinValue += Main.itemText[index1].stack;
+                Game1.itemText[index1].coinValue += Game1.itemText[index1].stack;
             else if (newItem.itemId == 72)
-                Main.itemText[index1].coinValue += 100 * Main.itemText[index1].stack;
+                Game1.itemText[index1].coinValue += 100 * Game1.itemText[index1].stack;
             else if (newItem.itemId == 73)
-                Main.itemText[index1].coinValue += 10000 * Main.itemText[index1].stack;
+                Game1.itemText[index1].coinValue += 10000 * Game1.itemText[index1].stack;
             else if (newItem.itemId == 74)
-                Main.itemText[index1].coinValue += 1000000 * Main.itemText[index1].stack;
-            Main.itemText[index1].ValueToName();
-            Main.itemText[index1].stack = 1;
+                Game1.itemText[index1].coinValue += 1000000 * Game1.itemText[index1].stack;
+            Game1.itemText[index1].ValueToName();
+            Game1.itemText[index1].stack = 1;
             int index3 = index1;
-            if (Main.itemText[index3].coinValue >= 1000000)
+            if (Game1.itemText[index3].coinValue >= 1000000)
             {
-                if (Main.itemText[index3].lifeTime < 300)
-                    Main.itemText[index3].lifeTime = 300;
-                Main.itemText[index3].color = new Color(220, 220, 198);
+                if (Game1.itemText[index3].lifeTime < 300)
+                    Game1.itemText[index3].lifeTime = 300;
+                Game1.itemText[index3].color = new Color(220, 220, 198);
             }
-            else if (Main.itemText[index3].coinValue >= 10000)
+            else if (Game1.itemText[index3].coinValue >= 10000)
             {
-                if (Main.itemText[index3].lifeTime < 240)
-                    Main.itemText[index3].lifeTime = 240;
-                Main.itemText[index3].color = new Color(224, 201, 92);
+                if (Game1.itemText[index3].lifeTime < 240)
+                    Game1.itemText[index3].lifeTime = 240;
+                Game1.itemText[index3].color = new Color(224, 201, 92);
             }
-            else if (Main.itemText[index3].coinValue >= 100)
+            else if (Game1.itemText[index3].coinValue >= 100)
             {
-                if (Main.itemText[index3].lifeTime < 180)
-                    Main.itemText[index3].lifeTime = 180;
-                Main.itemText[index3].color = new Color(181, 192, 193);
+                if (Game1.itemText[index3].lifeTime < 180)
+                    Game1.itemText[index3].lifeTime = 180;
+                Game1.itemText[index3].color = new Color(181, 192, 193);
             }
             else
             {
-                if (Main.itemText[index3].coinValue < 1)
+                if (Game1.itemText[index3].coinValue < 1)
                     return;
-                if (Main.itemText[index3].lifeTime < 120)
-                    Main.itemText[index3].lifeTime = 120;
-                Main.itemText[index3].color = new Color(246, 138, 96);
+                if (Game1.itemText[index3].lifeTime < 120)
+                    Game1.itemText[index3].lifeTime = 120;
+                Game1.itemText[index3].color = new Color(246, 138, 96);
             }
         }
 
@@ -353,7 +353,7 @@ namespace GameManager
                 this.alphaDir = -1;
             }
             if (this.expert && this.expert)
-                this.color = new Color((int)(byte)Main.DiscoR, (int)(byte)Main.DiscoG, (int)(byte)Main.DiscoB, (int)Main.mouseTextColor);
+                this.color = new Color((int)(byte)Game1.DiscoR, (int)(byte)Game1.DiscoG, (int)(byte)Game1.DiscoB, (int)Game1.mouseTextColor);
             bool flag = false;
             string text1 = this.name;
             if (this.stack > 1)
@@ -364,33 +364,33 @@ namespace GameManager
           (object) this.stack,
           (object) ")"
         });
-            Vector2 vector2_1 = Main.fontMouseText.MeasureString(text1) * this.scale;
+            Vector2 vector2_1 = Game1.fontMouseText.MeasureString(text1) * this.scale;
             vector2_1.Y *= 0.8f;
             Rectangle rectangle1 = new Rectangle((int)((double)this.position.X - (double)vector2_1.X / 2.0), (int)((double)this.position.Y - (double)vector2_1.Y / 2.0), (int)vector2_1.X, (int)vector2_1.Y);
             for (int index = 0; index < 20; ++index)
             {
-                if (Main.itemText[index].active && index != whoAmI)
+                if (Game1.itemText[index].active && index != whoAmI)
                 {
-                    string text2 = Main.itemText[index].name;
-                    if (Main.itemText[index].stack > 1)
+                    string text2 = Game1.itemText[index].name;
+                    if (Game1.itemText[index].stack > 1)
                         text2 = string.Concat(new object[4]
             {
               (object) text2,
               (object) " (",
-              (object) Main.itemText[index].stack,
+              (object) Game1.itemText[index].stack,
               (object) ")"
             });
-                    Vector2 vector2_2 = Main.fontMouseText.MeasureString(text2);
-                    vector2_2 *= Main.itemText[index].scale;
+                    Vector2 vector2_2 = Game1.fontMouseText.MeasureString(text2);
+                    vector2_2 *= Game1.itemText[index].scale;
                     vector2_2.Y *= 0.8f;
-                    Rectangle rectangle2 = new Rectangle((int)((double)Main.itemText[index].position.X - (double)vector2_2.X / 2.0), (int)((double)Main.itemText[index].position.Y - (double)vector2_2.Y / 2.0), (int)vector2_2.X, (int)vector2_2.Y);
-                    if (rectangle1.Intersects(rectangle2) && ((double)this.position.Y < (double)Main.itemText[index].position.Y || (double)this.position.Y == (double)Main.itemText[index].position.Y && whoAmI < index))
+                    Rectangle rectangle2 = new Rectangle((int)((double)Game1.itemText[index].position.X - (double)vector2_2.X / 2.0), (int)((double)Game1.itemText[index].position.Y - (double)vector2_2.Y / 2.0), (int)vector2_2.X, (int)vector2_2.Y);
+                    if (rectangle1.Intersects(rectangle2) && ((double)this.position.Y < (double)Game1.itemText[index].position.Y || (double)this.position.Y == (double)Game1.itemText[index].position.Y && whoAmI < index))
                     {
                         flag = true;
                         int num = ItemText.numActive;
                         if (num > 3)
                             num = 3;
-                        Main.itemText[index].lifeTime = ItemText.activeTime + 15 * num;
+                        Game1.itemText[index].lifeTime = ItemText.activeTime + 15 * num;
                         this.lifeTime = ItemText.activeTime + 15 * num;
                     }
                 }
@@ -430,10 +430,10 @@ namespace GameManager
             int num = 0;
             for (int whoAmI = 0; whoAmI < 20; ++whoAmI)
             {
-                if (Main.itemText[whoAmI].active)
+                if (Game1.itemText[whoAmI].active)
                 {
                     ++num;
-                    Main.itemText[whoAmI].Update(whoAmI);
+                    Game1.itemText[whoAmI].Update(whoAmI);
                 }
             }
             ItemText.numActive = num;

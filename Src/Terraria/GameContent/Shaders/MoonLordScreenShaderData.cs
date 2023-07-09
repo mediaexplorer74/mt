@@ -22,13 +22,13 @@ namespace GameManager.GameContent.Shaders
 
         private void UpdateMoonLordIndex()
         {
-            if (_moonLordIndex >= 0 && Main.npc[_moonLordIndex].active && Main.npc[_moonLordIndex].type == 398)
+            if (_moonLordIndex >= 0 && Game1.npc[_moonLordIndex].active && Game1.npc[_moonLordIndex].type == 398)
                 return;
 
             int num = -1;
-            for (int index = 0; index < Main.npc.Length; ++index)
+            for (int index = 0; index < Game1.npc.Length; ++index)
             {
-                if (Main.npc[index].active && Main.npc[index].type == 398)
+                if (Game1.npc[index].active && Game1.npc[index].type == 398)
                 {
                     num = index;
                     break;
@@ -41,7 +41,7 @@ namespace GameManager.GameContent.Shaders
         {
             UpdateMoonLordIndex();
             if (_moonLordIndex != -1)
-                UseTargetPosition(Main.npc[_moonLordIndex].Center);
+                UseTargetPosition(Game1.npc[_moonLordIndex].Center);
             base.Apply();
         }
     }

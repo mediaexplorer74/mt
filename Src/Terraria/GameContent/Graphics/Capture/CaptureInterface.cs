@@ -54,19 +54,19 @@ namespace GameManager.Graphics.Capture
             if (CameraLock)
                 return;
 
-            bool flag = Main.keyState.IsKeyDown(Keys.F1);
-            if (flag && !KeyToggleActiveHeld && (Main.mouseItem.itemId == 0 || Active) 
-                && !Main.CaptureModeDisabled)
+            bool flag = Game1.keyState.IsKeyDown(Keys.F1);
+            if (flag && !KeyToggleActiveHeld && (Game1.mouseItem.itemId == 0 || Active) 
+                && !Game1.CaptureModeDisabled)
                 ToggleCamera(!Active);
 
             KeyToggleActiveHeld = flag;
             if (!Active)
                 return;
 
-            Main.blockMouse = true;
-            if (JustActivated && Main.mouseLeftRelease && !Main.mouseLeft)
+            Game1.blockMouse = true;
+            if (JustActivated && Game1.mouseLeftRelease && !Game1.mouseLeft)
                 JustActivated = false;
-            if (UpdateButtons(new Vector2((float)Main.mouseX, (float)Main.mouseY)) && Main.mouseLeft)
+            if (UpdateButtons(new Vector2((float)Game1.mouseX, (float)Game1.mouseY)) && Game1.mouseLeft)
                 return;
 
             foreach (KeyValuePair<int, CaptureInterfaceMode> keyValuePair in Modes)
@@ -83,13 +83,13 @@ namespace GameManager.Graphics.Capture
 
             foreach (CaptureInterfaceMode captureInterfaceMode in Modes.Values)
                 captureInterfaceMode.Draw(sb);
-            Main.mouseText = false;
-            Main.instance.GUIBarsDraw();
+            Game1.mouseText = false;
+            Game1.instance.GUIBarsDraw();
             DrawButtons(sb);
-            Main.instance.DrawMouseOver();
-            Utils.DrawBorderStringBig(sb, Lang.inter[81], new Vector2((float)Main.screenWidth * 0.5f, 100f),
+            Game1.instance.DrawMouseOver();
+            Utils.DrawBorderStringBig(sb, Lang.inter[81], new Vector2((float)Game1.screenWidth * 0.5f, 100f),
                 Color.White, 1f, 0.5f, 0.5f, -1);
-            Utils.DrawCursorSingle(sb, Main.cursorColor, float.NaN, Main.cursorScale, new Vector2(), 0, 0);
+            Utils.DrawCursorSingle(sb, Game1.cursorColor, float.NaN, Game1.cursorScale, new Vector2(), 0, 0);
             DrawCameraLock(sb);
         }
 
@@ -101,7 +101,7 @@ namespace GameManager.Graphics.Capture
             bool flag = Active;
             Active = Modes.ContainsKey(SelectedMode) && On;
             if (flag != Active)
-                Main.PlaySound(12, -1, -1, 1);
+                Game1.PlaySound(12, -1, -1, 1);
             foreach (KeyValuePair<int, CaptureInterfaceMode> keyValuePair in Modes)
                 keyValuePair.Value.ToggleActive(Active && keyValuePair.Key == SelectedMode);
 
@@ -113,14 +113,14 @@ namespace GameManager.Graphics.Capture
         private bool UpdateButtons(Vector2 mouse)
         {
             HoveredMode = -1;
-            bool flag1 = !Main.graphics.IsFullScreen;
+            bool flag1 = !Game1.graphics.IsFullScreen;
             int num1 = 9;
             for (int index = 0; index < num1; ++index)
             {
                 if (new Rectangle(24 + 46 * index, 24, 42, 42).Contains(Utils.ToPoint(mouse)))
                 {
                     HoveredMode = index;
-                    bool flag2 = Main.mouseLeft && Main.mouseLeftRelease;
+                    bool flag2 = Game1.mouseLeft && Game1.mouseLeftRelease;
                     int num2 = 0;
                     int num3 = index;
                     int num4 = num2;
@@ -130,9 +130,9 @@ namespace GameManager.Graphics.Capture
                     if (num3 == num4 && flag2)
                     {
                         CaptureSettings settings = new CaptureSettings();
-                        Point point1 = Utils.ToTileCoordinates(Main.screenPosition);
-                        Point point2 = Utils.ToTileCoordinates(Main.screenPosition
-                            + new Vector2((float)Main.screenWidth, (float)Main.screenHeight));
+                        Point point1 = Utils.ToTileCoordinates(Game1.screenPosition);
+                        Point point2 = Utils.ToTileCoordinates(Game1.screenPosition
+                            + new Vector2((float)Game1.screenWidth, (float)Game1.screenHeight));
                         settings.Area = new Rectangle(point1.X, point1.Y, 
                             point2.X - point1.X + 1, point2.Y - point1.Y + 1);
 
@@ -190,8 +190,8 @@ namespace GameManager.Graphics.Capture
                     int num24 = num22;
                     int num25 = 1;
                     int num26 = num24 + num25;
-                    if (num23 == num24 && flag2 && Main.mapEnabled)
-                        Main.mapFullscreen = !Main.mapFullscreen;
+                    if (num23 == num24 && flag2 && Game1.mapEnabled)
+                        Game1.mapFullscreen = !Game1.mapFullscreen;
                     int num27 = index;
                     int num28 = num26;
                     int num29 = 1;
@@ -223,8 +223,8 @@ namespace GameManager.Graphics.Capture
                     if (num35 == num36 && flag2)
                     {
                         ToggleCamera(false);
-                        Main.blockMouse = true;
-                        Main.mouseLeftRelease = false;
+                        Game1.blockMouse = true;
+                        Game1.mouseLeftRelease = false;
                     }
                     return true;
                 }
@@ -234,47 +234,47 @@ namespace GameManager.Graphics.Capture
 
         private void DrawButtons(SpriteBatch sb)
         {
-            Vector2 vector2 = new Vector2((float)Main.mouseX, (float)Main.mouseY);
+            Vector2 vector2 = new Vector2((float)Game1.mouseX, (float)Game1.mouseY);
             int num = 9;
             for (int index = 0; index < num; ++index)
             {
-                Texture2D texture2D = Main.inventoryBackTexture;
+                Texture2D texture2D = Game1.inventoryBackTexture;
                 float scale = 0.8f;
                 Vector2 position = new Vector2((float)(24 + 46 * index), 24f);
-                Color color = Main.inventoryBack * 0.8f;
+                Color color = Game1.inventoryBack * 0.8f;
                 if (SelectedMode == 0 && index == 2)
-                    texture2D = Main.inventoryBack14Texture;
+                    texture2D = Game1.inventoryBack14Texture;
                 else if (SelectedMode == 1 && index == 3)
-                    texture2D = Main.inventoryBack14Texture;
+                    texture2D = Game1.inventoryBack14Texture;
                 else if (SelectedMode == 2 && index == 6)
-                    texture2D = Main.inventoryBack14Texture;
+                    texture2D = Game1.inventoryBack14Texture;
                 else if (index >= 2 && index <= 3)
-                    texture2D = Main.inventoryBack2Texture;
+                    texture2D = Game1.inventoryBack2Texture;
                 sb.Draw(texture2D, position, new Rectangle?(), color, 0.0f, new Vector2(), scale, SpriteEffects.None, 0.0f);
                 switch (index)
                 {
                     case 0:
-                        texture2D = Main.cameraTexture[7];
+                        texture2D = Game1.cameraTexture[7];
                         break;
                     case 1:
-                        texture2D = Main.cameraTexture[0];
+                        texture2D = Game1.cameraTexture[0];
                         break;
                     case 2:
                     case 3:
                     case 4:
-                        texture2D = Main.cameraTexture[index];
+                        texture2D = Game1.cameraTexture[index];
                         break;
                     case 5:
-                        texture2D = Main.mapFullscreen ? Main.mapIconTexture[0] : Main.mapIconTexture[4];
+                        texture2D = Game1.mapFullscreen ? Game1.mapIconTexture[0] : Game1.mapIconTexture[4];
                         break;
                     case 6:
-                        texture2D = Main.cameraTexture[1];
+                        texture2D = Game1.cameraTexture[1];
                         break;
                     case 7:
-                        texture2D = Main.cameraTexture[6];
+                        texture2D = Game1.cameraTexture[6];
                         break;
                     case 8:
-                        texture2D = Main.cameraTexture[5];
+                        texture2D = Game1.cameraTexture[5];
                         break;
                 }
 
@@ -290,14 +290,14 @@ namespace GameManager.Graphics.Capture
                         }
                         break;
                     case 5:
-                        if (!Main.mapEnabled)
+                        if (!Game1.mapEnabled)
                         {
                             flag = true;
                             break;
                         }
                         break;
                     case 7:
-                        if (Main.graphics.IsFullScreen)
+                        if (Game1.graphics.IsFullScreen)
                         {
                             flag = true;
                             break;
@@ -305,7 +305,7 @@ namespace GameManager.Graphics.Capture
                         break;
                 }
                 if (flag)
-                    sb.Draw(Main.cdTexture, position + new Vector2(26f) * scale, new Rectangle?(), Color.White * 0.65f, 0.0f, Utils.Size(Main.cdTexture) / 2f, 1f, SpriteEffects.None, 0.0f);
+                    sb.Draw(Game1.cdTexture, position + new Vector2(26f) * scale, new Rectangle?(), Color.White * 0.65f, 0.0f, Utils.Size(Game1.cdTexture) / 2f, 1f, SpriteEffects.None, 0.0f);
             }
 
             string cursorText = "";
@@ -322,14 +322,14 @@ namespace GameManager.Graphics.Capture
                             }
                             break;
                         case 5:
-                            if (!Main.mapEnabled)
+                            if (!Game1.mapEnabled)
                             {
                                 cursorText = cursorText + "\n" + Lang.inter[114];
                                 break;
                             }
                             break;
                         case 7:
-                            if (Main.graphics.IsFullScreen)
+                            if (Game1.graphics.IsFullScreen)
                             {
                                 cursorText = cursorText + "\n" + Lang.inter[113];
                                 break;
@@ -339,7 +339,7 @@ namespace GameManager.Graphics.Capture
 
                     if (!(cursorText != ""))
                         break;
-                    Main.instance.MouseText(cursorText, 0, 0);
+                    Game1.instance.MouseText(cursorText, 0, 0);
                     break;
                 case 0:
                     cursorText = Lang.inter[111];
@@ -357,7 +357,7 @@ namespace GameManager.Graphics.Capture
                     cursorText = Lang.inter[78];
                     goto case -1;
                 case 5:
-                    cursorText = Main.mapFullscreen ? Lang.inter[109] : Lang.inter[108];
+                    cursorText = Game1.mapFullscreen ? Lang.inter[109] : Lang.inter[108];
                     goto case -1;
                 case 6:
                     cursorText = Lang.inter[68];
@@ -376,53 +376,53 @@ namespace GameManager.Graphics.Capture
 
         private static bool GetMapCoords(int PinX, int PinY, int Goal, out Point result)
         {
-            if (!Main.mapFullscreen)
+            if (!Game1.mapFullscreen)
             {
                 result = new Point(-1, -1);
                 return false;
             }
 
             float num3 = 2f;
-            int num4 = Main.maxTilesX / Main.textureMaxWidth;
-            int num5 = Main.maxTilesY / Main.textureMaxHeight;
+            int num4 = Game1.maxTilesX / Game1.textureMaxWidth;
+            int num5 = Game1.maxTilesY / Game1.textureMaxHeight;
             float num6 = 10f;
             float num7 = 10f;
-            float num8 = (float)(Main.maxTilesX - 10);
-            float num9 = (float)(Main.maxTilesY - 10);
-            num3 = Main.mapFullscreenScale;
-            float num10 = (float)(Main.screenWidth / Main.maxTilesX * 0.800000011920929);
-            if (Main.mapFullscreenScale < num10)
-                Main.mapFullscreenScale = num10;
-            if (Main.mapFullscreenScale > 16.0)
-                Main.mapFullscreenScale = 16f;
-            float num11 = Main.mapFullscreenScale;
-            if (Main.mapFullscreenPos.X < num6)
-                Main.mapFullscreenPos.X = num6;
-            if (Main.mapFullscreenPos.X > num8)
-                Main.mapFullscreenPos.X = num8;
-            if (Main.mapFullscreenPos.Y < num7)
-                Main.mapFullscreenPos.Y = num7;
-            if (Main.mapFullscreenPos.Y > num9)
-                Main.mapFullscreenPos.Y = num9;
+            float num8 = (float)(Game1.maxTilesX - 10);
+            float num9 = (float)(Game1.maxTilesY - 10);
+            num3 = Game1.mapFullscreenScale;
+            float num10 = (float)(Game1.screenWidth / Game1.maxTilesX * 0.800000011920929);
+            if (Game1.mapFullscreenScale < num10)
+                Game1.mapFullscreenScale = num10;
+            if (Game1.mapFullscreenScale > 16.0)
+                Game1.mapFullscreenScale = 16f;
+            float num11 = Game1.mapFullscreenScale;
+            if (Game1.mapFullscreenPos.X < num6)
+                Game1.mapFullscreenPos.X = num6;
+            if (Game1.mapFullscreenPos.X > num8)
+                Game1.mapFullscreenPos.X = num8;
+            if (Game1.mapFullscreenPos.Y < num7)
+                Game1.mapFullscreenPos.Y = num7;
+            if (Game1.mapFullscreenPos.Y > num9)
+                Game1.mapFullscreenPos.Y = num9;
 
-            float num12 = Main.mapFullscreenPos.X;
-            float num13 = Main.mapFullscreenPos.Y;
+            float num12 = Game1.mapFullscreenPos.X;
+            float num13 = Game1.mapFullscreenPos.Y;
             float num14 = num12 * num11;
             float num15 = num13 * num11;
-            float num16 = -num14 + (float)(Main.screenWidth / 2);
-            float num17 = -num15 + (float)(Main.screenHeight / 2);
+            float num16 = -num14 + (float)(Game1.screenWidth / 2);
+            float num17 = -num15 + (float)(Game1.screenHeight / 2);
             float x1 = num16 + num6 * num11;
             float y1 = num17 + num7 * num11;
-            float num18 = (float)(Main.maxTilesX / 840) * Main.mapFullscreenScale;
+            float num18 = (float)(Game1.maxTilesX / 840) * Game1.mapFullscreenScale;
             float num19 = x1;
             float num20 = y1;
-            float num21 = (float)Main.mapTexture.Width;
-            float num22 = (float)Main.mapTexture.Height;
+            float num21 = (float)Game1.mapTexture.Width;
+            float num22 = (float)Game1.mapTexture.Height;
             float num23;
             float num24;
             float num25;
             float num26;
-            if (Main.maxTilesX == 8400)
+            if (Game1.maxTilesX == 8400)
             {
                 float num27 = num18 * 0.999f;
                 num23 = num19 - 40.6f * num27;
@@ -432,7 +432,7 @@ namespace GameManager.Graphics.Capture
                 if (num27 < 1.2)
                     num26 = num28 + 1f;
             }
-            else if (Main.maxTilesX == 6400)
+            else if (Game1.maxTilesX == 6400)
             {
                 float num27 = num18 * 1.09f;
                 num23 = num19 - 38.8f * num27;
@@ -442,7 +442,7 @@ namespace GameManager.Graphics.Capture
                 if (num27 < 1.2)
                     num26 = num28 + 2f;
             }
-            else if (Main.maxTilesX == 6300)
+            else if (Game1.maxTilesX == 6300)
             {
                 float num27 = num18 * 1.09f;
                 num23 = num19 - 39.8f * num27;
@@ -452,7 +452,7 @@ namespace GameManager.Graphics.Capture
                 if (num27 < 1.2)
                     num26 = num28 + 2f;
             }
-            else if (Main.maxTilesX == 4200)
+            else if (Game1.maxTilesX == 4200)
             {
                 float num27 = num18 * 0.998f;
                 num23 = num19 - 37.3f * num27;
@@ -512,13 +512,13 @@ namespace GameManager.Graphics.Capture
         {
             if (point.X < fluff)
                 point.X = fluff;
-            if (point.X > Main.maxTilesX - 1 - fluff)
-                point.X = Main.maxTilesX - 1 - fluff;
+            if (point.X > Game1.maxTilesX - 1 - fluff)
+                point.X = Game1.maxTilesX - 1 - fluff;
             if (point.Y < fluff)
                 point.Y = fluff;
-            if (point.Y <= Main.maxTilesY - 1 - fluff)
+            if (point.Y <= Game1.maxTilesY - 1 - fluff)
                 return;
-            point.Y = Main.maxTilesY - 1 - fluff;
+            point.Y = Game1.maxTilesY - 1 - fluff;
         }
 
         public bool UsingMap()
@@ -539,7 +539,7 @@ namespace GameManager.Graphics.Capture
 
         public void Scrolling()
         {
-            int num1 = (Main.mouseState.ScrollWheelValue - Main.oldMouseWheel) / 120 % 30;
+            int num1 = (Game1.mouseState.ScrollWheelValue - Game1.oldMouseWheel) / 120 % 30;
             if (num1 < 0)
                 num1 += 30;
 
@@ -552,7 +552,7 @@ namespace GameManager.Graphics.Capture
             if (SelectedMode == num2)
                 return;
 
-            Main.PlaySound(12, -1, -1, 1);
+            Game1.PlaySound(12, -1, -1, 1);
         }
 
         private void UpdateCamera()
@@ -576,7 +576,7 @@ namespace GameManager.Graphics.Capture
         {
             if (CameraFrame == 0.0)
                 return;
-            sb.Draw(Main.magicPixel, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle?(new Rectangle(0, 0, 1, 1)), Color.Black * (CameraFrame / 5f));
+            sb.Draw(Game1.magicPixel, new Rectangle(0, 0, Game1.screenWidth, Game1.screenHeight), new Rectangle?(new Rectangle(0, 0, 1, 1)), Color.Black * (CameraFrame / 5f));
             if (CameraFrame != 5.0)
                 return;
             float num1 = (float)(CameraWaiting - 60.0 + 5.0);
@@ -590,19 +590,19 @@ namespace GameManager.Graphics.Capture
 
             string text1 = num3.ToString("##") + " ";
             string text2 = "/ 100%";
-            Vector2 vector2_1 = Main.fontDeathText.MeasureString(text1);
-            Vector2 vector2_2 = Main.fontDeathText.MeasureString(text2);
+            Vector2 vector2_1 = Game1.fontDeathText.MeasureString(text1);
+            Vector2 vector2_2 = Game1.fontDeathText.MeasureString(text2);
             Vector2 vector2_3 = new Vector2(-vector2_1.X, (float)(-vector2_1.Y / 2.0));
             Vector2 vector2_4 = new Vector2(0.0f, (float)(-vector2_2.Y / 2.0));
-            ChatManager.DrawColorCodedStringWithShadow(sb, Main.fontDeathText, text1, new Vector2((float)Main.screenWidth,
-                (float)Main.screenHeight) / 2f + vector2_3, Color.White * num2, 0.0f, Vector2.Zero, Vector2.One, -1f, 2f);
-            ChatManager.DrawColorCodedStringWithShadow(sb, Main.fontDeathText, text2, new Vector2((float)Main.screenWidth,
-                (float)Main.screenHeight) / 2f + vector2_4, Color.White * num2, 0.0f, Vector2.Zero, Vector2.One, -1f, 2f);
+            ChatManager.DrawColorCodedStringWithShadow(sb, Game1.fontDeathText, text1, new Vector2((float)Game1.screenWidth,
+                (float)Game1.screenHeight) / 2f + vector2_3, Color.White * num2, 0.0f, Vector2.Zero, Vector2.One, -1f, 2f);
+            ChatManager.DrawColorCodedStringWithShadow(sb, Game1.fontDeathText, text2, new Vector2((float)Game1.screenWidth,
+                (float)Game1.screenHeight) / 2f + vector2_4, Color.White * num2, 0.0f, Vector2.Zero, Vector2.One, -1f, 2f);
         }
 
         public static void StartCamera(CaptureSettings settings)
         {
-            Main.PlaySound(40, -1, -1, 1);
+            Game1.PlaySound(40, -1, -1, 1);
             CameraSettings = settings;
             CameraLock = true;
             CameraWaiting = 0.0f;
@@ -642,7 +642,7 @@ namespace GameManager.Graphics.Capture
             {
                 if (!Selected)
                     return;
-                EdgePlacement(new Vector2((float)Main.mouseX, (float)Main.mouseY));
+                EdgePlacement(new Vector2((float)Game1.mouseX, (float)Game1.mouseY));
             }
 
             public override void Draw(SpriteBatch sb)
@@ -666,18 +666,18 @@ namespace GameManager.Graphics.Capture
                 if (JustActivated)
                     return;
 
-                if (!Main.mapFullscreen)
+                if (!Game1.mapFullscreen)
                 {
-                    if (Main.mouseLeft)
+                    if (Game1.mouseLeft)
                     {
                         EdgeAPinned = true;
-                        EdgeA = Utils.ToTileCoordinates(Main.MouseWorld);
+                        EdgeA = Utils.ToTileCoordinates(Game1.MouseWorld);
                     }
 
-                    if (Main.mouseRight)
+                    if (Game1.mouseRight)
                     {
                         EdgeBPinned = true;
-                        EdgeB = Utils.ToTileCoordinates(Main.MouseWorld);
+                        EdgeB = Utils.ToTileCoordinates(Game1.MouseWorld);
                     }
                 }
                 else
@@ -685,12 +685,12 @@ namespace GameManager.Graphics.Capture
                     Point result;
                     if (GetMapCoords((int)mouse.X, (int)mouse.Y, 0, out result))
                     {
-                        if (Main.mouseLeft)
+                        if (Game1.mouseLeft)
                         {
                             EdgeAPinned = true;
                             EdgeA = result;
                         }
-                        if (Main.mouseRight)
+                        if (Game1.mouseRight)
                         {
                             EdgeBPinned = true;
                             EdgeB = result;
@@ -709,21 +709,21 @@ namespace GameManager.Graphics.Capture
                 int PinY = Math.Min(EdgeA.Y, EdgeB.Y);
                 int num1 = Math.Abs(EdgeA.X - EdgeB.X);
                 int num2 = Math.Abs(EdgeA.Y - EdgeB.Y);
-                if (!Main.mapFullscreen)
+                if (!Game1.mapFullscreen)
                 {
-                    Rectangle rectangle1 = Main.ReverseGravitySupport(new Rectangle(PinX * 16, PinY * 16, (num1 + 1) * 16, (num2 + 1) * 16));
-                    Rectangle rectangle2 = Main.ReverseGravitySupport(new Rectangle((int)Main.screenPosition.X, (int)Main.screenPosition.Y, Main.screenWidth + 1, Main.screenHeight + 1));
+                    Rectangle rectangle1 = Game1.ReverseGravitySupport(new Rectangle(PinX * 16, PinY * 16, (num1 + 1) * 16, (num2 + 1) * 16));
+                    Rectangle rectangle2 = Game1.ReverseGravitySupport(new Rectangle((int)Game1.screenPosition.X, (int)Game1.screenPosition.Y, Game1.screenWidth + 1, Game1.screenHeight + 1));
                     Rectangle result;
                     Rectangle.Intersect(ref rectangle2, ref rectangle1, out result);
                     if (result.Width == 0 || result.Height == 0)
                         return;
 
                     result.Offset(-rectangle2.X, -rectangle2.Y);
-                    sb.Draw(Main.magicPixel, result, Settings.MarkedAreaColor);
+                    sb.Draw(Game1.magicPixel, result, Settings.MarkedAreaColor);
                     for (int index = 0; index < 2; ++index)
                     {
-                        sb.Draw(Main.magicPixel, new Rectangle(result.X, result.Y + (index == 1 ? result.Height : -2), result.Width, 2), Color.White);
-                        sb.Draw(Main.magicPixel, new Rectangle(result.X + (index == 1 ? result.Width : -2), result.Y, 2, result.Height), Color.White);
+                        sb.Draw(Game1.magicPixel, new Rectangle(result.X, result.Y + (index == 1 ? result.Height : -2), result.Width, 2), Color.White);
+                        sb.Draw(Game1.magicPixel, new Rectangle(result.X + (index == 1 ? result.Width : -2), result.Y, 2, result.Height), Color.White);
                     }
                 }
                 else
@@ -732,48 +732,48 @@ namespace GameManager.Graphics.Capture
                     GetMapCoords(PinX, PinY, 1, out result1);
                     GetMapCoords(PinX + num1 + 1, PinY + num2 + 1, 1, out result2);
                     Rectangle rectangle1 = new Rectangle(result1.X, result1.Y, result2.X - result1.X, result2.Y - result1.Y);
-                    Rectangle rectangle2 = new Rectangle(0, 0, Main.screenWidth + 1, Main.screenHeight + 1);
+                    Rectangle rectangle2 = new Rectangle(0, 0, Game1.screenWidth + 1, Game1.screenHeight + 1);
                     Rectangle result3;
                     Rectangle.Intersect(ref rectangle2, ref rectangle1, out result3);
                     if (result3.Width == 0 || result3.Height == 0)
                         return;
 
                     result3.Offset(-rectangle2.X, -rectangle2.Y);
-                    sb.Draw(Main.magicPixel, result3, Settings.MarkedAreaColor);
+                    sb.Draw(Game1.magicPixel, result3, Settings.MarkedAreaColor);
                     for (int index = 0; index < 2; ++index)
                     {
-                        sb.Draw(Main.magicPixel, new Rectangle(result3.X, result3.Y + (index == 1 ? result3.Height : -2), result3.Width, 2), Color.White);
-                        sb.Draw(Main.magicPixel, new Rectangle(result3.X + (index == 1 ? result3.Width : -2), result3.Y, 2, result3.Height), Color.White);
+                        sb.Draw(Game1.magicPixel, new Rectangle(result3.X, result3.Y + (index == 1 ? result3.Height : -2), result3.Width, 2), Color.White);
+                        sb.Draw(Game1.magicPixel, new Rectangle(result3.X + (index == 1 ? result3.Width : -2), result3.Y, 2, result3.Height), Color.White);
                     }
                 }
             }
 
             private void DrawCursors(SpriteBatch sb)
             {
-                float num1 = 1f / Main.cursorScale;
+                float num1 = 1f / Game1.cursorScale;
                 float num2 = 0.8f / num1;
-                Vector2 min = Main.screenPosition + new Vector2(30f);
-                Vector2 max = min + new Vector2((float)Main.screenWidth, (float)Main.screenHeight) - new Vector2(60f);
-                if (Main.mapFullscreen)
+                Vector2 min = Game1.screenPosition + new Vector2(30f);
+                Vector2 max = min + new Vector2((float)Game1.screenWidth, (float)Game1.screenHeight) - new Vector2(60f);
+                if (Game1.mapFullscreen)
                 {
-                    min -= Main.screenPosition;
-                    max -= Main.screenPosition;
+                    min -= Game1.screenPosition;
+                    max -= Game1.screenPosition;
                 }
 
-                Vector3 vector3 = Main.rgbToHsl(Main.cursorColor);
-                Main.hslToRgb((float)((vector3.X + 0.330000013113022) % 1.0), vector3.Y, vector3.Z);
-                Main.hslToRgb((float)((vector3.X - 0.330000013113022) % 1.0), vector3.Y, vector3.Z);
+                Vector3 vector3 = Game1.rgbToHsl(Game1.cursorColor);
+                Game1.hslToRgb((float)((vector3.X + 0.330000013113022) % 1.0), vector3.Y, vector3.Z);
+                Game1.hslToRgb((float)((vector3.X - 0.330000013113022) % 1.0), vector3.Y, vector3.Z);
                 Color white;
                 Color color = white = Color.White;
-                bool flag = (double)Main.player[Main.myPlayer].gravDir == -1.0;
+                bool flag = (double)Game1.player[Game1.myPlayer].gravDir == -1.0;
                 if (!EdgeAPinned)
-                    Utils.DrawCursorSingle(sb, color, 3.926991f, Main.cursorScale * num1 * num2, new Vector2((float)((double)Main.mouseX - 5.0 + 12.0), (float)((double)Main.mouseY + 2.5 + 12.0)), 4, 0);
+                    Utils.DrawCursorSingle(sb, color, 3.926991f, Game1.cursorScale * num1 * num2, new Vector2((float)((double)Game1.mouseX - 5.0 + 12.0), (float)((double)Game1.mouseY + 2.5 + 12.0)), 4, 0);
                 else
                 {
                     int specialMode = 0;
                     float num3 = 0.0f;
                     Vector2 vector2_1 = Vector2.Zero;
-                    if (!Main.mapFullscreen)
+                    if (!Game1.mapFullscreen)
                     {
                         Vector2 vector2_2 = Utils.ToVector2(EdgeA) * 16f;
                         float num4;
@@ -783,7 +783,7 @@ namespace GameManager.Graphics.Capture
                             specialMode = 1;
                             Vector2 vector2_4 = vector2_2 + Vector2.One * 8f;
                             vector2_1 = vector2_4;
-                            num4 = Utils.ToRotation(-vector2_4 + Main.ReverseGravitySupport(new Vector2((float)Main.mouseX, (float)Main.mouseY), 0.0f) + Main.screenPosition);
+                            num4 = Utils.ToRotation(-vector2_4 + Game1.ReverseGravitySupport(new Vector2((float)Game1.mouseX, (float)Game1.mouseY), 0.0f) + Game1.screenPosition);
                             if (flag)
                                 num4 = -num4;
 
@@ -806,7 +806,7 @@ namespace GameManager.Graphics.Capture
                             if (flag)
                                 num4 *= -1f;
                         }
-                        Utils.DrawCursorSingle(sb, color, num4 - 1.570796f, Main.cursorScale * num1, Main.ReverseGravitySupport(vector2_3 - Main.screenPosition, 0.0f), 4, specialMode);
+                        Utils.DrawCursorSingle(sb, color, num4 - 1.570796f, Game1.cursorScale * num1, Game1.ReverseGravitySupport(vector2_3 - Game1.screenPosition, 0.0f), 4, specialMode);
                     }
                     else
                     {
@@ -827,18 +827,18 @@ namespace GameManager.Graphics.Capture
                         }
                         else
                             GetMapCoords(result1.X, result1.Y, 1, out result1);
-                        Utils.DrawCursorSingle(sb, color, num3 - 1.570796f, Main.cursorScale * num1, Utils.ToVector2(result1), 4, 0);
+                        Utils.DrawCursorSingle(sb, color, num3 - 1.570796f, Game1.cursorScale * num1, Utils.ToVector2(result1), 4, 0);
                     }
                 }
 
                 if (!EdgeBPinned)
-                    Utils.DrawCursorSingle(sb, white, 0.7853982f, Main.cursorScale * num1 * num2, new Vector2((float)(Main.mouseX + 2.5 + 12.0), (float)(Main.mouseY - 5.0 + 12.0)), 5, 0);
+                    Utils.DrawCursorSingle(sb, white, 0.7853982f, Game1.cursorScale * num1 * num2, new Vector2((float)(Game1.mouseX + 2.5 + 12.0), (float)(Game1.mouseY - 5.0 + 12.0)), 5, 0);
                 else
                 {
                     int specialMode = 0;
                     float num3 = 0.0f;
                     Vector2 vector2_1 = Vector2.Zero;
-                    if (!Main.mapFullscreen)
+                    if (!Game1.mapFullscreen)
                     {
                         Vector2 vector2_2 = Utils.ToVector2(EdgeB) * 16f;
                         float num4;
@@ -848,7 +848,7 @@ namespace GameManager.Graphics.Capture
                             specialMode = 1;
                             Vector2 vector2_4 = vector2_2 + Vector2.One * 8f;
                             vector2_1 = vector2_4;
-                            num4 = Utils.ToRotation(-vector2_4 + Main.ReverseGravitySupport(new Vector2((float)Main.mouseX, (float)Main.mouseY), 0.0f) + Main.screenPosition);
+                            num4 = Utils.ToRotation(-vector2_4 + Game1.ReverseGravitySupport(new Vector2((float)Game1.mouseX, (float)Game1.mouseY), 0.0f) + Game1.screenPosition);
                             if (flag)
                                 num4 = -num4;
 
@@ -871,7 +871,7 @@ namespace GameManager.Graphics.Capture
                             if (flag)
                                 num4 *= -1f;
                         }
-                        Utils.DrawCursorSingle(sb, white, num4 - 1.570796f, Main.cursorScale * num1, Main.ReverseGravitySupport(vector2_3 - Main.screenPosition, 0.0f), 5, specialMode);
+                        Utils.DrawCursorSingle(sb, white, num4 - 1.570796f, Game1.cursorScale * num1, Game1.ReverseGravitySupport(vector2_3 - Game1.screenPosition, 0.0f), 5, specialMode);
                     }
                     else
                     {
@@ -892,7 +892,7 @@ namespace GameManager.Graphics.Capture
                         }
                         else
                             GetMapCoords(result1.X, result1.Y, 1, out result1);
-                        Utils.DrawCursorSingle(sb, white, num3 - 1.570796f, Main.cursorScale * num1, Utils.ToVector2(result1), 5, 0);
+                        Utils.DrawCursorSingle(sb, white, num3 - 1.570796f, Game1.cursorScale * num1, Utils.ToVector2(result1), 5, 0);
                     }
                 }
             }
@@ -910,7 +910,7 @@ namespace GameManager.Graphics.Capture
                 if (!Selected || JustActivated)
                     return;
 
-                DragBounds(new Vector2((float)Main.mouseX, (float)Main.mouseY));
+                DragBounds(new Vector2((float)Game1.mouseX, (float)Game1.mouseY));
             }
 
             public override void Draw(SpriteBatch sb)
@@ -939,14 +939,14 @@ namespace GameManager.Graphics.Capture
                 if (!EdgeAPinned || !EdgeBPinned)
                 {
                     bool flag1 = false;
-                    if (Main.mouseLeft)
+                    if (Game1.mouseLeft)
                         flag1 = true;
                     if (flag1)
                     {
                         bool flag2 = true;
                         Point result;
-                        if (!Main.mapFullscreen)
-                            result = Utils.ToTileCoordinates(Main.screenPosition + mouse);
+                        if (!Game1.mapFullscreen)
+                            result = Utils.ToTileCoordinates(Game1.screenPosition + mouse);
                         else
                             flag2 = GetMapCoords((int)mouse.X, (int)mouse.Y, 0, out result);
 
@@ -974,14 +974,14 @@ namespace GameManager.Graphics.Capture
                 int PinY = Math.Min(EdgeA.Y, EdgeB.Y);
                 int num1 = Math.Abs(EdgeA.X - EdgeB.X);
                 int num2 = Math.Abs(EdgeA.Y - EdgeB.Y);
-                bool flag = Main.player[Main.myPlayer].gravDir == -1.0;
+                bool flag = Game1.player[Game1.myPlayer].gravDir == -1.0;
                 int num3 = 1 - Utils.ToInt(flag);
                 int num4 = Utils.ToInt(flag);
                 Rectangle rectangle1, rectangle2;
-                if (!Main.mapFullscreen)
+                if (!Game1.mapFullscreen)
                 {
-                    rectangle1 = Main.ReverseGravitySupport(new Rectangle(PinX * 16, PinY * 16, (num1 + 1) * 16, (num2 + 1) * 16));
-                    rectangle2 = Main.ReverseGravitySupport(new Rectangle((int)Main.screenPosition.X, (int)Main.screenPosition.Y, Main.screenWidth + 1, Main.screenHeight + 1));
+                    rectangle1 = Game1.ReverseGravitySupport(new Rectangle(PinX * 16, PinY * 16, (num1 + 1) * 16, (num2 + 1) * 16));
+                    rectangle2 = Game1.ReverseGravitySupport(new Rectangle((int)Game1.screenPosition.X, (int)Game1.screenPosition.Y, Game1.screenWidth + 1, Game1.screenHeight + 1));
                     Rectangle result;
                     Rectangle.Intersect(ref rectangle2, ref rectangle1, out result);
                     if (result.Width == 0 || result.Height == 0)
@@ -995,7 +995,7 @@ namespace GameManager.Graphics.Capture
                     GetMapCoords(PinX, PinY, 1, out result1);
                     GetMapCoords(PinX + num1 + 1, PinY + num2 + 1, 1, out result2);
                     rectangle1 = new Rectangle(result1.X, result1.Y, result2.X - result1.X, result2.Y - result1.Y);
-                    rectangle2 = new Rectangle(0, 0, Main.screenWidth + 1, Main.screenHeight + 1);
+                    rectangle2 = new Rectangle(0, 0, Game1.screenWidth + 1, Game1.screenHeight + 1);
                     Rectangle result3;
                     Rectangle.Intersect(ref rectangle2, ref rectangle1, out result3);
                     if (result3.Width == 0 || result3.Height == 0)
@@ -1005,14 +1005,14 @@ namespace GameManager.Graphics.Capture
                 }
 
                 dragging = false;
-                if (!Main.mouseLeft)
+                if (!Game1.mouseLeft)
                     currentAim = -1;
                 if (currentAim != -1)
                 {
                     dragging = true;
                     Point point2;
-                    if (!Main.mapFullscreen)
-                        point2 = Utils.ToTileCoordinates(Main.MouseWorld);
+                    if (!Game1.mapFullscreen)
+                        point2 = Utils.ToTileCoordinates(Game1.MouseWorld);
                     else
                     {
                         Point result;
@@ -1107,10 +1107,10 @@ namespace GameManager.Graphics.Capture
                 int num1 = Math.Abs(EdgeA.X - EdgeB.X);
                 int num2 = Math.Abs(EdgeA.Y - EdgeB.Y);
                 Rectangle result1;
-                if (!Main.mapFullscreen)
+                if (!Game1.mapFullscreen)
                 {
-                    Rectangle rectangle1 = Main.ReverseGravitySupport(new Rectangle(PinX * 16, PinY * 16, (num1 + 1) * 16, (num2 + 1) * 16));
-                    Rectangle rectangle2 = Main.ReverseGravitySupport(new Rectangle((int)Main.screenPosition.X, (int)Main.screenPosition.Y, Main.screenWidth + 1, Main.screenHeight + 1));
+                    Rectangle rectangle1 = Game1.ReverseGravitySupport(new Rectangle(PinX * 16, PinY * 16, (num1 + 1) * 16, (num2 + 1) * 16));
+                    Rectangle rectangle2 = Game1.ReverseGravitySupport(new Rectangle((int)Game1.screenPosition.X, (int)Game1.screenPosition.Y, Game1.screenWidth + 1, Game1.screenHeight + 1));
                     Rectangle.Intersect(ref rectangle2, ref rectangle1, out result1);
                     if (result1.Width == 0 || result1.Height == 0)
                         return;
@@ -1122,7 +1122,7 @@ namespace GameManager.Graphics.Capture
                     GetMapCoords(PinX, PinY, 1, out result2);
                     GetMapCoords(PinX + num1 + 1, PinY + num2 + 1, 1, out result3);
                     Rectangle rectangle1 = new Rectangle(result2.X, result2.Y, result3.X - result2.X, result3.Y - result2.Y);
-                    Rectangle rectangle2 = new Rectangle(0, 0, Main.screenWidth + 1, Main.screenHeight + 1);
+                    Rectangle rectangle2 = new Rectangle(0, 0, Game1.screenWidth + 1, Game1.screenHeight + 1);
                     Rectangle.Intersect(ref rectangle2, ref rectangle1, out result1);
                     if (result1.Width == 0 || result1.Height == 0)
                         return;
@@ -1130,7 +1130,7 @@ namespace GameManager.Graphics.Capture
                     result1.Offset(-rectangle2.X, -rectangle2.Y);
                 }
 
-                sb.Draw(Main.magicPixel, result1, Settings.MarkedAreaColor);
+                sb.Draw(Game1.magicPixel, result1, Settings.MarkedAreaColor);
                 Rectangle r = Rectangle.Empty;
                 for (int index = 0; index < 2; ++index)
                 {
@@ -1152,14 +1152,14 @@ namespace GameManager.Graphics.Capture
             private void DrawBound(SpriteBatch sb, Rectangle r, int mode)
             {
                 if (mode == 0)
-                    sb.Draw(Main.magicPixel, r, Color.Silver);
+                    sb.Draw(Game1.magicPixel, r, Color.Silver);
                 else if (mode == 1)
                 {
                     Rectangle destinationRectangle = new Rectangle(r.X - 2, r.Y, r.Width + 4, r.Height);
-                    sb.Draw(Main.magicPixel, destinationRectangle, Color.White);
+                    sb.Draw(Game1.magicPixel, destinationRectangle, Color.White);
                     destinationRectangle = new Rectangle(r.X, r.Y - 2, r.Width, r.Height + 4);
-                    sb.Draw(Main.magicPixel, destinationRectangle, Color.White);
-                    sb.Draw(Main.magicPixel, r, Color.White);
+                    sb.Draw(Game1.magicPixel, destinationRectangle, Color.White);
+                    sb.Draw(Game1.magicPixel, r, Color.White);
                 }
                 else
                 {
@@ -1167,10 +1167,10 @@ namespace GameManager.Graphics.Capture
                         return;
 
                     Rectangle destinationRectangle = new Rectangle(r.X - 2, r.Y, r.Width + 4, r.Height);
-                    sb.Draw(Main.magicPixel, destinationRectangle, Color.Gold);
+                    sb.Draw(Game1.magicPixel, destinationRectangle, Color.Gold);
                     destinationRectangle = new Rectangle(r.X, r.Y - 2, r.Width, r.Height + 4);
-                    sb.Draw(Main.magicPixel, destinationRectangle, Color.Gold);
-                    sb.Draw(Main.magicPixel, r, Color.Gold);
+                    sb.Draw(Game1.magicPixel, destinationRectangle, Color.Gold);
+                    sb.Draw(Game1.magicPixel, r, Color.Gold);
                 }
             }
         }
@@ -1189,7 +1189,7 @@ namespace GameManager.Graphics.Capture
                     rectangle.X = 227 - rectangle.Width / 2;
                     rectangle.Y = 80;
                     int index = 0;
-                    Player player = Main.player[Main.myPlayer];
+                    Player player = Game1.player[Game1.myPlayer];
                     while (index < player.buffTime.Length && player.buffTime[index] > 0)
                         ++index;
                     int num = index / 11 + (index % 11 >= 3 ? 1 : 0);
@@ -1262,23 +1262,23 @@ namespace GameManager.Graphics.Capture
                             int num1 = 0;
                             if (r.Contains(mouse))
                             {
-                                if (Main.mouseLeft && Main.mouseLeftRelease)
+                                if (Game1.mouseLeft && Game1.mouseLeftRelease)
                                     Settings.BiomeChoice = BiomeWater(index3);
                                 ++num1;
                             }
 
                             if (Settings.BiomeChoice == BiomeWater(index3))
                                 num1 += 2;
-                            Texture2D texture = Main.liquidTexture[BiomeWater(index3)];
-                            int x = (int)Main.wFrame * 18;
+                            Texture2D texture = Game1.liquidTexture[BiomeWater(index3)];
+                            int x = (int)Game1.wFrame * 18;
                             Color white = Color.White;
                             float num2 = 1f;
                             if (num1 < 2)
                                 num2 *= 0.5f;
                             if (num1 % 2 == 1)
-                                spritebatch.Draw(Main.magicPixel, Utils.TopLeft(r), new Rectangle?(new Rectangle(0, 0, 1, 1)), Color.Gold, 0.0f, Vector2.Zero, new Vector2(20f), SpriteEffects.None, 0.0f);
+                                spritebatch.Draw(Game1.magicPixel, Utils.TopLeft(r), new Rectangle?(new Rectangle(0, 0, 1, 1)), Color.Gold, 0.0f, Vector2.Zero, new Vector2(20f), SpriteEffects.None, 0.0f);
                             else
-                                spritebatch.Draw(Main.magicPixel, Utils.TopLeft(r), new Rectangle?(new Rectangle(0, 0, 1, 1)), Color.White * num2, 0.0f, Vector2.Zero, new Vector2(20f), SpriteEffects.None, 0.0f);
+                                spritebatch.Draw(Game1.magicPixel, Utils.TopLeft(r), new Rectangle?(new Rectangle(0, 0, 1, 1)), Color.White * num2, 0.0f, Vector2.Zero, new Vector2(20f), SpriteEffects.None, 0.0f);
                             spritebatch.Draw(texture, Utils.TopLeft(r) + new Vector2(2f), new Rectangle?(new Rectangle(x, 0, 16, 16)), Color.White * num2);
                         }
                     }
@@ -1319,7 +1319,7 @@ namespace GameManager.Graphics.Capture
                 if (!Selected || JustActivated)
                     return;
 
-                Point point = new Point(Main.mouseX, Main.mouseY);
+                Point point = new Point(Game1.mouseX, Game1.mouseY);
                 hoveredButton = -1;
                 Rectangle rect = GetRect();
                 inUI = rect.Contains(point);
@@ -1336,7 +1336,7 @@ namespace GameManager.Graphics.Capture
                     }
                 }
 
-                if (!Main.mouseLeft || !Main.mouseLeftRelease || hoveredButton == -1)
+                if (!Game1.mouseLeft || !Game1.mouseLeftRelease || hoveredButton == -1)
                     return;
                 PressButton(hoveredButton);
             }
@@ -1358,13 +1358,13 @@ namespace GameManager.Graphics.Capture
                     Color baseColor = Color.White;
                     if (button == hoveredButton)
                         baseColor = Color.Gold;
-                    ChatManager.DrawColorCodedStringWithShadow(sb, Main.fontItemStack, key, Utils.TopLeft(rect) + new Vector2(20f, (float)(20 + 20 * button)),
+                    ChatManager.DrawColorCodedStringWithShadow(sb, Game1.fontItemStack, key, Utils.TopLeft(rect) + new Vector2(20f, (float)(20 + 20 * button)),
                         baseColor, 0.0f, Vector2.Zero, Vector2.One, -1f, 2f);
-                    ChatManager.DrawColorCodedStringWithShadow(sb, Main.fontItemStack, text, Utils.TopRight(rect) + new Vector2(-20f, (float)(20 + 20 * button)),
-                        baseColor, 0.0f, Main.fontItemStack.MeasureString(text) * Vector2.UnitX, Vector2.One, -1f, 2f);
+                    ChatManager.DrawColorCodedStringWithShadow(sb, Game1.fontItemStack, text, Utils.TopRight(rect) + new Vector2(-20f, (float)(20 + 20 * button)),
+                        baseColor, 0.0f, Game1.fontItemStack.MeasureString(text) * Vector2.UnitX, Vector2.One, -1f, 2f);
                 }
 
-                DrawWaterChoices(sb, Utils.ToPoint(Utils.TopLeft(rect) + new Vector2((float)(rect.Width / 2 - 58), 90f)), Utils.ToPoint(Main.MouseScreen));
+                DrawWaterChoices(sb, Utils.ToPoint(Utils.TopLeft(rect) + new Vector2((float)(rect.Width / 2 - 58), 90f)), Utils.ToPoint(Game1.MouseScreen));
             }
 
             public override void ToggleActive(bool tickedOn)

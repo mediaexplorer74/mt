@@ -71,20 +71,20 @@ namespace GameManager.GameContent.UI.States
 
         private void NewWorldClick(UIMouseEvent evt, UIElement listeningElement)
         {
-            Main.PlaySound(10, -1, -1, 1);
-            Main.menuMode = 16;
-            Main.newWorldName = Lang.gen[57] + " " + (Main.WorldList.Count + 1);
+            Game1.PlaySound(10, -1, -1, 1);
+            Game1.menuMode = 16;
+            Game1.newWorldName = Lang.gen[57] + " " + (Game1.WorldList.Count + 1);
         }
 
         private void GoBackClick(UIMouseEvent evt, UIElement listeningElement)
         {
-            Main.PlaySound(11, -1, -1, 1);
-            Main.menuMode = Main.menuMultiplayer ? 12 : 1;
+            Game1.PlaySound(11, -1, -1, 1);
+            Game1.menuMode = Game1.menuMultiplayer ? 12 : 1;
         }
 
         private void FadedMouseOver(UIMouseEvent evt, UIElement listeningElement)
         {
-            Main.PlaySound(12, -1, -1, 1);
+            Game1.PlaySound(12, -1, -1, 1);
             ((UIPanel)evt.Target).BackgroundColor = new Color(73, 94, 171);
         }
 
@@ -95,9 +95,9 @@ namespace GameManager.GameContent.UI.States
 
         public override void OnActivate()
         {
-            Main.LoadWorlds();
+            Game1.LoadWorlds();
             _worldList.Clear();
-            foreach (WorldFileData data in Main.WorldList)
+            foreach (WorldFileData data in Game1.WorldList)
                 _worldList.Add(new UIWorldListItem(data));
         }
     }

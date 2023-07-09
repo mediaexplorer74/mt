@@ -81,7 +81,7 @@ namespace GameManager.Net
             }
             catch
             {
-                Console.WriteLine("    Exception normal: Tried to send data to a client after losing connection");
+                Debug.WriteLine("    Exception normal: Tried to send data to a client after losing connection");
             }
         }
 
@@ -96,7 +96,8 @@ namespace GameManager.Net
             double totalSeconds = NetManager._trafficTimer.Elapsed.TotalSeconds;
             if (totalSeconds <= 5.0)
                 return;
-            Console.WriteLine("NetManager :: Sending at " + (object)(Math.Floor((double)NetManager._trafficTotal / totalSeconds) / 1000.0) + " kbps.");
+            Debug.WriteLine("NetManager :: Sending at " 
+                + (object)(Math.Floor((double)NetManager._trafficTotal / totalSeconds) / 1000.0) + " kbps.");
             NetManager._trafficTimer.Restart();
             NetManager._trafficTotal = 0L;
         }

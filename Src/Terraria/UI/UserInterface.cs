@@ -82,8 +82,8 @@ namespace GameManager.UI
                 return;
             MouseState state = Mouse.GetState();
             this.MousePosition = new Vector2((float)state.X, (float)state.Y);
-            bool flag1 = state.LeftButton == ButtonState.Pressed && Main.hasFocus;
-            UIElement target1 = Main.hasFocus ? this._currentState.GetElementAt(this.MousePosition) : (UIElement)null;
+            bool flag1 = state.LeftButton == ButtonState.Pressed && Game1.hasFocus;
+            UIElement target1 = Game1.hasFocus ? this._currentState.GetElementAt(this.MousePosition) : (UIElement)null;
             this._clickDisabledTimeRemaining = Math.Max(0.0, this._clickDisabledTimeRemaining - time.ElapsedGameTime.TotalMilliseconds);
             bool flag2 = this._clickDisabledTimeRemaining > 0.0;
             if (target1 != this._lastElementHover)
@@ -168,7 +168,7 @@ namespace GameManager.UI
 
         public CalculatedStyle GetDimensions()
         {
-            return new CalculatedStyle(0.0f, 0.0f, (float)Main.screenWidth, (float)Main.screenHeight);
+            return new CalculatedStyle(0.0f, 0.0f, (float)Game1.screenWidth, (float)Game1.screenHeight);
         }
 
         internal void RefreshState()

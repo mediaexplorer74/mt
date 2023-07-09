@@ -122,7 +122,7 @@ namespace GameManager
                 HitTile.HitTileObject hitTileObject = this.data[index];
                 if (hitTileObject.type != 0)
                 {
-                    Tile tile = Main.tile[hitTileObject.X, hitTileObject.Y];
+                    Tile tile = Game1.tile[hitTileObject.X, hitTileObject.Y];
                     if (hitTileObject.timeToLive <= 1)
                     {
                         hitTileObject.Clear();

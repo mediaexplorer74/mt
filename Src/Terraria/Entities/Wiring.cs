@@ -58,15 +58,15 @@ namespace GameManager
             for (int index1 = Wiring._numMechs - 1; index1 >= 0; --index1)
             {
                 --Wiring._mechTime[index1];
-                if (Main.tile[Wiring._mechX[index1], Wiring._mechY[index1]].active() && (int)Main.tile[Wiring._mechX[index1], Wiring._mechY[index1]].type == 144)
+                if (Game1.tile[Wiring._mechX[index1], Wiring._mechY[index1]].active() && (int)Game1.tile[Wiring._mechX[index1], Wiring._mechY[index1]].type == 144)
                 {
-                    if ((int)Main.tile[Wiring._mechX[index1], Wiring._mechY[index1]].frameY == 0)
+                    if ((int)Game1.tile[Wiring._mechX[index1], Wiring._mechY[index1]].frameY == 0)
                     {
                         Wiring._mechTime[index1] = 0;
                     }
                     else
                     {
-                        int num = (int)Main.tile[Wiring._mechX[index1], Wiring._mechY[index1]].frameX / 18;
+                        int num = (int)Game1.tile[Wiring._mechX[index1], Wiring._mechY[index1]].frameX / 18;
                         switch (num)
                         {
                             case 0:
@@ -88,25 +88,25 @@ namespace GameManager
                 }
                 if (Wiring._mechTime[index1] <= 0)
                 {
-                    if (Main.tile[Wiring._mechX[index1], Wiring._mechY[index1]].active() && (int)Main.tile[Wiring._mechX[index1], Wiring._mechY[index1]].type == 144)
+                    if (Game1.tile[Wiring._mechX[index1], Wiring._mechY[index1]].active() && (int)Game1.tile[Wiring._mechX[index1], Wiring._mechY[index1]].type == 144)
                     {
-                        Main.tile[Wiring._mechX[index1], Wiring._mechY[index1]].frameY = (short)0;
+                        Game1.tile[Wiring._mechX[index1], Wiring._mechY[index1]].frameY = (short)0;
                         NetMessage.SendTileSquare(-1, Wiring._mechX[index1], Wiring._mechY[index1], 1);
                     }
-                    if (Main.tile[Wiring._mechX[index1], Wiring._mechY[index1]].active() && (int)Main.tile[Wiring._mechX[index1], Wiring._mechY[index1]].type == 411)
+                    if (Game1.tile[Wiring._mechX[index1], Wiring._mechY[index1]].active() && (int)Game1.tile[Wiring._mechX[index1], Wiring._mechY[index1]].type == 411)
                     {
-                        Tile tile = Main.tile[Wiring._mechX[index1], Wiring._mechY[index1]];
+                        Tile tile = Game1.tile[Wiring._mechX[index1], Wiring._mechY[index1]];
                         int num1 = (int)tile.frameX % 36 / 18;
                         int num2 = (int)tile.frameY % 36 / 18;
                         int tileX = Wiring._mechX[index1] - num1;
                         int tileY = Wiring._mechY[index1] - num2;
                         int num3 = 36;
-                        if ((int)Main.tile[tileX, tileY].frameX >= 36)
+                        if ((int)Game1.tile[tileX, tileY].frameX >= 36)
                             num3 = -36;
                         for (int index2 = tileX; index2 < tileX + 2; ++index2)
                         {
                             for (int index3 = tileY; index3 < tileY + 2; ++index3)
-                                Main.tile[index2, index3].frameX = (short)((int)Main.tile[index2, index3].frameX + num3);
+                                Game1.tile[index2, index3].frameX = (short)((int)Game1.tile[index2, index3].frameX + num3);
                         }
                         NetMessage.SendTileSquare(-1, tileX, tileY, 2);
                     }
@@ -123,38 +123,38 @@ namespace GameManager
 
         public static void HitSwitch(int i, int j)
         {
-            if (Main.tile[i, j] == null)
+            if (Game1.tile[i, j] == null)
                 return;
-            if ((int)Main.tile[i, j].type == 135 || (int)Main.tile[i, j].type == 314)
+            if ((int)Game1.tile[i, j].type == 135 || (int)Game1.tile[i, j].type == 314)
             {
-                Main.PlaySound(28, i * 16, j * 16, 0);
+                Game1.PlaySound(28, i * 16, j * 16, 0);
                 Wiring.TripWire(i, j, 1, 1);
             }
-            else if ((int)Main.tile[i, j].type == 136)
+            else if ((int)Game1.tile[i, j].type == 136)
             {
-                Main.tile[i, j].frameY = (int)Main.tile[i, j].frameY != 0 ? (short)0 : (short)18;
-                Main.PlaySound(28, i * 16, j * 16, 0);
+                Game1.tile[i, j].frameY = (int)Game1.tile[i, j].frameY != 0 ? (short)0 : (short)18;
+                Game1.PlaySound(28, i * 16, j * 16, 0);
                 Wiring.TripWire(i, j, 1, 1);
             }
-            else if ((int)Main.tile[i, j].type == 144)
+            else if ((int)Game1.tile[i, j].type == 144)
             {
-                if ((int)Main.tile[i, j].frameY == 0)
+                if ((int)Game1.tile[i, j].frameY == 0)
                 {
-                    Main.tile[i, j].frameY = (short)18;
-                    if (Main.netMode != 1)
+                    Game1.tile[i, j].frameY = (short)18;
+                    if (Game1.netMode != 1)
                         Wiring.CheckMech(i, j, 18000);
                 }
                 else
-                    Main.tile[i, j].frameY = (short)0;
-                Main.PlaySound(28, i * 16, j * 16, 0);
+                    Game1.tile[i, j].frameY = (short)0;
+                Game1.PlaySound(28, i * 16, j * 16, 0);
             }
             else
             {
-                if ((int)Main.tile[i, j].type != 132 && (int)Main.tile[i, j].type != 411)
+                if ((int)Game1.tile[i, j].type != 132 && (int)Game1.tile[i, j].type != 411)
                     return;
                 short num1 = (short)36;
-                int num2 = (int)Main.tile[i, j].frameX / 18 * -1;
-                int num3 = (int)Main.tile[i, j].frameY / 18 * -1;
+                int num2 = (int)Game1.tile[i, j].frameX / 18 * -1;
+                int num3 = (int)Game1.tile[i, j].frameY / 18 * -1;
                 int num4 = num2 % 4;
                 if (num4 < -1)
                 {
@@ -163,18 +163,18 @@ namespace GameManager
                 }
                 int index1 = num4 + i;
                 int index2 = num3 + j;
-                if (Main.netMode != 1 && (int)Main.tile[index1, index2].type == 411)
+                if (Game1.netMode != 1 && (int)Game1.tile[index1, index2].type == 411)
                     Wiring.CheckMech(index1, index2, 60);
                 for (int index3 = index1; index3 < index1 + 2; ++index3)
                 {
                     for (int index4 = index2; index4 < index2 + 2; ++index4)
                     {
-                        if ((int)Main.tile[index3, index4].type == 132 || (int)Main.tile[index3, index4].type == 411)
-                            Main.tile[index3, index4].frameX += num1;
+                        if ((int)Game1.tile[index3, index4].type == 132 || (int)Game1.tile[index3, index4].type == 411)
+                            Game1.tile[index3, index4].frameX += num1;
                     }
                 }
                 WorldGen.TileFrame(index1, index2, false, false);
-                Main.PlaySound(28, i * 16, j * 16, 0);
+                Game1.PlaySound(28, i * 16, j * 16, 0);
                 Wiring.TripWire(index1, index2, 2, 2);
             }
         }
@@ -201,20 +201,20 @@ namespace GameManager
             {
                 int i1 = Wiring._inPumpX[index1];
                 int j1 = Wiring._inPumpY[index1];
-                int num1 = (int)Main.tile[i1, j1].liquid;
+                int num1 = (int)Game1.tile[i1, j1].liquid;
                 if (num1 > 0)
                 {
-                    bool lava = Main.tile[i1, j1].lava();
-                    bool honey = Main.tile[i1, j1].honey();
+                    bool lava = Game1.tile[i1, j1].lava();
+                    bool honey = Game1.tile[i1, j1].honey();
                     for (int index2 = 0; index2 < Wiring._numOutPump; ++index2)
                     {
                         int i2 = Wiring._outPumpX[index2];
                         int j2 = Wiring._outPumpY[index2];
-                        int num2 = (int)Main.tile[i2, j2].liquid;
+                        int num2 = (int)Game1.tile[i2, j2].liquid;
                         if (num2 < (int)byte.MaxValue)
                         {
-                            bool flag1 = Main.tile[i2, j2].lava();
-                            bool flag2 = Main.tile[i2, j2].honey();
+                            bool flag1 = Game1.tile[i2, j2].lava();
+                            bool flag2 = Game1.tile[i2, j2].honey();
                             if (num2 == 0)
                             {
                                 flag1 = lava;
@@ -225,15 +225,15 @@ namespace GameManager
                                 int num3 = num1;
                                 if (num3 + num2 > (int)byte.MaxValue)
                                     num3 = (int)byte.MaxValue - num2;
-                                Main.tile[i2, j2].liquid += (byte)num3;
-                                Main.tile[i1, j1].liquid -= (byte)num3;
-                                num1 = (int)Main.tile[i1, j1].liquid;
-                                Main.tile[i2, j2].lava(lava);
-                                Main.tile[i2, j2].honey(honey);
+                                Game1.tile[i2, j2].liquid += (byte)num3;
+                                Game1.tile[i1, j1].liquid -= (byte)num3;
+                                num1 = (int)Game1.tile[i1, j1].liquid;
+                                Game1.tile[i2, j2].lava(lava);
+                                Game1.tile[i2, j2].honey(honey);
                                 WorldGen.SquareTileFrame(i2, j2, true);
-                                if ((int)Main.tile[i1, j1].liquid == 0)
+                                if ((int)Game1.tile[i1, j1].liquid == 0)
                                 {
-                                    Main.tile[i1, j1].lava(false);
+                                    Game1.tile[i1, j1].lava(false);
                                     WorldGen.SquareTileFrame(i1, j1, true);
                                     break;
                                 }
@@ -247,7 +247,7 @@ namespace GameManager
 
         private static void TripWire(int left, int top, int width, int height)
         {
-            if (Main.netMode == 1)
+            if (Game1.netMode == 1)
                 return;
             Wiring.running = true;
             if (Wiring._wireList.Count != 0)
@@ -258,7 +258,7 @@ namespace GameManager
                 for (int Y = top; Y < top + height; ++Y)
                 {
                     back = new Point16(X, Y);
-                    Tile tile = Main.tile[X, Y];
+                    Tile tile = Game1.tile[X, Y];
                     if (tile != null && tile.k_HasWireFlags(k_WireFlags.WIRE_RED))
                         Wiring._wireList.PushBack(back);
                 }
@@ -281,7 +281,7 @@ namespace GameManager
                 for (int Y = top; Y < top + height; ++Y)
                 {
                     back = new Point16(X, Y);
-                    Tile tile = Main.tile[X, Y];
+                    Tile tile = Game1.tile[X, Y];
                     if (tile != null && tile.k_HasWireFlags(k_WireFlags.WIRE_GREEN))
                         Wiring._wireList.PushBack(back);
                 }
@@ -311,7 +311,7 @@ namespace GameManager
                 for (int Y = top; Y < top + height; ++Y)
                 {
                     back = new Point16(X, Y);
-                    Tile tile = Main.tile[X, Y];
+                    Tile tile = Game1.tile[X, Y];
                     if (tile != null && tile.k_HasWireFlags(k_WireFlags.WIRE_BLUE))
                         Wiring._wireList.PushBack(back);
                 }
@@ -380,9 +380,9 @@ namespace GameManager
                             Y = j + 1;
                             break;
                     }
-                    if (X >= 2 && X < Main.maxTilesX - 2 && (Y >= 2 && Y < Main.maxTilesY - 2))
+                    if (X >= 2 && X < Game1.maxTilesX - 2 && (Y >= 2 && Y < Game1.maxTilesY - 2))
                     {
-                        Tile tile = Main.tile[X, Y];
+                        Tile tile = Game1.tile[X, Y];
                         if (tile != null)
                         {
                             bool flag;
@@ -430,7 +430,7 @@ namespace GameManager
 
         private static void HitWireSingle(int i, int j)
         {
-            Tile tile1 = Main.tile[i, j];
+            Tile tile1 = Game1.tile[i, j];
             int num1 = (int)tile1.type;
             if (tile1.active() && num1 >= (int)byte.MaxValue && num1 <= 268)
             {
@@ -440,7 +440,7 @@ namespace GameManager
                     tile1.type += (ushort)7;
                 NetMessage.SendTileSquare(-1, i, j, 1);
             }
-            if (tile1.k_HasWireFlags(k_WireFlags.WIRE_ACTUATOR) && (num1 != 226 || (double)j <= Main.worldSurface || NPC.downedPlantBoss))
+            if (tile1.k_HasWireFlags(k_WireFlags.WIRE_ACTUATOR) && (num1 != 226 || (double)j <= Game1.worldSurface || NPC.downedPlantBoss))
             {
                 if (tile1.inActive())
                     Wiring.ReActive(i, j);
@@ -462,14 +462,14 @@ namespace GameManager
                 int index1 = i - num2;
                 int index2 = j - num3;
                 int num4 = 54;
-                if ((int)Main.tile[index1, index2].frameY >= 108)
+                if ((int)Game1.tile[index1, index2].frameY >= 108)
                     num4 = -108;
                 for (int x = index1; x < index1 + 3; ++x)
                 {
                     for (int y = index2; y < index2 + 3; ++y)
                     {
                         Wiring.SkipWire(x, y);
-                        Main.tile[x, y].frameY = (short)((int)Main.tile[x, y].frameY + num4);
+                        Game1.tile[x, y].frameY = (short)((int)Game1.tile[x, y].frameY + num4);
                     }
                 }
                 NetMessage.SendTileSquare(-1, index1 + 1, index2 + 1, 3);
@@ -481,14 +481,14 @@ namespace GameManager
                 int tileX = i - num2;
                 int tileY = j - num3;
                 int num4 = 36;
-                if ((int)Main.tile[tileX, tileY].frameX >= 36)
+                if ((int)Game1.tile[tileX, tileY].frameX >= 36)
                     num4 = -36;
                 for (int x = tileX; x < tileX + 2; ++x)
                 {
                     for (int y = tileY; y < tileY + 2; ++y)
                     {
                         Wiring.SkipWire(x, y);
-                        Main.tile[x, y].frameX = (short)((int)Main.tile[x, y].frameX + num4);
+                        Game1.tile[x, y].frameX = (short)((int)Game1.tile[x, y].frameX + num4);
                     }
                 }
                 NetMessage.SendTileSquare(-1, tileX, tileY, 2);
@@ -500,14 +500,14 @@ namespace GameManager
                 int index1 = i - num2;
                 int index2 = j - num3;
                 int num4 = 54;
-                if ((int)Main.tile[index1, index2].frameX >= 54)
+                if ((int)Game1.tile[index1, index2].frameX >= 54)
                     num4 = -54;
                 for (int x = index1; x < index1 + 3; ++x)
                 {
                     for (int y = index2; y < index2 + 2; ++y)
                     {
                         Wiring.SkipWire(x, y);
-                        Main.tile[x, y].frameX = (short)((int)Main.tile[x, y].frameX + num4);
+                        Game1.tile[x, y].frameX = (short)((int)Game1.tile[x, y].frameX + num4);
                     }
                 }
                 NetMessage.SendTileSquare(-1, index1 + 1, index2 + 1, 3);
@@ -519,21 +519,21 @@ namespace GameManager
                 int index1 = i - num2;
                 int index2 = j - num3;
                 int num4 = 36;
-                if ((int)Main.tile[index1, index2].frameY >= 36)
+                if ((int)Game1.tile[index1, index2].frameY >= 36)
                     num4 = -36;
                 for (int x = index1; x < index1 + 3; ++x)
                 {
                     for (int y = index2; y < index2 + 2; ++y)
                     {
                         Wiring.SkipWire(x, y);
-                        Main.tile[x, y].frameY = (short)((int)Main.tile[x, y].frameY + num4);
+                        Game1.tile[x, y].frameY = (short)((int)Game1.tile[x, y].frameY + num4);
                     }
                 }
                 NetMessage.SendTileSquare(-1, index1 + 1, index2 + 1, 3);
             }
             else if (num1 == 130)
             {
-                if (Main.tile[i, j - 1] != null && Main.tile[i, j - 1].active() && ((int)Main.tile[i, j - 1].type == 21 || (int)Main.tile[i, j - 1].type == 88))
+                if (Game1.tile[i, j - 1] != null && Game1.tile[i, j - 1].active() && ((int)Game1.tile[i, j - 1].type == 21 || (int)Game1.tile[i, j - 1].type == 88))
                     return;
                 tile1.type = (ushort)131;
                 WorldGen.SquareTileFrame(i, j, true);
@@ -570,7 +570,7 @@ namespace GameManager
             else if (num1 == 10)
             {
                 int direction = 1;
-                if (Main.rand.Next(2) == 0)
+                if (Game1.rand.Next(2) == 0)
                     direction = -1;
                 if (!WorldGen.OpenDoor(i, j, direction))
                 {
@@ -609,7 +609,7 @@ namespace GameManager
                 bool flag = false;
                 for (int index = 0; index < 1000; ++index)
                 {
-                    if (Main.projectile[index].active && Main.projectile[index].aiStyle == 73 && ((double)Main.projectile[index].ai[0] == (double)num3 && (double)Main.projectile[index].ai[1] == (double)num2))
+                    if (Game1.projectile[index].active && Game1.projectile[index].aiStyle == 73 && ((double)Game1.projectile[index].ai[0] == (double)num3 && (double)Game1.projectile[index].ai[1] == (double)num2))
                     {
                         flag = true;
                         break;
@@ -617,12 +617,12 @@ namespace GameManager
                 }
                 if (flag)
                     return;
-                Projectile.NewProjectile((float)(num3 * 16 + 8), (float)(num2 * 16 + 2), 0.0f, 0.0f, 419 + Main.rand.Next(4), 0, 0.0f, Main.myPlayer, (float)num3, (float)num2);
+                Projectile.NewProjectile((float)(num3 * 16 + 8), (float)(num2 * 16 + 2), 0.0f, 0.0f, 419 + Game1.rand.Next(4), 0, 0.0f, Game1.myPlayer, (float)num3, (float)num2);
             }
             else if (num1 == 235)
             {
                 int num2 = i - (int)tile1.frameX / 18;
-                if ((int)tile1.wall == 87 && (double)j > Main.worldSurface && !NPC.downedPlantBoss)
+                if ((int)tile1.wall == 87 && (double)j > Game1.worldSurface && !NPC.downedPlantBoss)
                     return;
                 if ((double)Wiring._teleport[0].X == -1.0)
                 {
@@ -670,14 +670,14 @@ namespace GameManager
                 int index1 = i - num2;
                 int index2 = j - num3;
                 int num4 = 54;
-                if ((int)Main.tile[index1, index2].frameX >= 54)
+                if ((int)Game1.tile[index1, index2].frameX >= 54)
                     num4 = -54;
                 for (int x = index1; x < index1 + 3; ++x)
                 {
                     for (int y = index2; y < index2 + 2; ++y)
                     {
                         Wiring.SkipWire(x, y);
-                        Main.tile[x, y].frameX = (short)((int)Main.tile[x, y].frameX + num4);
+                        Game1.tile[x, y].frameX = (short)((int)Game1.tile[x, y].frameX + num4);
                     }
                 }
                 NetMessage.SendTileSquare(-1, index1 + 1, index2 + 1, 3);
@@ -691,8 +691,8 @@ namespace GameManager
                 short num3 = (short)18;
                 if ((int)tile1.frameX > 0)
                     num3 = (short)-18;
-                Main.tile[i, y].frameX += num3;
-                Main.tile[i, y + 1].frameX += num3;
+                Game1.tile[i, y].frameX += num3;
+                Game1.tile[i, y + 1].frameX += num3;
                 Wiring.SkipWire(i, y);
                 Wiring.SkipWire(i, y + 1);
                 NetMessage.SendTileSquare(-1, i, j, 2);
@@ -706,9 +706,9 @@ namespace GameManager
                 short num3 = (short)18;
                 if ((int)tile1.frameX > 0)
                     num3 = (short)-18;
-                Main.tile[i, y].frameX += num3;
-                Main.tile[i, y + 1].frameX += num3;
-                Main.tile[i, y + 2].frameX += num3;
+                Game1.tile[i, y].frameX += num3;
+                Game1.tile[i, y + 1].frameX += num3;
+                Game1.tile[i, y + 2].frameX += num3;
                 Wiring.SkipWire(i, y);
                 Wiring.SkipWire(i, y + 1);
                 Wiring.SkipWire(i, y + 2);
@@ -725,12 +725,12 @@ namespace GameManager
                     num3 -= 2;
                 int index2 = i - num3;
                 short num4 = (short)36;
-                if ((int)Main.tile[index2, index1].frameX > 0)
+                if ((int)Game1.tile[index2, index1].frameX > 0)
                     num4 = (short)-36;
-                Main.tile[index2, index1].frameX += num4;
-                Main.tile[index2, index1 + 1].frameX += num4;
-                Main.tile[index2 + 1, index1].frameX += num4;
-                Main.tile[index2 + 1, index1 + 1].frameX += num4;
+                Game1.tile[index2, index1].frameX += num4;
+                Game1.tile[index2, index1 + 1].frameX += num4;
+                Game1.tile[index2 + 1, index1].frameX += num4;
+                Game1.tile[index2 + 1, index1 + 1].frameX += num4;
                 Wiring.SkipWire(index2, index1);
                 Wiring.SkipWire(index2 + 1, index1);
                 Wiring.SkipWire(index2, index1 + 1);
@@ -748,13 +748,13 @@ namespace GameManager
                     num3 -= 3;
                 int index2 = i - num3;
                 short num4 = (short)54;
-                if ((int)Main.tile[index2, index1].frameX > 0)
+                if ((int)Game1.tile[index2, index1].frameX > 0)
                     num4 = (short)-54;
                 for (int x = index2; x < index2 + 3; ++x)
                 {
                     for (int y = index1; y < index1 + 3; ++y)
                     {
-                        Main.tile[x, y].frameX += num4;
+                        Game1.tile[x, y].frameX += num4;
                         Wiring.SkipWire(x, y);
                     }
                 }
@@ -782,7 +782,7 @@ namespace GameManager
                     num3 = (short)-18;
                 for (int y = num2; y < num2 + 6; ++y)
                 {
-                    Main.tile[i, y].frameX += num3;
+                    Game1.tile[i, y].frameX += num3;
                     Wiring.SkipWire(i, y);
                 }
                 NetMessage.SendTileSquare(-1, i, num2 + 3, 7);
@@ -849,9 +849,9 @@ namespace GameManager
                             int num3 = 200;
                             for (int index = 0; index < 1000; ++index)
                             {
-                                if (Main.projectile[index].active && Main.projectile[index].type == Type)
+                                if (Game1.projectile[index].active && Game1.projectile[index].type == Type)
                                 {
-                                    float num4 = (new Vector2((float)(i * 16 + 8), (float)(j * 18 + 8)) - Main.projectile[index].Center).Length();
+                                    float num4 = (new Vector2((float)(i * 16 + 8), (float)(j * 18 + 8)) - Game1.projectile[index].Center).Length();
                                     if ((double)num4 < 50.0)
                                         num3 -= 50;
                                     else if ((double)num4 < 100.0)
@@ -876,12 +876,12 @@ namespace GameManager
                             }
                             if (num3 > 0)
                             {
-                                SpeedX = (float)Main.rand.Next(-20, 21) * 0.05f;
-                                SpeedY = (float)(4.0 + (double)Main.rand.Next(0, 21) * 0.0500000007450581);
+                                SpeedX = (float)Game1.rand.Next(-20, 21) * 0.05f;
+                                SpeedY = (float)(4.0 + (double)Game1.rand.Next(0, 21) * 0.0500000007450581);
                                 Damage = 40;
                                 vector2 = new Vector2((float)(i * 16 + 8), (float)(j * 16 + 16));
                                 vector2.Y += 6f;
-                                Projectile.NewProjectile((float)(int)vector2.X, (float)(int)vector2.Y, SpeedX, SpeedY, Type, Damage, 2f, Main.myPlayer, 0.0f, 0.0f);
+                                Projectile.NewProjectile((float)(int)vector2.X, (float)(int)vector2.Y, SpeedX, SpeedY, Type, Damage, 2f, Game1.myPlayer, 0.0f, 0.0f);
                                 break;
                             }
                             break;
@@ -902,7 +902,7 @@ namespace GameManager
                 }
                 if (Type == 0)
                     return;
-                Projectile.NewProjectile((float)(int)vector2.X, (float)(int)vector2.Y, SpeedX, SpeedY, Type, Damage, 2f, Main.myPlayer, 0.0f, 0.0f);
+                Projectile.NewProjectile((float)(int)vector2.X, (float)(int)vector2.Y, SpeedX, SpeedY, Type, Damage, 2f, Game1.myPlayer, 0.0f, 0.0f);
             }
             else if (num1 == 139 || num1 == 35)
                 WorldGen.SwitchMB(i, j);
@@ -914,7 +914,7 @@ namespace GameManager
             {
                 WorldGen.KillTile(i, j, false, false, true);
                 NetMessage.SendTileSquare(-1, i, j, 1);
-                Projectile.NewProjectile((float)(i * 16 + 8), (float)(j * 16 + 8), 0.0f, 0.0f, 108, 500, 10f, Main.myPlayer, 0.0f, 0.0f);
+                Projectile.NewProjectile((float)(i * 16 + 8), (float)(j * 16 + 8), 0.0f, 0.0f, 108, 500, 10f, Game1.myPlayer, 0.0f, 0.0f);
             }
             else if (num1 == 210)
                 WorldGen.ExplodeMine(i, j);
@@ -1063,14 +1063,14 @@ namespace GameManager
                     {
                         for (int index3 = 0; index3 < 3; ++index3)
                         {
-                            Tile tile2 = Main.tile[num5 + index2, num2 + index3];
+                            Tile tile2 = Game1.tile[num5 + index2, num2 + index3];
                             tile2.type = (ushort)349;
                             tile2.frameX = (short)(index2 * 18 + 216);
                             tile2.frameY = (short)(index3 * 18);
                         }
                     }
                     Animation.NewTemporaryAnimation(0, (ushort)349, num5, num2);
-                    if (Main.netMode == 2)
+                    if (Game1.netMode == 2)
                         NetMessage.SendTileRange(-1, num5, num2, 2, 3);
                 }
                 else if (num4 == 42)
@@ -1106,7 +1106,7 @@ namespace GameManager
                         int maxValue = 0;
                         for (int index2 = 0; index2 < 200; ++index2)
                         {
-                            if (Main.npc[index2].active && (Main.npc[index2].type == 17 || Main.npc[index2].type == 19 || (Main.npc[index2].type == 22 || Main.npc[index2].type == 38) || (Main.npc[index2].type == 54 || Main.npc[index2].type == 107 || (Main.npc[index2].type == 108 || Main.npc[index2].type == 142)) || (Main.npc[index2].type == 160 || Main.npc[index2].type == 207 || (Main.npc[index2].type == 209 || Main.npc[index2].type == 227) || (Main.npc[index2].type == 228 || Main.npc[index2].type == 229 || (Main.npc[index2].type == 358 || Main.npc[index2].type == 369)))))
+                            if (Game1.npc[index2].active && (Game1.npc[index2].type == 17 || Game1.npc[index2].type == 19 || (Game1.npc[index2].type == 22 || Game1.npc[index2].type == 38) || (Game1.npc[index2].type == 54 || Game1.npc[index2].type == 107 || (Game1.npc[index2].type == 108 || Game1.npc[index2].type == 142)) || (Game1.npc[index2].type == 160 || Game1.npc[index2].type == 207 || (Game1.npc[index2].type == 209 || Game1.npc[index2].type == 227) || (Game1.npc[index2].type == 228 || Game1.npc[index2].type == 229 || (Game1.npc[index2].type == 358 || Game1.npc[index2].type == 369)))))
                             {
                                 numArray[maxValue] = index2;
                                 ++maxValue;
@@ -1116,9 +1116,9 @@ namespace GameManager
                         }
                         if (maxValue > 0)
                         {
-                            int number = numArray[Main.rand.Next(maxValue)];
-                            Main.npc[number].position.X = (float)(X - Main.npc[number].width / 2);
-                            Main.npc[number].position.Y = (float)(Y - Main.npc[number].height - 1);
+                            int number = numArray[Game1.rand.Next(maxValue)];
+                            Game1.npc[number].position.X = (float)(X - Game1.npc[number].width / 2);
+                            Game1.npc[number].position.Y = (float)(Y - Game1.npc[number].height - 1);
                             NetMessage.SendData(23, -1, -1, "", number, 0.0f, 0.0f, 0.0f, 0, 0, 0);
                         }
                     }
@@ -1129,7 +1129,7 @@ namespace GameManager
                     int maxValue = 0;
                     for (int index2 = 0; index2 < 200; ++index2)
                     {
-                        if (Main.npc[index2].active && (Main.npc[index2].type == 18 || Main.npc[index2].type == 20 || (Main.npc[index2].type == 124 || Main.npc[index2].type == 178) || (Main.npc[index2].type == 208 || Main.npc[index2].type == 353)))
+                        if (Game1.npc[index2].active && (Game1.npc[index2].type == 18 || Game1.npc[index2].type == 20 || (Game1.npc[index2].type == 124 || Game1.npc[index2].type == 178) || (Game1.npc[index2].type == 208 || Game1.npc[index2].type == 353)))
                         {
                             numArray[maxValue] = index2;
                             ++maxValue;
@@ -1139,16 +1139,16 @@ namespace GameManager
                     }
                     if (maxValue > 0)
                     {
-                        int number = numArray[Main.rand.Next(maxValue)];
-                        Main.npc[number].position.X = (float)(X - Main.npc[number].width / 2);
-                        Main.npc[number].position.Y = (float)(Y - Main.npc[number].height - 1);
+                        int number = numArray[Game1.rand.Next(maxValue)];
+                        Game1.npc[number].position.X = (float)(X - Game1.npc[number].width / 2);
+                        Game1.npc[number].position.Y = (float)(Y - Game1.npc[number].height - 1);
                         NetMessage.SendData(23, -1, -1, "", number, 0.0f, 0.0f, 0.0f, 0, 0, 0);
                     }
                 }
                 if (index1 < 0)
                     return;
-                Main.npc[index1].value = 0.0f;
-                Main.npc[index1].npcSlots = 0.0f;
+                Game1.npc[index1].value = 0.0f;
+                Game1.npc[index1].npcSlots = 0.0f;
             }
             else
             {
@@ -1165,13 +1165,13 @@ namespace GameManager
                 Wiring.SkipWire(index2 + 1, index1);
                 Wiring.SkipWire(index2 + 1, index1 + 1);
                 Wiring.SkipWire(index2 + 1, index1 + 2);
-                short num3 = (int)Main.tile[index2, index1].frameX != 0 ? (short)-216 : (short)216;
+                short num3 = (int)Game1.tile[index2, index1].frameX != 0 ? (short)-216 : (short)216;
                 for (int index3 = 0; index3 < 2; ++index3)
                 {
                     for (int index4 = 0; index4 < 3; ++index4)
-                        Main.tile[index2 + index3, index1 + index4].frameX += num3;
+                        Game1.tile[index2 + index3, index1 + index4].frameX += num3;
                 }
-                if (Main.netMode == 2)
+                if (Game1.netMode == 2)
                     NetMessage.SendTileRange(-1, index2, index1, 2, 3);
                 Animation.NewTemporaryAnimation((int)num3 > 0 ? 0 : 1, (ushort)349, index2, index1);
             }
@@ -1197,38 +1197,38 @@ namespace GameManager
                     vector2_1 = new Vector2((float)(rectangleArray[0].X - rectangleArray[1].X), (float)(rectangleArray[0].Y - rectangleArray[1].Y));
                 for (int playerIndex = 0; playerIndex < (int)byte.MaxValue; ++playerIndex)
                 {
-                    if (Main.player[playerIndex].active && !Main.player[playerIndex].dead && (!Main.player[playerIndex].teleporting && rectangleArray[index1].Intersects(Main.player[playerIndex].getRect())))
+                    if (Game1.player[playerIndex].active && !Game1.player[playerIndex].dead && (!Game1.player[playerIndex].teleporting && rectangleArray[index1].Intersects(Game1.player[playerIndex].getRect())))
                     {
-                        Vector2 vector2_2 = Main.player[playerIndex].position + vector2_1;
-                        Main.player[playerIndex].teleporting = true;
-                        if (Main.netMode == 2)
+                        Vector2 vector2_2 = Game1.player[playerIndex].position + vector2_1;
+                        Game1.player[playerIndex].teleporting = true;
+                        if (Game1.netMode == 2)
                             RemoteClient.CheckSection(playerIndex, vector2_2, 1);
-                        Main.player[playerIndex].Teleport(vector2_2, 0, 0);
-                        if (Main.netMode == 2)
+                        Game1.player[playerIndex].Teleport(vector2_2, 0, 0);
+                        if (Game1.netMode == 2)
                             NetMessage.SendData(65, -1, -1, "", 0, (float)playerIndex, vector2_2.X, vector2_2.Y, 0, 0, 0);
                     }
                 }
                 for (int index2 = 0; index2 < 200; ++index2)
                 {
-                    if (Main.npc[index2].active && !Main.npc[index2].teleporting && (Main.npc[index2].lifeMax > 5 && !Main.npc[index2].boss) && (!Main.npc[index2].noTileCollide && rectangleArray[index1].Intersects(Main.npc[index2].getRect())))
+                    if (Game1.npc[index2].active && !Game1.npc[index2].teleporting && (Game1.npc[index2].lifeMax > 5 && !Game1.npc[index2].boss) && (!Game1.npc[index2].noTileCollide && rectangleArray[index1].Intersects(Game1.npc[index2].getRect())))
                     {
-                        Main.npc[index2].teleporting = true;
-                        Main.npc[index2].Teleport(Main.npc[index2].position + vector2_1, 0, 0);
+                        Game1.npc[index2].teleporting = true;
+                        Game1.npc[index2].Teleport(Game1.npc[index2].position + vector2_1, 0, 0);
                     }
                 }
             }
             for (int index = 0; index < (int)byte.MaxValue; ++index)
-                Main.player[index].teleporting = false;
+                Game1.player[index].teleporting = false;
             for (int index = 0; index < 200; ++index)
-                Main.npc[index].teleporting = false;
+                Game1.npc[index].teleporting = false;
         }
 
         private static void DeActive(int i, int j)
         {
-            if (!Main.tile[i, j].active())
+            if (!Game1.tile[i, j].active())
                 return;
-            bool flag = Main.tileSolid[(int)Main.tile[i, j].type] && !TileID.Sets.NotReallySolid[(int)Main.tile[i, j].type];
-            switch (Main.tile[i, j].type)
+            bool flag = Game1.tileSolid[(int)Game1.tile[i, j].type] && !TileID.Sets.NotReallySolid[(int)Game1.tile[i, j].type];
+            switch (Game1.tile[i, j].type)
             {
                 case (ushort)314:
                 case (ushort)386:
@@ -1238,20 +1238,20 @@ namespace GameManager
                     flag = false;
                     break;
             }
-            if (!flag || Main.tile[i, j - 1].active() && ((int)Main.tile[i, j - 1].type == 5 || (int)Main.tile[i, j - 1].type == 21 || ((int)Main.tile[i, j - 1].type == 26 || (int)Main.tile[i, j - 1].type == 77) || (int)Main.tile[i, j - 1].type == 72))
+            if (!flag || Game1.tile[i, j - 1].active() && ((int)Game1.tile[i, j - 1].type == 5 || (int)Game1.tile[i, j - 1].type == 21 || ((int)Game1.tile[i, j - 1].type == 26 || (int)Game1.tile[i, j - 1].type == 77) || (int)Game1.tile[i, j - 1].type == 72))
                 return;
-            Main.tile[i, j].inActive(true);
+            Game1.tile[i, j].inActive(true);
             WorldGen.SquareTileFrame(i, j, false);
-            if (Main.netMode == 1)
+            if (Game1.netMode == 1)
                 return;
             NetMessage.SendTileSquare(-1, i, j, 1);
         }
 
         private static void ReActive(int i, int j)
         {
-            Main.tile[i, j].inActive(false);
+            Game1.tile[i, j].inActive(false);
             WorldGen.SquareTileFrame(i, j, false);
-            if (Main.netMode == 1)
+            if (Game1.netMode == 1)
                 return;
             NetMessage.SendTileSquare(-1, i, j, 1);
         }

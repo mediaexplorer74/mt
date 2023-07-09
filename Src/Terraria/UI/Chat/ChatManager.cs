@@ -32,9 +32,9 @@ namespace GameManager.UI.Chat
 
         public static Color WaveColor(Color color)
         {
-            float num = (float)Main.mouseTextColor / (float)byte.MaxValue;
+            float num = (float)Game1.mouseTextColor / (float)byte.MaxValue;
             color = Color.Lerp(color, Color.Black, 1f - num);
-            color.A = Main.mouseTextColor;
+            color.A = Game1.mouseTextColor;
             return color;
         }
 
@@ -95,10 +95,10 @@ namespace GameManager.UI.Chat
 
         public static bool AddChatText(SpriteFont font, string text, Vector2 baseScale)
         {
-            int num = Main.screenWidth - 330;
-            if ((double)ChatManager.GetStringSize(font, Main.chatText + text, baseScale, -1f).X > (double)num)
+            int num = Game1.screenWidth - 330;
+            if ((double)ChatManager.GetStringSize(font, Game1.chatText + text, baseScale, -1f).X > (double)num)
                 return false;
-            Main.chatText += text;
+            Game1.chatText += text;
             return true;
         }
 
@@ -110,7 +110,7 @@ namespace GameManager.UI.Chat
 
         public static Vector2 GetStringSize(SpriteFont font, TextSnippet[] snippets, Vector2 baseScale, float maxWidth = -1f)
         {
-            Vector2 vec = new Vector2((float)Main.mouseX, (float)Main.mouseY);
+            Vector2 vec = new Vector2((float)Game1.mouseX, (float)Game1.mouseY);
             Vector2 zero = Vector2.Zero;
             Vector2 minimum = zero;
             Vector2 vector2_1 = minimum;
@@ -186,7 +186,7 @@ namespace GameManager.UI.Chat
         public static Vector2 DrawColorCodedString(SpriteBatch spriteBatch, SpriteFont font, TextSnippet[] snippets, Vector2 position, Color baseColor, float rotation, Vector2 origin, Vector2 baseScale, out int hoveredSnippet, float maxWidth, bool ignoreColors = false)
         {
             int num1 = -1;
-            Vector2 vec = new Vector2((float)Main.mouseX, (float)Main.mouseY);
+            Vector2 vec = new Vector2((float)Game1.mouseX, (float)Game1.mouseY);
             Vector2 vector2_1 = position;
             Vector2 vector2_2 = vector2_1;
             float num2 = font.MeasureString(" ").X;

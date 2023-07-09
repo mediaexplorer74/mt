@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace GameManager.DataStructures
 {
@@ -68,10 +69,10 @@ namespace GameManager.DataStructures
         {
             lock (bufferLock)
             {
-                Console.WriteLine("SmallBufferQueue.Count: " + SmallBufferQueue.Count);
-                Console.WriteLine("MediumBufferQueue.Count: " + MediumBufferQueue.Count);
-                Console.WriteLine("LargeBufferQueue.Count: " + LargeBufferQueue.Count);
-                Console.WriteLine("");
+                Debug.WriteLine("SmallBufferQueue.Count: " + SmallBufferQueue.Count);
+                Debug.WriteLine("MediumBufferQueue.Count: " + MediumBufferQueue.Count);
+                Debug.WriteLine("LargeBufferQueue.Count: " + LargeBufferQueue.Count);
+                Debug.WriteLine("");
             }
         }
     }

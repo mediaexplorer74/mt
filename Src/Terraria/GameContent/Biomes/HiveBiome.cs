@@ -26,13 +26,13 @@ namespace GameManager.GameContent.Biomes
             int index1 = num1 - num3;
             while (index1 < num1 + num3)
             {
-                if (index1 > 0 && index1 <= Main.maxTilesX - 1)
+                if (index1 > 0 && index1 <= Game1.maxTilesX - 1)
                 {
                     int index2 = num2 - num3;
                     while (index2 < num2 + num3)
                     {
-                        if (index2 > 0 && index2 <= Main.maxTilesY - 1 && (Main.tile[index1, index2].active() && Main.tile[index1, index2].type == 226 ||
-                            (Main.tile[index1, index2].wall == 87 || Main.tile[index1, index2].wall == 3) || Main.tile[index1, index2].wall == 83))
+                        if (index2 > 0 && index2 <= Game1.maxTilesY - 1 && (Game1.tile[index1, index2].active() && Game1.tile[index1, index2].type == 226 ||
+                            (Game1.tile[index1, index2].wall == 87 || Game1.tile[index1, index2].wall == 3) || Game1.tile[index1, index2].wall == 83))
                             return false;
                         index2 += 10;
                     }
@@ -67,8 +67,8 @@ namespace GameManager.GameContent.Biomes
                 int num7 = 1;
                 if (WorldGen.genRand.Next(2) == 0)
                     num7 = -1;
-                while (index4 > 10 && index4 < Main.maxTilesX - 10 && (index5 > 10 && index5 < Main.maxTilesY - 10) && (!Main.tile[index4, index5].active() ||
-                    !Main.tile[index4, index5 + 1].active() || (!Main.tile[index4 + 1, index5].active() || !Main.tile[index4 + 1, index5 + 1].active())))
+                while (index4 > 10 && index4 < Game1.maxTilesX - 10 && (index5 > 10 && index5 < Game1.maxTilesY - 10) && (!Game1.tile[index4, index5].active() ||
+                    !Game1.tile[index4, index5 + 1].active() || (!Game1.tile[index4 + 1, index5].active() || !Game1.tile[index4 + 1, index5 + 1].active())))
                 {
                     index4 += num7;
                     if (Math.Abs(index4 - numArray1[index2]) > 50)
@@ -85,9 +85,9 @@ namespace GameManager.GameContent.Biomes
                     {
                         for (int index7 = index5 - 1; index7 <= index5 + 2; ++index7)
                         {
-                            if (index6 < 10 || index6 > Main.maxTilesX - 10)
+                            if (index6 < 10 || index6 > Game1.maxTilesX - 10)
                                 flag = true;
-                            else if (Main.tile[index6, index7].active() && (int)Main.tile[index6, index7].type != 225)
+                            else if (Game1.tile[index6, index7].active() && (int)Game1.tile[index6, index7].type != 225)
                             {
                                 flag = true;
                                 break;
@@ -103,14 +103,14 @@ namespace GameManager.GameContent.Biomes
                             {
                                 if (index6 >= i && index6 <= i + 1 && (index7 >= index5 && index7 <= index5 + 1))
                                 {
-                                    Main.tile[index6, index7].active(false);
-                                    Main.tile[index6, index7].liquid = byte.MaxValue;
-                                    Main.tile[index6, index7].honey(true);
+                                    Game1.tile[index6, index7].active(false);
+                                    Game1.tile[index6, index7].liquid = byte.MaxValue;
+                                    Game1.tile[index6, index7].honey(true);
                                 }
                                 else
                                 {
-                                    Main.tile[index6, index7].active(true);
-                                    Main.tile[index6, index7].type = (ushort)225;
+                                    Game1.tile[index6, index7].active(true);
+                                    Game1.tile[index6, index7].type = (ushort)225;
                                 }
                             }
                         }
@@ -118,17 +118,17 @@ namespace GameManager.GameContent.Biomes
                         int num8 = num7 * -1;
                         int j = index5 + 1;
                         int num9 = 0;
-                        while ((num9 < 4 || WorldGen.SolidTile(i, j)) && (i > 10 && i < Main.maxTilesX - 10))
+                        while ((num9 < 4 || WorldGen.SolidTile(i, j)) && (i > 10 && i < Game1.maxTilesX - 10))
                         {
                             ++num9;
                             i += num8;
                             if (WorldGen.SolidTile(i, j))
                             {
                                 WorldGen.PoundTile(i, j);
-                                if (!Main.tile[i, j + 1].active())
+                                if (!Game1.tile[i, j + 1].active())
                                 {
-                                    Main.tile[i, j + 1].active(true);
-                                    Main.tile[i, j + 1].type = (ushort)225;
+                                    Game1.tile[i, j + 1].active(true);
+                                    Game1.tile[i, j + 1].type = (ushort)225;
                                 }
                             }
                         }
@@ -136,23 +136,23 @@ namespace GameManager.GameContent.Biomes
                 }
             }
 
-            WorldGen.larvaX[WorldGen.numLarva] = Utils.Clamp<int>((int)vector2_1.X, 5, Main.maxTilesX - 5);
-            WorldGen.larvaY[WorldGen.numLarva] = Utils.Clamp<int>((int)vector2_1.Y, 5, Main.maxTilesY - 5);
+            WorldGen.larvaX[WorldGen.numLarva] = Utils.Clamp<int>((int)vector2_1.X, 5, Game1.maxTilesX - 5);
+            WorldGen.larvaY[WorldGen.numLarva] = Utils.Clamp<int>((int)vector2_1.Y, 5, Game1.maxTilesY - 5);
             ++WorldGen.numLarva;
             int num10 = (int)vector2_1.X;
             int num11 = (int)vector2_1.Y;
-            for (int index2 = num10 - 1; index2 <= num10 + 1 && (index2 > 0 && index2 < Main.maxTilesX); ++index2)
+            for (int index2 = num10 - 1; index2 <= num10 + 1 && (index2 > 0 && index2 < Game1.maxTilesX); ++index2)
             {
-                for (int index4 = num11 - 2; index4 <= num11 + 1 && (index4 > 0 && index4 < Main.maxTilesY); ++index4)
+                for (int index4 = num11 - 2; index4 <= num11 + 1 && (index4 > 0 && index4 < Game1.maxTilesY); ++index4)
                 {
                     if (index4 != num11 + 1)
-                        Main.tile[index2, index4].active(false);
+                        Game1.tile[index2, index4].active(false);
                     else
                     {
-                        Main.tile[index2, index4].active(true);
-                        Main.tile[index2, index4].type = (ushort)225;
-                        Main.tile[index2, index4].slope((byte)0);
-                        Main.tile[index2, index4].halfBrick(false);
+                        Game1.tile[index2, index4].active(true);
+                        Game1.tile[index2, index4].type = (ushort)225;
+                        Game1.tile[index2, index4].slope((byte)0);
+                        Game1.tile[index2, index4].halfBrick(false);
                     }
                 }
             }

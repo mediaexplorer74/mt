@@ -1,6 +1,7 @@
 ﻿// keyBoardInput
 
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 //using System.Windows.Forms;
 
@@ -31,7 +32,7 @@ namespace GameManager
                 if (m.Msg == 258)
                 {
                     char ch = (char)(int)m.WParam;
-                    Console.WriteLine(ch);
+                    Debug.WriteLine(ch);
                     if (keyBoardInput.newKeyEvent != null)
                         keyBoardInput.newKeyEvent(ch);
                 }

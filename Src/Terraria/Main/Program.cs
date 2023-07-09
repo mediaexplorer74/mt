@@ -16,7 +16,7 @@ namespace GameManager
         {
             try
             {
-                using (Main main = new Main())
+                using (Game1 main = new Game1())
                 {
                     Program1.LaunchParameters = Utils.ParseArguements(args);
                     for (int i = 0; i < args.Length; i++)

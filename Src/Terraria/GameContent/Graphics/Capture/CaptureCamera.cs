@@ -11,6 +11,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using GameManager;
 using Windows.Foundation;
+using System.Diagnostics;
 
 namespace GameManager.Graphics.Capture
 {
@@ -61,7 +62,7 @@ namespace GameManager.Graphics.Capture
             }
             catch
             {
-                Main.CaptureModeDisabled = true;
+                Game1.CaptureModeDisabled = true;
                 return;
             }
 
@@ -75,7 +76,7 @@ namespace GameManager.Graphics.Capture
 
         public void Capture(CaptureSettings settings)
         {
-            Main.GlobalTimerPaused = true;
+            Game1.GlobalTimerPaused = true;
             Monitor.Enter(_captureLock);
             if (_activeSettings != null)
                 throw new InvalidOperationException(
@@ -138,7 +139,7 @@ namespace GameManager.Graphics.Capture
             CaptureCamera.CaptureChunk captureChunk = _renderQueue.Dequeue();
             _graphics.SetRenderTarget(_frameBuffer);
             _graphics.Clear(Microsoft.Xna.Framework.Color.Transparent);
-            Main.instance.DrawCapture(captureChunk.Area, _activeSettings);
+            Game1.instance.DrawCapture(captureChunk.Area, _activeSettings);
             if (_activeSettings.UseScaling)
             {
                 _graphics.SetRenderTarget(_scaledFrameBuffer);
@@ -272,17 +273,17 @@ namespace GameManager.Graphics.Capture
                     if (true)//(!SaveImage(_outputImageSize.Width, _outputImageSize.Height, ImageFormat.Png, "Data\\Captures" + Path.DirectorySeparatorChar +
                        // _activeSettings.OutputName + ".png"))
                     {
-                        GC.Collect();
-                        Thread.Sleep(5);
+                        //GC.Collect();
+                        //Thread.Sleep(5);
                         ++num;
-                        Console.WriteLine("An error occured while saving the capture. Attempting again...");
+                        Debug.WriteLine("An error occured while saving the capture. Attempting again...");
                     }
                 } while (num <= 5);
 
-                Console.WriteLine("Unable to capture.");
+                Debug.WriteLine("Unable to capture.");
                 _outputData = null;
                 _scaledFrameData = null;
-                Main.GlobalTimerPaused = false;
+                Game1.GlobalTimerPaused = false;
                 CaptureInterface.EndCamera();
                 if (_scaledFrameBuffer != null)
                 {

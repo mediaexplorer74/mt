@@ -38,7 +38,7 @@ namespace GameManager.GameContent.Achievements
 
         private static void TileDestroyedListener(Player player, ushort tileId)
         {
-            if (player.whoAmI != Main.myPlayer || !_listeners.ContainsKey(tileId))
+            if (player.whoAmI != Game1.myPlayer || !_listeners.ContainsKey(tileId))
                 return;
 
             foreach (AchievementCondition achievementCondition in _listeners[tileId])

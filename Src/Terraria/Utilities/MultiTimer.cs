@@ -58,11 +58,11 @@ namespace GameManager.Utilities
             if (this.ticksElapsedForPrint != this.ticksBetweenPrint)
                 return false;
             this.ticksElapsedForPrint = 0;
-            Console.WriteLine("Average elapsed time: ");
+            Debug.WriteLine("Average elapsed time: ");
             double num = 0.0;
             foreach (KeyValuePair<string, double> keyValuePair in this.timerDataMap)
             {
-                Console.WriteLine(string.Concat(new object[4]
+                Debug.WriteLine(string.Concat(new object[4]
         {
           (object) keyValuePair.Key,
           (object) " : ",
@@ -74,7 +74,7 @@ namespace GameManager.Utilities
             List<string> list = new List<string>((IEnumerable<string>)this.timerDataMap.Keys);
             for (int index = 0; index < list.Count; ++index)
                 this.timerDataMap[list[index]] = 0.0;
-            Console.WriteLine("Total : " + (object)(float)(num / (double)this.ticksBetweenPrint) + "ms");
+            Debug.WriteLine("Total : " + (object)(float)(num / (double)this.ticksBetweenPrint) + "ms");
             return true;
         }
     }

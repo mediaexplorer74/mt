@@ -45,7 +45,7 @@ namespace GameManager.GameContent.Achievements
 
         private static void NPCKilledListener(Player player, short npcId)
         {
-            if (player.whoAmI != Main.myPlayer || !_listeners.ContainsKey(npcId))
+            if (player.whoAmI != Game1.myPlayer || !_listeners.ContainsKey(npcId))
                 return;
 
             foreach (AchievementCondition achievementCondition in _listeners[npcId])

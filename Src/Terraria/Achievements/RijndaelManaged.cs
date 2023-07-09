@@ -18,13 +18,15 @@ namespace GameManager.Achievements
         //RnD
         internal ICryptoTransform CreateDecryptor(byte[] numArray1, byte[] numArray2)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return default;
         }
 
         //RnD
         internal ICryptoTransform CreateEncryptor(byte[] numArray1, byte[] numArray2)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return default;
         }
     }
 }

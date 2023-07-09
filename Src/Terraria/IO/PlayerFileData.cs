@@ -49,20 +49,20 @@ namespace GameManager.IO
             PlayerFileData playerFile = new PlayerFileData();
             playerFile.Metadata = FileMetadata.FromCurrentSettings(FileType.Player);
             playerFile.Player = player;
-            playerFile._path = Main.GetPlayerPathFromName(player.name, false);
+            playerFile._path = Game1.GetPlayerPathFromName(player.name, false);
             Player.SavePlayer(playerFile, true);
             return playerFile;
         }
 
         public override void SetAsActive()
         {
-            Main.ActivePlayerFileData = this;
-            Main.player[Main.myPlayer] = Player;
+            Game1.ActivePlayerFileData = this;
+            Game1.player[Game1.myPlayer] = Player;
         }
 
         public void UpdatePlayTimer()
         {
-            if (Main.instance.IsActive && !Main.gamePaused && (Main.hasFocus && _isTimerActive))
+            if (Game1.instance.IsActive && !Game1.gamePaused && (Game1.hasFocus && _isTimerActive))
                 StartPlayTimer();
             else
                 PausePlayTimer();

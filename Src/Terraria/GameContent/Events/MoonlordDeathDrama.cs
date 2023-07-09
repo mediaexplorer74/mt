@@ -52,7 +52,7 @@ namespace GameManager.GameContent.Events
             bool flag = false;
             for (int index = 0; index < _lightSources.Count; ++index)
             {
-                if (Main.player[Main.myPlayer].Distance(_lightSources[index]) < 2000.0)
+                if (Game1.player[Game1.myPlayer].Distance(_lightSources[index]) < 2000.0)
                 {
                     flag = true;
                     break;
@@ -75,8 +75,8 @@ namespace GameManager.GameContent.Events
 
         public static void DrawPieces(SpriteBatch spriteBatch)
         {
-            Rectangle playerScreen = Utils.CenteredRectangle(Main.screenPosition + new Vector2((float)Main.screenWidth, (float)Main.screenHeight) * 0.5f,
-                new Vector2((float)(Main.screenWidth + 1000), (float)(Main.screenHeight + 1000)));
+            Rectangle playerScreen = Utils.CenteredRectangle(Game1.screenPosition + new Vector2((float)Game1.screenWidth, (float)Game1.screenHeight) * 0.5f,
+                new Vector2((float)(Game1.screenWidth + 1000), (float)(Game1.screenHeight + 1000)));
             for (int index = 0; index < _pieces.Count; ++index)
             {
                 if (_pieces[index].InDrawRange(playerScreen))
@@ -86,8 +86,8 @@ namespace GameManager.GameContent.Events
 
         public static void DrawExplosions(SpriteBatch spriteBatch)
         {
-            Rectangle playerScreen = Utils.CenteredRectangle(Main.screenPosition + new Vector2((float)Main.screenWidth, (float)Main.screenHeight) * 0.5f,
-                new Vector2((float)(Main.screenWidth + 1000), (float)(Main.screenHeight + 1000)));
+            Rectangle playerScreen = Utils.CenteredRectangle(Game1.screenPosition + new Vector2((float)Game1.screenWidth, (float)Game1.screenHeight) * 0.5f,
+                new Vector2((float)(Game1.screenWidth + 1000), (float)(Game1.screenHeight + 1000)));
             for (int index = 0; index < _explosions.Count; ++index)
             {
                 if (_explosions[index].InDrawRange(playerScreen))
@@ -101,7 +101,7 @@ namespace GameManager.GameContent.Events
                 return;
 
             Color color = Color.White * whitening;
-            spriteBatch.Draw(Main.magicPixel, new Rectangle(-2, -2, Main.screenWidth + 4, Main.screenHeight + 4), new Rectangle?(new Rectangle(0, 0, 1, 1)), color);
+            spriteBatch.Draw(Game1.magicPixel, new Rectangle(-2, -2, Game1.screenWidth + 4, Game1.screenHeight + 4), new Rectangle?(new Rectangle(0, 0, 1, 1)), color);
         }
 
         public static void ThrowPieces(Vector2 MoonlordCoreCenter, int DramaSeed)
@@ -123,7 +123,7 @@ namespace GameManager.GameContent.Events
 
         public static void AddExplosion(Vector2 spot)
         {
-            _explosions.Add(new MoonlordExplosion(TextureManager.Load("Images/Misc/MoonExplosion/Explosion"), spot, Main.rand.Next(2, 4)));
+            _explosions.Add(new MoonlordExplosion(TextureManager.Load("Images/Misc/MoonExplosion/Explosion"), spot, Game1.rand.Next(2, 4)));
         }
 
         public static void RequestLight(float light, Vector2 spot)
@@ -150,8 +150,8 @@ namespace GameManager.GameContent.Events
             {
                 get
                 {
-                    if (_position.Y <= (Main.maxTilesY * 16) - 480.0 && _position.X >= 480.0)
-                        return _position.X >= (Main.maxTilesX * 16) - 480.0;
+                    if (_position.Y <= (Game1.maxTilesY * 16) - 480.0 && _position.X >= 480.0)
+                        return _position.X >= (Game1.maxTilesX * 16) - 480.0;
                     return true;
                 }
             }
@@ -177,7 +177,7 @@ namespace GameManager.GameContent.Events
             public void Draw(SpriteBatch sp)
             {
                 Color light = GetLight();
-                sp.Draw(_texture, _position - Main.screenPosition, new Rectangle?(), light, _rotation, _origin, 1f, SpriteEffects.None, 0.0f);
+                sp.Draw(_texture, _position - Game1.screenPosition, new Rectangle?(), light, _rotation, _origin, 1f, SpriteEffects.None, 0.0f);
             }
 
             public bool InDrawRange(Rectangle playerScreen)
@@ -220,7 +220,7 @@ namespace GameManager.GameContent.Events
             {
                 get
                 {
-                    if (_position.Y <= (Main.maxTilesY * 16) - 480.0 && _position.X >= 480.0 &&_position.X < (Main.maxTilesX * 16) - 480.0)
+                    if (_position.Y <= (Game1.maxTilesY * 16) - 480.0 && _position.X >= 480.0 &&_position.X < (Game1.maxTilesX * 16) - 480.0)
                         return _frameCounter >= _frameSpeed * 7;
 
                     return true;
@@ -246,7 +246,7 @@ namespace GameManager.GameContent.Events
             public void Draw(SpriteBatch sp)
             {
                 Color light = GetLight();
-                sp.Draw(_texture, _position - Main.screenPosition, new Rectangle?(_frame), light, 0.0f, _origin, 1f, SpriteEffects.None, 0.0f);
+                sp.Draw(_texture, _position - Game1.screenPosition, new Rectangle?(_frame), light, 0.0f, _origin, 1f, SpriteEffects.None, 0.0f);
             }
 
             public bool InDrawRange(Rectangle playerScreen)

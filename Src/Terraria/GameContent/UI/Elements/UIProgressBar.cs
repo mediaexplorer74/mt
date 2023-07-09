@@ -48,7 +48,7 @@ namespace GameManager.GameContent.UI.Elements
             protected override void DrawSelf(SpriteBatch spriteBatch)
             {
                 CalculatedStyle dimensions = GetDimensions();
-                spriteBatch.Draw(Main.magicPixel, new Vector2(dimensions.X, dimensions.Y), new Rectangle?(), Color.Blue, 0.0f, Vector2.Zero,
+                spriteBatch.Draw(Game1.magicPixel, new Vector2(dimensions.X, dimensions.Y), new Rectangle?(), Color.Blue, 0.0f, Vector2.Zero,
                     new Vector2(dimensions.Width, dimensions.Height / 1000f), SpriteEffects.None, 0.0f);
             }
         }

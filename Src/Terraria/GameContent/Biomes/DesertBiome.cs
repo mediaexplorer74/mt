@@ -76,7 +76,7 @@ internal class DesertBiome : MicroBiome
         int y = 220;
         for (int i = -20; i < (width + 20); i++)
         {
-            for (int j = 220; j < Main.maxTilesY; j++)
+            for (int j = 220; j < Game1.maxTilesY; j++)
             {
                 if (WorldGen.SolidTile(i + origin.X, j))
                 {
@@ -102,7 +102,7 @@ internal class DesertBiome : MicroBiome
     public override bool Place(Point origin, StructureMap structures)
     {
         Point point;
-        float num = ((float) Main.maxTilesX) / 4200f;
+        float num = ((float) Game1.maxTilesX) / 4200f;
         int xHubCount = (int) (80f * num);
         int yHubCount = (int) (((GenBase._random.NextFloat() + 1f) * 80f) * num);
         Vector2 scale = new Vector2(4f, 2f);
@@ -120,7 +120,7 @@ internal class DesertBiome : MicroBiome
         {
             for (int j = -20; j < (num5 + 20); j++)
             {
-                if ((((i + point.X) > 0) && ((i + point.X) < (Main.maxTilesX - 1))) && (((j + point.Y) > 0) && ((j + point.Y) < (Main.maxTilesY - 1))))
+                if ((((i + point.X) > 0) && ((i + point.X) < (Game1.maxTilesX - 1))) && (((j + point.Y) > 0) && ((j + point.Y) < (Game1.maxTilesY - 1))))
                 {
                     WorldGen.SquareWallFrame(i + point.X, j + point.Y, true);
                     WorldUtils.TileFrame(i + point.X, j + point.Y, true);

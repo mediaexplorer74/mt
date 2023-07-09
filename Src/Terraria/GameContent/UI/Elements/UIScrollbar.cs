@@ -87,8 +87,8 @@ namespace GameManager.GameContent.UI.Elements
             Vector2 vector2 = UserInterface.ActiveInstance.MousePosition;
             bool flag = _isHoveringOverHandle;
             _isHoveringOverHandle = handleRectangle.Contains(new Point((int)vector2.X, (int)vector2.Y));
-            if (!flag && _isHoveringOverHandle && Main.hasFocus)
-                Main.PlaySound(12, -1, -1, 1);
+            if (!flag && _isHoveringOverHandle && Game1.hasFocus)
+                Game1.PlaySound(12, -1, -1, 1);
             DrawBar(spriteBatch, _texture, dimensions.ToRectangle(), Color.White);
             DrawBar(spriteBatch, _innerTexture, handleRectangle, Color.White * (_isDragging || _isHoveringOverHandle ? 1f : 0.85f));
         }

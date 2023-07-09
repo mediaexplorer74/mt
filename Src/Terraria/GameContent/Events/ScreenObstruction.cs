@@ -22,7 +22,7 @@ namespace GameManager.GameContent.Events
         {
             float num = 0.0f;
             float amount = 0.1f;
-            if (Main.player[Main.myPlayer].headcovered)
+            if (Game1.player[Game1.myPlayer].headcovered)
             {
                 num = 0.95f;
                 amount = 0.3f;
@@ -37,20 +37,20 @@ namespace GameManager.GameContent.Events
                 return;
 
             Color color = Color.Black * screenObstruction;
-            int width = Main.extraTexture[49].Width;
+            int width = Game1.extraTexture[49].Width;
             int num = 10;
-            Rectangle rect = Main.player[Main.myPlayer].getRect();
+            Rectangle rect = Game1.player[Game1.myPlayer].getRect();
             rect.Inflate((width - rect.Width) / 2, (width - rect.Height) / 2 + num / 2);
-            rect.Offset(-(int)Main.screenPosition.X, -(int)Main.screenPosition.Y + (int)Main.player[Main.myPlayer].gfxOffY - num);
+            rect.Offset(-(int)Game1.screenPosition.X, -(int)Game1.screenPosition.Y + (int)Game1.player[Game1.myPlayer].gfxOffY - num);
             Rectangle destinationRectangle1 = Rectangle.Union(new Rectangle(0, 0, 1, 1), new Rectangle(rect.Right - 1, rect.Top - 1, 1, 1));
-            Rectangle destinationRectangle2 = Rectangle.Union(new Rectangle(Main.screenWidth - 1, 0, 1, 1), new Rectangle(rect.Right, rect.Bottom - 1, 1, 1));
-            Rectangle destinationRectangle3 = Rectangle.Union(new Rectangle(Main.screenWidth - 1, Main.screenHeight - 1, 1, 1), new Rectangle(rect.Left, rect.Bottom, 1, 1));
-            Rectangle destinationRectangle4 = Rectangle.Union(new Rectangle(0, Main.screenHeight - 1, 1, 1), new Rectangle(rect.Left - 1, rect.Top, 1, 1));
-            spriteBatch.Draw(Main.magicPixel, destinationRectangle1, new Rectangle?(new Rectangle(0, 0, 1, 1)), color);
-            spriteBatch.Draw(Main.magicPixel, destinationRectangle2, new Rectangle?(new Rectangle(0, 0, 1, 1)), color);
-            spriteBatch.Draw(Main.magicPixel, destinationRectangle3, new Rectangle?(new Rectangle(0, 0, 1, 1)), color);
-            spriteBatch.Draw(Main.magicPixel, destinationRectangle4, new Rectangle?(new Rectangle(0, 0, 1, 1)), color);
-            spriteBatch.Draw(Main.extraTexture[49], rect, color);
+            Rectangle destinationRectangle2 = Rectangle.Union(new Rectangle(Game1.screenWidth - 1, 0, 1, 1), new Rectangle(rect.Right, rect.Bottom - 1, 1, 1));
+            Rectangle destinationRectangle3 = Rectangle.Union(new Rectangle(Game1.screenWidth - 1, Game1.screenHeight - 1, 1, 1), new Rectangle(rect.Left, rect.Bottom, 1, 1));
+            Rectangle destinationRectangle4 = Rectangle.Union(new Rectangle(0, Game1.screenHeight - 1, 1, 1), new Rectangle(rect.Left - 1, rect.Top, 1, 1));
+            spriteBatch.Draw(Game1.magicPixel, destinationRectangle1, new Rectangle?(new Rectangle(0, 0, 1, 1)), color);
+            spriteBatch.Draw(Game1.magicPixel, destinationRectangle2, new Rectangle?(new Rectangle(0, 0, 1, 1)), color);
+            spriteBatch.Draw(Game1.magicPixel, destinationRectangle3, new Rectangle?(new Rectangle(0, 0, 1, 1)), color);
+            spriteBatch.Draw(Game1.magicPixel, destinationRectangle4, new Rectangle?(new Rectangle(0, 0, 1, 1)), color);
+            spriteBatch.Draw(Game1.extraTexture[49], rect, color);
         }
     }
 }

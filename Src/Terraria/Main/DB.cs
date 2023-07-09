@@ -1,9 +1,10 @@
 ﻿// DB
 
-using Microsoft.Data.Sqlite;
 using System;
-//using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
+//using Microsoft.EntityFrameworkCore.Sqlite;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace GameManager
 {
@@ -39,6 +40,7 @@ namespace GameManager
 
         public DB()
         {
+            
             SqliteDataReader tempReader = Load(
                 "terraria", "SELECT name, id FROM tiles");
 
@@ -84,10 +86,14 @@ namespace GameManager
 
         private SqliteDataReader Load(string file, string query)
         {
-            string str = string.Format(@"Data Source={0}\{1}.sqlite;", folderName, file);
+            //string str = string.Format(@"Data Source=.\Content\{0}\{1}.sqlite;", folderName, file);
+            string str = string.Format(@"Data Source={0}.db", file);
+
+
             connection = new SqliteConnection(str);
             try
             {
+                
                 connection.Open();
                 using (SqliteCommand command = connection.CreateCommand())
                 {
@@ -96,12 +102,17 @@ namespace GameManager
                     return reader;
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                Debug.WriteLine("[ex] DB bug: " + ex.Message);
                 //reader.Close();
-                reader.Dispose();
 
-                connection.Close();
+                if (reader != null)
+                  reader.Dispose();
+
+                if (connection != null)
+                  connection.Close();
+
                 return null;
             }
         }

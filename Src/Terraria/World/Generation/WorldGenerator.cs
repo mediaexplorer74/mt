@@ -37,8 +37,8 @@ namespace GameManager.World.Generation
                 progress = new GenerationProgress();
             progress.TotalWeight = num;
             string str = "";
-            Main.MenuUI.SetState((UIState)new UIWorldLoad(progress));
-            Main.menuMode = 888;
+            Game1.MenuUI.SetState((UIState)new UIWorldLoad(progress));
+            Game1.menuMode = 888;
             foreach (GenPass genPass in this._passes)
             {
                 stopwatch.Start();

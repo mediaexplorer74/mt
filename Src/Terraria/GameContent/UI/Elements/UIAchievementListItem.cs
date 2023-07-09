@@ -45,7 +45,7 @@ namespace GameManager.GameContent.UI.Elements
             Width.Set(0.0f, 1f);
             PaddingTop = 8f;
             PaddingLeft = 9f;
-            int iconIndex = Main.Achievements.GetIconIndex(achievement.Name);
+            int iconIndex = Game1.Achievements.GetIconIndex(achievement.Name);
             _iconIndex = iconIndex;
             _iconFrameUnlocked = new Rectangle(iconIndex % 8 * 66, iconIndex / 8 * 66, 64, 64);
             _iconFrameLocked = _iconFrameUnlocked;
@@ -79,7 +79,7 @@ namespace GameManager.GameContent.UI.Elements
             float num = (float)(innerDimensions.Width - dimensions.Width + 1.0);
             Vector2 baseScale1 = new Vector2(0.85f);
             Vector2 baseScale2 = new Vector2(0.92f);
-            Vector2 stringSize1 = ChatManager.GetStringSize(Main.fontItemStack, _achievement.Description, baseScale2, num);
+            Vector2 stringSize1 = ChatManager.GetStringSize(Game1.fontItemStack, _achievement.Description, baseScale2, num);
             if (stringSize1.Y > 38.0)
                 baseScale2.Y *= 38f / stringSize1.Y;
 
@@ -95,20 +95,20 @@ namespace GameManager.GameContent.UI.Elements
                 IsMouseHovering ? Color.White : Color.Silver, 0.0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0.0f);
             position1.X += 4f;
             position1.X += 17f;
-            ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Main.fontItemStack, _achievement.FriendlyName, position1, baseColor1, 0.0f, Vector2.Zero, baseScale1, num, 2f);
+            ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Game1.fontItemStack, _achievement.FriendlyName, position1, baseColor1, 0.0f, Vector2.Zero, baseScale1, num, 2f);
             position1.X -= 17f;
             Vector2 position2 = vector2 + Vector2.UnitY * 27f;
             this.DrawPanelBottom(spriteBatch, position2, num, color1);
             position2.X += 8f;
             position2.Y += 4f;
-            ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Main.fontItemStack, _achievement.Description, position2, baseColor2, 0.0f, Vector2.Zero, baseScale2, num - 10f, 2f);
+            ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Game1.fontItemStack, _achievement.Description, position2, baseColor2, 0.0f, Vector2.Zero, baseScale2, num - 10f, 2f);
             if (!flag)
                 return;
 
             Vector2 position3 = position1 + Vector2.UnitX * num + Vector2.UnitY;
             string text = (int)trackerValues.Item1 + "/" + (int)trackerValues.Item2;
             Vector2 baseScale3 = new Vector2(0.75f);
-            Vector2 stringSize2 = ChatManager.GetStringSize(Main.fontItemStack, text, baseScale3, -1f);
+            Vector2 stringSize2 = ChatManager.GetStringSize(Game1.fontItemStack, text, baseScale3, -1f);
             float progress = (float)(trackerValues.Item1 / trackerValues.Item2);
             float Width = 80f;
             Color color2 = new Color(100, 255, 100);
@@ -119,7 +119,7 @@ namespace GameManager.GameContent.UI.Elements
                 BackColor = Color.Lerp(BackColor, Color.Black, 0.25f);
             DrawProgressBar(spriteBatch, progress, position3 - Vector2.UnitX * Width * 0.7f, Width, BackColor, color2, Utils.MultiplyRGBA(color2, new Color(new Vector4(1f, 1f, 1f, 0.5f))));
             position3.X -= Width * 1.4f + stringSize2.X;
-            ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Main.fontItemStack, text, position3, baseColor1, 0.0f, new Vector2(0.0f, 0.0f), baseScale3, 90f, 2f);
+            ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Game1.fontItemStack, text, position3, baseColor1, 0.0f, new Vector2(0.0f, 0.0f), baseScale3, 90f, 2f);
         }
 
         private void UpdateIconFrame()
@@ -193,9 +193,9 @@ namespace GameManager.GameContent.UI.Elements
             if (BackColor == Color.Transparent)
                 FillingColor = new Color(255, 255, 255);
 
-            Texture2D texture1 = Main.colorBarTexture;
-            Texture2D texture2D = Main.colorBlipTexture;
-            Texture2D texture2 = Main.magicPixel;
+            Texture2D texture1 = Game1.colorBarTexture;
+            Texture2D texture2D = Game1.colorBlipTexture;
+            Texture2D texture2 = Game1.magicPixel;
             float num1 = MathHelper.Clamp(progress, 0.0f, 1f);
             float num2 = Width * 1f;
             float y = 8f;

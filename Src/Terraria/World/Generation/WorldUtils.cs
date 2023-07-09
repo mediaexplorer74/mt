@@ -28,7 +28,7 @@ namespace GameManager.World.Generation
 
         public static void ClearTile(int x, int y, bool frameNeighbors = false)
         {
-            Main.tile[x, y].ClearTile();
+            Game1.tile[x, y].ClearTile();
             if (!frameNeighbors)
                 return;
             WorldGen.TileFrame(x + 1, y, false, false);
@@ -39,7 +39,7 @@ namespace GameManager.World.Generation
 
         public static void ClearWall(int x, int y, bool frameNeighbors = false)
         {
-            Main.tile[x, y].wall = (byte)0;
+            Game1.tile[x, y].wall = (byte)0;
             if (!frameNeighbors)
                 return;
             WorldGen.SquareWallFrame(x + 1, y, true);
@@ -85,25 +85,25 @@ namespace GameManager.World.Generation
         {
             WorldGen.clearWorld();
             WorldGen.generateWorld(-1, (GenerationProgress)null);
-            Main.NewText("World Regen Complete.", byte.MaxValue, byte.MaxValue, byte.MaxValue, false);
+            Game1.NewText("World Regen Complete.", byte.MaxValue, byte.MaxValue, byte.MaxValue, false);
         }
 
         public static void DebugRotate()
         {
             int num1 = 0;
             int num2 = 0;
-            int num3 = Main.maxTilesY;
-            for (int index1 = 0; index1 < Main.maxTilesX / Main.maxTilesY; ++index1)
+            int num3 = Game1.maxTilesY;
+            for (int index1 = 0; index1 < Game1.maxTilesX / Game1.maxTilesY; ++index1)
             {
                 for (int index2 = 0; index2 < num3 / 2; ++index2)
                 {
                     for (int index3 = index2; index3 < num3 - index2; ++index3)
                     {
-                        Tile tile = Main.tile[index3 + num1, index2 + num2];
-                        Main.tile[index3 + num1, index2 + num2] = Main.tile[index2 + num1, num3 - index3 + num2];
-                        Main.tile[index2 + num1, num3 - index3 + num2] = Main.tile[num3 - index3 + num1, num3 - index2 + num2];
-                        Main.tile[num3 - index3 + num1, num3 - index2 + num2] = Main.tile[num3 - index2 + num1, index3 + num2];
-                        Main.tile[num3 - index2 + num1, index3 + num2] = tile;
+                        Tile tile = Game1.tile[index3 + num1, index2 + num2];
+                        Game1.tile[index3 + num1, index2 + num2] = Game1.tile[index2 + num1, num3 - index3 + num2];
+                        Game1.tile[index2 + num1, num3 - index3 + num2] = Game1.tile[num3 - index3 + num1, num3 - index2 + num2];
+                        Game1.tile[num3 - index3 + num1, num3 - index2 + num2] = Game1.tile[num3 - index2 + num1, index3 + num2];
+                        Game1.tile[num3 - index2 + num1, index3 + num2] = tile;
                     }
                 }
                 num1 += num3;

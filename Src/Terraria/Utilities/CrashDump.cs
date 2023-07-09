@@ -24,14 +24,14 @@ namespace GameManager.Utilities
         public static void Create()
         {
             DateTime dateTime = DateTime.Now.ToLocalTime();
-            CrashDump.Create("Terraria " + Main.versionNumber + " " + dateTime.Year.ToString("D4") + "-" + dateTime.Month.ToString("D2") + "-" + dateTime.Day.ToString("D2") + " " + dateTime.Hour.ToString("D2") + "_" + dateTime.Minute.ToString("D2") + "_" + dateTime.Second.ToString("D2") + ".dmp");
+            CrashDump.Create("Terraria " + Game1.versionNumber + " " + dateTime.Year.ToString("D4") + "-" + dateTime.Month.ToString("D2") + "-" + dateTime.Day.ToString("D2") + " " + dateTime.Hour.ToString("D2") + "_" + dateTime.Minute.ToString("D2") + "_" + dateTime.Second.ToString("D2") + ".dmp");
         }
 
         public static void CreateFull()
         {
             DateTime dateTime = DateTime.Now.ToLocalTime();
             using (FileStream fileStream = File.Create("DMP-FULL Terraria " + 
-                Main.versionNumber + " " + dateTime.Year.ToString("D4") + "-" + dateTime.Month.ToString("D2") + "-" + dateTime.Day.ToString("D2") + " " + dateTime.Hour.ToString("D2") + "_" + dateTime.Minute.ToString("D2") + "_" + dateTime.Second.ToString("D2") + ".dmp"))
+                Game1.versionNumber + " " + dateTime.Year.ToString("D4") + "-" + dateTime.Month.ToString("D2") + "-" + dateTime.Day.ToString("D2") + " " + dateTime.Hour.ToString("D2") + "_" + dateTime.Minute.ToString("D2") + "_" + dateTime.Second.ToString("D2") + ".dmp"))
             {
                 //RnD
                 //Process currentProcess = Process.GetCurrentProcess();

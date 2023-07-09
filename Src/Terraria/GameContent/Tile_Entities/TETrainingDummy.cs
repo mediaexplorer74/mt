@@ -47,7 +47,7 @@ namespace GameManager.GameContent.Tile_Entities
             int num2 = rectangle.Y;
             if (this.npc != -1)
             {
-                if (Main.npc[npc].active && Main.npc[npc].type == 488 && (Main.npc[npc].ai[0] == Position.X && Main.npc[npc].ai[1] == Position.Y))
+                if (Game1.npc[npc].active && Game1.npc[npc].type == 488 && (Game1.npc[npc].ai[0] == Position.X && Game1.npc[npc].ai[1] == Position.Y))
                     return;
 
                 Deactivate();
@@ -81,15 +81,15 @@ namespace GameManager.GameContent.Tile_Entities
 
             for (int index = 0; index < 255; ++index)
             {
-                if (Main.player[index].active)
-                    playerBox[index] = Main.player[index].getRect();
+                if (Game1.player[index].active)
+                    playerBox[index] = Game1.player[index].getRect();
             }
             playerBoxFilled = true;
         }
 
         public static bool ValidTile(int x, int y)
         {
-            return Main.tile[x, y].active() && Main.tile[x, y].type == 378 && (Main.tile[x, y].frameY == 0 && Main.tile[x, y].frameX % 36 == 0);
+            return Game1.tile[x, y].active() && Game1.tile[x, y].type == 378 && (Game1.tile[x, y].frameY == 0 && Game1.tile[x, y].frameX % 36 == 0);
         }
 
         public static int Place(int x, int y)
@@ -105,10 +105,10 @@ namespace GameManager.GameContent.Tile_Entities
 
         public static int Hook_AfterPlacement(int x, int y, int type = 21, int style = 0, int direction = 1)
         {
-            if (Main.netMode != 1)
+            if (Game1.netMode != 1)
                 return Place(x - 1, y - 2);
 
-            NetMessage.SendTileSquare(Main.myPlayer, x - 1, y - 1, 3);
+            NetMessage.SendTileSquare(Game1.myPlayer, x - 1, y - 1, 3);
             NetMessage.SendData(87, -1, -1, "", x - 1, (float)(y - 2), 0.0f, 0.0f, 0, 0, 0);
             return -1;
         }
@@ -145,11 +145,11 @@ namespace GameManager.GameContent.Tile_Entities
         public void Activate()
         {
             int index = NPC.NewNPC((int)Position.X * 16 + 16, (int)Position.Y * 16 + 48, 488, 100, 0.0f, 0.0f, 0.0f, 0.0f, 255);
-            Main.npc[index].ai[0] = (float)Position.X;
-            Main.npc[index].ai[1] = (float)Position.Y;
-            Main.npc[index].netUpdate = true;
+            Game1.npc[index].ai[0] = (float)Position.X;
+            Game1.npc[index].ai[1] = (float)Position.Y;
+            Game1.npc[index].netUpdate = true;
             npc = index;
-            if (Main.netMode == 1)
+            if (Game1.netMode == 1)
                 return;
 
             NetMessage.SendData(86, -1, -1, "", ID, (float)Position.X, (float)Position.Y, 0.0f, 0, 0, 0);
@@ -158,10 +158,10 @@ namespace GameManager.GameContent.Tile_Entities
         public void Deactivate()
         {
             if (npc != -1)
-                Main.npc[npc].active = false;
+                Game1.npc[npc].active = false;
 
             npc = -1;
-            if (Main.netMode == 1)
+            if (Game1.netMode == 1)
                 return;
 
             NetMessage.SendData(86, -1, -1, "", ID, (float)Position.X, (float)Position.Y, 0.0f, 0, 0, 0);

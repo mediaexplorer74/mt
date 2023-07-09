@@ -337,7 +337,7 @@ namespace GameManager.GameContent.Biomes
             foreach (Microsoft.Xna.Framework.Rectangle rectangle in list1)
             {
                 int j = rectangle.Height - 1 + rectangle.Y;
-                int Style = j > (int)Main.worldSurface ? buildData.ChestStyle : 0;
+                int Style = j > (int)Game1.worldSurface ? buildData.ChestStyle : 0;
                 int num4 = 0;
                 while (num4 < 10 && !(flag1 = WorldGen.AddBuriedChest(GenBase._random.Next(2, rectangle.Width - 2) + rectangle.X, j, 0, false, Style)))
                     ++num4;
@@ -358,7 +358,7 @@ namespace GameManager.GameContent.Biomes
                 foreach (Microsoft.Xna.Framework.Rectangle rectangle in list1)
                 {
                     int j = rectangle.Y - 1;
-                    int Style = j > (int)Main.worldSurface ? buildData.ChestStyle : 0;
+                    int Style = j > (int)Game1.worldSurface ? buildData.ChestStyle : 0;
                     int num4 = 0;
                     while (num4 < 10 && !(flag1 = WorldGen.AddBuriedChest(GenBase._random.Next(2, rectangle.Width - 2) + rectangle.X, j, 0, false, Style)))
                         ++num4;
@@ -381,7 +381,7 @@ namespace GameManager.GameContent.Biomes
                 {
                     int i = GenBase._random.Next(list1[0].X - 30, list1[0].X + 30);
                     int j = GenBase._random.Next(list1[0].Y - 30, list1[0].Y + 30);
-                    int Style = j > (int)Main.worldSurface ? buildData.ChestStyle : 0;
+                    int Style = j > (int)Game1.worldSurface ? buildData.ChestStyle : 0;
                     if (WorldGen.AddBuriedChest(i, j, 0, false, Style))
                         break;
                 }
@@ -460,7 +460,7 @@ namespace GameManager.GameContent.Biomes
                     Actions.Chain(new Modifiers.Dither(0.5), new Modifiers.Blotches(2, 2.0), new Modifiers.IsEmpty(), new Actions.SetTile(51, true, true)));
             WorldUtils.Gen(new Point(room.X, room.Y), new Shapes.Rectangle(room.Width, room.Height), Actions.Chain(new Modifiers.Dither(0.850000023841858),
                 new Modifiers.Blotches(2, 0.3), new Modifiers.OnlyWalls(new byte[1] { BuildData.Default.Wall }),
-                (double)room.Y > Main.worldSurface ? new Actions.ClearWall(true) : (GenAction)new Actions.PlaceWall(2, true)));
+                (double)room.Y > Game1.worldSurface ? new Actions.ClearWall(true) : (GenAction)new Actions.PlaceWall(2, true)));
             WorldUtils.Gen(new Point(room.X, room.Y), new Shapes.Rectangle(room.Width, room.Height),
                 Actions.Chain(new Modifiers.Dither(0.949999988079071), new Modifiers.OnlyTiles(new ushort[3] { 30, 321, 158 }), new Actions.ClearTile(true)));
         }
@@ -476,7 +476,7 @@ namespace GameManager.GameContent.Biomes
             WorldUtils.Gen(new Point(room.X + 1, room.Y + room.Height - 1), new Shapes.Rectangle(room.Width - 2, 1),
                 Actions.Chain(new Modifiers.Dither(0.5), new Modifiers.OnlyTiles(new ushort[1] { 161 }), new Modifiers.Offset(0, 1), new ActionStalagtite()));
             WorldUtils.Gen(new Point(room.X, room.Y), new Shapes.Rectangle(room.Width, room.Height), Actions.Chain(new Modifiers.Dither(0.850000023841858),
-                new Modifiers.Blotches(2, 0.8), (double)room.Y > Main.worldSurface ? new Actions.ClearWall(true) : (GenAction)new Actions.PlaceWall(40, true)));
+                new Modifiers.Blotches(2, 0.8), (double)room.Y > Game1.worldSurface ? new Actions.ClearWall(true) : (GenAction)new Actions.PlaceWall(40, true)));
         }
 
         internal static void AgeDesertRoom(Microsoft.Xna.Framework.Rectangle room)

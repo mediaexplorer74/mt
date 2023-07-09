@@ -44,7 +44,7 @@ namespace GameManager
                     TargetDummy.dummies[index1].whoAmI = index1;
                     if (TargetDummy.dummies[index1].npc != -1)
                     {
-                        if (!Main.npc[TargetDummy.dummies[index1].npc].active || Main.npc[TargetDummy.dummies[index1].npc].type != 488 || ((double)Main.npc[TargetDummy.dummies[index1].npc].ai[0] != (double)TargetDummy.dummies[index1].x || (double)Main.npc[TargetDummy.dummies[index1].npc].ai[1] != (double)TargetDummy.dummies[index1].y))
+                        if (!Game1.npc[TargetDummy.dummies[index1].npc].active || Game1.npc[TargetDummy.dummies[index1].npc].type != 488 || ((double)Game1.npc[TargetDummy.dummies[index1].npc].ai[0] != (double)TargetDummy.dummies[index1].x || (double)Game1.npc[TargetDummy.dummies[index1].npc].ai[1] != (double)TargetDummy.dummies[index1].y))
                             TargetDummy.dummies[index1].Deactivate();
                     }
                     else
@@ -53,8 +53,8 @@ namespace GameManager
                         {
                             for (int index2 = 0; index2 < (int)byte.MaxValue; ++index2)
                             {
-                                if (Main.player[index2].active)
-                                    dictionary[index2] = Main.player[index2].getRect();
+                                if (Game1.player[index2].active)
+                                    dictionary[index2] = Game1.player[index2].getRect();
                             }
                             flag1 = true;
                         }
@@ -115,9 +115,9 @@ namespace GameManager
 
         public static int Hook_AfterPlacement(int x, int y, int type = 21, int style = 0, int direction = 1)
         {
-            if (Main.netMode != 1)
+            if (Game1.netMode != 1)
                 return TargetDummy.Place(x - 1, y - 2);
-            NetMessage.SendTileSquare(Main.myPlayer, x - 1, y - 1, 3);
+            NetMessage.SendTileSquare(Game1.myPlayer, x - 1, y - 1, 3);
             NetMessage.SendData(87, -1, -1, "", x - 1, (float)(y - 2), 0.0f, 0.0f, 0, 0, 0);
             return -1;
         }
@@ -125,11 +125,11 @@ namespace GameManager
         public void Activate()
         {
             int index = NPC.NewNPC((int)this.x * 16 + 16, (int)this.y * 16 + 48, 488, 100, 0.0f, 0.0f, 0.0f, 0.0f, (int)byte.MaxValue);
-            Main.npc[index].ai[0] = (float)this.x;
-            Main.npc[index].ai[1] = (float)this.y;
-            Main.npc[index].netUpdate = true;
+            Game1.npc[index].ai[0] = (float)this.x;
+            Game1.npc[index].ai[1] = (float)this.y;
+            Game1.npc[index].netUpdate = true;
             this.npc = index;
-            if (Main.netMode == 1)
+            if (Game1.netMode == 1)
                 return;
             NetMessage.SendData(86, -1, -1, "", this.whoAmI, (float)this.x, (float)this.y, 0.0f, 0, 0, 0);
         }
@@ -137,9 +137,9 @@ namespace GameManager
         public void Deactivate()
         {
             if (this.npc != -1)
-                Main.npc[this.npc].active = false;
+                Game1.npc[this.npc].active = false;
             this.npc = -1;
-            if (Main.netMode == 1)
+            if (Game1.netMode == 1)
                 return;
             NetMessage.SendData(86, -1, -1, "", this.whoAmI, (float)this.x, (float)this.y, 0.0f, 0, 0, 0);
         }

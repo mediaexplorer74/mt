@@ -39,50 +39,50 @@ namespace GameManager
 
         public static int NewText(Rectangle location, Color color, string text, bool dramatic = false, bool dot = false)
         {
-            if (Main.netMode == 2)
+            if (Game1.netMode == 2)
                 return 100;
             for (int index1 = 0; index1 < 100; ++index1)
             {
-                if (!Main.combatText[index1].active)
+                if (!Game1.combatText[index1].active)
                 {
                     int index2 = 0;
                     if (dramatic)
                         index2 = 1;
-                    Vector2 vector2 = Main.fontCombatText[index2].MeasureString(text);
-                    Main.combatText[index1].alpha = 1f;
-                    Main.combatText[index1].alphaDir = -1;
-                    Main.combatText[index1].active = true;
-                    Main.combatText[index1].scale = 0.0f;
-                    Main.combatText[index1].rotation = 0.0f;
-                    Main.combatText[index1].position.X = (float)(location.X + location.Width * 0.5 - vector2.X * 0.5);
-                    Main.combatText[index1].position.Y = (float)(location.Y + location.Height * 0.25 - vector2.Y * 0.5);
-                    Main.combatText[index1].position.X += Main.rand.Next(-(int)(location.Width * 0.5), (int)(location.Width * 0.5) + 1);
-                    Main.combatText[index1].position.Y += Main.rand.Next(-(int)(location.Height * 0.5), (int)(location.Height * 0.5) + 1);
-                    Main.combatText[index1].color = color;
-                    Main.combatText[index1].text = text;
-                    Main.combatText[index1].velocity.Y = -7f;
-                    if (Main.player[Main.myPlayer].gravDir == -1.0)
+                    Vector2 vector2 = Game1.fontCombatText[index2].MeasureString(text);
+                    Game1.combatText[index1].alpha = 1f;
+                    Game1.combatText[index1].alphaDir = -1;
+                    Game1.combatText[index1].active = true;
+                    Game1.combatText[index1].scale = 0.0f;
+                    Game1.combatText[index1].rotation = 0.0f;
+                    Game1.combatText[index1].position.X = (float)(location.X + location.Width * 0.5 - vector2.X * 0.5);
+                    Game1.combatText[index1].position.Y = (float)(location.Y + location.Height * 0.25 - vector2.Y * 0.5);
+                    Game1.combatText[index1].position.X += Game1.rand.Next(-(int)(location.Width * 0.5), (int)(location.Width * 0.5) + 1);
+                    Game1.combatText[index1].position.Y += Game1.rand.Next(-(int)(location.Height * 0.5), (int)(location.Height * 0.5) + 1);
+                    Game1.combatText[index1].color = color;
+                    Game1.combatText[index1].text = text;
+                    Game1.combatText[index1].velocity.Y = -7f;
+                    if (Game1.player[Game1.myPlayer].gravDir == -1.0)
                     {
-                        Main.combatText[index1].velocity.Y *= -1f;
-                        Main.combatText[index1].position.Y = (float)(location.Y + location.Height * 0.75 + vector2.Y * 0.5);
+                        Game1.combatText[index1].velocity.Y *= -1f;
+                        Game1.combatText[index1].position.Y = (float)(location.Y + location.Height * 0.75 + vector2.Y * 0.5);
                     }
-                    Main.combatText[index1].lifeTime = 60;
-                    Main.combatText[index1].crit = dramatic;
-                    Main.combatText[index1].dot = dot;
+                    Game1.combatText[index1].lifeTime = 60;
+                    Game1.combatText[index1].crit = dramatic;
+                    Game1.combatText[index1].dot = dot;
                     if (dramatic)
                     {
-                        Main.combatText[index1].text = text;
-                        Main.combatText[index1].lifeTime *= 2;
-                        Main.combatText[index1].velocity.Y *= 2f;
-                        Main.combatText[index1].velocity.X = Main.rand.Next(-25, 26) * 0.05f;
-                        Main.combatText[index1].rotation = Main.combatText[index1].lifeTime / 2 * (1.0f / 500.0f);
-                        if (Main.combatText[index1].velocity.X < 0.0)
-                            Main.combatText[index1].rotation *= -1f;
+                        Game1.combatText[index1].text = text;
+                        Game1.combatText[index1].lifeTime *= 2;
+                        Game1.combatText[index1].velocity.Y *= 2f;
+                        Game1.combatText[index1].velocity.X = Game1.rand.Next(-25, 26) * 0.05f;
+                        Game1.combatText[index1].rotation = Game1.combatText[index1].lifeTime / 2 * (1.0f / 500.0f);
+                        if (Game1.combatText[index1].velocity.X < 0.0)
+                            Game1.combatText[index1].rotation *= -1f;
                     }
                     if (dot)
                     {
-                        Main.combatText[index1].velocity.Y = -4f;
-                        Main.combatText[index1].lifeTime = 40;
+                        Game1.combatText[index1].velocity.Y = -4f;
+                        Game1.combatText[index1].lifeTime = 40;
                     }
                     return index1;
                 }
@@ -93,7 +93,7 @@ namespace GameManager
         public static void clearAll()
         {
             for (int index = 0; index < 100; ++index)
-                Main.combatText[index].active = false;
+                Game1.combatText[index].active = false;
         }
 
         public void Update()
@@ -163,8 +163,8 @@ namespace GameManager
         {
             for (int index = 0; index < 100; ++index)
             {
-                if (Main.combatText[index].active)
-                    Main.combatText[index].Update();
+                if (Game1.combatText[index].active)
+                    Game1.combatText[index].Update();
             }
         }
     }

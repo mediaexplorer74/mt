@@ -20,7 +20,7 @@ namespace GameManager.GameContent.Shaders
 
         public override void Apply()
         {
-            UseOpacity((1f - Utils.SmoothStep((float)Main.worldSurface + 50f, (float)Main.rockLayer + 100f, (float)((Main.screenPosition.Y + (Main.screenHeight / 2)) / 16.0))) * 0.75f);
+            UseOpacity((1f - Utils.SmoothStep((float)Game1.worldSurface + 50f, (float)Game1.rockLayer + 100f, (float)((Game1.screenPosition.Y + (Game1.screenHeight / 2)) / 16.0))) * 0.75f);
             base.Apply();
         }
     }

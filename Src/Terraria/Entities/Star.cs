@@ -16,46 +16,46 @@ namespace GameManager
 
         public static void SpawnStars()
         {
-            Main.numStars = Main.rand.Next(65, 130);
-            Main.numStars = 130;
-            for (int index = 0; index < Main.numStars; ++index)
+            Game1.numStars = Game1.rand.Next(65, 130);
+            Game1.numStars = 130;
+            for (int index = 0; index < Game1.numStars; ++index)
             {
-                Main.star[index] = new Star();
-                Main.star[index].position.X = Main.rand.Next(-12, Main.screenWidth + 1);
-                Main.star[index].position.Y = Main.rand.Next(-12, Main.screenHeight);
-                Main.star[index].rotation = Main.rand.Next(628) * 0.01f;
-                Main.star[index].scale = Main.rand.Next(50, 120) * 0.01f;
-                Main.star[index].type = Main.rand.Next(0, 5);
-                Main.star[index].twinkle = Main.rand.Next(101) * 0.01f;
-                Main.star[index].twinkleSpeed = Main.rand.Next(40, 100) * 0.0001f;
-                if (Main.rand.Next(2) == 0)
-                    Main.star[index].twinkleSpeed *= -1f;
-                Main.star[index].rotationSpeed = Main.rand.Next(10, 40) * 0.0001f;
-                if (Main.rand.Next(2) == 0)
-                    Main.star[index].rotationSpeed *= -1f;
+                Game1.star[index] = new Star();
+                Game1.star[index].position.X = Game1.rand.Next(-12, Game1.screenWidth + 1);
+                Game1.star[index].position.Y = Game1.rand.Next(-12, Game1.screenHeight);
+                Game1.star[index].rotation = Game1.rand.Next(628) * 0.01f;
+                Game1.star[index].scale = Game1.rand.Next(50, 120) * 0.01f;
+                Game1.star[index].type = Game1.rand.Next(0, 5);
+                Game1.star[index].twinkle = Game1.rand.Next(101) * 0.01f;
+                Game1.star[index].twinkleSpeed = Game1.rand.Next(40, 100) * 0.0001f;
+                if (Game1.rand.Next(2) == 0)
+                    Game1.star[index].twinkleSpeed *= -1f;
+                Game1.star[index].rotationSpeed = Game1.rand.Next(10, 40) * 0.0001f;
+                if (Game1.rand.Next(2) == 0)
+                    Game1.star[index].rotationSpeed *= -1f;
             }
         }
 
         public static void UpdateStars()
         {
-            for (int index = 0; index < Main.numStars; ++index)
+            for (int index = 0; index < Game1.numStars; ++index)
             {
-                Main.star[index].twinkle += Main.star[index].twinkleSpeed;
-                if (Main.star[index].twinkle > 1.0)
+                Game1.star[index].twinkle += Game1.star[index].twinkleSpeed;
+                if (Game1.star[index].twinkle > 1.0)
                 {
-                    Main.star[index].twinkle = 1f;
-                    Main.star[index].twinkleSpeed *= -1f;
+                    Game1.star[index].twinkle = 1f;
+                    Game1.star[index].twinkleSpeed *= -1f;
                 }
-                else if (Main.star[index].twinkle < 0.5)
+                else if (Game1.star[index].twinkle < 0.5)
                 {
-                    Main.star[index].twinkle = 0.5f;
-                    Main.star[index].twinkleSpeed *= -1f;
+                    Game1.star[index].twinkle = 0.5f;
+                    Game1.star[index].twinkleSpeed *= -1f;
                 }
-                Main.star[index].rotation += Main.star[index].rotationSpeed;
-                if (Main.star[index].rotation > 6.28)
-                    Main.star[index].rotation -= 6.28f;
-                if (Main.star[index].rotation < 0.0)
-                    Main.star[index].rotation += 6.28f;
+                Game1.star[index].rotation += Game1.star[index].rotationSpeed;
+                if (Game1.star[index].rotation > 6.28)
+                    Game1.star[index].rotation -= 6.28f;
+                if (Game1.star[index].rotation < 0.0)
+                    Game1.star[index].rotation += 6.28f;
             }
         }
     }

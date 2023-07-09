@@ -26,8 +26,8 @@ namespace GameManager.GameContent.NetModules
                 int index1 = num >> 16 & 65535;
                 int index2 = num & 65535;
                 packet.Writer.Write(num);
-                packet.Writer.Write(Main.tile[index1, index2].liquid);
-                packet.Writer.Write(Main.tile[index1, index2].liquidType());
+                packet.Writer.Write(Game1.tile[index1, index2].liquid);
+                packet.Writer.Write(Game1.tile[index1, index2].liquidType());
             }
 
             return packet;
@@ -43,7 +43,7 @@ namespace GameManager.GameContent.NetModules
                 byte num4 = reader.ReadByte();
                 int index2 = num2 >> 16 & 65535;
                 int index3 = num2 & 65535;
-                Tile tile = Main.tile[index2, index3];
+                Tile tile = Game1.tile[index2, index3];
                 if (tile != null)
                 {
                     tile.liquid = num3;

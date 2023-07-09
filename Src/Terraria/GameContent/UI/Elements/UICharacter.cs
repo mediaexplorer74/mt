@@ -38,7 +38,7 @@ namespace GameManager.GameContent.UI.Elements
             Vector2 vector2 = dimensions.Position() + new Vector2(dimensions.Width * 0.5f - (float)(_player.width >> 1), dimensions.Height * 0.5f - (float)(_player.height >> 1));
             Item obj = _player.inventory[_player.selectedItem];
             _player.inventory[_player.selectedItem] = UICharacter._blankItem;
-            Main.instance.DrawPlayer(_player, vector2 + Main.screenPosition, 0.0f, Vector2.Zero, 0.0f);
+            Game1.instance.DrawPlayer(_player, vector2 + Game1.screenPosition, 0.0f, Vector2.Zero, 0.0f);
             _player.inventory[_player.selectedItem] = obj;
         }
     }

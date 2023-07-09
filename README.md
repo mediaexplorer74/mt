@@ -2,29 +2,39 @@
 
 ![](Images/intro.png)
 
-## The object to explore
+## Tech. details
 
-:: Terraria 1.3.x.x ::
+:: Terraria 1.3.x.x , UWP edition ::
+
+:: Min. Win. os build (SDK): 10240 (Astoria compatibility added)
+
+## Screenshot(s)
+![](Images/shot1.png)
 
 ## Progress of porting to uwp
 
-:: Draft ::
+:: Modded content added.
 
+:: DB "auto-handling" broken at now. So, terraria.bd file must be copied to AppData\Local\Packages\ME.ModdingTerrariaV1_...\LocalState 
+
+:: The app can do only "start mode" (debugging "run mode" - in progress!) 
+
+:: No sound, no save / restor settings (player's data storage mulfunction!)
 
 ### Content
 This repo contains the decompiled source of the Terraria client binaries, from version 1.3.x.x. Decompiled with [JetBrains dotPeek](https://www.jetbrains.com/decompiler/). 
 
 ### Important
 - This repo does not include the game content.
-If you want the content, buy the game on Steam, then place it at *Src\Contents* folder. 
+If you want the original content, buy the game on Steam, then place it at *Src\Contents* folder. 
 - Use this at your own risk: I am not responsible for any legal consequences that may occur by using this decompiled code, nor will I provide support for it.
 I am just providing the decompiled code as a reference and making it easily accessible on GitHub.
 
 ## Todo
-- Explore all code structures :
-- Try to patch decomp. bugs :
-- Research game mechanics :
-- Do something else (port to w10m why not?) : :
+- Explore all code structures : :
+- Try to patch decomp. bugs : :
+- Research game mechanics : :
+- Do something else (Port to w10m... Why not?) : :
 
 ## Add. info / References
 - https://onlineblogzone.com/modding-terraria-part-1-getting-started/ Modding Terraria – Part 1 Getting Started (article)

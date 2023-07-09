@@ -32,7 +32,7 @@ namespace GameManager.Graphics.Shaders
             if (shaderId != 0 && shaderId <= _shaderDataCount)
                 _shaderData[shaderId - 1].Apply(entity, drawData);
             else
-                Main.pixelShader.CurrentTechnique.Passes[0].Apply();
+                Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
         }
 
         public void ApplySecondary(int shaderId, Entity entity, DrawData? drawData = null)
@@ -40,7 +40,7 @@ namespace GameManager.Graphics.Shaders
             if (shaderId != 0 && shaderId <= _shaderDataCount)
                 _shaderData[shaderId - 1].GetSecondaryShader(entity).Apply(entity, drawData);
             else
-                Main.pixelShader.CurrentTechnique.Passes[0].Apply();
+                Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
         }
 
         public ArmorShaderData GetShaderFromItemId(int type)

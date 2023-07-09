@@ -85,11 +85,11 @@ namespace GameManager.GameContent.UI
         public static WorldUIAnchor DeserializeNetAnchor(int type, int meta)
         {
             if (type == 0)
-                return new WorldUIAnchor(Main.npc[meta]);
+                return new WorldUIAnchor(Game1.npc[meta]);
             if (type == 1)
-                return new WorldUIAnchor(Main.player[meta]);
+                return new WorldUIAnchor(Game1.player[meta]);
             if (type == 2)
-                return new WorldUIAnchor(Main.projectile[meta]);
+                return new WorldUIAnchor(Game1.projectile[meta]);
             throw new Exception("How did you end up getting this?");
         }
 
@@ -103,7 +103,7 @@ namespace GameManager.GameContent.UI
             EmoteBubble emoteBubble = new EmoteBubble(emoticon, bubbleAnchor, time);
             emoteBubble.ID = AssignNewID();
             byID[emoteBubble.ID] = emoteBubble;
-            if (Main.netMode == 2)
+            if (Game1.netMode == 2)
             {
                 Tuple<int, int> tuple = SerializeNetAnchor(bubbleAnchor);
                 NetMessage.SendData(91, -1, -1, "", emoteBubble.ID, (float)tuple.Item1, (float)tuple.Item2, (float)time, emoticon, 0, 0);
@@ -117,7 +117,7 @@ namespace GameManager.GameContent.UI
             emoteBubble.ID = AssignNewID();
             byID[emoteBubble.ID] = emoteBubble;
             emoteBubble.PickNPCEmote(other);
-            if (Main.netMode == 2)
+            if (Game1.netMode == 2)
             {
                 Tuple<int, int> tuple = SerializeNetAnchor(bubbleAnchor);
                 NetMessage.SendData(91, -1, -1, "", emoteBubble.ID, (float)tuple.Item1, (float)tuple.Item2, (float)time, emoteBubble.emote, emoteBubble.metadata, 0);
@@ -137,17 +137,17 @@ namespace GameManager.GameContent.UI
 
         private void Draw(SpriteBatch sb)
         {
-            Texture2D texture2D = Main.extraTexture[48];
+            Texture2D texture2D = Game1.extraTexture[48];
             SpriteEffects effect = SpriteEffects.None;
             Vector2 vector2 = GetPosition(out effect);
             bool flag = lifeTime < 6 || lifeTimeStart - lifeTime < 6;
             Rectangle rectangle = Utils.Frame(texture2D, 8, 33, flag ? 0 : 1, 0);
             Vector2 origin = new Vector2((float)(rectangle.Width / 2), (float)rectangle.Height);
-            if (Main.player[Main.myPlayer].gravDir == -1.0)
+            if (Game1.player[Game1.myPlayer].gravDir == -1.0)
             {
                 origin.Y = 0.0f;
                 effect |= SpriteEffects.FlipVertically;
-                vector2 = Main.ReverseGravitySupport(vector2, 0.0f);
+                vector2 = Game1.ReverseGravitySupport(vector2, 0.0f);
             }
 
             sb.Draw(texture2D, vector2, new Rectangle?(rectangle), Color.White, 0.0f, origin, 1f, effect, 0.0f);
@@ -164,7 +164,7 @@ namespace GameManager.GameContent.UI
             {
                 if (this.emote != -1)
                     return;
-                Texture2D texture = Main.npcHeadTexture[metadata];
+                Texture2D texture = Game1.npcHeadTexture[metadata];
                 float scale = 1f;
                 if (texture.Width / 22.0 > 1.0)
                     scale = 22f / (float)texture.Width;
@@ -181,49 +181,49 @@ namespace GameManager.GameContent.UI
             {
                 case WorldUIAnchor.AnchorType.Entity:
                     effect = anchor.entity.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-                    return anchor.entity.Top + new Vector2((float)(-anchor.entity.direction * anchor.entity.width) * 0.75f, 2f) - Main.screenPosition;
+                    return anchor.entity.Top + new Vector2((float)(-anchor.entity.direction * anchor.entity.width) * 0.75f, 2f) - Game1.screenPosition;
                 case WorldUIAnchor.AnchorType.Tile:
                     effect = SpriteEffects.None;
-                    return anchor.pos - Main.screenPosition + new Vector2(0.0f, (float)(-anchor.size.Y / 2.0));
+                    return anchor.pos - Game1.screenPosition + new Vector2(0.0f, (float)(-anchor.size.Y / 2.0));
                 case WorldUIAnchor.AnchorType.Pos:
                     effect = SpriteEffects.None;
-                    return anchor.pos - Main.screenPosition;
+                    return anchor.pos - Game1.screenPosition;
                 default:
                     effect = SpriteEffects.None;
-                    return new Vector2((float)Main.screenWidth, (float)Main.screenHeight) / 2f;
+                    return new Vector2((float)Game1.screenWidth, (float)Game1.screenHeight) / 2f;
             }
         }
 
         public void PickNPCEmote(WorldUIAnchor other = null)
         {
-            Player plr = Main.player[(int)Player.FindClosest(anchor.entity.Center, 0, 0)];
+            Player plr = Game1.player[(int)Player.FindClosest(anchor.entity.Center, 0, 0)];
             List<int> list = new List<int>();
             bool flag = false;
             for (int index = 0; index < 200; ++index)
             {
-                if (Main.npc[index].active && Main.npc[index].boss)
+                if (Game1.npc[index].active && Game1.npc[index].boss)
                     flag = true;
             }
 
             if (!flag)
             {
-                if (Main.rand.Next(3) == 0)
+                if (Game1.rand.Next(3) == 0)
                     ProbeTownNPCs(list);
-                if (Main.rand.Next(3) == 0)
+                if (Game1.rand.Next(3) == 0)
                     ProbeEmotions(list);
-                if (Main.rand.Next(3) == 0)
+                if (Game1.rand.Next(3) == 0)
                     ProbeBiomes(list, plr);
-                if (Main.rand.Next(2) == 0)
+                if (Game1.rand.Next(2) == 0)
                     ProbeCritters(list);
-                if (Main.rand.Next(2) == 0)
+                if (Game1.rand.Next(2) == 0)
                     ProbeItems(list, plr);
-                if (Main.rand.Next(5) == 0)
+                if (Game1.rand.Next(5) == 0)
                     ProbeBosses(list);
-                if (Main.rand.Next(2) == 0)
+                if (Game1.rand.Next(2) == 0)
                     ProbeDebuffs(list, plr);
-                if (Main.rand.Next(2) == 0)
+                if (Game1.rand.Next(2) == 0)
                     ProbeEvents(list);
-                if (Main.rand.Next(2) == 0)
+                if (Game1.rand.Next(2) == 0)
                     ProbeWeather(list, plr);
                 ProbeExceptions(list, plr, other);
             }
@@ -232,7 +232,7 @@ namespace GameManager.GameContent.UI
 
             if (list.Count <= 0)
                 return;
-            emote = list[Main.rand.Next(list.Count)];
+            emote = list[Game1.rand.Next(list.Count)];
         }
 
         private void ProbeCombat(List<int> list)
@@ -248,16 +248,16 @@ namespace GameManager.GameContent.UI
 
         private void ProbeWeather(List<int> list, Player plr)
         {
-            if (Main.cloudBGActive > 0.0)
+            if (Game1.cloudBGActive > 0.0)
                 list.Add(96);
-            if (Main.cloudAlpha > 0.0)
+            if (Game1.cloudAlpha > 0.0)
             {
-                if (!Main.dayTime)
+                if (!Game1.dayTime)
                     list.Add(5);
                 list.Add(4);
                 if (plr.ZoneSnow)
                     list.Add(98);
-                if (plr.position.X < 4000.0 || plr.position.X > (Main.maxTilesX * 16 - 4000) && plr.position.Y < Main.worldSurface / 16.0)
+                if (plr.position.X < 4000.0 || plr.position.X > (Game1.maxTilesX * 16 - 4000) && plr.position.Y < Game1.worldSurface / 16.0)
                     list.Add(97);
             }
             else
@@ -270,28 +270,28 @@ namespace GameManager.GameContent.UI
 
         private void ProbeEvents(List<int> list)
         {
-            if (Main.bloodMoon || !Main.dayTime && Main.rand.Next(4) == 0)
+            if (Game1.bloodMoon || !Game1.dayTime && Game1.rand.Next(4) == 0)
                 list.Add(18);
-            if (Main.eclipse || Main.hardMode && Main.rand.Next(4) == 0)
+            if (Game1.eclipse || Game1.hardMode && Game1.rand.Next(4) == 0)
                 list.Add(19);
-            if ((!Main.dayTime || WorldGen.spawnMeteor) && WorldGen.shadowOrbSmashed)
+            if ((!Game1.dayTime || WorldGen.spawnMeteor) && WorldGen.shadowOrbSmashed)
                 list.Add(99);
-            if (Main.pumpkinMoon || (NPC.downedHalloweenKing || NPC.downedHalloweenTree) && !Main.dayTime)
+            if (Game1.pumpkinMoon || (NPC.downedHalloweenKing || NPC.downedHalloweenTree) && !Game1.dayTime)
                 list.Add(20);
-            if (!Main.snowMoon && (!NPC.downedChristmasIceQueen && !NPC.downedChristmasSantank && !NPC.downedChristmasTree || Main.dayTime))
+            if (!Game1.snowMoon && (!NPC.downedChristmasIceQueen && !NPC.downedChristmasSantank && !NPC.downedChristmasTree || Game1.dayTime))
                 return;
             list.Add(21);
         }
 
         private void ProbeDebuffs(List<int> list, Player plr)
         {
-            if (plr.Center.Y > (Main.maxTilesY * 16 - 3200) || plr.onFire || (((NPC)anchor.entity).onFire || plr.onFire2))
+            if (plr.Center.Y > (Game1.maxTilesY * 16 - 3200) || plr.onFire || (((NPC)anchor.entity).onFire || plr.onFire2))
                 list.Add(9);
-            if (Main.rand.Next(2) == 0)
+            if (Game1.rand.Next(2) == 0)
                 list.Add(11);
             if (plr.poisoned || ((NPC)anchor.entity).poisoned || plr.ZoneJungle)
                 list.Add(8);
-            if (plr.inventory[plr.selectedItem].itemId != 215 && Main.rand.Next(3) != 0)
+            if (plr.inventory[plr.selectedItem].itemId != 215 && Game1.rand.Next(3) != 0)
                 return;
             list.Add(10);
         }
@@ -315,8 +315,8 @@ namespace GameManager.GameContent.UI
                 EmoteBubble.CountNPCs[index] = 0;
             for (int index = 0; index < 200; ++index)
             {
-                if (Main.npc[index].active)
-                    ++EmoteBubble.CountNPCs[Main.npc[index].type];
+                if (Game1.npc[index].active)
+                    ++EmoteBubble.CountNPCs[Game1.npc[index].type];
             }
 
             int num = ((NPC)anchor.entity).type;
@@ -329,11 +329,11 @@ namespace GameManager.GameContent.UI
 
         private void ProbeBiomes(List<int> list, Player plr)
         {
-            if (plr.position.Y / 16.0 < Main.worldSurface * 0.45)
+            if (plr.position.Y / 16.0 < Game1.worldSurface * 0.45)
                 list.Add(22);
-            else if (plr.position.Y / 16.0 > Main.rockLayer + (Main.maxTilesY / 2) - 100.0)
+            else if (plr.position.Y / 16.0 > Game1.rockLayer + (Game1.maxTilesY / 2) - 100.0)
                 list.Add(31);
-            else if (plr.position.Y / 16.0 > Main.rockLayer)
+            else if (plr.position.Y / 16.0 > Game1.rockLayer)
                 list.Add(30);
             else if (plr.ZoneHoly)
                 list.Add(27);
@@ -345,7 +345,7 @@ namespace GameManager.GameContent.UI
                 list.Add(24);
             else if (plr.ZoneSnow)
                 list.Add(32);
-            else if (plr.position.Y / 16.0 < Main.worldSurface && (plr.position.X < 4000.0 || plr.position.X > (16 * (Main.maxTilesX - 250))))
+            else if (plr.position.Y / 16.0 < Game1.worldSurface && (plr.position.X < 4000.0 || plr.position.X > (16 * (Game1.maxTilesX - 250))))
                 list.Add(29);
             else if (plr.ZoneDesert)
                 list.Add(28);
@@ -358,14 +358,14 @@ namespace GameManager.GameContent.UI
             Vector2 center = this.anchor.entity.Center;
             float num1 = 1f;
             float num2 = 1f;
-            if (center.Y < Main.rockLayer * 16.0)
+            if (center.Y < Game1.rockLayer * 16.0)
                 num2 = 0.2f;
             else
                 num1 = 0.2f;
 
-            if (Utils.NextFloat(Main.rand) <= num1)
+            if (Utils.NextFloat(Game1.rand) <= num1)
             {
-                if (Main.dayTime)
+                if (Game1.dayTime)
                 {
                     list.Add(13);
                     list.Add(12);
@@ -376,7 +376,7 @@ namespace GameManager.GameContent.UI
                     list.Add(70);
                 }
 
-                if (!Main.dayTime || Main.dayTime && (Main.time < 5400.0 || Main.time > 48600.0))
+                if (!Game1.dayTime || Game1.dayTime && (Game1.time < 5400.0 || Game1.time > 48600.0))
                     list.Add(61);
                 if (NPC.downedGoblins)
                     list.Add(64);
@@ -390,7 +390,7 @@ namespace GameManager.GameContent.UI
                     list.Add(67);
             }
 
-            if (Utils.NextFloat(Main.rand) > num2)
+            if (Utils.NextFloat(Game1.rand) > num2)
                 return;
             list.Add(72);
             list.Add(69);
@@ -407,9 +407,9 @@ namespace GameManager.GameContent.UI
             list.Add(17);
             list.Add(87);
             list.Add(91);
-            if (!Main.bloodMoon || Main.dayTime)
+            if (!Game1.bloodMoon || Game1.dayTime)
                 return;
-            int num = Utils.SelectRandom<int>(Main.rand, 16, 1);
+            int num = Utils.SelectRandom<int>(Game1.rand, 16, 1);
             list.Add(num);
             list.Add(num);
             list.Add(num);
@@ -418,13 +418,13 @@ namespace GameManager.GameContent.UI
         private void ProbeBosses(List<int> list)
         {
             int num = 0;
-            if (!NPC.downedBoss1 && !Main.dayTime || NPC.downedBoss1)
+            if (!NPC.downedBoss1 && !Game1.dayTime || NPC.downedBoss1)
                 num = 1;
             if (NPC.downedBoss2)
                 num = 2;
             if (NPC.downedQueenBee || NPC.downedBoss3)
                 num = 3;
-            if (Main.hardMode)
+            if (Game1.hardMode)
                 num = 4;
             if (NPC.downedMechBossAny)
                 num = 5;
@@ -437,7 +437,7 @@ namespace GameManager.GameContent.UI
             int maxValue = 10;
             if (NPC.downedMoonlord)
                 maxValue = 1;
-            if (num >= 1 && num <= 2 || num >= 1 && Main.rand.Next(maxValue) == 0)
+            if (num >= 1 && num <= 2 || num >= 1 && Game1.rand.Next(maxValue) == 0)
             {
                 list.Add(39);
                 if (WorldGen.crimson)
@@ -447,13 +447,13 @@ namespace GameManager.GameContent.UI
                 list.Add(51);
             }
 
-            if (num >= 2 && num <= 3 || num >= 2 && Main.rand.Next(maxValue) == 0)
+            if (num >= 2 && num <= 3 || num >= 2 && Game1.rand.Next(maxValue) == 0)
             {
                 list.Add(43);
                 list.Add(42);
             }
 
-            if (num >= 4 && num <= 5 || num >= 4 && Main.rand.Next(maxValue) == 0)
+            if (num >= 4 && num <= 5 || num >= 4 && Game1.rand.Next(maxValue) == 0)
             {
                 list.Add(44);
                 list.Add(47);
@@ -461,7 +461,7 @@ namespace GameManager.GameContent.UI
                 list.Add(46);
             }
 
-            if (num >= 5 && num <= 6 || num >= 5 && Main.rand.Next(maxValue) == 0)
+            if (num >= 5 && num <= 6 || num >= 5 && Game1.rand.Next(maxValue) == 0)
             {
                 if (!NPC.downedMechBoss1)
                     list.Add(47);
@@ -472,27 +472,27 @@ namespace GameManager.GameContent.UI
                 list.Add(48);
             }
 
-            if (num == 6 || num >= 6 && Main.rand.Next(maxValue) == 0)
+            if (num == 6 || num >= 6 && Game1.rand.Next(maxValue) == 0)
             {
                 list.Add(48);
                 list.Add(49);
                 list.Add(50);
             }
 
-            if (num == 7 || num >= 7 && Main.rand.Next(maxValue) == 0)
+            if (num == 7 || num >= 7 && Game1.rand.Next(maxValue) == 0)
             {
                 list.Add(49);
                 list.Add(50);
                 list.Add(52);
             }
 
-            if (num == 8 || num >= 8 && Main.rand.Next(maxValue) == 0)
+            if (num == 8 || num >= 8 && Game1.rand.Next(maxValue) == 0)
             {
                 list.Add(52);
                 list.Add(53);
             }
 
-            if (NPC.downedPirates && Main.expertMode)
+            if (NPC.downedPirates && Game1.expertMode)
                 list.Add(59);
             if (NPC.downedMartians)
                 list.Add(60);
@@ -565,7 +565,7 @@ namespace GameManager.GameContent.UI
             }
             else if (npc.type == 22)
             {
-                if (!Main.bloodMoon)
+                if (!Game1.bloodMoon)
                 {
                     if (other != null && ((NPC)other.entity).type == 19)
                     {
@@ -577,7 +577,7 @@ namespace GameManager.GameContent.UI
                     else
                         list.Add(79);
                 }
-                if (!Main.dayTime)
+                if (!Game1.dayTime)
                 {
                     list.Add(16);
                     list.Add(16);
@@ -594,7 +594,7 @@ namespace GameManager.GameContent.UI
             }
             else if (npc.type == 38)
             {
-                if (Main.bloodMoon)
+                if (Game1.bloodMoon)
                 {
                     list.Add(77);
                     list.Add(77);
@@ -614,7 +614,7 @@ namespace GameManager.GameContent.UI
             }
             else if (npc.type == 54)
             {
-                if (Main.bloodMoon)
+                if (Game1.bloodMoon)
                 {
                     list.Add(43);
                     list.Add(72);
@@ -686,7 +686,7 @@ namespace GameManager.GameContent.UI
                     if (list.Contains(108))
                     {
                         list.Remove(108);
-                        if (Main.hardMode)
+                        if (Game1.hardMode)
                         {
                             list.Add(108);
                             list.Add(108);
@@ -783,7 +783,7 @@ namespace GameManager.GameContent.UI
             }
             else if (npc.type == 369)
             {
-                if (Main.bloodMoon)
+                if (Game1.bloodMoon)
                     return;
                 list.Add(70);
                 list.Add(70);
@@ -791,7 +791,7 @@ namespace GameManager.GameContent.UI
                 list.Add(76);
                 list.Add(79);
                 list.Add(79);
-                if (npc.position.Y >= Main.worldSurface)
+                if (npc.position.Y >= Game1.worldSurface)
                     return;
                 list.Add(29);
             }

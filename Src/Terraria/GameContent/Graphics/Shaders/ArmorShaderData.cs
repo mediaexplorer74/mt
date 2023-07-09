@@ -33,7 +33,7 @@ namespace GameManager.Graphics.Shaders
             _shader.Parameters["uColor"].SetValue(_uColor);
             _shader.Parameters["uSaturation"].SetValue(_uSaturation);
             _shader.Parameters["uSecondaryColor"].SetValue(_uSecondaryColor);
-            _shader.Parameters["uTime"].SetValue(Main.GlobalTime);
+            _shader.Parameters["uTime"].SetValue(Game1.GlobalTime);
             _shader.Parameters["uOpacity"].SetValue(_uOpacity);
             if (drawData.HasValue)
             {
@@ -41,7 +41,7 @@ namespace GameManager.Graphics.Shaders
                 _shader.Parameters["uSourceRect"].SetValue(!drawData1.sourceRect.HasValue ? new Vector4(0.0f, 0.0f, (float)drawData1.texture.Width,
                     (float)drawData1.texture.Height) : new Vector4((float)drawData1.sourceRect.Value.X, (float)drawData1.sourceRect.Value.Y,
                         (float)drawData1.sourceRect.Value.Width, (float)drawData1.sourceRect.Value.Height));
-                _shader.Parameters["uWorldPosition"].SetValue(Main.screenPosition + drawData1.position);
+                _shader.Parameters["uWorldPosition"].SetValue(Game1.screenPosition + drawData1.position);
                 _shader.Parameters["uImageSize0"].SetValue(new Vector2((float)drawData1.texture.Width, (float)drawData1.texture.Height));
                 _shader.Parameters["uRotation"].SetValue(drawData1.rotation * (drawData1.effect.HasFlag(SpriteEffects.FlipHorizontally) ? -1f : 1f));
                 _shader.Parameters["uDirection"].SetValue(drawData1.effect.HasFlag(SpriteEffects.FlipHorizontally) ? -1 : 1);
@@ -54,7 +54,7 @@ namespace GameManager.Graphics.Shaders
 
             if (_uImage != null)
             {
-                Main.graphics.GraphicsDevice.Textures[1] = _uImage.Value;
+                Game1.graphics.GraphicsDevice.Textures[1] = _uImage.Value;
                 _shader.Parameters["uImageSize1"].SetValue(new Vector2((float)_uImage.Value.Width, (float)_uImage.Value.Height));
             }
 

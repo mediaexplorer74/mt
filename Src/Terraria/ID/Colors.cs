@@ -81,7 +81,7 @@ namespace GameManager.ID
                 bool flag = true;
                 for (int index = 0; index < 11; ++index)
                 {
-                    if (Main.liquidAlpha[index] > 0.0)
+                    if (Game1.liquidAlpha[index] > 0.0)
                     {
                         if (flag)
                         {
@@ -89,7 +89,7 @@ namespace GameManager.ID
                             color = _liquidColors[index];
                         }
                         else
-                            color = Color.Lerp(color, _liquidColors[index], Main.liquidAlpha[index]);
+                            color = Color.Lerp(color, _liquidColors[index], Game1.liquidAlpha[index]);
                     }
                 }
                 return color;
@@ -98,7 +98,7 @@ namespace GameManager.ID
 
         public static Color AlphaDarken(Color input)
         {
-            return input * (Main.mouseTextColor / 255);
+            return input * (Game1.mouseTextColor / 255);
         }
     }
 }

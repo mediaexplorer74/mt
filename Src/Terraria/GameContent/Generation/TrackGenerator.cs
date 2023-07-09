@@ -32,8 +32,8 @@ namespace GameManager.GameContent.Generation
             int num = trackCount;
             while (num > 0)
             {
-                int x = random.Next(150, Main.maxTilesX - 150);
-                int y = random.Next((int)Main.worldSurface + 25, Main.maxTilesY - 200);
+                int x = random.Next(150, Game1.maxTilesX - 150);
+                int y = random.Next((int)Game1.worldSurface + 25, Game1.maxTilesY - 200);
                 if (this.IsLocationEmpty(x, y))
                 {
                     while (IsLocationEmpty(x, y + 1))
@@ -46,7 +46,7 @@ namespace GameManager.GameContent.Generation
 
         private bool IsLocationEmpty(int x, int y)
         {
-            if (y > Main.maxTilesY - 200 || x < 0 || (y < (int)Main.worldSurface || x > Main.maxTilesX - 5))
+            if (y > Game1.maxTilesY - 200 || x < 0 || (y < (int)Game1.worldSurface || x > Game1.maxTilesX - 5))
                 return false;
             for (int index = 0; index < 6; ++index)
             {
@@ -58,10 +58,10 @@ namespace GameManager.GameContent.Generation
 
         private bool CanTrackBePlaced(int x, int y)
         {
-            if (y > Main.maxTilesY - 200 || x < 0 || (y < (int)Main.worldSurface || x > Main.maxTilesX - 5))
+            if (y > Game1.maxTilesY - 200 || x < 0 || (y < (int)Game1.worldSurface || x > Game1.maxTilesX - 5))
                 return false;
 
-            byte num = Main.tile[x, y].wall;
+            byte num = Game1.tile[x, y].wall;
             for (int index = 0; index < INVALID_WALLS.Length; ++index)
             {
                 if (num == INVALID_WALLS[index])
@@ -70,7 +70,7 @@ namespace GameManager.GameContent.Generation
 
             for (int index = -1; index <= 1; ++index)
             {
-                if (Main.tile[x + index, y].active() && (Main.tile[x + index, y].type == 314 || !TileID.Sets.GeneralPlacementTiles[Main.tile[x + index, y].type]))
+                if (Game1.tile[x + index, y].active() && (Game1.tile[x + index, y].type == 314 || !TileID.Sets.GeneralPlacementTiles[Game1.tile[x + index, y].type]))
                     return false;
             }
             return true;
@@ -104,11 +104,11 @@ namespace GameManager.GameContent.Generation
         {
             TrackHistory[] history = this._historyCache;
             int index1 = 0;
-            Tile[,] tileArray = Main.tile;
+            Tile[,] tileArray = Game1.tile;
             bool flag1 = true;
             int num1 = new Random().Next(2) == 0 ? 1 : -1;
             if (debugMode)
-                num1 = Main.player[Main.myPlayer].direction;
+                num1 = Game1.player[Game1.myPlayer].direction;
             int yDirection = 1;
             int length = 0;
             int num2 = 400;
@@ -227,7 +227,7 @@ namespace GameManager.GameContent.Generation
             {
                 TrackHistory trackHistory = history[index2];
                 for (int index3 = 0; index3 < 6; ++index3)
-                    Main.tile[trackHistory.X, trackHistory.Y - index3].active(false);
+                    Game1.tile[trackHistory.X, trackHistory.Y - index3].active(false);
             }
 
             for (int index2 = 0; index2 < length; ++index2)
@@ -235,7 +235,7 @@ namespace GameManager.GameContent.Generation
                 TrackHistory trackHistory = history[index2];
                 Tile.SmoothSlope((int)trackHistory.X, (int)trackHistory.Y + 1, true);
                 Tile.SmoothSlope((int)trackHistory.X, (int)trackHistory.Y - 6, true);
-                Main.tile[(int)trackHistory.X, (int)trackHistory.Y].ResetToType((ushort)314);
+                Game1.tile[(int)trackHistory.X, (int)trackHistory.Y].ResetToType((ushort)314);
                 if (index2 != 0)
                 {
                     for (int index3 = 0; index3 < 6; ++index3)

@@ -150,8 +150,8 @@ namespace GameManager
         {
             if (prefixId == 0 || itemId == 0)
                 return false;
-            if (Main.rand == null)
-                Main.rand = new Random();
+            if (Game1.rand == null)
+                Game1.rand = new Random();
             int prefix = prefixId;
             ItemPrefix itemPrefix;
             float damageMod = 1f;
@@ -172,7 +172,7 @@ namespace GameManager
                 manaCostMod = 1f;
                 critStrikeMod = 0;
                 flag = false;
-                if (prefix == -1 && Main.rand.Next(4) == 0)
+                if (prefix == -1 && Game1.rand.Next(4) == 0)
                     prefix = 0;
                 if (prefixId < -1)
                     prefix = -1;
@@ -203,7 +203,7 @@ namespace GameManager
                     {
                         if (itemIdGroups[i].Contains(itemId))
                         {
-                            int random = Main.rand.Next(prefixGroups[i].Length);
+                            int random = Game1.rand.Next(prefixGroups[i].Length);
                             prefix = prefixGroups[i][random];
                             prefixAssigned = true;
                             break;
@@ -216,12 +216,12 @@ namespace GameManager
                         int[] excludedItemIds = { 267, 562, 563, 564, 565, 566, 567, 568, 569, 570, 571, 572, 573, 574, 576, 1307, 1596, 1597, 1598, 1599, 1600, 1601, 1602, 1603, 1604, 1605, 1606, 1607, 1608, 1609, 1610 };
                         if (excludedItemIds.Contains(itemId) || !accessory || vanity)
                             return false;
-                        prefix = Main.rand.Next(62, 81);
+                        prefix = Game1.rand.Next(62, 81);
                     }
                 }
                 if (prefixId == -3)
                     return true;
-                if (prefixId == -1 && (prefix == 7 || prefix == 8 || (prefix == 9 || prefix == 10) || (prefix == 11 || prefix == 22 || (prefix == 23 || prefix == 24)) || (prefix == 29 || prefix == 30 || (prefix == 31 || prefix == 39) || (prefix == 40 || prefix == 56 || (prefix == 41 || prefix == 47))) || (prefix == 48 || prefix == 49)) && Main.rand.Next(3) != 0)
+                if (prefixId == -1 && (prefix == 7 || prefix == 8 || (prefix == 9 || prefix == 10) || (prefix == 11 || prefix == 22 || (prefix == 23 || prefix == 24)) || (prefix == 29 || prefix == 30 || (prefix == 31 || prefix == 39) || (prefix == 40 || prefix == 56 || (prefix == 41 || prefix == 47))) || (prefix == 48 || prefix == 49)) && Game1.rand.Next(3) != 0)
                     prefix = 0;
 
                 // Append correct stat modifiers to the prefix value
@@ -375,7 +375,7 @@ namespace GameManager
             {
                 for (int Type = 0; Type < 3601; ++Type)
                 {
-                    if (Main.itemName[Type] == ItemName)
+                    if (Game1.itemName[Type] == ItemName)
                     {
                         SetDefaults(Type, false);
                         checkMat();
@@ -411,9 +411,9 @@ namespace GameManager
             }
             for (int index1 = 0; index1 < Recipe.numRecipes; ++index1)
             {
-                for (int index2 = 0; Main.recipe[index1].requiredItem[index2].itemId > 0; ++index2)
+                for (int index2 = 0; Game1.recipe[index1].requiredItem[index2].itemId > 0; ++index2)
                 {
-                    if (netID == Main.recipe[index1].requiredItem[index2].netID)
+                    if (netID == Game1.recipe[index1].requiredItem[index2].netID)
                     {
                         material = true;
                         return true;
@@ -5477,7 +5477,7 @@ namespace GameManager
                 width = 20;
                 height = 20;
                 value = 10000;
-                color = Main.player[Main.myPlayer].shirtColor;
+                color = Game1.player[Game1.myPlayer].shirtColor;
                 vanity = true;
             }
             else if (itemId == 270)
@@ -5487,7 +5487,7 @@ namespace GameManager
                 width = 20;
                 height = 20;
                 value = 10000;
-                color = Main.player[Main.myPlayer].pantsColor;
+                color = Game1.player[Game1.myPlayer].pantsColor;
                 vanity = true;
             }
             else if (itemId == 271)
@@ -5497,7 +5497,7 @@ namespace GameManager
                 width = 20;
                 height = 20;
                 value = 10000;
-                color = Main.player[Main.myPlayer].hairColor;
+                color = Game1.player[Game1.myPlayer].hairColor;
                 vanity = true;
             }
             else if (itemId == 272)
@@ -39217,7 +39217,7 @@ namespace GameManager
 
         public void SetDefaults(int Type = 0, bool noMatCheck = false)
         {
-            owner = Main.netMode == 1 || Main.netMode == 2 ? 255 : Main.myPlayer;
+            owner = Game1.netMode == 1 || Game1.netMode == 2 ? 255 : Game1.myPlayer;
             ResetStats(Type);
             if (itemId >= 3601)
                 itemId = 0;
@@ -39324,7 +39324,7 @@ namespace GameManager
             }
             if (itemId == 2663 || itemId == 1720 || (itemId == 2137 || itemId == 2155) || (itemId == 2151 || itemId == 1704 || (itemId == 2143 || itemId == 1710)) || (itemId == 2238 || itemId == 2133 || (itemId == 2147 || itemId == 2405) || (itemId == 1716 || itemId == 1705)))
                 value = sellPrice(0, 2, 0, 0);
-            if (Main.projHook[shoot])
+            if (Game1.projHook[shoot])
             {
                 useStyle = 0;
                 useTime = 0;
@@ -39541,7 +39541,7 @@ namespace GameManager
                 case 1446:
                 case 1506:
                 case 1507:
-                    return new Color(newColor.R, newColor.G, newColor.B, Main.gFade);
+                    return new Color(newColor.R, newColor.G, newColor.B, Game1.gFade);
                 case 1572:
                     return new Color(200, 200, 255, 125);
                 case 1508:
@@ -39618,12 +39618,12 @@ namespace GameManager
             int num3 = 0;
             for (int index = 0; index < 200; ++index)
             {
-                if (Main.item[index].active && Main.item[index].itemId == type)
+                if (Game1.item[index].active && Game1.item[index].itemId == type)
                 {
                     ++num1;
                     Vector2 vector2 = new Vector2(x, y);
-                    float num4 = Main.item[index].position.X - vector2.X;
-                    float num5 = Main.item[index].position.Y - vector2.Y;
+                    float num4 = Game1.item[index].position.X - vector2.X;
+                    float num5 = Game1.item[index].position.Y - vector2.Y;
                     float num6 = (float)Math.Sqrt(num4 * num4 + num5 * num5);
                     if (num6 < 300.0)
                         ++num2;
@@ -39646,9 +39646,9 @@ namespace GameManager
 
         public void UpdateItem(int i)
         {
-            if (Main.itemLockoutTime[i] > 0)
+            if (Game1.itemLockoutTime[i] > 0)
             {
-                --Main.itemLockoutTime[i];
+                --Game1.itemLockoutTime[i];
             }
             else
             {
@@ -39656,22 +39656,22 @@ namespace GameManager
                     return;
                 if (instanced)
                 {
-                    if (Main.netMode == 2)
+                    if (Game1.netMode == 2)
                     {
                         active = false;
                         return;
                     }
                     keepTime = 600;
                 }
-                if (Main.netMode == 0)
-                    owner = Main.myPlayer;
+                if (Game1.netMode == 0)
+                    owner = Game1.myPlayer;
                 float gravity = 0.1f;
                 float num1 = 7f;
-                if (Main.netMode == 1)
+                if (Game1.netMode == 1)
                 {
                     int index1 = (int)(position.X + (width / 2)) / 16;
                     int index2 = (int)(position.Y + (height / 2)) / 16;
-                    if (index1 >= 0 && index2 >= 0 && (index1 < Main.maxTilesX && index2 < Main.maxTilesY) && Main.tile[index1, index2] == null)
+                    if (index1 >= 0 && index2 >= 0 && (index1 < Game1.maxTilesX && index2 < Game1.maxTilesY) && Game1.tile[index1, index2] == null)
                     {
                         gravity = 0.0f;
                         velocity.X = 0.0f;
@@ -39710,25 +39710,25 @@ namespace GameManager
                     }
                     if (ItemID.Sets.NebulaPickup[itemId])
                         flag1 = false;
-                    if (owner == Main.myPlayer && flag1 && (createTile >= 0 || createWall > 0 || ammo > 0 && !notAmmo || (consumable || itemId >= 205 && itemId <= 207) || (itemId == 1128 || itemId == 530 || (dye > 0 || paint > 0) || material)) && stack < maxStack)
+                    if (owner == Game1.myPlayer && flag1 && (createTile >= 0 || createWall > 0 || ammo > 0 && !notAmmo || (consumable || itemId >= 205 && itemId <= 207) || (itemId == 1128 || itemId == 530 || (dye > 0 || paint > 0) || material)) && stack < maxStack)
                     {
                         for (int number = i + 1; number < 400; ++number)
                         {
-                            if (Main.item[number].active && Main.item[number].itemId == itemId && (Main.item[number].stack > 0 && Main.item[number].owner == owner) && (Math.Abs((position.X + (width / 2) - (Main.item[number].position.X + (Main.item[number].width / 2)))) + Math.Abs((position.Y + (height / 2) - (Main.item[number].position.Y + (Main.item[number].height / 2))))) < 30.0)
+                            if (Game1.item[number].active && Game1.item[number].itemId == itemId && (Game1.item[number].stack > 0 && Game1.item[number].owner == owner) && (Math.Abs((position.X + (width / 2) - (Game1.item[number].position.X + (Game1.item[number].width / 2)))) + Math.Abs((position.Y + (height / 2) - (Game1.item[number].position.Y + (Game1.item[number].height / 2))))) < 30.0)
                             {
-                                position = (position + Main.item[number].position) / 2f;
-                                velocity = (velocity + Main.item[number].velocity) / 2f;
-                                int num2 = Main.item[number].stack;
+                                position = (position + Game1.item[number].position) / 2f;
+                                velocity = (velocity + Game1.item[number].velocity) / 2f;
+                                int num2 = Game1.item[number].stack;
                                 if (num2 > maxStack - stack)
                                     num2 = maxStack - stack;
-                                Main.item[number].stack -= num2;
+                                Game1.item[number].stack -= num2;
                                 stack += num2;
-                                if (Main.item[number].stack <= 0)
+                                if (Game1.item[number].stack <= 0)
                                 {
-                                    Main.item[number].SetDefaults(0, false);
-                                    Main.item[number].active = false;
+                                    Game1.item[number].SetDefaults(0, false);
+                                    Game1.item[number].active = false;
                                 }
-                                if (Main.netMode != 0 && owner == Main.myPlayer)
+                                if (Game1.netMode != 0 && owner == Game1.myPlayer)
                                 {
                                     NetMessage.SendData(21, -1, -1, "", i, 0.0f, 0.0f, 0.0f, 0, 0, 0);
                                     NetMessage.SendData(21, -1, -1, "", number, 0.0f, 0.0f, 0.0f, 0, 0, 0);
@@ -39736,12 +39736,12 @@ namespace GameManager
                             }
                         }
                     }
-                    if (Main.netMode != 2 && Main.expertMode && (owner == Main.myPlayer && itemId >= 71) && itemId <= 74)
+                    if (Game1.netMode != 2 && Game1.expertMode && (owner == Game1.myPlayer && itemId >= 71) && itemId <= 74)
                     {
                         Rectangle rectangle1 = new Rectangle((int)position.X, (int)position.Y, width, height);
                         for (int index1 = 0; index1 < 200; ++index1)
                         {
-                            if (Main.npc[index1].active && Main.npc[index1].lifeMax > 5 && (!Main.npc[index1].friendly && !Main.npc[index1].immortal) && !Main.npc[index1].dontTakeDamage)
+                            if (Game1.npc[index1].active && Game1.npc[index1].lifeMax > 5 && (!Game1.npc[index1].friendly && !Game1.npc[index1].immortal) && !Game1.npc[index1].dontTakeDamage)
                             {
                                 float num2 = stack;
                                 float num3 = 1f;
@@ -39752,22 +39752,22 @@ namespace GameManager
                                 if (itemId == 74)
                                     num3 = 1000000f;
                                 float num4 = num2 * num3;
-                                float num5 = Main.npc[index1].extraValue;
-                                int index2 = Main.npc[index1].realLife;
-                                if (index2 >= 0 && Main.npc[index2].active)
-                                    num5 = Main.npc[index2].extraValue;
+                                float num5 = Game1.npc[index1].extraValue;
+                                int index2 = Game1.npc[index1].realLife;
+                                if (index2 >= 0 && Game1.npc[index2].active)
+                                    num5 = Game1.npc[index2].extraValue;
                                 else
                                     index2 = -1;
                                 if (num5 < num4)
                                 {
-                                    Rectangle rectangle2 = new Rectangle((int)Main.npc[index1].position.X, (int)Main.npc[index1].position.Y, Main.npc[index1].width, Main.npc[index1].height);
+                                    Rectangle rectangle2 = new Rectangle((int)Game1.npc[index1].position.X, (int)Game1.npc[index1].position.Y, Game1.npc[index1].width, Game1.npc[index1].height);
                                     if (rectangle1.Intersects(rectangle2))
                                     {
-                                        float num6 = Main.rand.Next(50, 76) * 0.01f;
+                                        float num6 = Game1.rand.Next(50, 76) * 0.01f;
                                         if (itemId == 71)
-                                            num6 += Main.rand.Next(51) * 0.01f;
+                                            num6 += Game1.rand.Next(51) * 0.01f;
                                         if (itemId == 72)
-                                            num6 += Main.rand.Next(26) * 0.01f;
+                                            num6 += Game1.rand.Next(26) * 0.01f;
                                         if (num6 > 1.0)
                                             num6 = 1f;
                                         int num7 = (int)(stack * num6);
@@ -39780,9 +39780,9 @@ namespace GameManager
                                         int number = index1;
                                         if (index2 >= 0)
                                             number = index2;
-                                        Main.npc[number].extraValue += number2;
-                                        if (Main.netMode == 0)
-                                            Main.npc[number].moneyPing(position);
+                                        Game1.npc[number].extraValue += number2;
+                                        if (Game1.netMode == 0)
+                                            Game1.npc[number].moneyPing(position);
                                         else
                                             NetMessage.SendData(92, -1, -1, "", number, number2, position.X, position.Y, 0, 0, 0);
                                         if (stack <= 0)
@@ -39831,26 +39831,26 @@ namespace GameManager
                                         for (int index1 = 0; index1 < 5; ++index1)
                                         {
                                             int index2 = Dust.NewDust(new Vector2(position.X - 6f, (float)(position.Y + (height / 2) - 8.0)), width + 12, 24, 152, 0.0f, 0.0f, 0, new Color(), 1f);
-                                            --Main.dust[index2].velocity.Y;
-                                            Main.dust[index2].velocity.X *= 2.5f;
-                                            Main.dust[index2].scale = 1.3f;
-                                            Main.dust[index2].alpha = 100;
-                                            Main.dust[index2].noGravity = true;
+                                            --Game1.dust[index2].velocity.Y;
+                                            Game1.dust[index2].velocity.X *= 2.5f;
+                                            Game1.dust[index2].scale = 1.3f;
+                                            Game1.dust[index2].alpha = 100;
+                                            Game1.dust[index2].noGravity = true;
                                         }
-                                        Main.PlaySound(19, (int)position.X, (int)position.Y, 1);
+                                        Game1.PlaySound(19, (int)position.X, (int)position.Y, 1);
                                     }
                                     else
                                     {
                                         for (int index1 = 0; index1 < 10; ++index1)
                                         {
                                             int index2 = Dust.NewDust(new Vector2(position.X - 6f, (float)(position.Y + (height / 2) - 8.0)), width + 12, 24, Dust.dustWater(), 0.0f, 0.0f, 0, new Color(), 1f);
-                                            Main.dust[index2].velocity.Y -= 4f;
-                                            Main.dust[index2].velocity.X *= 2.5f;
-                                            Main.dust[index2].scale *= 0.8f;
-                                            Main.dust[index2].alpha = 100;
-                                            Main.dust[index2].noGravity = true;
+                                            Game1.dust[index2].velocity.Y -= 4f;
+                                            Game1.dust[index2].velocity.X *= 2.5f;
+                                            Game1.dust[index2].scale *= 0.8f;
+                                            Game1.dust[index2].alpha = 100;
+                                            Game1.dust[index2].noGravity = true;
                                         }
-                                        Main.PlaySound(19, (int)position.X, (int)position.Y, 1);
+                                        Game1.PlaySound(19, (int)position.X, (int)position.Y, 1);
                                     }
                                 }
                                 else
@@ -39858,13 +39858,13 @@ namespace GameManager
                                     for (int index1 = 0; index1 < 5; ++index1)
                                     {
                                         int index2 = Dust.NewDust(new Vector2(position.X - 6f, (float)(position.Y + (height / 2) - 8.0)), width + 12, 24, 35, 0.0f, 0.0f, 0, new Color(), 1f);
-                                        Main.dust[index2].velocity.Y -= 1.5f;
-                                        Main.dust[index2].velocity.X *= 2.5f;
-                                        Main.dust[index2].scale = 1.3f;
-                                        Main.dust[index2].alpha = 100;
-                                        Main.dust[index2].noGravity = true;
+                                        Game1.dust[index2].velocity.Y -= 1.5f;
+                                        Game1.dust[index2].velocity.X *= 2.5f;
+                                        Game1.dust[index2].scale = 1.3f;
+                                        Game1.dust[index2].alpha = 100;
+                                        Game1.dust[index2].noGravity = true;
                                     }
-                                    Main.PlaySound(19, (int)position.X, (int)position.Y, 1);
+                                    Game1.PlaySound(19, (int)position.X, (int)position.Y, 1);
                                 }
                             }
                             wet = true;
@@ -39905,7 +39905,7 @@ namespace GameManager
                     {
                         if (itemId == 267)
                         {
-                            if (Main.netMode != 1)
+                            if (Game1.netMode != 1)
                             {
                                 active = false;
                                 itemId = 0;
@@ -39913,100 +39913,100 @@ namespace GameManager
                                 stack = 0;
                                 for (int number = 0; number < 200; ++number)
                                 {
-                                    if (Main.npc[number].active && Main.npc[number].type == 22)
+                                    if (Game1.npc[number].active && Game1.npc[number].type == 22)
                                     {
-                                        if (Main.netMode == 2)
-                                            NetMessage.SendData(28, -1, -1, "", number, 9999f, 10f, (float)-Main.npc[number].direction, 0, 0, 0);
-                                        Main.npc[number].StrikeNPCNoInteraction(9999, 10f, -Main.npc[number].direction, false, false, false);
+                                        if (Game1.netMode == 2)
+                                            NetMessage.SendData(28, -1, -1, "", number, 9999f, 10f, (float)-Game1.npc[number].direction, 0, 0, 0);
+                                        Game1.npc[number].StrikeNPCNoInteraction(9999, 10f, -Game1.npc[number].direction, false, false, false);
                                         NPC.SpawnWOF(position);
                                     }
                                 }
                                 NetMessage.SendData(21, -1, -1, "", i, 0.0f, 0.0f, 0.0f, 0, 0, 0);
                             }
                         }
-                        else if (owner == Main.myPlayer && itemId != 312 && (itemId != 318 && itemId != 173) && (itemId != 174 && itemId != 175 && (itemId != 2701 && rare == 0)))
+                        else if (owner == Game1.myPlayer && itemId != 312 && (itemId != 318 && itemId != 173) && (itemId != 174 && itemId != 175 && (itemId != 2701 && rare == 0)))
                         {
                             active = false;
                             itemId = 0;
                             name = "";
                             stack = 0;
-                            if (Main.netMode != 0)
+                            if (Game1.netMode != 0)
                                 NetMessage.SendData(21, -1, -1, "", i, 0.0f, 0.0f, 0.0f, 0, 0, 0);
                         }
                     }
                     if (itemId == 3191)
                     {
-                        float num2 = Main.rand.Next(90, 111) * 0.01f * (float)((Main.essScale + 0.5) / 2.0);
+                        float num2 = Game1.rand.Next(90, 111) * 0.01f * (float)((Game1.essScale + 0.5) / 2.0);
                         Lighting.AddLight((int)((position.X + (width / 2)) / 16.0), (int)((position.Y + (height / 2)) / 16.0), 0.3f * num2, 0.1f * num2, 0.25f * num2);
                     }
                     else if (itemId == 520 || itemId == 3454)
                     {
-                        float num2 = Main.rand.Next(90, 111) * 0.01f * Main.essScale;
+                        float num2 = Game1.rand.Next(90, 111) * 0.01f * Game1.essScale;
                         Lighting.AddLight((int)((position.X + (width / 2)) / 16.0), (int)((position.Y + (height / 2)) / 16.0), 0.5f * num2, 0.1f * num2, 0.25f * num2);
                     }
                     else if (itemId == 521 || itemId == 3455)
                     {
-                        float num2 = Main.rand.Next(90, 111) * 0.01f * Main.essScale;
+                        float num2 = Game1.rand.Next(90, 111) * 0.01f * Game1.essScale;
                         Lighting.AddLight((int)((position.X + (width / 2)) / 16.0), (int)((position.Y + (height / 2)) / 16.0), 0.25f * num2, 0.1f * num2, 0.5f * num2);
                     }
                     else if (itemId == 547 || itemId == 3453)
                     {
-                        float num2 = Main.rand.Next(90, 111) * 0.01f * Main.essScale;
+                        float num2 = Game1.rand.Next(90, 111) * 0.01f * Game1.essScale;
                         Lighting.AddLight((int)((position.X + (width / 2)) / 16.0), (int)((position.Y + (height / 2)) / 16.0), 0.5f * num2, 0.3f * num2, 0.05f * num2);
                     }
                     else if (itemId == 548)
                     {
-                        float num2 = Main.rand.Next(90, 111) * 0.01f * Main.essScale;
+                        float num2 = Game1.rand.Next(90, 111) * 0.01f * Game1.essScale;
                         Lighting.AddLight((int)((position.X + (width / 2)) / 16.0), (int)((position.Y + (height / 2)) / 16.0), 0.1f * num2, 0.1f * num2, 0.6f * num2);
                     }
                     else if (itemId == 575)
                     {
-                        float num2 = Main.rand.Next(90, 111) * 0.01f * Main.essScale;
+                        float num2 = Game1.rand.Next(90, 111) * 0.01f * Game1.essScale;
                         Lighting.AddLight((int)((position.X + (width / 2)) / 16.0), (int)((position.Y + (height / 2)) / 16.0), 0.1f * num2, 0.3f * num2, 0.5f * num2);
                     }
                     else if (itemId == 549)
                     {
-                        float num2 = Main.rand.Next(90, 111) * 0.01f * Main.essScale;
+                        float num2 = Game1.rand.Next(90, 111) * 0.01f * Game1.essScale;
                         Lighting.AddLight((int)((position.X + (width / 2)) / 16.0), (int)((position.Y + (height / 2)) / 16.0), 0.1f * num2, 0.5f * num2, 0.2f * num2);
                     }
                     else if (itemId == 58 || itemId == 1734 || itemId == 1867)
                     {
-                        float num2 = Main.rand.Next(90, 111) * 0.01f * (Main.essScale * 0.5f);
+                        float num2 = Game1.rand.Next(90, 111) * 0.01f * (Game1.essScale * 0.5f);
                         Lighting.AddLight((int)((position.X + (width / 2)) / 16.0), (int)((position.Y + (height / 2)) / 16.0), 0.5f * num2, 0.1f * num2, 0.1f * num2);
                     }
                     else if (itemId == 184 || itemId == 1735 || itemId == 1868)
                     {
-                        float num2 = Main.rand.Next(90, 111) * 0.01f * (Main.essScale * 0.5f);
+                        float num2 = Game1.rand.Next(90, 111) * 0.01f * (Game1.essScale * 0.5f);
                         Lighting.AddLight((int)((position.X + (width / 2)) / 16.0), (int)((position.Y + (height / 2)) / 16.0), 0.1f * num2, 0.1f * num2, 0.5f * num2);
                     }
                     else if (itemId == 522)
                     {
-                        float num2 = Main.rand.Next(90, 111) * 0.01f * (Main.essScale * 0.2f);
+                        float num2 = Game1.rand.Next(90, 111) * 0.01f * (Game1.essScale * 0.2f);
                         Lighting.AddLight((int)((position.X + (width / 2)) / 16.0), (int)((position.Y + (height / 2)) / 16.0), 0.5f * num2, 1f * num2, 0.1f * num2);
                     }
                     else if (itemId == 1332)
                     {
-                        float num2 = Main.rand.Next(90, 111) * 0.01f * (Main.essScale * 0.2f);
+                        float num2 = Game1.rand.Next(90, 111) * 0.01f * (Game1.essScale * 0.2f);
                         Lighting.AddLight((int)((position.X + (width / 2)) / 16.0), (int)((position.Y + (height / 2)) / 16.0), 1f * num2, 1f * num2, 0.1f * num2);
                     }
                     else if (itemId == 3456)
-                        Lighting.AddLight(Center, new Vector3(0.2f, 0.4f, 0.5f) * Main.essScale);
+                        Lighting.AddLight(Center, new Vector3(0.2f, 0.4f, 0.5f) * Game1.essScale);
                     else if (itemId == 3457)
-                        Lighting.AddLight(Center, new Vector3(0.4f, 0.2f, 0.5f) * Main.essScale);
+                        Lighting.AddLight(Center, new Vector3(0.4f, 0.2f, 0.5f) * Game1.essScale);
                     else if (itemId == 3458)
-                        Lighting.AddLight(Center, new Vector3(0.5f, 0.4f, 0.2f) * Main.essScale);
+                        Lighting.AddLight(Center, new Vector3(0.5f, 0.4f, 0.2f) * Game1.essScale);
                     else if (itemId == 3459)
-                        Lighting.AddLight(Center, new Vector3(0.2f, 0.2f, 0.5f) * Main.essScale);
-                    if (itemId == 75 && Main.dayTime)
+                        Lighting.AddLight(Center, new Vector3(0.2f, 0.2f, 0.5f) * Game1.essScale);
+                    if (itemId == 75 && Game1.dayTime)
                     {
                         for (int index = 0; index < 10; ++index)
                             Dust.NewDust(position, width, height, 15, velocity.X, velocity.Y, 150, new Color(), 1.2f);
                         for (int index = 0; index < 3; ++index)
-                            Gore.NewGore(position, new Vector2(velocity.X, velocity.Y), Main.rand.Next(16, 18), 1f);
+                            Gore.NewGore(position, new Vector2(velocity.X, velocity.Y), Game1.rand.Next(16, 18), 1f);
                         active = false;
                         itemId = 0;
                         stack = 0;
-                        if (Main.netMode == 2)
+                        if (Game1.netMode == 2)
                             NetMessage.SendData(21, -1, -1, "", i, 0.0f, 0.0f, 0.0f, 0, 0, 0);
                     }
                 }
@@ -40014,11 +40014,11 @@ namespace GameManager
                     beingGrabbed = false;
                 if (itemId == 501)
                 {
-                    if (Main.rand.Next(6) == 0)
+                    if (Game1.rand.Next(6) == 0)
                     {
                         int index = Dust.NewDust(position, width, height, 55, 0.0f, 0.0f, 200, color, 1f);
-                        Main.dust[index].velocity *= 0.3f;
-                        Main.dust[index].scale *= 0.5f;
+                        Game1.dust[index].velocity *= 0.3f;
+                        Game1.dust[index].scale *= 0.5f;
                     }
                 }
                 else if (itemId == 1970)
@@ -40066,7 +40066,7 @@ namespace GameManager
                 else if (itemId == 1333)
                     Lighting.AddLight((int)((position.X + (width / 2)) / 16.0), (int)((position.Y + (height / 2)) / 16.0), 1.25f, 1.25f, 0.8f);
                 else if (itemId == 3045)
-                    Lighting.AddLight((int)((position.X + (width / 2)) / 16.0), (int)((position.Y + (height / 2)) / 16.0), Main.DiscoR / 255, Main.DiscoG / 255, Main.DiscoB / 255);
+                    Lighting.AddLight((int)((position.X + (width / 2)) / 16.0), (int)((position.Y + (height / 2)) / 16.0), Game1.DiscoR / 255, Game1.DiscoG / 255, Game1.DiscoB / 255);
                 else if (itemId == 3004)
                     Lighting.AddLight((int)((position.X + (width / 2)) / 16.0), (int)((position.Y + (height / 2)) / 16.0), 0.95f, 0.65f, 1.3f);
                 else if (itemId == 2274)
@@ -40158,10 +40158,10 @@ namespace GameManager
                     Lighting.AddLight((int)((position.X + width) / 16.0), (int)((position.Y + (height / 2)) / 16.0), 0.8f, 0.7f, 0.1f);
                 if (itemId == 75)
                 {
-                    if (Main.rand.Next(25) == 0)
+                    if (Game1.rand.Next(25) == 0)
                         Dust.NewDust(position, width, height, 58, velocity.X * 0.5f, velocity.Y * 0.5f, 150, new Color(), 1.2f);
-                    if (Main.rand.Next(50) == 0)
-                        Gore.NewGore(position, new Vector2(velocity.X * 0.2f, velocity.Y * 0.2f), Main.rand.Next(16, 18), 1f);
+                    if (Game1.rand.Next(50) == 0)
+                        Gore.NewGore(position, new Vector2(velocity.X * 0.2f, velocity.Y * 0.2f), Game1.rand.Next(16, 18), 1f);
                 }
                 if (spawnTime < 2147483646)
                 {
@@ -40169,7 +40169,7 @@ namespace GameManager
                         spawnTime += 4;
                     ++spawnTime;
                 }
-                if (Main.netMode == 2 && owner != Main.myPlayer)
+                if (Game1.netMode == 2 && owner != Game1.myPlayer)
                 {
                     ++release;
                     if (release >= 300)
@@ -40198,84 +40198,84 @@ namespace GameManager
 
         public static int NewItem(int X, int Y, int Width, int Height, int Type, int Stack = 1, bool noBroadcast = false, int pfix = 0, bool noGrabDelay = false)
         {
-            if (Main.rand == null)
-                Main.rand = new Random();
+            if (Game1.rand == null)
+                Game1.rand = new Random();
             if (WorldGen.gen)
                 return 0;
             int index1 = 400;
-            Main.item[400] = new Item();
-            if (Main.halloween)
+            Game1.item[400] = new Item();
+            if (Game1.halloween)
             {
                 if (Type == 58)
                     Type = 1734;
                 if (Type == 184)
                     Type = 1735;
             }
-            if (Main.xMas)
+            if (Game1.xMas)
             {
                 if (Type == 58)
                     Type = 1867;
                 if (Type == 184)
                     Type = 1868;
             }
-            if (Main.netMode != 1)
+            if (Game1.netMode != 1)
             {
                 for (int index2 = 0; index2 < 400; ++index2)
                 {
-                    if (!Main.item[index2].active && Main.itemLockoutTime[index2] == 0)
+                    if (!Game1.item[index2].active && Game1.itemLockoutTime[index2] == 0)
                     {
                         index1 = index2;
                         break;
                     }
                 }
             }
-            if (index1 == 400 && Main.netMode != 1)
+            if (index1 == 400 && Game1.netMode != 1)
             {
                 int num = 0;
                 for (int index2 = 0; index2 < 400; ++index2)
                 {
-                    if (Main.item[index2].spawnTime - Main.itemLockoutTime[index2] > num)
+                    if (Game1.item[index2].spawnTime - Game1.itemLockoutTime[index2] > num)
                     {
-                        num = Main.item[index2].spawnTime - Main.itemLockoutTime[index2];
+                        num = Game1.item[index2].spawnTime - Game1.itemLockoutTime[index2];
                         index1 = index2;
                     }
                 }
             }
-            Main.itemLockoutTime[index1] = 0;
-            Main.item[index1] = new Item();
-            Main.item[index1].SetDefaults(Type, false);
-            Main.item[index1].Prefix(pfix);
-            Main.item[index1].position.X = (X + Width / 2 - Main.item[index1].width / 2);
-            Main.item[index1].position.Y = (Y + Height / 2 - Main.item[index1].height / 2);
-            Main.item[index1].wet = Collision.WetCollision(Main.item[index1].position, Main.item[index1].width, Main.item[index1].height);
-            Main.item[index1].velocity.X = Main.rand.Next(-30, 31) * 0.1f;
-            Main.item[index1].velocity.Y = Main.rand.Next(-40, -15) * 0.1f;
+            Game1.itemLockoutTime[index1] = 0;
+            Game1.item[index1] = new Item();
+            Game1.item[index1].SetDefaults(Type, false);
+            Game1.item[index1].Prefix(pfix);
+            Game1.item[index1].position.X = (X + Width / 2 - Game1.item[index1].width / 2);
+            Game1.item[index1].position.Y = (Y + Height / 2 - Game1.item[index1].height / 2);
+            Game1.item[index1].wet = Collision.WetCollision(Game1.item[index1].position, Game1.item[index1].width, Game1.item[index1].height);
+            Game1.item[index1].velocity.X = Game1.rand.Next(-30, 31) * 0.1f;
+            Game1.item[index1].velocity.Y = Game1.rand.Next(-40, -15) * 0.1f;
             if (Type == 859)
             {
-                Item obj = Main.item[index1];
+                Item obj = Game1.item[index1];
                 Vector2 vector2 = obj.velocity * 0.0f;
                 obj.velocity = vector2;
             }
-            if (Type == 520 || Type == 521 || Main.item[index1].itemId >= 0 && ItemID.Sets.NebulaPickup[Main.item[index1].itemId])
+            if (Type == 520 || Type == 521 || Game1.item[index1].itemId >= 0 && ItemID.Sets.NebulaPickup[Game1.item[index1].itemId])
             {
-                Main.item[index1].velocity.X = Main.rand.Next(-30, 31) * 0.1f;
-                Main.item[index1].velocity.Y = Main.rand.Next(-30, 31) * 0.1f;
+                Game1.item[index1].velocity.X = Game1.rand.Next(-30, 31) * 0.1f;
+                Game1.item[index1].velocity.Y = Game1.rand.Next(-30, 31) * 0.1f;
             }
-            Main.item[index1].active = true;
-            Main.item[index1].spawnTime = 0;
-            Main.item[index1].stack = Stack;
-            if (ItemSlot.Options.HighlightNewItems && Main.item[index1].itemId >= 0 && !ItemID.Sets.NeverShiny[Main.item[index1].itemId])
-                Main.item[index1].newAndShiny = true;
-            if (Main.netMode == 2 && !noBroadcast)
+            Game1.item[index1].active = true;
+            Game1.item[index1].spawnTime = 0;
+            Game1.item[index1].stack = Stack;
+            if (ItemSlot.Options.HighlightNewItems && Game1.item[index1].itemId >= 0 && !ItemID.Sets.NeverShiny[Game1.item[index1].itemId])
+                Game1.item[index1].newAndShiny = true;
+            if (Game1.netMode == 2 && !noBroadcast)
             {
                 int num = 0;
                 if (noGrabDelay)
                     num = 1;
                 NetMessage.SendData(21, -1, -1, "", index1, num, 0.0f, 0.0f, 0, 0, 0);
-                Main.item[index1].FindOwner(index1);
+                Game1.item[index1].FindOwner(index1);
             }
-            else if (Main.netMode == 0)
-                Main.item[index1].owner = Main.myPlayer;
+            else if (Game1.netMode == 0)
+                Game1.item[index1].owner = Game1.myPlayer;
             return index1;
         }
 
@@ -40288,12 +40288,12 @@ namespace GameManager
             float num1 = 999999f;
             for (int index2 = 0; index2 < 255; ++index2)
             {
-                if (ownIgnore != index2 && Main.player[index2].active && Main.player[index2].ItemSpace(Main.item[whoAmI]))
+                if (ownIgnore != index2 && Game1.player[index2].active && Game1.player[index2].ItemSpace(Game1.item[whoAmI]))
                 {
-                    float num2 = Math.Abs(Main.player[index2].position.X + (Main.player[index2].width / 2) - position.X - (width / 2)) + Math.Abs(Main.player[index2].position.Y + (Main.player[index2].height / 2) - position.Y - height);
-                    if (Main.player[index2].manaMagnet && (itemId == 184 || itemId == 1735 || itemId == 1868))
+                    float num2 = Math.Abs(Game1.player[index2].position.X + (Game1.player[index2].width / 2) - position.X - (width / 2)) + Math.Abs(Game1.player[index2].position.Y + (Game1.player[index2].height / 2) - position.Y - height);
+                    if (Game1.player[index2].manaMagnet && (itemId == 184 || itemId == 1735 || itemId == 1868))
                         num2 -= manaGrabRange;
-                    if (Main.player[index2].lifeMagnet && (itemId == 58 || itemId == 1734 || itemId == 1867))
+                    if (Game1.player[index2].lifeMagnet && (itemId == 58 || itemId == 1734 || itemId == 1867))
                         num2 -= lifeGrabRange;
                     if (num2 < NPC.sWidth && num2 < num1)
                     {
@@ -40302,7 +40302,7 @@ namespace GameManager
                     }
                 }
             }
-            if (owner == index1 || (index1 != Main.myPlayer || Main.netMode != 1) && (index1 != 255 || Main.netMode != 2) && (index1 == 255 || Main.player[index1].active))
+            if (owner == index1 || (index1 != Game1.myPlayer || Game1.netMode != 1) && (index1 != 255 || Game1.netMode != 2) && (index1 == 255 || Game1.player[index1].active))
                 return;
             NetMessage.SendData(21, -1, -1, "", whoAmI, 0.0f, 0.0f, 0.0f, 0, 0, 0);
             if (!active)

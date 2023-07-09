@@ -1,12 +1,4 @@
-﻿/*
-  _____                 ____                 
- | ____|_ __ ___  _   _|  _ \  _____   _____ 
- |  _| | '_ ` _ \| | | | | | |/ _ \ \ / / __|
- | |___| | | | | | |_| | |_| |  __/\ V /\__ \
- |_____|_| |_| |_|\__,_|____/ \___| \_/ |___/
-          <http://emudevs.com>
-             Terraria 1.3
-*/
+﻿// TextureManager
 
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -28,11 +20,11 @@ namespace GameManager.Graphics
 
         public static void Initialize()
         {
-            BlankTexture = new Texture2D(Main.graphics.GraphicsDevice, 4, 4);
+            BlankTexture = new Texture2D(Game1.graphics.GraphicsDevice, 4, 4);
 
             //RnD
             //ThreadPool.QueueUserWorkItem(new WaitCallback(Run));
-            Run(default);
+            //Run(default);
         }
 
         public static Texture2D Load(string name)
@@ -47,7 +39,7 @@ namespace GameManager.Graphics
                 {
                     try
                     {
-                        texture2D = Main.instance.Content.Load<Texture2D>(name);
+                        texture2D = Game1.instance.Content.Load<Texture2D>(name);
                     }
                     catch
                     {
@@ -65,10 +57,12 @@ namespace GameManager.Graphics
             return new Ref<Texture2D>(Load(name));
         }
 
+        // ** Experimental **
+        /*
         public static void Run(object context)
         {
             bool looping = true;
-            Main.instance.Exiting += (EventHandler<EventArgs>)((obj, args) =>
+            Game1.instance.Exiting += (EventHandler<EventArgs>)((obj, args) =>
             {
                 looping = false;
                 if (!Monitor.TryEnter(_loadThreadLock))
@@ -92,6 +86,7 @@ namespace GameManager.Graphics
             }
             Monitor.Exit(_loadThreadLock);
         }
+        */
 
         private struct LoadPair
         {

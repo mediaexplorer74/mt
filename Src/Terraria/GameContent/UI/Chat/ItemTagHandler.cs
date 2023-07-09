@@ -100,18 +100,18 @@ namespace GameManager.GameContent.UI.Chat
 
             public override void OnHover()
             {
-                Main.toolTip = _item.Clone();
-                Main.instance.MouseText(_item.name, _item.rare, 0);
+                Game1.toolTip = _item.Clone();
+                Game1.instance.MouseText(_item.name, _item.rare, 0);
             }
 
             public override bool UniqueDraw(bool justCheckingString, out Vector2 size, SpriteBatch spriteBatch, Vector2 position = default(Vector2), Color color = default(Color), float scale = 1f)
             {
                 float num1 = 1f;
                 float num2 = 1f;
-                if (Main.netMode != 2 && !Main.dedServ)
+                if (Game1.netMode != 2 && !Game1.dedServ)
                 {
-                    Texture2D texture2D = Main.itemTexture[_item.itemId];
-                    Rectangle rectangle = Main.itemAnimations[_item.itemId] == null ? Utils.Frame(texture2D, 1, 1, 0, 0) : Main.itemAnimations[_item.itemId].GetFrame(texture2D);
+                    Texture2D texture2D = Game1.itemTexture[_item.itemId];
+                    Rectangle rectangle = Game1.itemAnimations[_item.itemId] == null ? Utils.Frame(texture2D, 1, 1, 0, 0) : Game1.itemAnimations[_item.itemId].GetFrame(texture2D);
                     if (rectangle.Height > 32)
                         num2 = 32f / (float)rectangle.Height;
                 }
@@ -122,10 +122,10 @@ namespace GameManager.GameContent.UI.Chat
                     num4 = 0.75f;
                 if (!justCheckingString && color != Color.Black)
                 {
-                    float num5 = Main.inventoryScale;
-                    Main.inventoryScale = scale * num4;
+                    float num5 = Game1.inventoryScale;
+                    Game1.inventoryScale = scale * num4;
                     ItemSlot.Draw(spriteBatch, ref _item, 14, position - new Vector2(10f) * scale * num4, Color.White);
-                    Main.inventoryScale = num5;
+                    Game1.inventoryScale = num5;
                 }
 
                 size = new Vector2(32f) * scale * num4;

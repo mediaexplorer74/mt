@@ -33,7 +33,7 @@ namespace GameManager.GameContent.Skies
 
             float x = 0.0f;
             if (_moonLordIndex != -1)
-                x = Vector2.Distance(Main.player[Main.myPlayer].Center, Main.npc[_moonLordIndex].Center);
+                x = Vector2.Distance(Game1.player[Game1.myPlayer].Center, Game1.npc[_moonLordIndex].Center);
 
             return 1f - Utils.SmoothStep(3000f, 6000f, x);
         }
@@ -46,13 +46,13 @@ namespace GameManager.GameContent.Skies
 
         private bool UpdateMoonLordIndex()
         {
-            if (_moonLordIndex >= 0 && Main.npc[_moonLordIndex].active && Main.npc[_moonLordIndex].type == 398)
+            if (_moonLordIndex >= 0 && Game1.npc[_moonLordIndex].active && Game1.npc[_moonLordIndex].type == 398)
                 return true;
 
             int num = -1;
-            for (int index = 0; index < Main.npc.Length; ++index)
+            for (int index = 0; index < Game1.npc.Length; ++index)
             {
-                if (Main.npc[index].active && Main.npc[index].type == 398)
+                if (Game1.npc[index].active && Game1.npc[index].type == 398)
                 {
                     num = index;
                     break;
@@ -69,7 +69,7 @@ namespace GameManager.GameContent.Skies
                 return;
 
             float intensity = GetIntensity();
-            spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black * intensity);
+            spriteBatch.Draw(Game1.blackTileTexture, new Rectangle(0, 0, Game1.screenWidth, Game1.screenHeight), Color.Black * intensity);
         }
 
         public override float GetCloudAlpha()

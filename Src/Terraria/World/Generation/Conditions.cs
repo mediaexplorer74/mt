@@ -50,7 +50,7 @@ namespace GameManager.World.Generation
             protected override bool CheckValidity(int x, int y)
             {
                 if (GenBase._tiles[x, y].active())
-                    return Main.tileSolid[(int)GenBase._tiles[x, y].type];
+                    return Game1.tileSolid[(int)GenBase._tiles[x, y].type];
                 return false;
             }
         }

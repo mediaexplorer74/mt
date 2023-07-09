@@ -76,7 +76,7 @@ namespace GameManager.GameContent
             }
             for (int index = 0; index < 1000; ++index)
             {
-                Projectile projectile = Main.projectile[index];
+                Projectile projectile = Game1.projectile[index];
                 if (projectile.active && projectile.type == 602 && ((double)projectile.ai[1] >= 0.0 && (double)projectile.ai[1] <= 1.0) && (projectile.owner >= 0 && projectile.owner < 255))
                     FoundPortals[projectile.owner, (int)projectile.ai[1]] = index;
             }
@@ -98,13 +98,13 @@ namespace GameManager.GameContent
                 {
                     for (int index2 = 0; index2 < 2; ++index2)
                     {
-                        Projectile projectile1 = Main.projectile[FoundPortals[index1, index2]];
+                        Projectile projectile1 = Game1.projectile[FoundPortals[index1, index2]];
                         Vector2 start;
                         Vector2 end;
                         GetPortalEdges(projectile1.Center, projectile1.ai[0], out start, out end);
                         if (Collision.CheckAABBvLineCollision(ent.position + ent.velocity, ent.Size, start, end, 2f, ref collisionPoint))
                         {
-                            Projectile projectile2 = Main.projectile[FoundPortals[index1, 1 - index2]];
+                            Projectile projectile2 = Game1.projectile[FoundPortals[index1, 1 - index2]];
                             float num1 = Utils.Distance(ent.Hitbox, projectile1.Center);
                             int bonusX;
                             int bonusY;
@@ -145,7 +145,7 @@ namespace GameManager.GameContent
                                                 Player player = (Player)ent;
                                                 player.lastPortalColorIndex = num3;
                                                 player.Teleport(newPos, 4, extraInfo);
-                                                if (Main.netMode == 1)
+                                                if (Game1.netMode == 1)
                                                 {
                                                     NetMessage.SendData(96, -1, -1, "", player.whoAmI, newPos.X, newPos.Y, (float)extraInfo, 0, 0, 0);
                                                     NetMessage.SendData(13, -1, -1, "", player.whoAmI, 0.0f, 0.0f, 0.0f, 0, 0, 0);
@@ -161,7 +161,7 @@ namespace GameManager.GameContent
                                             NPC npc = (NPC)ent;
                                             npc.lastPortalColorIndex = num3;
                                             npc.Teleport(newPos, 4, extraInfo);
-                                            if (Main.netMode == 1)
+                                            if (Game1.netMode == 1)
                                             {
                                                 NetMessage.SendData(100, -1, -1, "", npc.whoAmI, newPos.X, newPos.Y, (float)extraInfo, 0, 0, 0);
                                                 NetMessage.SendData(23, -1, -1, "", npc.whoAmI, 0.0f, 0.0f, 0.0f, 0, 0, 0);
@@ -183,7 +183,7 @@ namespace GameManager.GameContent
         {
             Vector2 vector2_1 = velocity / velocity.Length();
             Point position1 = Utils.ToTileCoordinates(FindCollision(theBolt.position, theBolt.position + velocity + vector2_1 * 32f));
-            Tile tile = Main.tile[position1.X, position1.Y];
+            Tile tile = Game1.tile[position1.X, position1.Y];
             Vector2 position2 = new Vector2((float)(position1.X * 16 + 8), (float)(position1.Y * 16 + 8));
             if (!WorldGen.SolidOrSlopedTile(tile))
                 return -1;
@@ -236,17 +236,17 @@ namespace GameManager.GameContent
 
         private static bool IsValidLine(Point position, int xOffset, int yOffset)
         {
-            Tile tile1 = Main.tile[position.X, position.Y];
-            Tile tile2 = Main.tile[position.X - xOffset, position.Y - yOffset];
-            Tile tile3 = Main.tile[position.X + xOffset, position.Y + yOffset];
-            return !BlockPortals(Main.tile[position.X + yOffset, position.Y - xOffset]) && !BlockPortals(Main.tile[position.X + yOffset - xOffset, position.Y - xOffset - yOffset]) && 
-                (!BlockPortals(Main.tile[position.X + yOffset + xOffset, position.Y - xOffset + yOffset]) && WorldGen.SolidOrSlopedTile(tile1)) && (WorldGen.SolidOrSlopedTile(tile2) && 
+            Tile tile1 = Game1.tile[position.X, position.Y];
+            Tile tile2 = Game1.tile[position.X - xOffset, position.Y - yOffset];
+            Tile tile3 = Game1.tile[position.X + xOffset, position.Y + yOffset];
+            return !BlockPortals(Game1.tile[position.X + yOffset, position.Y - xOffset]) && !BlockPortals(Game1.tile[position.X + yOffset - xOffset, position.Y - xOffset - yOffset]) && 
+                (!BlockPortals(Game1.tile[position.X + yOffset + xOffset, position.Y - xOffset + yOffset]) && WorldGen.SolidOrSlopedTile(tile1)) && (WorldGen.SolidOrSlopedTile(tile2) && 
                 WorldGen.SolidOrSlopedTile(tile3) && (tile2.HasSameSlope(tile1) && tile3.HasSameSlope(tile1)));
         }
 
         private static bool BlockPortals(Tile t)
         {
-            return t.active() && !Main.tileCut[(int)t.type] && (!TileID.Sets.BreakableWhenPlacing[(int)t.type] && Main.tileSolid[(int)t.type]);
+            return t.active() && !Game1.tileCut[(int)t.type] && (!TileID.Sets.BreakableWhenPlacing[(int)t.type] && Game1.tileSolid[(int)t.type]);
         }
 
         private static Vector2 FindCollision(Vector2 startPosition, Vector2 stopPosition)
@@ -270,9 +270,9 @@ namespace GameManager.GameContent
 
             RemoveMyOldPortal(form);
             RemoveIntersectingPortals(position, angle);
-            int index = Projectile.NewProjectile(position.X, position.Y, 0.0f, 0.0f, 602, 0, 0.0f, Main.myPlayer, angle, (float)form);
-            Main.projectile[index].direction = direction;
-            Main.projectile[index].netUpdate = true;
+            int index = Projectile.NewProjectile(position.X, position.Y, 0.0f, 0.0f, 602, 0, 0.0f, Game1.myPlayer, angle, (float)form);
+            Game1.projectile[index].direction = direction;
+            Game1.projectile[index].netUpdate = true;
             return index;
         }
 
@@ -280,8 +280,8 @@ namespace GameManager.GameContent
         {
             for (int index = 0; index < 1000; ++index)
             {
-                Projectile projectile = Main.projectile[index];
-                if (projectile.active && projectile.type == 602 && (projectile.owner == Main.myPlayer && (double)projectile.ai[1] == (double)form))
+                Projectile projectile = Game1.projectile[index];
+                if (projectile.active && projectile.type == 602 && (projectile.owner == Game1.myPlayer && (double)projectile.ai[1] == (double)form))
                 {
                     projectile.Kill();
                     break;
@@ -296,7 +296,7 @@ namespace GameManager.GameContent
             GetPortalEdges(position, angle, out start1, out end1);
             for (int number = 0; number < 1000; ++number)
             {
-                Projectile projectile = Main.projectile[number];
+                Projectile projectile = Game1.projectile[number];
                 if (projectile.active && projectile.type == 602)
                 {
                     Vector2 start2;
@@ -304,7 +304,7 @@ namespace GameManager.GameContent
                     GetPortalEdges(projectile.Center, projectile.ai[0], out start2, out end2);
                     if (Collision.CheckLinevLine(start1, end1, start2, end2).Length > 0)
                     {
-                        if (projectile.owner != Main.myPlayer)
+                        if (projectile.owner != Game1.myPlayer)
                             NetMessage.SendData(95, -1, -1, "", number, 0.0f, 0.0f, 0.0f, 0, 0, 0);
                         projectile.Kill();
                     }
@@ -321,12 +321,12 @@ namespace GameManager.GameContent
         {
             Color white = Color.White;
             Color color;
-            if (Main.netMode == 0)
-                color = portal != 0 ? Main.hslToRgb(0.52f, 1f, 0.6f) : Main.hslToRgb(0.12f, 1f, 0.5f);
+            if (Game1.netMode == 0)
+                color = portal != 0 ? Game1.hslToRgb(0.52f, 1f, 0.6f) : Game1.hslToRgb(0.12f, 1f, 0.5f);
             else
             {
                 float num = 0.08f;
-                color = Main.hslToRgb((float)((0.5 + (double)player * ((double)num * 2.0) + (double)portal * (double)num) % 1.0), 1f, 0.5f);
+                color = Game1.hslToRgb((float)((0.5 + (double)player * ((double)num * 2.0) + (double)portal * (double)num) % 1.0), 1f, 0.5f);
             }
 
             color.A = (byte)66;
@@ -366,7 +366,7 @@ namespace GameManager.GameContent
                     bonusY = 1;
                     return portalPosition + new Vector2(num == -1 ? 0.0f : -objectSize.X, 0.0f);
                 default:
-                    Main.NewText("Broken portal! (over4s = " + (object)num + ")", byte.MaxValue, byte.MaxValue, byte.MaxValue, false);
+                    Game1.NewText("Broken portal! (over4s = " + (object)num + ")", byte.MaxValue, byte.MaxValue, byte.MaxValue, false);
                     bonusX = 0;
                     bonusY = 0;
                     return portalPosition;
@@ -379,7 +379,7 @@ namespace GameManager.GameContent
             portalCenters = new List<Point>();
             for (int index = 0; index < 1000; ++index)
             {
-                Projectile projectile = Main.projectile[index];
+                Projectile projectile = Game1.projectile[index];
                 if (projectile.active && (projectile.type == 602 || projectile.type == 601))
                 {
                     Vector2 center = projectile.Center;
@@ -389,7 +389,7 @@ namespace GameManager.GameContent
                     {
                         for (int y = sectionY - fluff; y < sectionY + fluff + 1; ++y)
                         {
-                            if (x >= 0 && x < Main.maxSectionsX && (y >= 0 && y < Main.maxSectionsY) && (!Netplay.Clients[plr].TileSections[x, y] && !dontInclude.Contains(new Point(x, y))))
+                            if (x >= 0 && x < Game1.maxSectionsX && (y >= 0 && y < Game1.maxSectionsY) && (!Netplay.Clients[plr].TileSections[x, y] && !dontInclude.Contains(new Point(x, y))))
                             {
                                 portals.Add(new Point(x, y));
                                 if (!portalCenters.Contains(new Point(sectionX, sectionY)))
@@ -405,7 +405,7 @@ namespace GameManager.GameContent
         {
             for (int playerIndex = 0; playerIndex < (int)byte.MaxValue; ++playerIndex)
             {
-                if (Main.player[playerIndex].active)
+                if (Game1.player[playerIndex].active)
                     RemoteClient.CheckSection(playerIndex, portalPosition, fluff);
             }
         }
@@ -439,7 +439,7 @@ namespace GameManager.GameContent
                     num3 = 1;
                     break;
                 default:
-                    Main.NewText("Broken portal! (over4s = " + (object)num1 + " , " + (string)(object)portalAngle + ")");
+                    Game1.NewText("Broken portal! (over4s = " + (object)num1 + " , " + (string)(object)portalAngle + ")");
                     return false;
             }
 
@@ -480,24 +480,24 @@ namespace GameManager.GameContent
 
         private static bool SupportedSlope(int x, int y, int slope)
         {
-            Tile tile = Main.tile[x, y];
-            if (tile.nactive() && !Main.tileCut[(int)tile.type] && (!TileID.Sets.BreakableWhenPlacing[(int)tile.type] && Main.tileSolid[(int)tile.type]))
+            Tile tile = Game1.tile[x, y];
+            if (tile.nactive() && !Game1.tileCut[(int)tile.type] && (!TileID.Sets.BreakableWhenPlacing[(int)tile.type] && Game1.tileSolid[(int)tile.type]))
                 return (int)tile.slope() == slope;
             return false;
         }
 
         private static bool SupportedHalfbrick(int x, int y)
         {
-            Tile tile = Main.tile[x, y];
-            if (tile.nactive() && !Main.tileCut[(int)tile.type] && (!TileID.Sets.BreakableWhenPlacing[(int)tile.type] && Main.tileSolid[(int)tile.type]))
+            Tile tile = Game1.tile[x, y];
+            if (tile.nactive() && !Game1.tileCut[(int)tile.type] && (!TileID.Sets.BreakableWhenPlacing[(int)tile.type] && Game1.tileSolid[(int)tile.type]))
                 return tile.halfBrick();
             return false;
         }
 
         private static bool SupportedNormal(int x, int y)
         {
-            Tile tile = Main.tile[x, y];
-            if (tile.nactive() && !Main.tileCut[(int)tile.type] && (!TileID.Sets.BreakableWhenPlacing[(int)tile.type] && Main.tileSolid[(int)tile.type]) && (!TileID.Sets.NotReallySolid[(int)tile.type] && !tile.halfBrick()))
+            Tile tile = Game1.tile[x, y];
+            if (tile.nactive() && !Game1.tileCut[(int)tile.type] && (!TileID.Sets.BreakableWhenPlacing[(int)tile.type] && Game1.tileSolid[(int)tile.type]) && (!TileID.Sets.NotReallySolid[(int)tile.type] && !tile.halfBrick()))
                 return (int)tile.slope() == 0;
             return false;
         }

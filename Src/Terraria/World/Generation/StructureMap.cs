@@ -25,7 +25,7 @@ namespace GameManager.World.Generation
 
         public bool CanPlace(Microsoft.Xna.Framework.Rectangle area, bool[] validTiles, int padding = 0)
         {
-            if (area.X < 0 || area.Y < 0 || (area.X + area.Width > Main.maxTilesX - 1 || area.Y + area.Height > Main.maxTilesY - 1))
+            if (area.X < 0 || area.Y < 0 || (area.X + area.Width > Game1.maxTilesX - 1 || area.Y + area.Height > Game1.maxTilesY - 1))
                 return false;
             Microsoft.Xna.Framework.Rectangle rectangle = new Microsoft.Xna.Framework.Rectangle(area.X - padding, area.Y - padding, area.Width + padding * 2, area.Height + padding * 2);
             for (int index = 0; index < this._structures.Count; ++index)
@@ -37,9 +37,9 @@ namespace GameManager.World.Generation
             {
                 for (int index2 = rectangle.Y; index2 < rectangle.Y + rectangle.Height; ++index2)
                 {
-                    if (Main.tile[index1, index2].active())
+                    if (Game1.tile[index1, index2].active())
                     {
-                        ushort num = Main.tile[index1, index2].type;
+                        ushort num = Game1.tile[index1, index2].type;
                         if (!validTiles[(int)num])
                             return false;
                     }

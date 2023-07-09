@@ -56,7 +56,7 @@ namespace GameManager.IO
 
         public override void SetAsActive()
         {
-            Main.ActiveWorldFileData = this;
+            Game1.ActiveWorldFileData = this;
         }
 
         public void SetWorldSize(int x, int y)

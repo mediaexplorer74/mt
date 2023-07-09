@@ -31,12 +31,12 @@ namespace GameManager.UI
 
         public static void Initialize()
         {
-            Main.Achievements.OnAchievementCompleted += new Achievement.AchievementCompleted(AchievementCompleteUI.AddCompleted);
+            Game1.Achievements.OnAchievementCompleted += new Achievement.AchievementCompleted(AchievementCompleteUI.AddCompleted);
         }
 
         public static void Draw(SpriteBatch sb)
         {
-            Vector2 center = new Vector2((float)(Main.screenWidth / 2), (float)(Main.screenHeight - 40));
+            Vector2 center = new Vector2((float)(Game1.screenWidth / 2), (float)(Game1.screenHeight - 40));
             foreach (AchievementCompleteUI.DrawCache ach in AchievementCompleteUI.caches)
             {
                 AchievementCompleteUI.DrawAchievement(sb, ref center, ach);
@@ -47,7 +47,7 @@ namespace GameManager.UI
 
         public static void AddCompleted(Achievement achievement)
         {
-            if (Main.netMode == 2)
+            if (Game1.netMode == 2)
                 return;
             AchievementCompleteUI.caches.Add(new AchievementCompleteUI.DrawCache(achievement));
         }
@@ -78,23 +78,23 @@ namespace GameManager.UI
             {
                 string text = ach.Title;
                 Vector2 center1 = center;
-                Vector2 vector2 = Main.fontItemStack.MeasureString(text);
+                Vector2 vector2 = Game1.fontItemStack.MeasureString(text);
                 float num = ach.Scale * 1.1f;
                 Rectangle rectangle = Utils.CenteredRectangle(center1, (vector2 + new Vector2(58f, 10f)) * num);
-                Vector2 mouseScreen = Main.MouseScreen;
+                Vector2 mouseScreen = Game1.MouseScreen;
                 bool flag = rectangle.Contains(Utils.ToPoint(mouseScreen));
                 Color c = flag ? new Color(64, 109, 164) * 0.75f : new Color(64, 109, 164) * 0.5f;
                 Utils.DrawInvBG(sb, rectangle, c);
                 float scale = num * 0.3f;
-                Color color = new Color((int)Main.mouseTextColor, (int)Main.mouseTextColor, (int)Main.mouseTextColor / 5, (int)Main.mouseTextColor);
+                Color color = new Color((int)Game1.mouseTextColor, (int)Game1.mouseTextColor, (int)Game1.mouseTextColor / 5, (int)Game1.mouseTextColor);
                 Vector2 position = Utils.Right(rectangle) - Vector2.UnitX * num * (float)(12.0 + (double)scale * (double)ach.Frame.Width);
                 sb.Draw(AchievementCompleteUI.AchievementsTexture, position, new Rectangle?(ach.Frame), Color.White * alpha, 0.0f, new Vector2(0.0f, (float)(ach.Frame.Height / 2)), scale, SpriteEffects.None, 0.0f);
                 sb.Draw(AchievementCompleteUI.AchievementsTextureBorder, position, new Rectangle?(), Color.White * alpha, 0.0f, new Vector2(0.0f, (float)(ach.Frame.Height / 2)), scale, SpriteEffects.None, 0.0f);
                 Utils.DrawBorderString(sb, text, position - Vector2.UnitX * 10f, color * alpha, num * 0.9f, 1f, 0.4f, -1);
                 if (flag)
                 {
-                    Main.player[Main.myPlayer].mouseInterface = true;
-                    if (Main.mouseLeft && Main.mouseLeftRelease)
+                    Game1.player[Game1.myPlayer].mouseInterface = true;
+                    if (Game1.mouseLeft && Game1.mouseLeftRelease)
                     {
                         AchievementsUI.OpenAndGoto(ach.theAchievement);
                         ach.TimeLeft = 0;
@@ -142,7 +142,7 @@ namespace GameManager.UI
             {
                 this.theAchievement = achievement;
                 this.Title = achievement.FriendlyName;
-                int iconIndex = Main.Achievements.GetIconIndex(achievement.Name);
+                int iconIndex = Game1.Achievements.GetIconIndex(achievement.Name);
                 this.IconIndex = iconIndex;
                 this.Frame = new Rectangle(iconIndex % 8 * 66, iconIndex / 8 * 66, 64, 64);
                 this.TimeLeft = 300;

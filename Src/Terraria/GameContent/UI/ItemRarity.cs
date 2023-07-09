@@ -37,7 +37,7 @@ namespace GameManager.GameContent.UI
 
         public static Color GetColor(int rarity)
         {
-            Color color = new Color((int)Main.mouseTextColor, (int)Main.mouseTextColor, (int)Main.mouseTextColor, (int)Main.mouseTextColor);
+            Color color = new Color((int)Game1.mouseTextColor, (int)Game1.mouseTextColor, (int)Game1.mouseTextColor, (int)Game1.mouseTextColor);
             if (rarities.ContainsKey(rarity))
                 return rarities[rarity];
             return color;

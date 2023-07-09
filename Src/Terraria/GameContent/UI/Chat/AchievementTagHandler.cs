@@ -20,7 +20,7 @@ namespace GameManager.GameContent.UI.Chat
     {
         TextSnippet ITagHandler.Parse(string text, Color baseColor, string options)
         {
-            Achievement achievement = Main.Achievements.GetAchievement(text);
+            Achievement achievement = Game1.Achievements.GetAchievement(text);
             if (achievement == null)
                 return new TextSnippet(text);
 

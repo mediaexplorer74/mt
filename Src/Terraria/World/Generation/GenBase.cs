@@ -27,7 +27,7 @@ namespace GameManager.World.Generation
         {
             get
             {
-                return Main.tile;
+                return Game1.tile;
             }
         }
 
@@ -35,7 +35,7 @@ namespace GameManager.World.Generation
         {
             get
             {
-                return Main.maxTilesX;
+                return Game1.maxTilesX;
             }
         }
 
@@ -43,7 +43,7 @@ namespace GameManager.World.Generation
         {
             get
             {
-                return Main.maxTilesY;
+                return Game1.maxTilesY;
             }
         }
 

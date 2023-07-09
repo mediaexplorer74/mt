@@ -34,7 +34,7 @@ namespace GameManager
 
         public void Update()
         {
-            if (Main.netMode == 2 || !this.active)
+            if (Game1.netMode == 2 || !this.active)
                 return;
             if (this.type >= 276 && this.type <= 282)
             {
@@ -63,25 +63,25 @@ namespace GameManager
             }
             else if (this.type >= 706 && this.type <= 717)
             {
-                this.alpha = (double)this.position.Y >= Main.worldSurface * 16.0 + 8.0 ? 100 : 0;
+                this.alpha = (double)this.position.Y >= Game1.worldSurface * 16.0 + 8.0 ? 100 : 0;
                 int num1 = 4;
                 ++this.frameCounter;
                 if ((int)this.frame <= 4)
                 {
                     int x = (int)((double)this.position.X / 16.0);
                     int y = (int)((double)this.position.Y / 16.0) - 1;
-                    if (WorldGen.InWorld(x, y, 0) && !Main.tile[x, y].active())
+                    if (WorldGen.InWorld(x, y, 0) && !Game1.tile[x, y].active())
                         this.active = false;
                     if ((int)this.frame == 0)
-                        num1 = 24 + Main.rand.Next(256);
+                        num1 = 24 + Game1.rand.Next(256);
                     if ((int)this.frame == 1)
-                        num1 = 24 + Main.rand.Next(256);
+                        num1 = 24 + Game1.rand.Next(256);
                     if ((int)this.frame == 2)
-                        num1 = 24 + Main.rand.Next(256);
+                        num1 = 24 + Game1.rand.Next(256);
                     if ((int)this.frame == 3)
-                        num1 = 24 + Main.rand.Next(96);
+                        num1 = 24 + Game1.rand.Next(96);
                     if ((int)this.frame == 5)
-                        num1 = 16 + Main.rand.Next(64);
+                        num1 = 16 + Game1.rand.Next(64);
                     if (this.type == 716)
                         num1 *= 2;
                     if (this.type == 717)
@@ -93,8 +93,8 @@ namespace GameManager
                         if ((int)this.frame == 5)
                         {
                             int index = Gore.NewGore(this.position, this.velocity, this.type, 1f);
-                            Main.gore[index].frame = (byte)9;
-                            Main.gore[index].velocity *= 0.0f;
+                            Game1.gore[index].frame = (byte)9;
+                            Game1.gore[index].velocity *= 0.0f;
                         }
                     }
                 }
@@ -197,32 +197,32 @@ namespace GameManager
             if (this.type >= 825 && this.type <= 827)
             {
                 if (this.timeLeft < 60)
-                    this.alpha += Main.rand.Next(1, 7);
+                    this.alpha += Game1.rand.Next(1, 7);
                 else if (this.alpha > 100)
-                    this.alpha -= Main.rand.Next(1, 4);
+                    this.alpha -= Game1.rand.Next(1, 4);
                 if (this.alpha < 0)
                     this.alpha = 0;
                 if (this.alpha > (int)byte.MaxValue)
                     this.timeLeft = 0;
-                this.velocity.X = (float)(((double)this.velocity.X * 50.0 + (double)Main.windSpeed * 2.0 + (double)Main.rand.Next(-10, 11) * 0.100000001490116) / 51.0);
+                this.velocity.X = (float)(((double)this.velocity.X * 50.0 + (double)Game1.windSpeed * 2.0 + (double)Game1.rand.Next(-10, 11) * 0.100000001490116) / 51.0);
                 float num1 = 0.0f;
                 if ((double)this.velocity.X < 0.0)
                     num1 = this.velocity.X * 0.2f;
-                this.velocity.Y = (float)(((double)this.velocity.Y * 50.0 - 0.349999994039536 + (double)num1 + (double)Main.rand.Next(-10, 11) * 0.200000002980232) / 51.0);
+                this.velocity.Y = (float)(((double)this.velocity.Y * 50.0 - 0.349999994039536 + (double)num1 + (double)Game1.rand.Next(-10, 11) * 0.200000002980232) / 51.0);
                 this.rotation = this.velocity.X * 0.6f;
                 float num2 = -1f;
-                if (Main.goreLoaded[this.type])
+                if (Game1.goreLoaded[this.type])
                 {
-                    Rectangle rectangle1 = new Rectangle((int)this.position.X, (int)this.position.Y, (int)((double)Main.goreTexture[this.type].Width * (double)this.scale), (int)((double)Main.goreTexture[this.type].Height * (double)this.scale));
+                    Rectangle rectangle1 = new Rectangle((int)this.position.X, (int)this.position.Y, (int)((double)Game1.goreTexture[this.type].Width * (double)this.scale), (int)((double)Game1.goreTexture[this.type].Height * (double)this.scale));
                     for (int index = 0; index < (int)byte.MaxValue; ++index)
                     {
-                        if (Main.player[index].active && !Main.player[index].dead)
+                        if (Game1.player[index].active && !Game1.player[index].dead)
                         {
-                            Rectangle rectangle2 = new Rectangle((int)Main.player[index].position.X, (int)Main.player[index].position.Y, Main.player[index].width, Main.player[index].height);
+                            Rectangle rectangle2 = new Rectangle((int)Game1.player[index].position.X, (int)Game1.player[index].position.Y, Game1.player[index].width, Game1.player[index].height);
                             if (rectangle1.Intersects(rectangle2))
                             {
                                 this.timeLeft = 0;
-                                num2 = Main.player[index].velocity.Length();
+                                num2 = Game1.player[index].velocity.Length();
                                 break;
                             }
                         }
@@ -230,31 +230,31 @@ namespace GameManager
                 }
                 if (this.timeLeft > 0)
                 {
-                    if (Main.rand.Next(2) == 0)
+                    if (Game1.rand.Next(2) == 0)
                         --this.timeLeft;
-                    if (Main.rand.Next(50) == 0)
+                    if (Game1.rand.Next(50) == 0)
                         this.timeLeft -= 5;
-                    if (Main.rand.Next(100) == 0)
+                    if (Game1.rand.Next(100) == 0)
                         this.timeLeft -= 10;
                 }
                 else
                 {
                     this.alpha = (int)byte.MaxValue;
-                    if (Main.goreLoaded[this.type] && (double)num2 != -1.0)
+                    if (Game1.goreLoaded[this.type] && (double)num2 != -1.0)
                     {
-                        float num3 = (float)((double)Main.goreTexture[this.type].Width * (double)this.scale * 0.800000011920929);
+                        float num3 = (float)((double)Game1.goreTexture[this.type].Width * (double)this.scale * 0.800000011920929);
                         float x = this.position.X;
                         float y = this.position.Y;
-                        float num4 = (float)Main.goreTexture[this.type].Width * this.scale;
-                        float num5 = (float)Main.goreTexture[this.type].Height * this.scale;
+                        float num4 = (float)Game1.goreTexture[this.type].Width * this.scale;
+                        float num5 = (float)Game1.goreTexture[this.type].Height * this.scale;
                         int Type = 31;
                         for (int index1 = 0; (double)index1 < (double)num3; ++index1)
                         {
                             int index2 = Dust.NewDust(new Vector2(x, y), (int)num4, (int)num5, Type, 0.0f, 0.0f, 0, new Color(), 1f);
-                            Main.dust[index2].velocity *= (float)((1.0 + (double)num2) / 3.0);
-                            Main.dust[index2].noGravity = true;
-                            Main.dust[index2].alpha = 100;
-                            Main.dust[index2].scale = this.scale;
+                            Game1.dust[index2].velocity *= (float)((1.0 + (double)num2) / 3.0);
+                            Game1.dust[index2].noGravity = true;
+                            Game1.dust[index2].alpha = 100;
+                            Game1.dust[index2].scale = this.scale;
                         }
                     }
                 }
@@ -262,43 +262,43 @@ namespace GameManager
             if (this.type >= 411 && this.type <= 430)
             {
                 this.alpha = 50;
-                this.velocity.X = (float)(((double)this.velocity.X * 50.0 + (double)Main.windSpeed * 2.0 + (double)Main.rand.Next(-10, 11) * 0.100000001490116) / 51.0);
-                this.velocity.Y = (float)(((double)this.velocity.Y * 50.0 - 0.25 + (double)Main.rand.Next(-10, 11) * 0.200000002980232) / 51.0);
+                this.velocity.X = (float)(((double)this.velocity.X * 50.0 + (double)Game1.windSpeed * 2.0 + (double)Game1.rand.Next(-10, 11) * 0.100000001490116) / 51.0);
+                this.velocity.Y = (float)(((double)this.velocity.Y * 50.0 - 0.25 + (double)Game1.rand.Next(-10, 11) * 0.200000002980232) / 51.0);
                 this.rotation = this.velocity.X * 0.3f;
-                if (Main.goreLoaded[this.type])
+                if (Game1.goreLoaded[this.type])
                 {
-                    Rectangle rectangle1 = new Rectangle((int)this.position.X, (int)this.position.Y, (int)((double)Main.goreTexture[this.type].Width * (double)this.scale), (int)((double)Main.goreTexture[this.type].Height * (double)this.scale));
+                    Rectangle rectangle1 = new Rectangle((int)this.position.X, (int)this.position.Y, (int)((double)Game1.goreTexture[this.type].Width * (double)this.scale), (int)((double)Game1.goreTexture[this.type].Height * (double)this.scale));
                     for (int index = 0; index < (int)byte.MaxValue; ++index)
                     {
-                        if (Main.player[index].active && !Main.player[index].dead)
+                        if (Game1.player[index].active && !Game1.player[index].dead)
                         {
-                            Rectangle rectangle2 = new Rectangle((int)Main.player[index].position.X, (int)Main.player[index].position.Y, Main.player[index].width, Main.player[index].height);
+                            Rectangle rectangle2 = new Rectangle((int)Game1.player[index].position.X, (int)Game1.player[index].position.Y, Game1.player[index].width, Game1.player[index].height);
                             if (rectangle1.Intersects(rectangle2))
                                 this.timeLeft = 0;
                         }
                     }
-                    if (Collision.SolidCollision(this.position, (int)((double)Main.goreTexture[this.type].Width * (double)this.scale), (int)((double)Main.goreTexture[this.type].Height * (double)this.scale)))
+                    if (Collision.SolidCollision(this.position, (int)((double)Game1.goreTexture[this.type].Width * (double)this.scale), (int)((double)Game1.goreTexture[this.type].Height * (double)this.scale)))
                         this.timeLeft = 0;
                 }
                 if (this.timeLeft > 0)
                 {
-                    if (Main.rand.Next(2) == 0)
+                    if (Game1.rand.Next(2) == 0)
                         --this.timeLeft;
-                    if (Main.rand.Next(50) == 0)
+                    if (Game1.rand.Next(50) == 0)
                         this.timeLeft -= 5;
-                    if (Main.rand.Next(100) == 0)
+                    if (Game1.rand.Next(100) == 0)
                         this.timeLeft -= 10;
                 }
                 else
                 {
                     this.alpha = (int)byte.MaxValue;
-                    if (Main.goreLoaded[this.type])
+                    if (Game1.goreLoaded[this.type])
                     {
-                        float num1 = (float)((double)Main.goreTexture[this.type].Width * (double)this.scale * 0.800000011920929);
+                        float num1 = (float)((double)Game1.goreTexture[this.type].Width * (double)this.scale * 0.800000011920929);
                         float x = this.position.X;
                         float y = this.position.Y;
-                        float num2 = (float)Main.goreTexture[this.type].Width * this.scale;
-                        float num3 = (float)Main.goreTexture[this.type].Height * this.scale;
+                        float num2 = (float)Game1.goreTexture[this.type].Width * this.scale;
+                        float num3 = (float)Game1.goreTexture[this.type].Height * this.scale;
                         int Type = 176;
                         if (this.type >= 416 && this.type <= 420)
                             Type = 177;
@@ -309,9 +309,9 @@ namespace GameManager
                         for (int index1 = 0; (double)index1 < (double)num1; ++index1)
                         {
                             int index2 = Dust.NewDust(new Vector2(x, y), (int)num2, (int)num3, Type, 0.0f, 0.0f, 0, new Color(), 1f);
-                            Main.dust[index2].noGravity = true;
-                            Main.dust[index2].alpha = 100;
-                            Main.dust[index2].scale = this.scale;
+                            Game1.dust[index2].noGravity = true;
+                            Game1.dust[index2].alpha = 100;
+                            Game1.dust[index2].scale = this.scale;
                         }
                     }
                 }
@@ -335,7 +335,7 @@ namespace GameManager
                             this.frame = (byte)10;
                             this.frameCounter = (byte)0;
                             if (this.type != 716 && this.type != 717)
-                                Main.PlaySound(39, (int)this.position.X + 8, (int)this.position.Y + 8, Main.rand.Next(2));
+                                Game1.PlaySound(39, (int)this.position.X + 8, (int)this.position.Y + 8, Game1.rand.Next(2));
                         }
                     }
                     else if (Collision.WetCollision(this.position + this.velocity, 16, 14))
@@ -345,25 +345,25 @@ namespace GameManager
                             this.frame = (byte)10;
                             this.frameCounter = (byte)0;
                             if (this.type != 716 && this.type != 717)
-                                Main.PlaySound(39, (int)this.position.X + 8, (int)this.position.Y + 8, 2);
+                                Game1.PlaySound(39, (int)this.position.X + 8, (int)this.position.Y + 8, 2);
                         }
                         int index1 = (int)((double)this.position.X + 8.0) / 16;
                         int index2 = (int)((double)this.position.Y + 14.0) / 16;
-                        if (Main.tile[index1, index2] != null && (int)Main.tile[index1, index2].liquid > 0)
+                        if (Game1.tile[index1, index2] != null && (int)Game1.tile[index1, index2].liquid > 0)
                         {
                             this.velocity *= 0.0f;
-                            this.position.Y = (float)(index2 * 16 - (int)Main.tile[index1, index2].liquid / 16);
+                            this.position.Y = (float)(index2 * 16 - (int)Game1.tile[index1, index2].liquid / 16);
                         }
                     }
                 }
                 else if (this.sticky)
                 {
                     int num1 = 32;
-                    if (Main.goreLoaded[this.type])
+                    if (Game1.goreLoaded[this.type])
                     {
-                        num1 = Main.goreTexture[this.type].Width;
-                        if (Main.goreTexture[this.type].Height < num1)
-                            num1 = Main.goreTexture[this.type].Height;
+                        num1 = Game1.goreTexture[this.type].Width;
+                        if (Game1.goreTexture[this.type].Height < num1)
+                            num1 = Game1.goreTexture[this.type].Height;
                     }
                     int num2 = (int)((double)num1 * 0.899999976158142);
                     this.velocity = Collision.TileCollision(this.position, this.velocity, (int)((double)num2 * (double)this.scale), (int)((double)num2 * (double)this.scale), false, false, 1);
@@ -387,11 +387,11 @@ namespace GameManager
                 {
                     Vector2 Velocity = new Vector2(this.velocity.X, 0.6f);
                     int num1 = 32;
-                    if (Main.goreLoaded[this.type])
+                    if (Game1.goreLoaded[this.type])
                     {
-                        num1 = Main.goreTexture[this.type].Width;
-                        if (Main.goreTexture[this.type].Height < num1)
-                            num1 = Main.goreTexture[this.type].Height;
+                        num1 = Game1.goreTexture[this.type].Width;
+                        if (Game1.goreTexture[this.type].Height < num1)
+                            num1 = Game1.goreTexture[this.type].Height;
                     }
                     int num2 = (int)((double)num1 * 0.899999976158142);
                     Vector2 vector2 = Collision.TileCollision(this.position, Velocity, (int)((double)num2 * (double)this.scale), (int)((double)num2 * (double)this.scale), false, false, 1);
@@ -409,11 +409,11 @@ namespace GameManager
                     this.velocity.Y += 0.05235988f;
                     Vector2 Velocity = new Vector2(Utils.RotatedBy(Vector2.UnitY, (double)this.velocity.Y, new Vector2()).X * 2f, Math.Abs(Utils.RotatedBy(Vector2.UnitY, (double)this.velocity.Y, new Vector2()).Y) * 3f) * 2f;
                     int num = 32;
-                    if (Main.goreLoaded[this.type])
+                    if (Game1.goreLoaded[this.type])
                     {
-                        num = Main.goreTexture[this.type].Width;
-                        if (Main.goreTexture[this.type].Height < num)
-                            num = Main.goreTexture[this.type].Height;
+                        num = Game1.goreTexture[this.type].Width;
+                        if (Game1.goreTexture[this.type].Height < num)
+                            num = Game1.goreTexture[this.type].Height;
                     }
                     Vector2 vector2 = Velocity;
                     Vector2 v = Collision.TileCollision(this.position, Velocity, (int)((double)num * (double)this.scale), (int)((double)num * (double)this.scale), false, false, 1);
@@ -446,22 +446,22 @@ namespace GameManager
                 G *= 0.6f;
                 R *= 0.3f;
             }
-            if (Main.goreLoaded[this.type])
-                Lighting.AddLight((int)(((double)this.position.X + (double)Main.goreTexture[this.type].Width * (double)this.scale / 2.0) / 16.0), (int)(((double)this.position.Y + (double)Main.goreTexture[this.type].Height * (double)this.scale / 2.0) / 16.0), R, G, B);
+            if (Game1.goreLoaded[this.type])
+                Lighting.AddLight((int)(((double)this.position.X + (double)Game1.goreTexture[this.type].Width * (double)this.scale / 2.0) / 16.0), (int)(((double)this.position.Y + (double)Game1.goreTexture[this.type].Height * (double)this.scale / 2.0) / 16.0), R, G, B);
             else
                 Lighting.AddLight((int)(((double)this.position.X + 32.0 * (double)this.scale / 2.0) / 16.0), (int)(((double)this.position.Y + 32.0 * (double)this.scale / 2.0) / 16.0), R, G, B);
         }
 
         public static int NewGore(Vector2 Position, Vector2 Velocity, int Type, float Scale = 1f)
         {
-            if (Main.netMode == 2 || Main.gamePaused)
+            if (Game1.netMode == 2 || Game1.gamePaused)
                 return 500;
-            if (Main.rand == null)
-                Main.rand = new Random();
+            if (Game1.rand == null)
+                Game1.rand = new Random();
             int index1 = 500;
             for (int index2 = 0; index2 < 500; ++index2)
             {
-                if (!Main.gore[index2].active)
+                if (!Game1.gore[index2].active)
                 {
                     index1 = index2;
                     break;
@@ -469,74 +469,74 @@ namespace GameManager
             }
             if (index1 == 500)
                 return index1;
-            Main.gore[index1].numFrames = (byte)1;
-            Main.gore[index1].frame = (byte)0;
-            Main.gore[index1].frameCounter = (byte)0;
-            Main.gore[index1].behindTiles = false;
-            Main.gore[index1].light = 0.0f;
-            Main.gore[index1].position = Position;
-            Main.gore[index1].velocity = Velocity;
-            Main.gore[index1].velocity.Y -= (float)Main.rand.Next(10, 31) * 0.1f;
-            Main.gore[index1].velocity.X += (float)Main.rand.Next(-20, 21) * 0.1f;
-            Main.gore[index1].type = Type;
-            Main.gore[index1].active = true;
-            Main.gore[index1].alpha = 0;
-            Main.gore[index1].rotation = 0.0f;
-            Main.gore[index1].scale = Scale;
+            Game1.gore[index1].numFrames = (byte)1;
+            Game1.gore[index1].frame = (byte)0;
+            Game1.gore[index1].frameCounter = (byte)0;
+            Game1.gore[index1].behindTiles = false;
+            Game1.gore[index1].light = 0.0f;
+            Game1.gore[index1].position = Position;
+            Game1.gore[index1].velocity = Velocity;
+            Game1.gore[index1].velocity.Y -= (float)Game1.rand.Next(10, 31) * 0.1f;
+            Game1.gore[index1].velocity.X += (float)Game1.rand.Next(-20, 21) * 0.1f;
+            Game1.gore[index1].type = Type;
+            Game1.gore[index1].active = true;
+            Game1.gore[index1].alpha = 0;
+            Game1.gore[index1].rotation = 0.0f;
+            Game1.gore[index1].scale = Scale;
             if (!ChildSafety.Disabled && ChildSafety.DangerousGore(Type))
             {
-                Main.gore[index1].type = Main.rand.Next(11, 14);
-                Main.gore[index1].scale = (float)((double)Utils.NextFloat(Main.rand) * 0.5 + 0.5);
-                Main.gore[index1].velocity /= 2f;
+                Game1.gore[index1].type = Game1.rand.Next(11, 14);
+                Game1.gore[index1].scale = (float)((double)Utils.NextFloat(Game1.rand) * 0.5 + 0.5);
+                Game1.gore[index1].velocity /= 2f;
             }
             if (Gore.goreTime == 0 || Type == 11 || (Type == 12 || Type == 13) || (Type == 16 || Type == 17 || (Type == 61 || Type == 62)) || (Type == 63 || Type == 99 || (Type == 220 || Type == 221) || (Type == 222 || Type == 435 || (Type == 436 || Type == 437))) || Type >= 861 && Type <= 862)
-                Main.gore[index1].sticky = false;
+                Game1.gore[index1].sticky = false;
             else if (Type >= 375 && Type <= 377)
             {
-                Main.gore[index1].sticky = false;
-                Main.gore[index1].alpha = 100;
+                Game1.gore[index1].sticky = false;
+                Game1.gore[index1].alpha = 100;
             }
             else
             {
-                Main.gore[index1].sticky = true;
-                Main.gore[index1].timeLeft = Gore.goreTime;
+                Game1.gore[index1].sticky = true;
+                Game1.gore[index1].timeLeft = Gore.goreTime;
             }
             if (Type >= 706 && Type <= 717)
             {
-                Main.gore[index1].numFrames = (byte)15;
-                Main.gore[index1].behindTiles = true;
-                Main.gore[index1].timeLeft = Gore.goreTime * 3;
+                Game1.gore[index1].numFrames = (byte)15;
+                Game1.gore[index1].behindTiles = true;
+                Game1.gore[index1].timeLeft = Gore.goreTime * 3;
             }
             if (Type == 16 || Type == 17)
             {
-                Main.gore[index1].alpha = 100;
-                Main.gore[index1].scale = 0.7f;
-                Main.gore[index1].light = 1f;
+                Game1.gore[index1].alpha = 100;
+                Game1.gore[index1].scale = 0.7f;
+                Game1.gore[index1].light = 1f;
             }
             if (Type >= 570 && Type <= 572)
-                Main.gore[index1].velocity = Velocity;
+                Game1.gore[index1].velocity = Velocity;
             if (Type == 860 || Type == 892 || Type == 893)
-                Main.gore[index1].velocity = new Vector2((float)(((double)Utils.NextFloat(Main.rand) - 0.5) * 3.0), Utils.NextFloat(Main.rand) * 6.283185f);
-            if (Type >= 411 && Type <= 430 && Main.goreLoaded[Type])
+                Game1.gore[index1].velocity = new Vector2((float)(((double)Utils.NextFloat(Game1.rand) - 0.5) * 3.0), Utils.NextFloat(Game1.rand) * 6.283185f);
+            if (Type >= 411 && Type <= 430 && Game1.goreLoaded[Type])
             {
-                Main.gore[index1].position.X = Position.X - (float)(Main.goreTexture[Type].Width / 2) * Scale;
-                Main.gore[index1].position.Y = Position.Y - (float)Main.goreTexture[Type].Height * Scale;
-                Main.gore[index1].velocity.Y *= (float)Main.rand.Next(90, 150) * 0.01f;
-                Main.gore[index1].velocity.X *= (float)Main.rand.Next(40, 90) * 0.01f;
-                int num = Main.rand.Next(4) * 5;
-                Main.gore[index1].type += num;
-                Main.gore[index1].timeLeft = Main.rand.Next(Gore.goreTime / 2, Gore.goreTime * 2);
+                Game1.gore[index1].position.X = Position.X - (float)(Game1.goreTexture[Type].Width / 2) * Scale;
+                Game1.gore[index1].position.Y = Position.Y - (float)Game1.goreTexture[Type].Height * Scale;
+                Game1.gore[index1].velocity.Y *= (float)Game1.rand.Next(90, 150) * 0.01f;
+                Game1.gore[index1].velocity.X *= (float)Game1.rand.Next(40, 90) * 0.01f;
+                int num = Game1.rand.Next(4) * 5;
+                Game1.gore[index1].type += num;
+                Game1.gore[index1].timeLeft = Game1.rand.Next(Gore.goreTime / 2, Gore.goreTime * 2);
             }
             if (Type >= 825 && Type <= 827)
             {
-                Main.gore[index1].sticky = false;
-                if (Main.goreLoaded[Type])
+                Game1.gore[index1].sticky = false;
+                if (Game1.goreLoaded[Type])
                 {
-                    Main.gore[index1].alpha = 150;
-                    Main.gore[index1].velocity = Velocity;
-                    Main.gore[index1].position.X = Position.X - (float)(Main.goreTexture[Type].Width / 2) * Scale;
-                    Main.gore[index1].position.Y = Position.Y - (float)((double)Main.goreTexture[Type].Height * (double)Scale / 2.0);
-                    Main.gore[index1].timeLeft = Main.rand.Next(Gore.goreTime / 2, Gore.goreTime + 1);
+                    Game1.gore[index1].alpha = 150;
+                    Game1.gore[index1].velocity = Velocity;
+                    Game1.gore[index1].position.X = Position.X - (float)(Game1.goreTexture[Type].Width / 2) * Scale;
+                    Game1.gore[index1].position.Y = Position.Y - (float)((double)Game1.goreTexture[Type].Height * (double)Scale / 2.0);
+                    Game1.gore[index1].timeLeft = Game1.rand.Next(Gore.goreTime / 2, Gore.goreTime + 1);
                 }
             }
             return index1;

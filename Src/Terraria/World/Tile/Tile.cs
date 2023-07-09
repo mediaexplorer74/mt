@@ -238,7 +238,7 @@ namespace GameManager
                     return 2;
                 if ((int)this.slope() > 0)
                     return 2 + (int)this.slope();
-                return Main.tileSolid[(int)this.type] && !Main.tileSolidTop[(int)this.type] ? 1 : -1;
+                return Game1.tileSolid[(int)this.type] && !Game1.tileSolidTop[(int)this.type] ? 1 : -1;
             }
         }
 
@@ -306,7 +306,7 @@ namespace GameManager
 
         public bool isTheSameAs(Tile compTile)
         {
-            if (compTile == null || (int)this.sTileHeader != (int)compTile.sTileHeader || this.active() && ((int)this.type != (int)compTile.type || Main.tileFrameImportant[(int)this.type] && ((int)this.frameX != (int)compTile.frameX || (int)this.frameY != (int)compTile.frameY)) || ((int)this.wall != (int)compTile.wall || (int)this.liquid != (int)compTile.liquid))
+            if (compTile == null || (int)this.sTileHeader != (int)compTile.sTileHeader || this.active() && ((int)this.type != (int)compTile.type || Game1.tileFrameImportant[(int)this.type] && ((int)this.frameX != (int)compTile.frameX || (int)this.frameY != (int)compTile.frameY)) || ((int)this.wall != (int)compTile.wall || (int)this.liquid != (int)compTile.liquid))
                 return false;
 			if (k_wireFlags != compTile.k_wireFlags)
 				return false;
@@ -582,7 +582,7 @@ namespace GameManager
                 Tile.SmoothSlope(x, y + 1, false);
                 Tile.SmoothSlope(x, y - 1, false);
             }
-            Tile tile = Main.tile[x, y];
+            Tile tile = Game1.tile[x, y];
             if (!WorldGen.SolidOrSlopedTile(x, y))
                 return;
             bool flag1 = !WorldGen.TileEmpty(x, y - 1);

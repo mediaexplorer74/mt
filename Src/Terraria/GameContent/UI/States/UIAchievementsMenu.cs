@@ -65,7 +65,7 @@ namespace GameManager.GameContent.UI.States
             uiTextPanel2.OnMouseOut += new UIElement.MouseEvent(FadedMouseOut);
             uiTextPanel2.OnClick += new UIElement.MouseEvent(GoBackClick);
             element1.Append(uiTextPanel2);
-            List<Achievement> achievementsList = Main.Achievements.CreateAchievementsList();
+            List<Achievement> achievementsList = Game1.Achievements.CreateAchievementsList();
             for (int index = 0; index < achievementsList.Count; ++index)
             {
                 UIAchievementListItem achievementListItem = new UIAchievementListItem(achievementsList[index]);
@@ -127,14 +127,14 @@ namespace GameManager.GameContent.UI.States
                             break;
                     }
 
-                    float num = Main.fontMouseText.MeasureString(text).X;
-                    Vector2 vector2 = new Vector2((float)Main.mouseX, (float)Main.mouseY) + new Vector2(16f);
-                    if (vector2.Y > (Main.screenHeight - 30))
-                        vector2.Y = (float)(Main.screenHeight - 30);
-                    if (vector2.X > Main.screenWidth - num)
-                        vector2.X = (float)(Main.screenWidth - 460);
-                    Utils.DrawBorderStringFourWay(spriteBatch, Main.fontMouseText, text, vector2.X, vector2.Y, new Color((int)Main.mouseTextColor, (int)Main.mouseTextColor,
-                        (int)Main.mouseTextColor, (int)Main.mouseTextColor), Color.Black, Vector2.Zero, 1f);
+                    float num = Game1.fontMouseText.MeasureString(text).X;
+                    Vector2 vector2 = new Vector2((float)Game1.mouseX, (float)Game1.mouseY) + new Vector2(16f);
+                    if (vector2.Y > (Game1.screenHeight - 30))
+                        vector2.Y = (float)(Game1.screenHeight - 30);
+                    if (vector2.X > Game1.screenWidth - num)
+                        vector2.X = (float)(Game1.screenWidth - 460);
+                    Utils.DrawBorderStringFourWay(spriteBatch, Game1.fontMouseText, text, vector2.X, vector2.Y, new Color((int)Game1.mouseTextColor, (int)Game1.mouseTextColor,
+                        (int)Game1.mouseTextColor, (int)Game1.mouseTextColor), Color.Black, Vector2.Zero, 1f);
                     break;
                 }
             }
@@ -153,13 +153,13 @@ namespace GameManager.GameContent.UI.States
 
         private void GoBackClick(UIMouseEvent evt, UIElement listeningElement)
         {
-            Main.menuMode = 0;
+            Game1.menuMode = 0;
             AchievementsUI.Close();
         }
 
         private void FadedMouseOver(UIMouseEvent evt, UIElement listeningElement)
         {
-            Main.PlaySound(12, -1, -1, 1);
+            Game1.PlaySound(12, -1, -1, 1);
             ((UIPanel)evt.Target).BackgroundColor = new Color(73, 94, 171);
         }
 
@@ -181,7 +181,7 @@ namespace GameManager.GameContent.UI.States
 
         public override void OnActivate()
         {
-            if (Main.gameMenu)
+            if (Game1.gameMenu)
             {
                 _outerContainer.Top.Set(220f, 0.0f);
                 _outerContainer.Height.Set(-220f, 1f);

@@ -48,7 +48,7 @@ namespace GameManager.GameContent.Skies
                     ++index;
 
                 _bolts[index].IsAlive = true;
-                _bolts[index].Position.X = (float)(Utils.NextFloat(_random) * (Main.maxTilesX * 16.0 + 4000.0) - 2000.0);
+                _bolts[index].Position.X = (float)(Utils.NextFloat(_random) * (Game1.maxTilesX * 16.0 + 4000.0) - 2000.0);
                 _bolts[index].Position.Y = Utils.NextFloat(_random) * 500f;
                 _bolts[index].Depth = (float)(Utils.NextFloat(_random) * 8.0 + 2.0);
                 _bolts[index].Life = 30;
@@ -74,24 +74,24 @@ namespace GameManager.GameContent.Skies
         {
             if (maxDepth >= 3.40282346638529E+38 && minDepth < 3.40282346638529E+38)
             {
-                spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black * _fadeOpacity);
-                spriteBatch.Draw(_bgTexture, new Rectangle(0, Math.Max(0, (int)((Main.worldSurface * 16.0 - Main.screenPosition.Y - 2400.0) * 0.100000001490116)),
-                    Main.screenWidth, Main.screenHeight), Color.White * Math.Min(1f, (float)((Main.screenPosition.Y - 800.0) / 1000.0)) * _fadeOpacity);
-                Vector2 vector2_1 = new Vector2((float)(Main.screenWidth >> 1), (float)(Main.screenHeight >> 1));
-                Vector2 vector2_2 = 0.01f * (new Vector2((float)Main.maxTilesX * 8f, (float)Main.worldSurface / 2f) - Main.screenPosition);
+                spriteBatch.Draw(Game1.blackTileTexture, new Rectangle(0, 0, Game1.screenWidth, Game1.screenHeight), Color.Black * _fadeOpacity);
+                spriteBatch.Draw(_bgTexture, new Rectangle(0, Math.Max(0, (int)((Game1.worldSurface * 16.0 - Game1.screenPosition.Y - 2400.0) * 0.100000001490116)),
+                    Game1.screenWidth, Game1.screenHeight), Color.White * Math.Min(1f, (float)((Game1.screenPosition.Y - 800.0) / 1000.0)) * _fadeOpacity);
+                Vector2 vector2_1 = new Vector2((float)(Game1.screenWidth >> 1), (float)(Game1.screenHeight >> 1));
+                Vector2 vector2_2 = 0.01f * (new Vector2((float)Game1.maxTilesX * 8f, (float)Game1.worldSurface / 2f) - Game1.screenPosition);
                 spriteBatch.Draw(_planetTexture, vector2_1 + new Vector2(-200f, -200f) + vector2_2, new Rectangle?(), Color.White * 0.9f * _fadeOpacity, 0.0f,
                     new Vector2((float)(_planetTexture.Width >> 1), (float)(_planetTexture.Height >> 1)), 1f, SpriteEffects.None, 1f);
             }
 
-            float num1 = Math.Min(1f, (float)((Main.screenPosition.Y - 1000.0) / 1000.0));
-            Vector2 vector2_3 = Main.screenPosition + new Vector2((float)(Main.screenWidth >> 1), (float)(Main.screenHeight >> 1));
+            float num1 = Math.Min(1f, (float)((Game1.screenPosition.Y - 1000.0) / 1000.0));
+            Vector2 vector2_3 = Game1.screenPosition + new Vector2((float)(Game1.screenWidth >> 1), (float)(Game1.screenHeight >> 1));
             Rectangle rectangle = new Rectangle(-1000, -1000, 4000, 4000);
             for (int index = 0; index < _bolts.Length; ++index)
             {
                 if (this._bolts[index].IsAlive && _bolts[index].Depth > minDepth && _bolts[index].Depth < maxDepth)
                 {
                     Vector2 vector2_1 = new Vector2(1f / _bolts[index].Depth, 0.9f / _bolts[index].Depth);
-                    Vector2 position = (_bolts[index].Position - vector2_3) * vector2_1 + vector2_3 - Main.screenPosition;
+                    Vector2 position = (_bolts[index].Position - vector2_3) * vector2_1 + vector2_3 - Game1.screenPosition;
                     if (rectangle.Contains((int)position.X, (int)position.Y))
                     {
                         Texture2D texture = _boltTexture;

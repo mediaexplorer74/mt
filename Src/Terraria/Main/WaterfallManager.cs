@@ -69,58 +69,58 @@ namespace GameManager
             if (this.findWaterfallCount < 30 && !forced)
                 return;
             this.findWaterfallCount = 0;
-            this.waterfallDist = (int)(75.0 * (double)Main.gfxQuality) + 25;
-            this.qualityMax = (int)(175.0 * (double)Main.gfxQuality) + 25;
+            this.waterfallDist = (int)(75.0 * (double)Game1.gfxQuality) + 25;
+            this.qualityMax = (int)(175.0 * (double)Game1.gfxQuality) + 25;
             this.currentMax = 0;
-            int num1 = (int)((double)Main.screenPosition.X / 16.0 - 1.0);
-            int num2 = (int)(((double)Main.screenPosition.X + (double)Main.screenWidth) / 16.0) + 2;
-            int num3 = (int)((double)Main.screenPosition.Y / 16.0 - 1.0);
-            int num4 = (int)(((double)Main.screenPosition.Y + (double)Main.screenHeight) / 16.0) + 2;
+            int num1 = (int)((double)Game1.screenPosition.X / 16.0 - 1.0);
+            int num2 = (int)(((double)Game1.screenPosition.X + (double)Game1.screenWidth) / 16.0) + 2;
+            int num3 = (int)((double)Game1.screenPosition.Y / 16.0 - 1.0);
+            int num4 = (int)(((double)Game1.screenPosition.Y + (double)Game1.screenHeight) / 16.0) + 2;
             int num5 = num1 - this.waterfallDist;
             int num6 = num2 + this.waterfallDist;
             int num7 = num3 - this.waterfallDist;
             int num8 = num4 + 20;
             if (num5 < 0)
                 num5 = 0;
-            if (num6 > Main.maxTilesX)
-                num6 = Main.maxTilesX;
+            if (num6 > Game1.maxTilesX)
+                num6 = Game1.maxTilesX;
             if (num7 < 0)
                 num7 = 0;
-            if (num8 > Main.maxTilesY)
-                num8 = Main.maxTilesY;
+            if (num8 > Game1.maxTilesY)
+                num8 = Game1.maxTilesY;
             for (int index1 = num5; index1 < num6; ++index1)
             {
                 for (int index2 = num7; index2 < num8; ++index2)
                 {
-                    Tile tile = Main.tile[index1, index2];
+                    Tile tile = Game1.tile[index1, index2];
                     if (tile == null)
                     {
                         tile = new Tile();
-                        Main.tile[index1, index2] = tile;
+                        Game1.tile[index1, index2] = tile;
                     }
                     if (tile.active())
                     {
                         if (tile.halfBrick())
                         {
-                            Tile testTile1 = Main.tile[index1, index2 - 1];
+                            Tile testTile1 = Game1.tile[index1, index2 - 1];
                             if (testTile1 == null)
                             {
                                 testTile1 = new Tile();
-                                Main.tile[index1, index2 - 1] = testTile1;
+                                Game1.tile[index1, index2 - 1] = testTile1;
                             }
                             if ((int)testTile1.liquid < 16 || WorldGen.SolidTile(testTile1))
                             {
-                                Tile testTile2 = Main.tile[index1 + 1, index2];
+                                Tile testTile2 = Game1.tile[index1 + 1, index2];
                                 if (testTile2 == null)
                                 {
                                     testTile2 = new Tile();
-                                    Main.tile[index1 - 1, index2] = testTile2;
+                                    Game1.tile[index1 - 1, index2] = testTile2;
                                 }
-                                Tile testTile3 = Main.tile[index1 - 1, index2];
+                                Tile testTile3 = Game1.tile[index1 - 1, index2];
                                 if (testTile3 == null)
                                 {
                                     testTile3 = new Tile();
-                                    Main.tile[index1 + 1, index2] = testTile3;
+                                    Game1.tile[index1 + 1, index2] = testTile3;
                                 }
                                 if (((int)testTile2.liquid > 160 || (int)testTile3.liquid > 160) && ((int)testTile2.liquid == 0 && !WorldGen.SolidTile(testTile2) && (int)testTile2.slope() == 0 || (int)testTile3.liquid == 0 && !WorldGen.SolidTile(testTile3) && (int)testTile3.slope() == 0) && this.currentMax < this.qualityMax)
                                 {
@@ -134,11 +134,11 @@ namespace GameManager
                         }
                         if ((int)tile.type == 196)
                         {
-                            Tile testTile = Main.tile[index1, index2 + 1];
+                            Tile testTile = Game1.tile[index1, index2 + 1];
                             if (testTile == null)
                             {
                                 testTile = new Tile();
-                                Main.tile[index1, index2 + 1] = testTile;
+                                Game1.tile[index1, index2 + 1] = testTile;
                             }
                             if (!WorldGen.SolidTile(testTile) && (int)testTile.slope() == 0 && this.currentMax < this.qualityMax)
                             {
@@ -213,7 +213,7 @@ namespace GameManager
                 int x;
                 if (index2 == 1 || index2 == 14)
                 {
-                    if (!Main.drewLava && this.waterfalls[index1].stopAtStep != 0)
+                    if (!Game1.drewLava && this.waterfalls[index1].stopAtStep != 0)
                         x = 32 * this.slowFrame;
                     else
                         continue;
@@ -222,12 +222,12 @@ namespace GameManager
                 {
                     if (index2 == 11)
                     {
-                        if (!Main.drewLava)
+                        if (!Game1.drewLava)
                         {
                             int num17 = this.waterfallDist / 4;
                             if (this.waterfalls[index1].stopAtStep > num17)
                                 this.waterfalls[index1].stopAtStep = num17;
-                            if (this.waterfalls[index1].stopAtStep != 0 && (double)(index4 + num17) >= (double)Main.screenPosition.Y / 16.0 && ((double)index3 >= (double)Main.screenPosition.X / 16.0 - 1.0 && (double)index3 <= ((double)Main.screenPosition.X + (double)Main.screenWidth) / 16.0 + 1.0))
+                            if (this.waterfalls[index1].stopAtStep != 0 && (double)(index4 + num17) >= (double)Game1.screenPosition.Y / 16.0 && ((double)index3 >= (double)Game1.screenPosition.X / 16.0 - 1.0 && (double)index3 <= ((double)Game1.screenPosition.X + (double)Game1.screenWidth) / 16.0 + 1.0))
                             {
                                 int num18;
                                 int num19;
@@ -248,7 +248,7 @@ namespace GameManager
                                 Rectangle rectangle1 = new Rectangle(num19 * 18, 0, 16, 16);
                                 Rectangle rectangle2 = new Rectangle(num18 * 18, 0, 16, 16);
                                 Vector2 origin = new Vector2(8f, 8f);
-                                Vector2 position = index4 % 2 != 0 ? new Vector2((float)(index3 * 16 + 8), (float)(index4 * 16 + 8)) - Main.screenPosition : new Vector2((float)(index3 * 16 + 9), (float)(index4 * 16 + 8)) - Main.screenPosition;
+                                Vector2 position = index4 % 2 != 0 ? new Vector2((float)(index3 * 16 + 8), (float)(index4 * 16 + 8)) - Game1.screenPosition : new Vector2((float)(index3 * 16 + 9), (float)(index4 * 16 + 8)) - Game1.screenPosition;
                                 bool flag = false;
                                 for (int index6 = 0; index6 < num17; ++index6)
                                 {
@@ -268,7 +268,7 @@ namespace GameManager
                                     if (!flag)
                                     {
                                         ++index4;
-                                        Tile testTile = Main.tile[index3, index4];
+                                        Tile testTile = Game1.tile[index3, index4];
                                         if (WorldGen.SolidTile(testTile))
                                             flag = true;
                                         if ((int)testTile.liquid > 0)
@@ -300,7 +300,7 @@ namespace GameManager
                     }
                     if (index2 == 0)
                         index2 = Style;
-                    else if (index2 == 2 && Main.drewLava)
+                    else if (index2 == 2 && Game1.drewLava)
                         continue;
                     x = 32 * this.regularFrame;
                 }
@@ -314,16 +314,16 @@ namespace GameManager
                         switch (index2)
                         {
                             case 1:
-                                float num17 = (0.55f + (float)(270 - (int)Main.mouseTextColor) / 900f) * 0.4f;
+                                float num17 = (0.55f + (float)(270 - (int)Game1.mouseTextColor) / 900f) * 0.4f;
                                 float R1 = num17;
                                 float G1 = num17 * 0.3f;
                                 float B1 = num17 * 0.1f;
                                 Lighting.AddLight(index3, index4, R1, G1, B1);
                                 break;
                             case 2:
-                                float num18 = (float)Main.DiscoR / (float)byte.MaxValue;
-                                float num19 = (float)Main.DiscoG / (float)byte.MaxValue;
-                                float num20 = (float)Main.DiscoB / (float)byte.MaxValue;
+                                float num18 = (float)Game1.DiscoR / (float)byte.MaxValue;
+                                float num19 = (float)Game1.DiscoG / (float)byte.MaxValue;
+                                float num20 = (float)Game1.DiscoB / (float)byte.MaxValue;
                                 float R2 = num18 * 0.2f;
                                 float G2 = num19 * 0.2f;
                                 float B2 = num20 * 0.2f;
@@ -369,29 +369,29 @@ namespace GameManager
                                 Lighting.AddLight(index3, index4, R8, G8, B8);
                                 break;
                         }
-                        Tile tile = Main.tile[index3, index4];
+                        Tile tile = Game1.tile[index3, index4];
                         if (tile == null)
                         {
                             tile = new Tile();
-                            Main.tile[index3, index4] = tile;
+                            Game1.tile[index3, index4] = tile;
                         }
-                        Tile testTile1 = Main.tile[index3 - 1, index4];
+                        Tile testTile1 = Game1.tile[index3 - 1, index4];
                         if (testTile1 == null)
                         {
                             testTile1 = new Tile();
-                            Main.tile[index3 - 1, index4] = testTile1;
+                            Game1.tile[index3 - 1, index4] = testTile1;
                         }
-                        Tile testTile2 = Main.tile[index3, index4 + 1];
+                        Tile testTile2 = Game1.tile[index3, index4 + 1];
                         if (testTile2 == null)
                         {
                             testTile2 = new Tile();
-                            Main.tile[index3, index4 + 1] = testTile2;
+                            Game1.tile[index3, index4 + 1] = testTile2;
                         }
-                        Tile testTile3 = Main.tile[index3 + 1, index4];
+                        Tile testTile3 = Game1.tile[index3 + 1, index4];
                         if (testTile3 == null)
                         {
                             testTile3 = new Tile();
-                            Main.tile[index3 + 1, index4] = testTile3;
+                            Game1.tile[index3 + 1, index4] = testTile3;
                         }
                         int num21 = (int)tile.liquid / 16;
                         int num22 = 0;
@@ -475,7 +475,7 @@ namespace GameManager
                             num11 = 0;
                         Color color1 = Lighting.GetColor(index3, index4);
                         Color color2 = color1;
-                        float num29 = index2 != 1 ? (index2 != 14 ? ((int)tile.wall != 0 || (double)index4 >= Main.worldSurface ? 0.6f * Alpha : Alpha) : 0.8f) : 1f;
+                        float num29 = index2 != 1 ? (index2 != 14 ? ((int)tile.wall != 0 || (double)index4 >= Game1.worldSurface ? 0.6f * Alpha : Alpha) : 0.8f) : 1f;
                         if (index6 > num24 - 10)
                             num29 *= (float)(num24 - index6) / 10f;
                         float num30 = (float)color1.R * num29;
@@ -493,9 +493,9 @@ namespace GameManager
                         }
                         else if (index2 == 2)
                         {
-                            num30 = (float)Main.DiscoR * num29;
-                            num31 = (float)Main.DiscoG * num29;
-                            num32 = (float)Main.DiscoB * num29;
+                            num30 = (float)Game1.DiscoR * num29;
+                            num31 = (float)Game1.DiscoG * num29;
+                            num32 = (float)Game1.DiscoB * num29;
                         }
                         else if (index2 >= 15 && index2 <= 21)
                         {
@@ -506,11 +506,11 @@ namespace GameManager
                         color1 = new Color((int)num30, (int)num31, (int)num32, (int)num33);
                         if (index2 == 1)
                         {
-                            float num34 = Math.Abs((float)(index3 * 16 + 8) - (Main.screenPosition.X + (float)(Main.screenWidth / 2)));
-                            float num35 = Math.Abs((float)(index4 * 16 + 8) - (Main.screenPosition.Y + (float)(Main.screenHeight / 2)));
-                            if ((double)num34 < (double)(Main.screenWidth * 2) && (double)num35 < (double)(Main.screenHeight * 2))
+                            float num34 = Math.Abs((float)(index3 * 16 + 8) - (Game1.screenPosition.X + (float)(Game1.screenWidth / 2)));
+                            float num35 = Math.Abs((float)(index4 * 16 + 8) - (Game1.screenPosition.Y + (float)(Game1.screenHeight / 2)));
+                            if ((double)num34 < (double)(Game1.screenWidth * 2) && (double)num35 < (double)(Game1.screenHeight * 2))
                             {
-                                float num36 = (float)(1.0 - Math.Sqrt((double)num34 * (double)num34 + (double)num35 * (double)num35) / ((double)Main.screenWidth * 0.75));
+                                float num36 = (float)(1.0 - Math.Sqrt((double)num34 * (double)num34 + (double)num35 * (double)num35) / ((double)Game1.screenWidth * 0.75));
                                 if ((double)num36 > 0.0)
                                     num6 += num36;
                             }
@@ -527,11 +527,11 @@ namespace GameManager
                         }
                         else if (index2 != 1 && index2 != 14 && (index2 != 11 && index2 != 12))
                         {
-                            float num34 = Math.Abs((float)(index3 * 16 + 8) - (Main.screenPosition.X + (float)(Main.screenWidth / 2)));
-                            float num35 = Math.Abs((float)(index4 * 16 + 8) - (Main.screenPosition.Y + (float)(Main.screenHeight / 2)));
-                            if ((double)num34 < (double)(Main.screenWidth * 2) && (double)num35 < (double)(Main.screenHeight * 2))
+                            float num34 = Math.Abs((float)(index3 * 16 + 8) - (Game1.screenPosition.X + (float)(Game1.screenWidth / 2)));
+                            float num35 = Math.Abs((float)(index4 * 16 + 8) - (Game1.screenPosition.Y + (float)(Game1.screenHeight / 2)));
+                            if ((double)num34 < (double)(Game1.screenWidth * 2) && (double)num35 < (double)(Game1.screenHeight * 2))
                             {
-                                float num36 = (float)(1.0 - Math.Sqrt((double)num34 * (double)num34 + (double)num35 * (double)num35) / ((double)Main.screenWidth * 0.75));
+                                float num36 = (float)(1.0 - Math.Sqrt((double)num34 * (double)num34 + (double)num35 * (double)num35) / ((double)Game1.screenWidth * 0.75));
                                 if ((double)num36 > 0.0)
                                     num1 += num36;
                             }
@@ -553,10 +553,10 @@ namespace GameManager
                                 num34 = (float)color2.G;
                             if ((double)color2.B > (double)num34)
                                 num34 = (float)color2.B;
-                            if ((double)Main.rand.Next(20000) < (double)num34 / 30.0)
+                            if ((double)Game1.rand.Next(20000) < (double)num34 / 30.0)
                             {
                                 int index7 = Dust.NewDust(new Vector2((float)(index3 * 16 - num14 * 7), (float)(index4 * 16 + 6)), 10, 8, 43, 0.0f, 0.0f, 254, Color.White, 0.5f);
-                                Main.dust[index7].velocity *= 0.0f;
+                                Game1.dust[index7].velocity *= 0.0f;
                             }
                         }
                         if (num12 == 0 && num22 != 0 && (num13 == 1 && num14 != num15))
@@ -565,71 +565,71 @@ namespace GameManager
                             num14 = num15;
                             color1 = Color.White;
                             if (num14 == 1)
-                                spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16 - 16), (float)(index4 * 16 + 16)) - Main.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 16 - num21)), color1, 0.0f, Vector2.Zero, 1f, SpriteEffects.FlipHorizontally, 0.0f);
+                                spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16 - 16), (float)(index4 * 16 + 16)) - Game1.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 16 - num21)), color1, 0.0f, Vector2.Zero, 1f, SpriteEffects.FlipHorizontally, 0.0f);
                             else
-                                spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16 - 16), (float)(index4 * 16 + 16)) - Main.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 8)), color1, 0.0f, Vector2.Zero, 1f, SpriteEffects.FlipHorizontally, 0.0f);
+                                spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16 - 16), (float)(index4 * 16 + 16)) - Game1.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 8)), color1, 0.0f, Vector2.Zero, 1f, SpriteEffects.FlipHorizontally, 0.0f);
                         }
                         if (num16 != 0 && num26 == 0 && num27 == 1)
                         {
                             if (num14 == 1)
                             {
                                 if (index5 != index2)
-                                    spriteBatch.Draw(this.waterfallTexture[index5], new Vector2((float)(index3 * 16), (float)(index4 * 16 + num11 + 8)) - Main.screenPosition, new Rectangle?(new Rectangle(x, 0, 16, 16 - num21 - 8)), color4, 0.0f, Vector2.Zero, 1f, SpriteEffects.FlipHorizontally, 0.0f);
+                                    spriteBatch.Draw(this.waterfallTexture[index5], new Vector2((float)(index3 * 16), (float)(index4 * 16 + num11 + 8)) - Game1.screenPosition, new Rectangle?(new Rectangle(x, 0, 16, 16 - num21 - 8)), color4, 0.0f, Vector2.Zero, 1f, SpriteEffects.FlipHorizontally, 0.0f);
                                 else
-                                    spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16), (float)(index4 * 16 + num11 + 8)) - Main.screenPosition, new Rectangle?(new Rectangle(x, 0, 16, 16 - num21 - 8)), color1, 0.0f, Vector2.Zero, 1f, SpriteEffects.FlipHorizontally, 0.0f);
+                                    spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16), (float)(index4 * 16 + num11 + 8)) - Game1.screenPosition, new Rectangle?(new Rectangle(x, 0, 16, 16 - num21 - 8)), color1, 0.0f, Vector2.Zero, 1f, SpriteEffects.FlipHorizontally, 0.0f);
                             }
                             else
-                                spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16), (float)(index4 * 16 + num11 + 8)) - Main.screenPosition, new Rectangle?(new Rectangle(x, 0, 16, 16 - num21 - 8)), color1, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.0f);
+                                spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16), (float)(index4 * 16 + num11 + 8)) - Game1.screenPosition, new Rectangle?(new Rectangle(x, 0, 16, 16 - num21 - 8)), color1, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.0f);
                         }
                         if (num11 == 8 && num13 == 1 && num16 == 0)
                         {
                             if (num15 == -1)
                             {
                                 if (index5 != index2)
-                                    spriteBatch.Draw(this.waterfallTexture[index5], new Vector2((float)(index3 * 16), (float)(index4 * 16)) - Main.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 8)), color4, 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
+                                    spriteBatch.Draw(this.waterfallTexture[index5], new Vector2((float)(index3 * 16), (float)(index4 * 16)) - Game1.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 8)), color4, 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
                                 else
-                                    spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16), (float)(index4 * 16)) - Main.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 8)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
+                                    spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16), (float)(index4 * 16)) - Game1.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 8)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
                             }
                             else if (index5 != index2)
-                                spriteBatch.Draw(this.waterfallTexture[index5], new Vector2((float)(index3 * 16 - 16), (float)(index4 * 16)) - Main.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 8)), color4, 0.0f, new Vector2(), 1f, SpriteEffects.FlipHorizontally, 0.0f);
+                                spriteBatch.Draw(this.waterfallTexture[index5], new Vector2((float)(index3 * 16 - 16), (float)(index4 * 16)) - Game1.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 8)), color4, 0.0f, new Vector2(), 1f, SpriteEffects.FlipHorizontally, 0.0f);
                             else
-                                spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16 - 16), (float)(index4 * 16)) - Main.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 8)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.FlipHorizontally, 0.0f);
+                                spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16 - 16), (float)(index4 * 16)) - Game1.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 8)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.FlipHorizontally, 0.0f);
                         }
                         if (num22 != 0 && num12 == 0)
                         {
                             if (num25 == 1)
                             {
                                 if (index5 != index2)
-                                    spriteBatch.Draw(this.waterfallTexture[index5], new Vector2((float)(index3 * 16 - 16), (float)(index4 * 16)) - Main.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 16 - num21)), color4, 0.0f, new Vector2(), 1f, SpriteEffects.FlipHorizontally, 0.0f);
+                                    spriteBatch.Draw(this.waterfallTexture[index5], new Vector2((float)(index3 * 16 - 16), (float)(index4 * 16)) - Game1.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 16 - num21)), color4, 0.0f, new Vector2(), 1f, SpriteEffects.FlipHorizontally, 0.0f);
                                 else
-                                    spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16 - 16), (float)(index4 * 16)) - Main.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 16 - num21)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.FlipHorizontally, 0.0f);
+                                    spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16 - 16), (float)(index4 * 16)) - Game1.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 16 - num21)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.FlipHorizontally, 0.0f);
                             }
                             else if (index5 != index2)
-                                spriteBatch.Draw(this.waterfallTexture[index5], new Vector2((float)(index3 * 16), (float)(index4 * 16)) - Main.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 16 - num21)), color4, 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
+                                spriteBatch.Draw(this.waterfallTexture[index5], new Vector2((float)(index3 * 16), (float)(index4 * 16)) - Game1.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 16 - num21)), color4, 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
                             else
-                                spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16), (float)(index4 * 16)) - Main.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 16 - num21)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
+                                spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16), (float)(index4 * 16)) - Game1.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 16 - num21)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
                         }
                         if (num27 == 1 && num22 == 0 && num16 == 0)
                         {
                             if (num14 == -1)
                             {
                                 if (num13 == 0)
-                                    spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16), (float)(index4 * 16 + num11)) - Main.screenPosition, new Rectangle?(new Rectangle(x, 0, 16, 16 - num21)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
+                                    spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16), (float)(index4 * 16 + num11)) - Game1.screenPosition, new Rectangle?(new Rectangle(x, 0, 16, 16 - num21)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
                                 else if (index5 != index2)
-                                    spriteBatch.Draw(this.waterfallTexture[index5], new Vector2((float)(index3 * 16), (float)(index4 * 16)) - Main.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 16 - num21)), color4, 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
+                                    spriteBatch.Draw(this.waterfallTexture[index5], new Vector2((float)(index3 * 16), (float)(index4 * 16)) - Game1.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 16 - num21)), color4, 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
                                 else
-                                    spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16), (float)(index4 * 16)) - Main.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 16 - num21)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
+                                    spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16), (float)(index4 * 16)) - Game1.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 16 - num21)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
                             }
                             else if (num13 == 0)
-                                spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16), (float)(index4 * 16 + num11)) - Main.screenPosition, new Rectangle?(new Rectangle(x, 0, 16, 16 - num21)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.FlipHorizontally, 0.0f);
+                                spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16), (float)(index4 * 16 + num11)) - Game1.screenPosition, new Rectangle?(new Rectangle(x, 0, 16, 16 - num21)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.FlipHorizontally, 0.0f);
                             else if (index5 != index2)
-                                spriteBatch.Draw(this.waterfallTexture[index5], new Vector2((float)(index3 * 16 - 16), (float)(index4 * 16)) - Main.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 16 - num21)), color4, 0.0f, new Vector2(), 1f, SpriteEffects.FlipHorizontally, 0.0f);
+                                spriteBatch.Draw(this.waterfallTexture[index5], new Vector2((float)(index3 * 16 - 16), (float)(index4 * 16)) - Game1.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 16 - num21)), color4, 0.0f, new Vector2(), 1f, SpriteEffects.FlipHorizontally, 0.0f);
                             else
-                                spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16 - 16), (float)(index4 * 16)) - Main.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 16 - num21)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.FlipHorizontally, 0.0f);
+                                spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16 - 16), (float)(index4 * 16)) - Game1.screenPosition, new Rectangle?(new Rectangle(x, 24, 32, 16 - num21)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.FlipHorizontally, 0.0f);
                         }
                         else if (num26 == 1)
                         {
-                            if ((int)Main.tile[index3, index4].liquid <= 0 || Main.tile[index3, index4].halfBrick())
+                            if ((int)Game1.tile[index3, index4].liquid <= 0 || Game1.tile[index3, index4].halfBrick())
                             {
                                 if (num22 == 1)
                                 {
@@ -641,16 +641,16 @@ namespace GameManager
                                         num11 = 8;
                                         if (num12 == 0 && index7 < 2)
                                             num36 = 4;
-                                        spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16 + num34), (float)(index4 * 16 + num11 + num36)) - Main.screenPosition, new Rectangle?(new Rectangle(16 + x + num35, 0, 2, 16 - num11)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.FlipHorizontally, 0.0f);
+                                        spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16 + num34), (float)(index4 * 16 + num11 + num36)) - Game1.screenPosition, new Rectangle?(new Rectangle(16 + x + num35, 0, 2, 16 - num11)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.FlipHorizontally, 0.0f);
                                     }
                                 }
                                 else
-                                    spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16), (float)(index4 * 16 + num11)) - Main.screenPosition, new Rectangle?(new Rectangle(16 + x, 0, 16, 16)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.FlipHorizontally, 0.0f);
+                                    spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16), (float)(index4 * 16 + num11)) - Game1.screenPosition, new Rectangle?(new Rectangle(16 + x, 0, 16, 16)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.FlipHorizontally, 0.0f);
                             }
                         }
                         else if (num26 == -1)
                         {
-                            if ((int)Main.tile[index3, index4].liquid <= 0 || Main.tile[index3, index4].halfBrick())
+                            if ((int)Game1.tile[index3, index4].liquid <= 0 || Game1.tile[index3, index4].halfBrick())
                             {
                                 if (num22 == -1)
                                 {
@@ -662,17 +662,17 @@ namespace GameManager
                                         num11 = 8;
                                         if (num12 == 0 && index7 > 5)
                                             num36 = 4;
-                                        spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16 + num34), (float)(index4 * 16 + num11 + num36)) - Main.screenPosition, new Rectangle?(new Rectangle(16 + x + num35, 0, 2, 16 - num11)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.FlipHorizontally, 0.0f);
+                                        spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16 + num34), (float)(index4 * 16 + num11 + num36)) - Game1.screenPosition, new Rectangle?(new Rectangle(16 + x + num35, 0, 2, 16 - num11)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.FlipHorizontally, 0.0f);
                                     }
                                 }
                                 else
-                                    spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16), (float)(index4 * 16 + num11)) - Main.screenPosition, new Rectangle?(new Rectangle(16 + x, 0, 16, 16)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
+                                    spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16), (float)(index4 * 16 + num11)) - Game1.screenPosition, new Rectangle?(new Rectangle(16 + x, 0, 16, 16)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
                             }
                         }
                         else if (num26 == 0 && num27 == 0)
                         {
-                            if ((int)Main.tile[index3, index4].liquid <= 0 || Main.tile[index3, index4].halfBrick())
-                                spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16), (float)(index4 * 16 + num11)) - Main.screenPosition, new Rectangle?(new Rectangle(16 + x, 0, 16, 16)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
+                            if ((int)Game1.tile[index3, index4].liquid <= 0 || Game1.tile[index3, index4].halfBrick())
+                                spriteBatch.Draw(this.waterfallTexture[index2], new Vector2((float)(index3 * 16), (float)(index4 * 16 + num11)) - Game1.screenPosition, new Rectangle?(new Rectangle(16 + x, 0, 16, 16)), color1, 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
                             index6 = 1000;
                         }
                         if ((int)tile.liquid > 0 && !tile.halfBrick())
@@ -687,44 +687,44 @@ namespace GameManager
                         if (index5 != index2)
                             index5 = index2;
                         if (testTile1.active() && ((int)testTile1.type == 189 || (int)testTile1.type == 196) || testTile3.active() && ((int)testTile3.type == 189 || (int)testTile3.type == 196) || testTile2.active() && ((int)testTile2.type == 189 || (int)testTile2.type == 196))
-                            num24 = (int)((double)(40 * (Main.maxTilesX / 4200)) * (double)Main.gfxQuality);
+                            num24 = (int)((double)(40 * (Game1.maxTilesX / 4200)) * (double)Game1.gfxQuality);
                     }
                 }
             }
-            Main.ambientWaterfallX = (float)num4;
-            Main.ambientWaterfallY = (float)num5;
-            Main.ambientWaterfallStrength = num1;
-            Main.ambientLavafallX = (float)num9;
-            Main.ambientLavafallY = (float)num10;
-            Main.ambientLavafallStrength = num6;
+            Game1.ambientWaterfallX = (float)num4;
+            Game1.ambientWaterfallY = (float)num5;
+            Game1.ambientWaterfallStrength = num1;
+            Game1.ambientLavafallX = (float)num9;
+            Game1.ambientLavafallY = (float)num10;
+            Game1.ambientLavafallStrength = num6;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             for (int index = 0; index < this.currentMax; ++index)
                 this.waterfalls[index].stopAtStep = this.waterfallDist;
-            Main.drewLava = false;
-            if ((double)Main.liquidAlpha[0] > 0.0)
-                this.DrawWaterfall(spriteBatch, 0, Main.liquidAlpha[0]);
-            if ((double)Main.liquidAlpha[2] > 0.0)
-                this.DrawWaterfall(spriteBatch, 3, Main.liquidAlpha[2]);
-            if ((double)Main.liquidAlpha[3] > 0.0)
-                this.DrawWaterfall(spriteBatch, 4, Main.liquidAlpha[3]);
-            if ((double)Main.liquidAlpha[4] > 0.0)
-                this.DrawWaterfall(spriteBatch, 5, Main.liquidAlpha[4]);
-            if ((double)Main.liquidAlpha[5] > 0.0)
-                this.DrawWaterfall(spriteBatch, 6, Main.liquidAlpha[5]);
-            if ((double)Main.liquidAlpha[6] > 0.0)
-                this.DrawWaterfall(spriteBatch, 7, Main.liquidAlpha[6]);
-            if ((double)Main.liquidAlpha[7] > 0.0)
-                this.DrawWaterfall(spriteBatch, 8, Main.liquidAlpha[7]);
-            if ((double)Main.liquidAlpha[8] > 0.0)
-                this.DrawWaterfall(spriteBatch, 9, Main.liquidAlpha[8]);
-            if ((double)Main.liquidAlpha[9] > 0.0)
-                this.DrawWaterfall(spriteBatch, 10, Main.liquidAlpha[9]);
-            if ((double)Main.liquidAlpha[10] <= 0.0)
+            Game1.drewLava = false;
+            if ((double)Game1.liquidAlpha[0] > 0.0)
+                this.DrawWaterfall(spriteBatch, 0, Game1.liquidAlpha[0]);
+            if ((double)Game1.liquidAlpha[2] > 0.0)
+                this.DrawWaterfall(spriteBatch, 3, Game1.liquidAlpha[2]);
+            if ((double)Game1.liquidAlpha[3] > 0.0)
+                this.DrawWaterfall(spriteBatch, 4, Game1.liquidAlpha[3]);
+            if ((double)Game1.liquidAlpha[4] > 0.0)
+                this.DrawWaterfall(spriteBatch, 5, Game1.liquidAlpha[4]);
+            if ((double)Game1.liquidAlpha[5] > 0.0)
+                this.DrawWaterfall(spriteBatch, 6, Game1.liquidAlpha[5]);
+            if ((double)Game1.liquidAlpha[6] > 0.0)
+                this.DrawWaterfall(spriteBatch, 7, Game1.liquidAlpha[6]);
+            if ((double)Game1.liquidAlpha[7] > 0.0)
+                this.DrawWaterfall(spriteBatch, 8, Game1.liquidAlpha[7]);
+            if ((double)Game1.liquidAlpha[8] > 0.0)
+                this.DrawWaterfall(spriteBatch, 9, Game1.liquidAlpha[8]);
+            if ((double)Game1.liquidAlpha[9] > 0.0)
+                this.DrawWaterfall(spriteBatch, 10, Game1.liquidAlpha[9]);
+            if ((double)Game1.liquidAlpha[10] <= 0.0)
                 return;
-            this.DrawWaterfall(spriteBatch, 13, Main.liquidAlpha[10]);
+            this.DrawWaterfall(spriteBatch, 13, Game1.liquidAlpha[10]);
         }
 
         public struct WaterfallData

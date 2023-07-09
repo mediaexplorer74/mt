@@ -27,6 +27,7 @@ namespace GameManager
         {
             double ts = gt.ElapsedGameTime.TotalSeconds;
             Time = (float)ts; 
-        }
+        }            
+
     }
 }

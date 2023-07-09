@@ -27,9 +27,9 @@ namespace GameManager.GameContent.Dyes
                 return;
 
             isInitialized = true;
-            dustShaderData = new ArmorShaderData[Main.teamColor.Length];
-            for (int index = 1; index < Main.teamColor.Length; ++index)
-                dustShaderData[index] = new ArmorShaderData(shader, passName).UseColor(Main.teamColor[index]);
+            dustShaderData = new ArmorShaderData[Game1.teamColor.Length];
+            for (int index = 1; index < Game1.teamColor.Length; ++index)
+                dustShaderData[index] = new ArmorShaderData(shader, passName).UseColor(Game1.teamColor[index]);
             dustShaderData[0] = new ArmorShaderData(shader, "Default");
         }
 
@@ -40,7 +40,7 @@ namespace GameManager.GameContent.Dyes
                 dustShaderData[0].Apply(player, drawData);
             else
             {
-                this.UseColor(Main.teamColor[player.team]);
+                this.UseColor(Game1.teamColor[player.team]);
                 base.Apply(player, drawData);
             }
         }

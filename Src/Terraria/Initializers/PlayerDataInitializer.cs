@@ -18,7 +18,7 @@ namespace GameManager.Initializers
     {
         public static void Load()
         {
-            Main.playerTextures = new Texture2D[8, 15];
+            Game1.playerTextures = new Texture2D[8, 15];
             PlayerDataInitializer.LoadStarterMale();
             PlayerDataInitializer.LoadStarterFemale();
             PlayerDataInitializer.LoadStickerMale();
@@ -35,19 +35,19 @@ namespace GameManager.Initializers
             PlayerDataInitializer.CopyVariant(9, 4);
             for (int index = 8; index < 10; ++index)
             {
-                Main.playerTextures[index, 4] = Main.armorArmTexture[191];
-                Main.playerTextures[index, 6] = Main.armorArmTexture[191];
-                Main.playerTextures[index, 11] = Main.armorArmTexture[191];
-                Main.playerTextures[index, 12] = Main.armorArmTexture[191];
-                Main.playerTextures[index, 13] = Main.armorArmTexture[191];
-                Main.playerTextures[index, 8] = Main.armorArmTexture[191];
+                Game1.playerTextures[index, 4] = Game1.armorArmTexture[191];
+                Game1.playerTextures[index, 6] = Game1.armorArmTexture[191];
+                Game1.playerTextures[index, 11] = Game1.armorArmTexture[191];
+                Game1.playerTextures[index, 12] = Game1.armorArmTexture[191];
+                Game1.playerTextures[index, 13] = Game1.armorArmTexture[191];
+                Game1.playerTextures[index, 8] = Game1.armorArmTexture[191];
             }
         }
 
         private static void LoadVariant(int ID, int[] pieceIDs)
         {
             for (int index = 0; index < pieceIDs.Length; ++index)
-                Main.playerTextures[ID, pieceIDs[index]] = TextureManager.Load(string.Concat(new object[4]
+                Game1.playerTextures[ID, pieceIDs[index]] = TextureManager.Load(string.Concat(new object[4]
         {
           (object) "Images/Player_",
           (object) ID,
@@ -59,7 +59,7 @@ namespace GameManager.Initializers
         private static void CopyVariant(int to, int from)
         {
             for (int index = 0; index < 15; ++index)
-                Main.playerTextures[to, index] = Main.playerTextures[from, index];
+                Game1.playerTextures[to, index] = Game1.playerTextures[from, index];
         }
 
         private static void LoadStarterMale()
@@ -81,7 +81,7 @@ namespace GameManager.Initializers
         12,
         13
       });
-            Main.playerTextures[0, 14] = TextureManager.BlankTexture;
+            Game1.playerTextures[0, 14] = TextureManager.BlankTexture;
         }
 
         private static void LoadStickerMale()

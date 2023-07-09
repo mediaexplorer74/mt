@@ -316,10 +316,10 @@ namespace GameManager
 
         public static void WallFrame(int i, int j, bool resetFrame = false)
         {
-            if (i <= 0 || j <= 0 || (i >= Main.maxTilesX - 1 || j >= Main.maxTilesY - 1) || Main.tile[i, j] == null)
+            if (i <= 0 || j <= 0 || (i >= Game1.maxTilesX - 1 || j >= Game1.maxTilesY - 1) || Game1.tile[i, j] == null)
                 return;
             WorldGen.UpdateMapTile(i, j, true);
-            Tile tile1 = Main.tile[i, j];
+            Tile tile1 = Game1.tile[i, j];
             if ((int)tile1.wall == 0)
             {
                 tile1.wallColor((byte)0);
@@ -327,25 +327,25 @@ namespace GameManager
             else
             {
                 int index1 = 0;
-                Tile tile2 = Main.tile[i, j - 1];
+                Tile tile2 = Game1.tile[i, j - 1];
                 if (tile2 != null && ((int)tile2.wall > 0 || tile2.active() && (int)tile2.type == 54))
                     index1 = 1;
-                Tile tile3 = Main.tile[i - 1, j];
+                Tile tile3 = Game1.tile[i - 1, j];
                 if (tile3 != null && ((int)tile3.wall > 0 || tile3.active() && (int)tile3.type == 54))
                     index1 |= 2;
-                Tile tile4 = Main.tile[i + 1, j];
+                Tile tile4 = Game1.tile[i + 1, j];
                 if (tile4 != null && ((int)tile4.wall > 0 || tile4.active() && (int)tile4.type == 54))
                     index1 |= 4;
-                Tile tile5 = Main.tile[i, j + 1];
+                Tile tile5 = Game1.tile[i, j + 1];
                 if (tile5 != null && ((int)tile5.wall > 0 || tile5.active() && (int)tile5.type == 54))
                     index1 |= 8;
                 int index2;
-                if ((int)Main.wallLargeFrames[(int)tile1.wall] == 1)
+                if ((int)Game1.wallLargeFrames[(int)tile1.wall] == 1)
                 {
                     index2 = Framing.phlebasTileFrameNumberLookup[j % 4][i % 3] - 1;
                     tile1.wallFrameNumber((byte)index2);
                 }
-                else if ((int)Main.wallLargeFrames[(int)tile1.wall] == 2)
+                else if ((int)Game1.wallLargeFrames[(int)tile1.wall] == 2)
                 {
                     index2 = Framing.lazureTileFrameNumberLookup[i % 2][j % 2] - 1;
                     tile1.wallFrameNumber((byte)index2);
@@ -367,11 +367,11 @@ namespace GameManager
 
         public static Tile GetTileSafely(int i, int j)
         {
-            Tile tile = Main.tile[i, j];
+            Tile tile = Game1.tile[i, j];
             if (tile == null)
             {
                 tile = new Tile();
-                Main.tile[i, j] = tile;
+                Game1.tile[i, j] = tile;
             }
             return tile;
         }

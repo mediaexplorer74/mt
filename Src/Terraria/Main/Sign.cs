@@ -21,19 +21,19 @@ namespace GameManager
         {
             for (int index = 0; index < 1000; ++index)
             {
-                if (Main.sign[index] != null && Main.sign[index].x == x && Main.sign[index].y == y)
-                    Main.sign[index] = (Sign)null;
+                if (Game1.sign[index] != null && Game1.sign[index].x == x && Game1.sign[index].y == y)
+                    Game1.sign[index] = (Sign)null;
             }
         }
 
         public static int ReadSign(int i, int j, bool CreateIfMissing = true)
         {
-            int num1 = (int)Main.tile[i, j].frameX / 18;
-            int num2 = (int)Main.tile[i, j].frameY / 18;
+            int num1 = (int)Game1.tile[i, j].frameX / 18;
+            int num2 = (int)Game1.tile[i, j].frameY / 18;
             int num3 = num1 % 2;
             int x = i - num3;
             int y = j - num2;
-            if (!Main.tileSign[(int)Main.tile[x, y].type])
+            if (!Game1.tileSign[(int)Game1.tile[x, y].type])
             {
                 Sign.KillSign(x, y);
                 return -1;
@@ -41,7 +41,7 @@ namespace GameManager
             int num4 = -1;
             for (int index = 0; index < 1000; ++index)
             {
-                if (Main.sign[index] != null && Main.sign[index].x == x && Main.sign[index].y == y)
+                if (Game1.sign[index] != null && Game1.sign[index].x == x && Game1.sign[index].y == y)
                 {
                     num4 = index;
                     break;
@@ -51,13 +51,13 @@ namespace GameManager
             {
                 for (int index = 0; index < 1000; ++index)
                 {
-                    if (Main.sign[index] == null)
+                    if (Game1.sign[index] == null)
                     {
                         num4 = index;
-                        Main.sign[index] = new Sign();
-                        Main.sign[index].x = x;
-                        Main.sign[index].y = y;
-                        Main.sign[index].text = "";
+                        Game1.sign[index] = new Sign();
+                        Game1.sign[index].x = x;
+                        Game1.sign[index].y = y;
+                        Game1.sign[index].text = "";
                         break;
                     }
                 }
@@ -67,10 +67,10 @@ namespace GameManager
 
         public static void TextSign(int i, string text)
         {
-            if (Main.tile[Main.sign[i].x, Main.sign[i].y] == null || !Main.tile[Main.sign[i].x, Main.sign[i].y].active() || (int)Main.tile[Main.sign[i].x, Main.sign[i].y].type != 55 && (int)Main.tile[Main.sign[i].x, Main.sign[i].y].type != 85)
-                Main.sign[i] = (Sign)null;
+            if (Game1.tile[Game1.sign[i].x, Game1.sign[i].y] == null || !Game1.tile[Game1.sign[i].x, Game1.sign[i].y].active() || (int)Game1.tile[Game1.sign[i].x, Game1.sign[i].y].type != 55 && (int)Game1.tile[Game1.sign[i].x, Game1.sign[i].y].type != 85)
+                Game1.sign[i] = (Sign)null;
             else
-                Main.sign[i].text = text;
+                Game1.sign[i].text = text;
         }
 
         public override string ToString()

@@ -22,17 +22,17 @@ namespace GameManager
 
         public static bool TestDust(int x, int y)
         {
-            if (x < 0 || x >= Main.maxTilesX || (y < 0 || y >= Main.maxTilesY))
+            if (x < 0 || x >= Game1.maxTilesX || (y < 0 || y >= Game1.maxTilesY))
                 return false;
             int index = Dust.NewDust(new Vector2(x, y) * 16f + new Vector2(8f), 0, 0, 6, 0.0f, 0.0f, 0, new Color(), 1f);
-            Main.dust[index].noGravity = true;
-            Main.dust[index].noLight = true;
+            Game1.dust[index].noGravity = true;
+            Game1.dust[index].noLight = true;
             return true;
         }
 
         public static bool CastLight(int x, int y)
         {
-            if (x < 0 || x >= Main.maxTilesX || (y < 0 || y >= Main.maxTilesY) || Main.tile[x, y] == null)
+            if (x < 0 || x >= Game1.maxTilesX || (y < 0 || y >= Game1.maxTilesY) || Game1.tile[x, y] == null)
                 return false;
             Lighting.AddLight(x, y, v3_1.X, v3_1.Y, v3_1.Z);
             return true;
@@ -40,37 +40,37 @@ namespace GameManager
 
         public static bool CastLightOpen(int x, int y)
         {
-            if (x < 0 || x >= Main.maxTilesX || (y < 0 || y >= Main.maxTilesY) || Main.tile[x, y] == null)
+            if (x < 0 || x >= Game1.maxTilesX || (y < 0 || y >= Game1.maxTilesY) || Game1.tile[x, y] == null)
                 return false;
-            if (!Main.tile[x, y].active() || Main.tile[x, y].inActive() || (Main.tileSolidTop[Main.tile[x, y].type] || !Main.tileSolid[Main.tile[x, y].type]))
+            if (!Game1.tile[x, y].active() || Game1.tile[x, y].inActive() || (Game1.tileSolidTop[Game1.tile[x, y].type] || !Game1.tileSolid[Game1.tile[x, y].type]))
                 Lighting.AddLight(x, y, v3_1.X, v3_1.Y, v3_1.Z);
             return true;
         }
 
         public static bool NotDoorStand(int x, int y)
         {
-            if (Main.tile[x, y] == null || !Main.tile[x, y].active() || Main.tile[x, y].type != 11)
+            if (Game1.tile[x, y] == null || !Game1.tile[x, y].active() || Game1.tile[x, y].type != 11)
                 return true;
-            if (Main.tile[x, y].frameX >= 18)
-                return Main.tile[x, y].frameX < 54;
+            if (Game1.tile[x, y].frameX >= 18)
+                return Game1.tile[x, y].frameX < 54;
             return false;
         }
 
         public static bool CutTiles(int x, int y)
         {
-            if (!WorldGen.InWorld(x, y, 1) || Main.tile[x, y] == null)
+            if (!WorldGen.InWorld(x, y, 1) || Game1.tile[x, y] == null)
                 return false;
-            if (!Main.tileCut[Main.tile[x, y].type] || Main.tile[x, y + 1] == null || (Main.tile[x, y + 1].type == 78 || Main.tile[x, y + 1].type == 380))
+            if (!Game1.tileCut[Game1.tile[x, y].type] || Game1.tile[x, y + 1] == null || (Game1.tile[x, y + 1].type == 78 || Game1.tile[x, y + 1].type == 380))
                 return true;
             WorldGen.KillTile(x, y, false, false, false);
-            if (Main.netMode != 0)
+            if (Game1.netMode != 0)
                 NetMessage.SendData(17, -1, -1, "", 0, x, y, 0.0f, 0, 0, 0);
             return true;
         }
 
         public static bool SearchAvoidedByNPCs(int x, int y)
         {
-            return WorldGen.InWorld(x, y, 1) && Main.tile[x, y] != null && (!Main.tile[x, y].active() || !TileID.Sets.AvoidedByNPCs[Main.tile[x, y].type]);
+            return WorldGen.InWorld(x, y, 1) && Game1.tile[x, y] != null && (!Game1.tile[x, y].active() || !TileID.Sets.AvoidedByNPCs[Game1.tile[x, y].type]);
         }
 
         public static void RainbowLaserDraw(int stage, Vector2 currentPosition, float distanceLeft, Rectangle lastFrame, out float distCovered, out Rectangle frame, out Vector2 origin, out Color color)
@@ -177,36 +177,36 @@ namespace GameManager
 
             public static void Sparks(Vector2 dustPosition)
             {
-                dustPosition += Utils.RotatedBy(new Vector2(Main.rand.Next(2) == 0 ? 13f : -13f, 0.0f), rotation, new Vector2());
-                int index = Dust.NewDust(dustPosition, 1, 1, 213, Main.rand.Next(-2, 3), Main.rand.Next(-2, 3), 0, new Color(), 1f);
-                Main.dust[index].noGravity = true;
-                Main.dust[index].fadeIn = (float)(Main.dust[index].scale + 1.0 + 0.00999999977648258 * Main.rand.Next(0, 51));
-                Main.dust[index].noGravity = true;
-                Main.dust[index].velocity *= Main.rand.Next(15, 51) * 0.01f;
-                Main.dust[index].velocity.X *= Main.rand.Next(25, 101) * 0.01f;
-                Main.dust[index].velocity.Y -= Main.rand.Next(15, 31) * 0.1f;
-                Main.dust[index].position.Y -= 4f;
-                if (Main.rand.Next(3) != 0)
-                    Main.dust[index].noGravity = false;
+                dustPosition += Utils.RotatedBy(new Vector2(Game1.rand.Next(2) == 0 ? 13f : -13f, 0.0f), rotation, new Vector2());
+                int index = Dust.NewDust(dustPosition, 1, 1, 213, Game1.rand.Next(-2, 3), Game1.rand.Next(-2, 3), 0, new Color(), 1f);
+                Game1.dust[index].noGravity = true;
+                Game1.dust[index].fadeIn = (float)(Game1.dust[index].scale + 1.0 + 0.00999999977648258 * Game1.rand.Next(0, 51));
+                Game1.dust[index].noGravity = true;
+                Game1.dust[index].velocity *= Game1.rand.Next(15, 51) * 0.01f;
+                Game1.dust[index].velocity.X *= Game1.rand.Next(25, 101) * 0.01f;
+                Game1.dust[index].velocity.Y -= Game1.rand.Next(15, 31) * 0.1f;
+                Game1.dust[index].position.Y -= 4f;
+                if (Game1.rand.Next(3) != 0)
+                    Game1.dust[index].noGravity = false;
                 else
-                    Main.dust[index].scale *= 0.6f;
+                    Game1.dust[index].scale *= 0.6f;
             }
 
             public static void SparksMech(Vector2 dustPosition)
             {
-                dustPosition += Utils.RotatedBy(new Vector2(Main.rand.Next(2) == 0 ? 13f : -13f, 0.0f), rotation, new Vector2());
-                int index = Dust.NewDust(dustPosition, 1, 1, 260, Main.rand.Next(-2, 3), Main.rand.Next(-2, 3), 0, new Color(), 1f);
-                Main.dust[index].noGravity = true;
-                Main.dust[index].fadeIn = (float)(Main.dust[index].scale + 0.5 + 0.00999999977648258 * Main.rand.Next(0, 51));
-                Main.dust[index].noGravity = true;
-                Main.dust[index].velocity *= Main.rand.Next(15, 51) * 0.01f;
-                Main.dust[index].velocity.X *= Main.rand.Next(25, 101) * 0.01f;
-                Main.dust[index].velocity.Y -= Main.rand.Next(15, 31) * 0.1f;
-                Main.dust[index].position.Y -= 4f;
-                if (Main.rand.Next(3) != 0)
-                    Main.dust[index].noGravity = false;
+                dustPosition += Utils.RotatedBy(new Vector2(Game1.rand.Next(2) == 0 ? 13f : -13f, 0.0f), rotation, new Vector2());
+                int index = Dust.NewDust(dustPosition, 1, 1, 260, Game1.rand.Next(-2, 3), Game1.rand.Next(-2, 3), 0, new Color(), 1f);
+                Game1.dust[index].noGravity = true;
+                Game1.dust[index].fadeIn = (float)(Game1.dust[index].scale + 0.5 + 0.00999999977648258 * Game1.rand.Next(0, 51));
+                Game1.dust[index].noGravity = true;
+                Game1.dust[index].velocity *= Game1.rand.Next(15, 51) * 0.01f;
+                Game1.dust[index].velocity.X *= Game1.rand.Next(25, 101) * 0.01f;
+                Game1.dust[index].velocity.Y -= Game1.rand.Next(15, 31) * 0.1f;
+                Game1.dust[index].position.Y -= 4f;
+                if (Game1.rand.Next(3) != 0)
+                    Game1.dust[index].noGravity = false;
                 else
-                    Main.dust[index].scale *= 0.6f;
+                    Game1.dust[index].scale *= 0.6f;
             }
         }
     }

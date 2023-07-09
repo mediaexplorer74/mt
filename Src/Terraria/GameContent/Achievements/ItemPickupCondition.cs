@@ -45,7 +45,7 @@ namespace GameManager.GameContent.Achievements
 
         private static void ItemPickupListener(Player player, short itemId, int count)
         {
-            if (player.whoAmI != Main.myPlayer || !_listeners.ContainsKey(itemId))
+            if (player.whoAmI != Game1.myPlayer || !_listeners.ContainsKey(itemId))
                 return;
 
             foreach (AchievementCondition achievementCondition in _listeners[itemId])

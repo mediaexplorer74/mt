@@ -1,6 +1,7 @@
 ﻿// NetPlay
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -66,16 +67,16 @@ namespace GameManager
 
         public static void ResetNetDiag()
         {
-            Main.rxMsg = 0;
-            Main.rxData = 0;
-            Main.txMsg = 0;
-            Main.txData = 0;
-            for (int index = 0; index < Main.maxMsg; ++index)
+            Game1.rxMsg = 0;
+            Game1.rxData = 0;
+            Game1.txMsg = 0;
+            Game1.txData = 0;
+            for (int index = 0; index < Game1.maxMsg; ++index)
             {
-                Main.rxMsgType[index] = 0;
-                Main.rxDataType[index] = 0;
-                Main.txMsgType[index] = 0;
-                Main.txDataType[index] = 0;
+                Game1.rxMsgType[index] = 0;
+                Game1.rxDataType[index] = 0;
+                Game1.txMsgType[index] = 0;
+                Game1.txDataType[index] = 0;
             }
         }
 
@@ -83,9 +84,9 @@ namespace GameManager
         {
             for (int index1 = 0; index1 < 256; ++index1)
             {
-                for (int index2 = 0; index2 < Main.maxSectionsX; ++index2)
+                for (int index2 = 0; index2 < Game1.maxSectionsX; ++index2)
                 {
-                    for (int index3 = 0; index3 < Main.maxSectionsY; ++index3)
+                    for (int index3 = 0; index3 < Game1.maxSectionsY; ++index3)
                         Netplay.Clients[index1].TileSections[index2, index3] = false;
                 }
             }
@@ -134,28 +135,28 @@ namespace GameManager
         {
             if (Netplay.Connection.Socket.GetRemoteAddress().Type != AddressType.Tcp)
                 return;
-            for (int index1 = 0; index1 < Main.maxMP; ++index1)
+            for (int index1 = 0; index1 < Game1.maxMP; ++index1)
             {
-                if (Main.recentIP[index1].ToLower() == Netplay.ServerIPText.ToLower() && Main.recentPort[index1] == Netplay.ListenPort)
+                if (Game1.recentIP[index1].ToLower() == Netplay.ServerIPText.ToLower() && Game1.recentPort[index1] == Netplay.ListenPort)
                 {
-                    for (int index2 = index1; index2 < Main.maxMP - 1; ++index2)
+                    for (int index2 = index1; index2 < Game1.maxMP - 1; ++index2)
                     {
-                        Main.recentIP[index2] = Main.recentIP[index2 + 1];
-                        Main.recentPort[index2] = Main.recentPort[index2 + 1];
-                        Main.recentWorld[index2] = Main.recentWorld[index2 + 1];
+                        Game1.recentIP[index2] = Game1.recentIP[index2 + 1];
+                        Game1.recentPort[index2] = Game1.recentPort[index2 + 1];
+                        Game1.recentWorld[index2] = Game1.recentWorld[index2 + 1];
                     }
                 }
             }
-            for (int index = Main.maxMP - 1; index > 0; --index)
+            for (int index = Game1.maxMP - 1; index > 0; --index)
             {
-                Main.recentIP[index] = Main.recentIP[index - 1];
-                Main.recentPort[index] = Main.recentPort[index - 1];
-                Main.recentWorld[index] = Main.recentWorld[index - 1];
+                Game1.recentIP[index] = Game1.recentIP[index - 1];
+                Game1.recentPort[index] = Game1.recentPort[index - 1];
+                Game1.recentWorld[index] = Game1.recentWorld[index - 1];
             }
-            Main.recentIP[0] = Netplay.ServerIPText;
-            Main.recentPort[0] = Netplay.ListenPort;
-            Main.recentWorld[0] = Main.worldName;
-            Main.SaveRecent();
+            Game1.recentIP[0] = Netplay.ServerIPText;
+            Game1.recentPort[0] = Netplay.ListenPort;
+            Game1.recentWorld[0] = Game1.worldName;
+            Game1.SaveRecent();
         }
 
         public static void SocialClientLoop(object threadContext)
@@ -169,7 +170,7 @@ namespace GameManager
         public static void TcpClientLoop(object threadContext)
         {
             Netplay.ClientLoopSetup((RemoteAddress)new TcpAddress(Netplay.ServerIP, Netplay.ListenPort));
-            Main.menuMode = 14;
+            Game1.menuMode = 14;
             bool flag = true;
             while (flag)
             {
@@ -183,7 +184,7 @@ namespace GameManager
                 {
                     if (!Netplay.disconnect)
                     {
-                        if (Main.gameMenu)
+                        if (Game1.gameMenu)
                             flag = true;
                     }
                 }
@@ -194,22 +195,22 @@ namespace GameManager
         private static void ClientLoopSetup(RemoteAddress address)
         {
             Netplay.ResetNetDiag();
-            Main.ServerSideCharacter = false;
-            if (Main.rand == null)
-                Main.rand = new Random((int)DateTime.Now.Ticks);
+            Game1.ServerSideCharacter = false;
+            if (Game1.rand == null)
+                Game1.rand = new Random((int)DateTime.Now.Ticks);
             if (WorldGen.genRand == null)
                 WorldGen.genRand = new Random((int)DateTime.Now.Ticks);
-            Main.player[Main.myPlayer].hostile = false;
-            Main.clientPlayer = (Player)Main.player[Main.myPlayer].clientClone();
+            Game1.player[Game1.myPlayer].hostile = false;
+            Game1.clientPlayer = (Player)Game1.player[Game1.myPlayer].clientClone();
             for (int index = 0; index < (int)byte.MaxValue; ++index)
             {
-                if (index != Main.myPlayer)
-                    Main.player[index] = new Player();
+                if (index != Game1.myPlayer)
+                    Game1.player[index] = new Player();
             }
-            Main.netMode = 1;
-            Main.menuMode = 14;
-            if (!Main.autoPass)
-                Main.statusText = "Connecting to " + address.GetFriendlyName();
+            Game1.netMode = 1;
+            Game1.menuMode = 14;
+            if (!Game1.autoPass)
+                Game1.statusText = "Connecting to " + address.GetFriendlyName();
             Netplay.disconnect = false;
             Netplay.Connection = new RemoteServer();
             Netplay.Connection.ReadBuffer = new byte[1024];
@@ -230,30 +231,30 @@ namespace GameManager
                         Netplay.Connection.IsActive = true;
                         if (Netplay.Connection.State == 0)
                         {
-                            Main.statusText = "Found server";
+                            Game1.statusText = "Found server";
                             Netplay.Connection.State = 1;
                             NetMessage.SendData(1, -1, -1, "", 0, 0.0f, 0.0f, 0.0f, 0, 0, 0);
                         }
                         if (Netplay.Connection.State == 2 && num1 != Netplay.Connection.State)
-                            Main.statusText = "Sending player data...";
+                            Game1.statusText = "Sending player data...";
                         if (Netplay.Connection.State == 3 && num1 != Netplay.Connection.State)
-                            Main.statusText = "Requesting world information";
+                            Game1.statusText = "Requesting world information";
                         if (Netplay.Connection.State == 4)
                         {
                             WorldGen.worldCleared = false;
                             Netplay.Connection.State = 5;
-                            Main.cloudBGAlpha = (double)Main.cloudBGActive < 1.0 ? 0.0f : 1f;
-                            Main.windSpeed = Main.windSpeedSet;
+                            Game1.cloudBGAlpha = (double)Game1.cloudBGActive < 1.0 ? 0.0f : 1f;
+                            Game1.windSpeed = Game1.windSpeedSet;
                             Cloud.resetClouds();
-                            Main.cloudAlpha = Main.maxRaining;
+                            Game1.cloudAlpha = Game1.maxRaining;
                             WorldGen.clearWorld();
-                            if (Main.mapEnabled)
-                                Main.Map.Load();
+                            if (Game1.mapEnabled)
+                                Game1.Map.Load();
                         }
-                        if (Netplay.Connection.State == 5 && Main.loadMapLock)
+                        if (Netplay.Connection.State == 5 && Game1.loadMapLock)
                         {
-                            float num2 = (float)Main.loadMapLastX / (float)Main.maxTilesX;
-                            Main.statusText = string.Concat(new object[4]
+                            float num2 = (float)Game1.loadMapLastX / (float)Game1.maxTilesX;
+                            Game1.statusText = string.Concat(new object[4]
               {
                 (object) Lang.gen[68],
                 (object) " ",
@@ -264,11 +265,11 @@ namespace GameManager
                         else if (Netplay.Connection.State == 5 && WorldGen.worldCleared)
                         {
                             Netplay.Connection.State = 6;
-                            Main.player[Main.myPlayer].FindSpawn();
-                            NetMessage.SendData(8, -1, -1, "", Main.player[Main.myPlayer].SpawnX, (float)Main.player[Main.myPlayer].SpawnY, 0.0f, 0.0f, 0, 0, 0);
+                            Game1.player[Game1.myPlayer].FindSpawn();
+                            NetMessage.SendData(8, -1, -1, "", Game1.player[Game1.myPlayer].SpawnX, (float)Game1.player[Game1.myPlayer].SpawnY, 0.0f, 0.0f, 0, 0, 0);
                         }
                         if (Netplay.Connection.State == 6 && num1 != Netplay.Connection.State)
-                            Main.statusText = "Requesting tile data";
+                            Game1.statusText = "Requesting tile data";
                         if (!Netplay.Connection.IsReading && !Netplay.disconnect && Netplay.Connection.Socket.IsDataAvailable())
                         {
                             Netplay.Connection.IsReading = true;
@@ -278,13 +279,13 @@ namespace GameManager
                         {
                             if (Netplay.Connection.StatusCount >= Netplay.Connection.StatusMax)
                             {
-                                Main.statusText = Netplay.Connection.StatusText + ": Complete!";
+                                Game1.statusText = Netplay.Connection.StatusText + ": Complete!";
                                 Netplay.Connection.StatusText = "";
                                 Netplay.Connection.StatusMax = 0;
                                 Netplay.Connection.StatusCount = 0;
                             }
                             else
-                                Main.statusText = string.Concat(new object[4]
+                                Game1.statusText = string.Concat(new object[4]
                 {
                   (object) Netplay.Connection.StatusText,
                   (object) ": ",
@@ -296,7 +297,7 @@ namespace GameManager
                     }
                     else if (Netplay.Connection.IsActive)
                     {
-                        Main.statusText = "Lost connection";
+                        Game1.statusText = "Lost connection";
                         Netplay.disconnect = true;
                     }
                     num1 = Netplay.Connection.State;
@@ -308,23 +309,23 @@ namespace GameManager
                 catch
                 {
                 }
-                if (!Main.gameMenu)
+                if (!Game1.gameMenu)
                 {
-                    Main.SwitchNetMode(0);
-                    Player.SavePlayer(Main.ActivePlayerFileData, false);
-                    Main.ActivePlayerFileData.StopPlayTimer();
-                    Main.gameMenu = true;
-                    Main.menuMode = 14;
+                    Game1.SwitchNetMode(0);
+                    Player.SavePlayer(Game1.ActivePlayerFileData, false);
+                    Game1.ActivePlayerFileData.StopPlayTimer();
+                    Game1.gameMenu = true;
+                    Game1.menuMode = 14;
                 }
                 NetMessage.buffer[256].Reset();
-                if (Main.menuMode == 15 && Main.statusText == "Lost connection")
-                    Main.menuMode = 14;
+                if (Game1.menuMode == 15 && Game1.statusText == "Lost connection")
+                    Game1.menuMode = 14;
                 if (Netplay.Connection.StatusText != "" && Netplay.Connection.StatusText != null)
-                    Main.statusText = "Lost connection";
+                    Game1.statusText = "Lost connection";
                 Netplay.Connection.StatusCount = 0;
                 Netplay.Connection.StatusMax = 0;
                 Netplay.Connection.StatusText = "";
-                Main.SwitchNetMode(0);
+                Game1.SwitchNetMode(0);
             }
             catch (Exception ex)
             {
@@ -349,7 +350,7 @@ namespace GameManager
 
         private static int FindNextOpenClientSlot()
         {
-            for (int index = 0; index < Main.maxNetPlayers; ++index)
+            for (int index = 0; index < Game1.maxNetPlayers; ++index)
             {
                 if (!Netplay.Clients[index].Socket.IsConnected())
                     return index;
@@ -363,7 +364,7 @@ namespace GameManager
             if (nextOpenClientSlot != -1)
             {
                 Netplay.Clients[nextOpenClientSlot].Socket = client;
-                Console.WriteLine((string)(object)client.GetRemoteAddress() + (object)" is connecting...");
+                Debug.WriteLine((string)(object)client.GetRemoteAddress() + (object)" is connecting...");
             }
             if (Netplay.FindNextOpenClientSlot() != -1)
                 return;
@@ -388,15 +389,15 @@ namespace GameManager
         public static void ServerLoop(object threadContext)
         {
             Netplay.ResetNetDiag();
-            if (Main.rand == null)
-                Main.rand = new Random((int)DateTime.Now.Ticks);
+            if (Game1.rand == null)
+                Game1.rand = new Random((int)DateTime.Now.Ticks);
             if (WorldGen.genRand == null)
                 WorldGen.genRand = new Random((int)DateTime.Now.Ticks);
-            Main.myPlayer = (int)byte.MaxValue;
+            Game1.myPlayer = (int)byte.MaxValue;
             Netplay.ServerIP = IPAddress.Any;
-            Main.menuMode = 14;
-            Main.statusText = "Starting server...";
-            Main.netMode = 2;
+            Game1.menuMode = 14;
+            Game1.statusText = "Starting server...";
+            Game1.netMode = 2;
             Netplay.disconnect = false;
             for (int index = 0; index < 256; ++index)
             {
@@ -410,11 +411,11 @@ namespace GameManager
             {
                 if (!Netplay.StartListening())
                 {
-                    Main.menuMode = 15;
-                    Main.statusText = "Tried to run two servers on the same PC";
+                    Game1.menuMode = 15;
+                    Game1.statusText = "Tried to run two servers on the same PC";
                     Netplay.disconnect = true;
                 }
-                Main.statusText = "Server started";
+                Game1.statusText = "Server started";
             }
             if (Netplay.UseUPNP)
             {
@@ -432,7 +433,7 @@ namespace GameManager
                 if (!Netplay.IsListening)
                 {
                     int num2 = -1;
-                    for (int index = 0; index < Main.maxNetPlayers; ++index)
+                    for (int index = 0; index < Game1.maxNetPlayers; ++index)
                     {
                         if (!Netplay.Clients[index].Socket.IsConnected())
                         {
@@ -442,7 +443,7 @@ namespace GameManager
                     }
                     if (num2 >= 0)
                     {
-                        if (Main.ignoreErrors)
+                        if (Game1.ignoreErrors)
                         {
                             try
                             {
@@ -532,7 +533,7 @@ namespace GameManager
                     {
                         Netplay.Clients[bufferIndex].StatusText2 = "";
                         if (bufferIndex < (int)byte.MaxValue)
-                            Main.player[bufferIndex].active = false;
+                            Game1.player[bufferIndex].active = false;
                     }
                 }
                 ++num1;
@@ -543,8 +544,8 @@ namespace GameManager
                 }
                 else
                     Thread.Sleep(0);
-                if (!WorldGen.saveLock && !Main.dedServ)
-                    Main.statusText = num3 != 0 ? (string)(object)num3 + (object)" clients connected" : "Waiting for clients...";
+                if (!WorldGen.saveLock && !Game1.dedServ)
+                    Game1.statusText = num3 != 0 ? (string)(object)num3 + (object)" clients connected" : "Waiting for clients...";
                 Netplay.anyClients = num3 != 0;
                 Netplay.IsServerRunning = true;
             }
@@ -558,17 +559,17 @@ namespace GameManager
             }
             for (int index = 0; index < 256; ++index)
                 Netplay.Clients[index].Reset();
-            if (Main.menuMode != 15)
+            if (Game1.menuMode != 15)
             {
-                Main.netMode = 0;
-                Main.menuMode = 10;
+                Game1.netMode = 0;
+                Game1.menuMode = 10;
                 WorldFile.saveWorld();
                 while (WorldGen.saveLock);
-                Main.menuMode = 0;
+                Game1.menuMode = 0;
             }
             else
-                Main.netMode = 0;
-            Main.myPlayer = 0;
+                Game1.netMode = 0;
+            Game1.myPlayer = 0;
         }
 
         public static void StartSocialClient(ISocket socket)

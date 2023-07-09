@@ -36,9 +36,9 @@ namespace GameManager.GameContent.Tile_Entities
 
         public static int Hook_AfterPlacement(int x, int y, int type = 21, int style = 0, int direction = 1)
         {
-            if (Main.netMode != 1)
+            if (Game1.netMode != 1)
                 return Place(x, y);
-            NetMessage.SendTileSquare(Main.myPlayer, x, y, 2);
+            NetMessage.SendTileSquare(Game1.myPlayer, x, y, 2);
             NetMessage.SendData(87, -1, -1, "", x, (float)y, 1f);
             return -1;
         }
@@ -64,7 +64,7 @@ namespace GameManager.GameContent.Tile_Entities
 
         public static bool ValidTile(int x, int y)
         {
-            return Main.tile[x, y].active() && Main.tile[x, y].type == 395 && (Main.tile[x, y].frameY == 0 && Main.tile[x, y].frameX % 36 == 0);
+            return Game1.tile[x, y].active() && Game1.tile[x, y].type == 395 && (Game1.tile[x, y].frameY == 0 && Game1.tile[x, y].frameX % 36 == 0);
         }
 
         public override void WriteExtraData(BinaryWriter writer)
@@ -89,7 +89,7 @@ namespace GameManager.GameContent.Tile_Entities
 
         public void DropItem()
         {
-            if (Main.netMode != 1)
+            if (Game1.netMode != 1)
                 Item.NewItem((int)Position.X * 16, (int)Position.Y * 16, 32, 32, item.netID, 1, false, (int)item.prefix, false);
             item = new Item();
         }
@@ -100,9 +100,9 @@ namespace GameManager.GameContent.Tile_Entities
             if (index == -1)
             {
                 int number = Item.NewItem(x * 16, y * 16, 32, 32, 1, 1, false, 0, false);
-                Main.item[number].netDefaults(netid);
-                Main.item[number].Prefix(prefix);
-                Main.item[number].stack = stack;
+                Game1.item[number].netDefaults(netid);
+                Game1.item[number].Prefix(prefix);
+                Game1.item[number].stack = stack;
                 NetMessage.SendData(21, -1, -1, "", number, 0.0f, 0.0f, 0.0f, 0, 0, 0);
             }
             else

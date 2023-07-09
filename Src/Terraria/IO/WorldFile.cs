@@ -25,15 +25,15 @@ namespace GameManager.IO
         private static bool HasCache = false;
         public static bool IsWorldOnCloud = false;
         private static object padlock = new object();
-        public static bool tempBloodMoon = Main.bloodMoon;
+        public static bool tempBloodMoon = Game1.bloodMoon;
         public static int tempCultistDelay = CultistRitual.delay;
-        public static bool tempDayTime = Main.dayTime;
-        public static bool tempEclipse = Main.eclipse;
+        public static bool tempDayTime = Game1.dayTime;
+        public static bool tempEclipse = Game1.eclipse;
         public static float tempMaxRain = 0f;
-        public static int tempMoonPhase = Main.moonPhase;
+        public static int tempMoonPhase = Game1.moonPhase;
         public static bool tempRaining = false;
         public static int tempRainTime = 0;
-        public static double tempTime = Main.time;
+        public static double tempTime = Game1.time;
         public static int versionNumber;
 
         public static event Action OnWorldLoad;
@@ -41,17 +41,17 @@ namespace GameManager.IO
         public static void CacheSaveTime()
         {
             HasCache = true;
-            CachedDayTime = new bool?(Main.dayTime);
-            CachedTime = new double?(Main.time);
-            CachedMoonPhase = new int?(Main.moonPhase);
-            CachedBloodMoon = new bool?(Main.bloodMoon);
-            CachedEclipse = new bool?(Main.eclipse);
+            CachedDayTime = new bool?(Game1.dayTime);
+            CachedTime = new double?(Game1.time);
+            CachedMoonPhase = new int?(Game1.moonPhase);
+            CachedBloodMoon = new bool?(Game1.bloodMoon);
+            CachedEclipse = new bool?(Game1.eclipse);
             CachedCultistDelay = new int?(CultistRitual.delay);
         }
 
         public static WorldFileData CreateMetadata(string name, bool cloudSave, bool isExpertMode)
         {
-            WorldFileData data = new WorldFileData(Main.GetWorldPathFromName(name, cloudSave))
+            WorldFileData data = new WorldFileData(Game1.GetWorldPathFromName(name, cloudSave))
             {
                 Name = name,
                 IsExpertMode = isExpertMode,
@@ -64,11 +64,11 @@ namespace GameManager.IO
 
         public static void FixDresserChests()
         {
-            for (int i = 0; i < Main.maxTilesX; i++)
+            for (int i = 0; i < Game1.maxTilesX; i++)
             {
-                for (int j = 0; j < Main.maxTilesY; j++)
+                for (int j = 0; j < Game1.maxTilesY; j++)
                 {
-                    Tile tile = Main.tile[i, j];
+                    Tile tile = Game1.tile[i, j];
                     if ((tile.active() && (tile.type == 0x58)) && (((tile.frameX % 0x36) == 0) && ((tile.frameY % 0x24) == 0)))
                     {
                         Chest.CreateChest(i, j, -1);
@@ -100,7 +100,7 @@ namespace GameManager.IO
                             else
                                 data.Metadata = FileMetadata.FromCurrentSettings(FileType.World);
 
-                            if (num <= Main.curRelease)
+                            if (num <= Game1.curRelease)
                             {
                                 reader.ReadInt16();
                                 stream.Position = reader.ReadInt32();
@@ -227,7 +227,7 @@ namespace GameManager.IO
                                 Stream baseStream = reader.BaseStream;
                                 baseStream.Position += 20L;
                             }
-                            if ((num >= 0x70) && (num <= Main.curRelease))
+                            if ((num >= 0x70) && (num <= Game1.curRelease))
                             {
                                 reader.ReadInt16();
                                 stream.Position = reader.ReadInt32();
@@ -264,7 +264,7 @@ namespace GameManager.IO
                     using (BinaryReader reader = new BinaryReader(stream))
                     {
                         int num = reader.ReadInt32();
-                        if ((num > 0) && (num <= Main.curRelease))
+                        if ((num > 0) && (num <= Game1.curRelease))
                         {
                             string str;
                             if (num <= 0x57)
@@ -354,12 +354,12 @@ namespace GameManager.IO
                         reader.ReadByte();
                     }
                 }
-                Main.chest[index] = chest;
+                Game1.chest[index] = chest;
                 index++;
             }
             while (index < 0x3e8)
             {
-                Main.chest[index] = null;
+                Game1.chest[index] = null;
                 index++;
             }
             if (versionNumber < 0x73)
@@ -393,7 +393,7 @@ namespace GameManager.IO
             {
                 try
                 {
-                    Main.WorldFileMetadata = FileMetadata.Read(reader, FileType.World);
+                    Game1.WorldFileMetadata = FileMetadata.Read(reader, FileType.World);
                     goto Label_004F;
                 }
                 catch
@@ -402,7 +402,7 @@ namespace GameManager.IO
                     return false;
                 }
             }
-            Main.WorldFileMetadata = FileMetadata.FromCurrentSettings(FileType.World);
+            Game1.WorldFileMetadata = FileMetadata.FromCurrentSettings(FileType.World);
         Label_004F:
             num2 = reader.ReadInt16();
             positions = new int[num2];
@@ -439,11 +439,11 @@ namespace GameManager.IO
             {
                 return 6;
             }
-            if (reader.ReadString() != Main.worldName)
+            if (reader.ReadString() != Game1.worldName)
             {
                 return 6;
             }
-            if (reader.ReadInt32() != Main.worldID)
+            if (reader.ReadInt32() != Game1.worldID)
             {
                 return 6;
             }
@@ -453,57 +453,57 @@ namespace GameManager.IO
         private static void LoadHeader(BinaryReader reader)
         {
             int versionNumber = WorldFile.versionNumber;
-            Main.worldName = reader.ReadString();
-            Main.worldID = reader.ReadInt32();
-            Main.leftWorld = reader.ReadInt32();
-            Main.rightWorld = reader.ReadInt32();
-            Main.topWorld = reader.ReadInt32();
-            Main.bottomWorld = reader.ReadInt32();
-            Main.maxTilesY = reader.ReadInt32();
-            Main.maxTilesX = reader.ReadInt32();
+            Game1.worldName = reader.ReadString();
+            Game1.worldID = reader.ReadInt32();
+            Game1.leftWorld = reader.ReadInt32();
+            Game1.rightWorld = reader.ReadInt32();
+            Game1.topWorld = reader.ReadInt32();
+            Game1.bottomWorld = reader.ReadInt32();
+            Game1.maxTilesY = reader.ReadInt32();
+            Game1.maxTilesX = reader.ReadInt32();
             WorldGen.clearWorld();
             if (versionNumber >= 0x70)
             {
-                Main.expertMode = reader.ReadBoolean();
+                Game1.expertMode = reader.ReadBoolean();
             }
             else
             {
-                Main.expertMode = false;
+                Game1.expertMode = false;
             }
             if (versionNumber >= 0x8d)
             {
-                Main.ActiveWorldFileData.CreationTime = DateTime.FromBinary(reader.ReadInt64());
+                Game1.ActiveWorldFileData.CreationTime = DateTime.FromBinary(reader.ReadInt64());
             }
-            Main.moonType = reader.ReadByte();
-            Main.treeX[0] = reader.ReadInt32();
-            Main.treeX[1] = reader.ReadInt32();
-            Main.treeX[2] = reader.ReadInt32();
-            Main.treeStyle[0] = reader.ReadInt32();
-            Main.treeStyle[1] = reader.ReadInt32();
-            Main.treeStyle[2] = reader.ReadInt32();
-            Main.treeStyle[3] = reader.ReadInt32();
-            Main.caveBackX[0] = reader.ReadInt32();
-            Main.caveBackX[1] = reader.ReadInt32();
-            Main.caveBackX[2] = reader.ReadInt32();
-            Main.caveBackStyle[0] = reader.ReadInt32();
-            Main.caveBackStyle[1] = reader.ReadInt32();
-            Main.caveBackStyle[2] = reader.ReadInt32();
-            Main.caveBackStyle[3] = reader.ReadInt32();
-            Main.iceBackStyle = reader.ReadInt32();
-            Main.jungleBackStyle = reader.ReadInt32();
-            Main.hellBackStyle = reader.ReadInt32();
-            Main.spawnTileX = reader.ReadInt32();
-            Main.spawnTileY = reader.ReadInt32();
-            Main.worldSurface = reader.ReadDouble();
-            Main.rockLayer = reader.ReadDouble();
+            Game1.moonType = reader.ReadByte();
+            Game1.treeX[0] = reader.ReadInt32();
+            Game1.treeX[1] = reader.ReadInt32();
+            Game1.treeX[2] = reader.ReadInt32();
+            Game1.treeStyle[0] = reader.ReadInt32();
+            Game1.treeStyle[1] = reader.ReadInt32();
+            Game1.treeStyle[2] = reader.ReadInt32();
+            Game1.treeStyle[3] = reader.ReadInt32();
+            Game1.caveBackX[0] = reader.ReadInt32();
+            Game1.caveBackX[1] = reader.ReadInt32();
+            Game1.caveBackX[2] = reader.ReadInt32();
+            Game1.caveBackStyle[0] = reader.ReadInt32();
+            Game1.caveBackStyle[1] = reader.ReadInt32();
+            Game1.caveBackStyle[2] = reader.ReadInt32();
+            Game1.caveBackStyle[3] = reader.ReadInt32();
+            Game1.iceBackStyle = reader.ReadInt32();
+            Game1.jungleBackStyle = reader.ReadInt32();
+            Game1.hellBackStyle = reader.ReadInt32();
+            Game1.spawnTileX = reader.ReadInt32();
+            Game1.spawnTileY = reader.ReadInt32();
+            Game1.worldSurface = reader.ReadDouble();
+            Game1.rockLayer = reader.ReadDouble();
             tempTime = reader.ReadDouble();
             tempDayTime = reader.ReadBoolean();
             tempMoonPhase = reader.ReadInt32();
             tempBloodMoon = reader.ReadBoolean();
             tempEclipse = reader.ReadBoolean();
-            Main.eclipse = tempEclipse;
-            Main.dungeonX = reader.ReadInt32();
-            Main.dungeonY = reader.ReadInt32();
+            Game1.eclipse = tempEclipse;
+            Game1.dungeonX = reader.ReadInt32();
+            Game1.dungeonY = reader.ReadInt32();
             WorldGen.crimson = reader.ReadBoolean();
             NPC.downedBoss1 = reader.ReadBoolean();
             NPC.downedBoss2 = reader.ReadBoolean();
@@ -530,18 +530,18 @@ namespace GameManager.IO
             WorldGen.spawnMeteor = reader.ReadBoolean();
             WorldGen.shadowOrbCount = reader.ReadByte();
             WorldGen.altarCount = reader.ReadInt32();
-            Main.hardMode = reader.ReadBoolean();
-            Main.invasionDelay = reader.ReadInt32();
-            Main.invasionSize = reader.ReadInt32();
-            Main.invasionType = reader.ReadInt32();
-            Main.invasionX = reader.ReadDouble();
+            Game1.hardMode = reader.ReadBoolean();
+            Game1.invasionDelay = reader.ReadInt32();
+            Game1.invasionSize = reader.ReadInt32();
+            Game1.invasionType = reader.ReadInt32();
+            Game1.invasionX = reader.ReadDouble();
             if (versionNumber >= 0x76)
             {
-                Main.slimeRainTime = reader.ReadDouble();
+                Game1.slimeRainTime = reader.ReadDouble();
             }
             if (versionNumber >= 0x71)
             {
-                Main.sundialCooldown = reader.ReadByte();
+                Game1.sundialCooldown = reader.ReadByte();
             }
             tempRaining = reader.ReadBoolean();
             tempRainTime = reader.ReadInt32();
@@ -557,25 +557,25 @@ namespace GameManager.IO
             WorldGen.setBG(5, reader.ReadByte());
             WorldGen.setBG(6, reader.ReadByte());
             WorldGen.setBG(7, reader.ReadByte());
-            Main.cloudBGActive = reader.ReadInt32();
-            Main.cloudBGAlpha = (Main.cloudBGActive < 1.0) ? 0f : 1f;
-            Main.cloudBGActive = -WorldGen.genRand.Next(0x21c0, 0x15180);
-            Main.numClouds = reader.ReadInt16();
-            Main.windSpeedSet = reader.ReadSingle();
-            Main.windSpeed = Main.windSpeedSet;
+            Game1.cloudBGActive = reader.ReadInt32();
+            Game1.cloudBGAlpha = (Game1.cloudBGActive < 1.0) ? 0f : 1f;
+            Game1.cloudBGActive = -WorldGen.genRand.Next(0x21c0, 0x15180);
+            Game1.numClouds = reader.ReadInt16();
+            Game1.windSpeedSet = reader.ReadSingle();
+            Game1.windSpeed = Game1.windSpeedSet;
             if (versionNumber >= 0x5f)
             {
-                Main.anglerWhoFinishedToday.Clear();
+                Game1.anglerWhoFinishedToday.Clear();
                 for (int i = reader.ReadInt32(); i > 0; i--)
                 {
-                    Main.anglerWhoFinishedToday.Add(reader.ReadString());
+                    Game1.anglerWhoFinishedToday.Add(reader.ReadString());
                 }
                 if (versionNumber >= 0x63)
                 {
                     NPC.savedAngler = reader.ReadBoolean();
                     if (versionNumber >= 0x65)
                     {
-                        Main.anglerQuest = reader.ReadInt32();
+                        Game1.anglerQuest = reader.ReadInt32();
                         if (versionNumber >= 0x68)
                         {
                             NPC.savedStylist = reader.ReadBoolean();
@@ -585,14 +585,14 @@ namespace GameManager.IO
                             }
                             if (versionNumber < 0x6b)
                             {
-                                if ((Main.invasionType > 0) && (Main.invasionSize > 0))
+                                if ((Game1.invasionType > 0) && (Game1.invasionSize > 0))
                                 {
-                                    Main.FakeLoadInvasionStart();
+                                    Game1.FakeLoadInvasionStart();
                                 }
                             }
                             else
                             {
-                                Main.invasionSizeStart = reader.ReadInt32();
+                                Game1.invasionSizeStart = reader.ReadInt32();
                             }
                             if (versionNumber < 0x6c)
                             {
@@ -618,8 +618,8 @@ namespace GameManager.IO
                                 }
                                 if (versionNumber >= 0x80)
                                 {
-                                    Main.fastForwardTime = reader.ReadBoolean();
-                                    Main.UpdateSundial();
+                                    Game1.fastForwardTime = reader.ReadBoolean();
+                                    Game1.UpdateSundial();
                                     if (versionNumber >= 0x83)
                                     {
                                         NPC.downedFishron = reader.ReadBoolean();
@@ -675,7 +675,7 @@ namespace GameManager.IO
             bool flag = reader.ReadBoolean();
             while (flag)
             {
-                npc = Main.npc[index];
+                npc = Game1.npc[index];
                 npc.SetDefaults(reader.ReadString());
                 npc.displayName = reader.ReadString();
                 npc.position.X = reader.ReadSingle();
@@ -690,7 +690,7 @@ namespace GameManager.IO
             {
                 for (flag = reader.ReadBoolean(); flag; flag = reader.ReadBoolean())
                 {
-                    npc = Main.npc[index];
+                    npc = Game1.npc[index];
                     npc.SetDefaults(reader.ReadString());
                     npc.position = reader.ReadVector2();
                     index++;
@@ -708,7 +708,7 @@ namespace GameManager.IO
                 string str = reader.ReadString();
                 int num2 = reader.ReadInt32();
                 int num3 = reader.ReadInt32();
-                Tile tile = Main.tile[num2, num3];
+                Tile tile = Game1.tile[num2, num3];
                 if (tile.active() && ((tile.type == 0x37) || (tile.type == 0x55)))
                 {
                     sign = new Sign
@@ -722,12 +722,12 @@ namespace GameManager.IO
                 {
                     sign = null;
                 }
-                Main.sign[index] = sign;
+                Game1.sign[index] = sign;
                 index++;
             }
             while (index < 0x3e8)
             {
-                Main.sign[index] = null;
+                Game1.sign[index] = null;
                 index++;
             }
         }
@@ -751,31 +751,31 @@ namespace GameManager.IO
         public static void loadWorld()
         {
             IsWorldOnCloud = false;
-            Main.checkXMas();
-            Main.checkHalloween();
+            Game1.checkXMas();
+            Game1.checkHalloween();
             bool cloud = false;
-            if (!FileUtilities.Exists(Main.worldPathName) && Main.autoGen)
+            if (!FileUtilities.Exists(Game1.worldPathName) && Game1.autoGen)
             {
                 if (!cloud)
                 {
-                    for (int i = Main.worldPathName.Length - 1; i >= 0; i--)
+                    for (int i = Game1.worldPathName.Length - 1; i >= 0; i--)
                     {
-                        if (Main.worldPathName.Substring(i, 1) == Convert.ToString(Path.DirectorySeparatorChar))
+                        if (Game1.worldPathName.Substring(i, 1) == Convert.ToString(Path.DirectorySeparatorChar))
                         {
-                            Directory.CreateDirectory(Main.worldPathName.Substring(0, i));
+                            Directory.CreateDirectory(Game1.worldPathName.Substring(0, i));
                             break;
                         }
                     }
                 }
                 WorldGen.clearWorld();
-                WorldGen.generateWorld(-1, Main.AutogenProgress);
+                WorldGen.generateWorld(-1, Game1.AutogenProgress);
                 saveWorld();
             }
             if (WorldGen.genRand == null)
             {
                 WorldGen.genRand = new Random((int)DateTime.Now.Ticks);
             }
-            using (MemoryStream stream = new MemoryStream(FileUtilities.ReadAllBytes(Main.worldPathName)))
+            using (MemoryStream stream = new MemoryStream(FileUtilities.ReadAllBytes(Game1.worldPathName)))
             {
                 using (BinaryReader reader = new BinaryReader(stream))
                 {
@@ -795,7 +795,7 @@ namespace GameManager.IO
                             num3 = LoadWorld_Version2(reader);
                         }
                         if (num2 < 0x8d)
-                            Main.ActiveWorldFileData.CreationTime = File.GetCreationTime(Main.worldPathName);
+                            Game1.ActiveWorldFileData.CreationTime = File.GetCreationTime(Game1.worldPathName);
                         reader.Dispose();//.Close();
                         stream.Dispose();//.Close();
                         if (num3 != 0)
@@ -811,7 +811,7 @@ namespace GameManager.IO
                             return;
                         }
                         WorldGen.gen = true;
-                        WorldGen.waterLine = Main.maxTilesY;
+                        WorldGen.waterLine = Game1.maxTilesY;
                         Liquid.QuickWater(2, -1, -1);
                         WorldGen.WaterCheck();
                         int num4 = 0;
@@ -834,19 +834,19 @@ namespace GameManager.IO
                             {
                                 num7 = num6;
                             }
-                            Main.statusText = string.Concat(new object[] { Lang.gen[0x1b], " ", (int)(((num7 * 100f) / 2f) + 50f), "%" });
+                            Game1.statusText = string.Concat(new object[] { Lang.gen[0x1b], " ", (int)(((num7 * 100f) / 2f) + 50f), "%" });
                             Liquid.UpdateLiquid();
                         }
                         Liquid.quickSettle = false;
-                        Main.weatherCounter = WorldGen.genRand.Next(0xe10, 0x4650);
+                        Game1.weatherCounter = WorldGen.genRand.Next(0xe10, 0x4650);
                         Cloud.resetClouds();
                         WorldGen.WaterCheck();
                         WorldGen.gen = false;
                         NPC.setFireFlyChance();
-                        Main.InitLifeBytes();
-                        if (Main.slimeRainTime > 0.0)
+                        Game1.InitLifeBytes();
+                        if (Game1.slimeRainTime > 0.0)
                         {
-                            Main.StartSlimeRain(false);
+                            Game1.StartSlimeRain(false);
                         }
                         NPC.setWorldMonsters();
                     }
@@ -874,31 +874,31 @@ namespace GameManager.IO
 
         public static int LoadWorld_Version1(BinaryReader fileIO)
         {
-            Main.WorldFileMetadata = FileMetadata.FromCurrentSettings(FileType.World);
+            Game1.WorldFileMetadata = FileMetadata.FromCurrentSettings(FileType.World);
             int versionNumber = WorldFile.versionNumber;
-            if (versionNumber > Main.curRelease)
+            if (versionNumber > Game1.curRelease)
             {
                 return 1;
             }
-            Main.worldName = fileIO.ReadString();
-            Main.worldID = fileIO.ReadInt32();
-            Main.leftWorld = fileIO.ReadInt32();
-            Main.rightWorld = fileIO.ReadInt32();
-            Main.topWorld = fileIO.ReadInt32();
-            Main.bottomWorld = fileIO.ReadInt32();
-            Main.maxTilesY = fileIO.ReadInt32();
-            Main.maxTilesX = fileIO.ReadInt32();
+            Game1.worldName = fileIO.ReadString();
+            Game1.worldID = fileIO.ReadInt32();
+            Game1.leftWorld = fileIO.ReadInt32();
+            Game1.rightWorld = fileIO.ReadInt32();
+            Game1.topWorld = fileIO.ReadInt32();
+            Game1.bottomWorld = fileIO.ReadInt32();
+            Game1.maxTilesY = fileIO.ReadInt32();
+            Game1.maxTilesX = fileIO.ReadInt32();
             if (versionNumber >= 0x70)
             {
-                Main.expertMode = fileIO.ReadBoolean();
+                Game1.expertMode = fileIO.ReadBoolean();
             }
             else
             {
-                Main.expertMode = false;
+                Game1.expertMode = false;
             }
             if (versionNumber >= 0x3f)
             {
-                Main.moonType = fileIO.ReadByte();
+                Game1.moonType = fileIO.ReadByte();
             }
             else
             {
@@ -907,38 +907,38 @@ namespace GameManager.IO
             WorldGen.clearWorld();
             if (versionNumber >= 0x2c)
             {
-                Main.treeX[0] = fileIO.ReadInt32();
-                Main.treeX[1] = fileIO.ReadInt32();
-                Main.treeX[2] = fileIO.ReadInt32();
-                Main.treeStyle[0] = fileIO.ReadInt32();
-                Main.treeStyle[1] = fileIO.ReadInt32();
-                Main.treeStyle[2] = fileIO.ReadInt32();
-                Main.treeStyle[3] = fileIO.ReadInt32();
+                Game1.treeX[0] = fileIO.ReadInt32();
+                Game1.treeX[1] = fileIO.ReadInt32();
+                Game1.treeX[2] = fileIO.ReadInt32();
+                Game1.treeStyle[0] = fileIO.ReadInt32();
+                Game1.treeStyle[1] = fileIO.ReadInt32();
+                Game1.treeStyle[2] = fileIO.ReadInt32();
+                Game1.treeStyle[3] = fileIO.ReadInt32();
             }
             if (versionNumber >= 60)
             {
-                Main.caveBackX[0] = fileIO.ReadInt32();
-                Main.caveBackX[1] = fileIO.ReadInt32();
-                Main.caveBackX[2] = fileIO.ReadInt32();
-                Main.caveBackStyle[0] = fileIO.ReadInt32();
-                Main.caveBackStyle[1] = fileIO.ReadInt32();
-                Main.caveBackStyle[2] = fileIO.ReadInt32();
-                Main.caveBackStyle[3] = fileIO.ReadInt32();
-                Main.iceBackStyle = fileIO.ReadInt32();
+                Game1.caveBackX[0] = fileIO.ReadInt32();
+                Game1.caveBackX[1] = fileIO.ReadInt32();
+                Game1.caveBackX[2] = fileIO.ReadInt32();
+                Game1.caveBackStyle[0] = fileIO.ReadInt32();
+                Game1.caveBackStyle[1] = fileIO.ReadInt32();
+                Game1.caveBackStyle[2] = fileIO.ReadInt32();
+                Game1.caveBackStyle[3] = fileIO.ReadInt32();
+                Game1.iceBackStyle = fileIO.ReadInt32();
                 if (versionNumber >= 0x3d)
                 {
-                    Main.jungleBackStyle = fileIO.ReadInt32();
-                    Main.hellBackStyle = fileIO.ReadInt32();
+                    Game1.jungleBackStyle = fileIO.ReadInt32();
+                    Game1.hellBackStyle = fileIO.ReadInt32();
                 }
             }
             else
             {
                 WorldGen.RandomizeCaveBackgrounds();
             }
-            Main.spawnTileX = fileIO.ReadInt32();
-            Main.spawnTileY = fileIO.ReadInt32();
-            Main.worldSurface = fileIO.ReadDouble();
-            Main.rockLayer = fileIO.ReadDouble();
+            Game1.spawnTileX = fileIO.ReadInt32();
+            Game1.spawnTileY = fileIO.ReadInt32();
+            Game1.worldSurface = fileIO.ReadDouble();
+            Game1.rockLayer = fileIO.ReadDouble();
             tempTime = fileIO.ReadDouble();
             tempDayTime = fileIO.ReadBoolean();
             tempMoonPhase = fileIO.ReadInt32();
@@ -946,10 +946,10 @@ namespace GameManager.IO
             if (versionNumber >= 0x70)
             {
                 tempEclipse = fileIO.ReadBoolean();
-                Main.eclipse = tempEclipse;
+                Game1.eclipse = tempEclipse;
             }
-            Main.dungeonX = fileIO.ReadInt32();
-            Main.dungeonY = fileIO.ReadInt32();
+            Game1.dungeonX = fileIO.ReadInt32();
+            Game1.dungeonY = fileIO.ReadInt32();
             if (versionNumber >= 0x38)
             {
                 WorldGen.crimson = fileIO.ReadBoolean();
@@ -1013,15 +1013,15 @@ namespace GameManager.IO
             if (versionNumber >= 0x17)
             {
                 WorldGen.altarCount = fileIO.ReadInt32();
-                Main.hardMode = fileIO.ReadBoolean();
+                Game1.hardMode = fileIO.ReadBoolean();
             }
-            Main.invasionDelay = fileIO.ReadInt32();
-            Main.invasionSize = fileIO.ReadInt32();
-            Main.invasionType = fileIO.ReadInt32();
-            Main.invasionX = fileIO.ReadDouble();
+            Game1.invasionDelay = fileIO.ReadInt32();
+            Game1.invasionSize = fileIO.ReadInt32();
+            Game1.invasionType = fileIO.ReadInt32();
+            Game1.invasionX = fileIO.ReadDouble();
             if (versionNumber >= 0x71)
             {
-                Main.sundialCooldown = fileIO.ReadByte();
+                Game1.sundialCooldown = fileIO.ReadByte();
             }
             if (versionNumber >= 0x35)
             {
@@ -1079,37 +1079,37 @@ namespace GameManager.IO
             WorldGen.setBG(7, num9);
             if (versionNumber >= 60)
             {
-                Main.cloudBGActive = fileIO.ReadInt32();
-                if (Main.cloudBGActive >= 1f)
+                Game1.cloudBGActive = fileIO.ReadInt32();
+                if (Game1.cloudBGActive >= 1f)
                 {
-                    Main.cloudBGAlpha = 1f;
+                    Game1.cloudBGAlpha = 1f;
                 }
                 else
                 {
-                    Main.cloudBGAlpha = 0f;
+                    Game1.cloudBGAlpha = 0f;
                 }
             }
             else
             {
-                Main.cloudBGActive = -WorldGen.genRand.Next(0x21c0, 0x15180);
+                Game1.cloudBGActive = -WorldGen.genRand.Next(0x21c0, 0x15180);
             }
             if (versionNumber >= 0x3e)
             {
-                Main.numClouds = fileIO.ReadInt16();
-                Main.windSpeedSet = fileIO.ReadSingle();
-                Main.windSpeed = Main.windSpeedSet;
+                Game1.numClouds = fileIO.ReadInt16();
+                Game1.windSpeedSet = fileIO.ReadSingle();
+                Game1.windSpeed = Game1.windSpeedSet;
             }
             else
             {
                 WorldGen.RandomizeWeather();
             }
-            for (int i = 0; i < Main.maxTilesX; i++)
+            for (int i = 0; i < Game1.maxTilesX; i++)
             {
-                float num12 = ((float)i) / ((float)Main.maxTilesX);
-                Main.statusText = string.Concat(new object[] { Lang.gen[0x33], " ", (int)((num12 * 100f) + 1f), "%" });
-                for (int n = 0; n < Main.maxTilesY; n++)
+                float num12 = ((float)i) / ((float)Game1.maxTilesX);
+                Game1.statusText = string.Concat(new object[] { Lang.gen[0x33], " ", (int)((num12 * 100f) + 1f), "%" });
+                for (int n = 0; n < Game1.maxTilesY; n++)
                 {
-                    Tile tile = Main.tile[i, n];
+                    Tile tile = Game1.tile[i, n];
                     int index = -1;
                     tile.active(fileIO.ReadBoolean());
                     if (tile.active())
@@ -1132,7 +1132,7 @@ namespace GameManager.IO
                             tile.frameX = fileIO.ReadInt16();
                             tile.frameY = fileIO.ReadInt16();
                         }
-                        else if (Main.tileFrameImportant[index])
+                        else if (Game1.tileFrameImportant[index])
                         {
                             if ((versionNumber < 0x1c) && (index == 4))
                             {
@@ -1197,14 +1197,14 @@ namespace GameManager.IO
                     if (versionNumber >= 0x29)
                     {
                         tile.halfBrick(fileIO.ReadBoolean());
-                        if (!Main.tileSolid[tile.type])
+                        if (!Game1.tileSolid[tile.type])
                         {
                             tile.halfBrick(false);
                         }
                         if (versionNumber >= 0x31)
                         {
                             tile.slope(fileIO.ReadByte());
-                            if (!Main.tileSolid[tile.type])
+                            if (!Game1.tileSolid[tile.type])
                             {
                                 tile.slope(0);
                             }
@@ -1222,15 +1222,15 @@ namespace GameManager.IO
                     }
                     if (index != -1)
                     {
-                        if (n <= Main.worldSurface)
+                        if (n <= Game1.worldSurface)
                         {
-                            if ((n + num14) <= Main.worldSurface)
+                            if ((n + num14) <= Game1.worldSurface)
                             {
                                 WorldGen.tileCounts[index] += (num14 + 1) * 5;
                             }
                             else
                             {
-                                int num15 = (int)((Main.worldSurface - n) + 1.0);
+                                int num15 = (int)((Game1.worldSurface - n) + 1.0);
                                 int num16 = (num14 + 1) - num15;
                                 WorldGen.tileCounts[index] += (num15 * 5) + num16;
                             }
@@ -1244,7 +1244,7 @@ namespace GameManager.IO
                     {
                         for (int num17 = n + 1; num17 < ((n + num14) + 1); num17++)
                         {
-                            Main.tile[i, num17].CopyFrom(Main.tile[i, n]);
+                            Game1.tile[i, num17].CopyFrom(Game1.tile[i, n]);
                         }
                         n += num14;
                     }
@@ -1268,9 +1268,9 @@ namespace GameManager.IO
             {
                 if (fileIO.ReadBoolean())
                 {
-                    Main.chest[j] = new Chest(false);
-                    Main.chest[j].x = fileIO.ReadInt32();
-                    Main.chest[j].y = fileIO.ReadInt32();
+                    Game1.chest[j] = new Chest(false);
+                    Game1.chest[j].x = fileIO.ReadInt32();
+                    Game1.chest[j].y = fileIO.ReadInt32();
                     if (versionNumber >= 0x55)
                     {
                         string str = fileIO.ReadString();
@@ -1278,11 +1278,11 @@ namespace GameManager.IO
                         {
                             str = str.Substring(0, 20);
                         }
-                        Main.chest[j].name = str;
+                        Game1.chest[j].name = str;
                     }
                     for (int num20 = 0; num20 < 40; num20++)
                     {
-                        Main.chest[j].item[num20] = new Item();
+                        Game1.chest[j].item[num20] = new Item();
                         if (num20 < num18)
                         {
                             int num21 = 0;
@@ -1298,17 +1298,17 @@ namespace GameManager.IO
                             {
                                 if (versionNumber >= 0x26)
                                 {
-                                    Main.chest[j].item[num20].netDefaults(fileIO.ReadInt32());
+                                    Game1.chest[j].item[num20].netDefaults(fileIO.ReadInt32());
                                 }
                                 else
                                 {
                                     string itemName = Item.VersionName(fileIO.ReadString(), versionNumber);
-                                    Main.chest[j].item[num20].SetDefaults(itemName);
+                                    Game1.chest[j].item[num20].SetDefaults(itemName);
                                 }
-                                Main.chest[j].item[num20].stack = num21;
+                                Game1.chest[j].item[num20].stack = num21;
                                 if (versionNumber >= 0x24)
                                 {
-                                    Main.chest[j].item[num20].Prefix(fileIO.ReadByte());
+                                    Game1.chest[j].item[num20].Prefix(fileIO.ReadByte());
                                 }
                             }
                         }
@@ -1322,28 +1322,28 @@ namespace GameManager.IO
                     string str3 = fileIO.ReadString();
                     int num23 = fileIO.ReadInt32();
                     int num24 = fileIO.ReadInt32();
-                    if (Main.tile[num23, num24].active() && ((Main.tile[num23, num24].type == 0x37) || (Main.tile[num23, num24].type == 0x55)))
+                    if (Game1.tile[num23, num24].active() && ((Game1.tile[num23, num24].type == 0x37) || (Game1.tile[num23, num24].type == 0x55)))
                     {
-                        Main.sign[k] = new Sign();
-                        Main.sign[k].x = num23;
-                        Main.sign[k].y = num24;
-                        Main.sign[k].text = str3;
+                        Game1.sign[k] = new Sign();
+                        Game1.sign[k].x = num23;
+                        Game1.sign[k].y = num24;
+                        Game1.sign[k].text = str3;
                     }
                 }
             }
             bool flag = fileIO.ReadBoolean();
             for (int m = 0; flag; m++)
             {
-                Main.npc[m].SetDefaults(fileIO.ReadString());
+                Game1.npc[m].SetDefaults(fileIO.ReadString());
                 if (versionNumber >= 0x53)
                 {
-                    Main.npc[m].displayName = fileIO.ReadString();
+                    Game1.npc[m].displayName = fileIO.ReadString();
                 }
-                Main.npc[m].position.X = fileIO.ReadSingle();
-                Main.npc[m].position.Y = fileIO.ReadSingle();
-                Main.npc[m].homeless = fileIO.ReadBoolean();
-                Main.npc[m].homeTileX = fileIO.ReadInt32();
-                Main.npc[m].homeTileY = fileIO.ReadInt32();
+                Game1.npc[m].position.X = fileIO.ReadSingle();
+                Game1.npc[m].position.Y = fileIO.ReadSingle();
+                Game1.npc[m].homeless = fileIO.ReadBoolean();
+                Game1.npc[m].homeTileX = fileIO.ReadInt32();
+                Game1.npc[m].homeTileY = fileIO.ReadInt32();
                 flag = fileIO.ReadBoolean();
             }
             if ((versionNumber >= 0x1f) && (versionNumber <= 0x53))
@@ -1377,16 +1377,16 @@ namespace GameManager.IO
                     }
                 }
             }
-            if ((Main.invasionType > 0) && (Main.invasionSize > 0))
+            if ((Game1.invasionType > 0) && (Game1.invasionSize > 0))
             {
-                Main.FakeLoadInvasionStart();
+                Game1.FakeLoadInvasionStart();
             }
             if (versionNumber >= 7)
             {
                 bool flag2 = fileIO.ReadBoolean();
                 string str4 = fileIO.ReadString();
                 int num26 = fileIO.ReadInt32();
-                if (!flag2 || (!(str4 == Main.worldName) && (num26 != Main.worldID)))
+                if (!flag2 || (!(str4 == Game1.worldName) && (num26 != Game1.worldID)))
                 {
                     return 2;
                 }
@@ -1456,18 +1456,18 @@ namespace GameManager.IO
 
         private static void LoadWorldTiles(BinaryReader reader, bool[] importance)
         {
-            for (int i = 0; i < Main.maxTilesX; i++)
+            for (int i = 0; i < Game1.maxTilesX; i++)
             {
-                float num9 = ((float)i) / ((float)Main.maxTilesX);
-                Main.statusText = string.Concat(new object[] { Lang.gen[0x33], " ", (int)((num9 * 100.0) + 1.0), "%" });
-                for (int j = 0; j < Main.maxTilesY; j++)
+                float num9 = ((float)i) / ((float)Game1.maxTilesX);
+                Game1.statusText = string.Concat(new object[] { Lang.gen[0x33], " ", (int)((num9 * 100.0) + 1.0), "%" });
+                for (int j = 0; j < Game1.maxTilesY; j++)
                 {
                     byte num3;
                     byte num4;
                     int num8;
                     int index = -1;
                     byte num2 = (byte)(num3 = 0);
-                    Tile from = Main.tile[i, j];
+                    Tile from = Game1.tile[i, j];
                     byte num = reader.ReadByte();
                     if ((num & 1) == 1)
                     {
@@ -1543,7 +1543,7 @@ namespace GameManager.IO
 						if ((num2 & 8) == 8)
 							wireFlag |= k_WireFlags.WIRE_BLUE;
                         num4 = (byte)((num2 & 0x70) >> 4);
-                        if ((num4 != 0) && Main.tileSolid[from.type])
+                        if ((num4 != 0) && Game1.tileSolid[from.type])
                         {
                             if (num4 == 1)
                             {
@@ -1581,15 +1581,15 @@ namespace GameManager.IO
                     }
                     if (index != -1)
                     {
-                        if (j <= Main.worldSurface)
+                        if (j <= Game1.worldSurface)
                         {
-                            if ((j + num8) <= Main.worldSurface)
+                            if ((j + num8) <= Game1.worldSurface)
                             {
                                 WorldGen.tileCounts[index] += (num8 + 1) * 5;
                             }
                             else
                             {
-                                int num10 = (int)((Main.worldSurface - j) + 1.0);
+                                int num10 = (int)((Game1.worldSurface - j) + 1.0);
                                 int num11 = (num8 + 1) - num10;
                                 WorldGen.tileCounts[index] += (num10 * 5) + num11;
                             }
@@ -1602,7 +1602,7 @@ namespace GameManager.IO
                     while (num8 > 0)
                     {
                         j++;
-                        Main.tile[i, j].CopyFrom(from);
+                        Game1.tile[i, j].CopyFrom(from);
                         num8--;
                     }
                 }
@@ -1623,8 +1623,8 @@ namespace GameManager.IO
             tempBloodMoon = false;
             tempEclipse = false;
             tempMoonPhase = 0;
-            Main.anglerWhoFinishedToday.Clear();
-            Main.anglerQuestFinished = false;
+            Game1.anglerWhoFinishedToday.Clear();
+            Game1.anglerQuestFinished = false;
         }
 
         private static int SaveChests(BinaryWriter writer)
@@ -1634,7 +1634,7 @@ namespace GameManager.IO
             short num3 = 0;
             for (num = 0; num < 0x3e8; num++)
             {
-                chest = Main.chest[num];
+                chest = Game1.chest[num];
                 if (chest != null)
                 {
                     bool flag = false;
@@ -1642,13 +1642,13 @@ namespace GameManager.IO
                     {
                         for (int j = chest.y; j <= (chest.y + 1); j++)
                         {
-                            if (((i < 0) || (j < 0)) || ((i >= Main.maxTilesX) || (j >= Main.maxTilesY)))
+                            if (((i < 0) || (j < 0)) || ((i >= Game1.maxTilesX) || (j >= Game1.maxTilesY)))
                             {
                                 flag = true;
                                 break;
                             }
-                            Tile tile = Main.tile[i, j];
-                            if (!tile.active() || !Main.tileContainer[tile.type])
+                            Tile tile = Game1.tile[i, j];
+                            if (!tile.active() || !Game1.tileContainer[tile.type])
                             {
                                 flag = true;
                                 break;
@@ -1657,7 +1657,7 @@ namespace GameManager.IO
                     }
                     if (flag)
                     {
-                        Main.chest[num] = null;
+                        Game1.chest[num] = null;
                     }
                     else
                     {
@@ -1669,7 +1669,7 @@ namespace GameManager.IO
             writer.Write((short)40);
             for (num = 0; num < 0x3e8; num++)
             {
-                chest = Main.chest[num];
+                chest = Game1.chest[num];
                 if (chest != null)
                 {
                     writer.Write(chest.x);
@@ -1733,8 +1733,8 @@ namespace GameManager.IO
             int num;
             short num2 = 0x1a3;
             short num3 = 10;
-            writer.Write(Main.curRelease);
-            Main.WorldFileMetadata.IncrementAndWrite(writer);
+            writer.Write(Game1.curRelease);
+            Game1.WorldFileMetadata.IncrementAndWrite(writer);
             writer.Write(num3);
             for (num = 0; num < num3; num++)
             {
@@ -1745,7 +1745,7 @@ namespace GameManager.IO
             byte num5 = 1;
             for (num = 0; num < num2; num++)
             {
-                if (Main.tileFrameImportant[num])
+                if (Game1.tileFrameImportant[num])
                 {
                     num4 = (byte)(num4 | num5);
                 }
@@ -1770,15 +1770,15 @@ namespace GameManager.IO
         private static int SaveFooter(BinaryWriter writer)
         {
             writer.Write(true);
-            writer.Write(Main.worldName);
-            writer.Write(Main.worldID);
+            writer.Write(Game1.worldName);
+            writer.Write(Game1.worldID);
             return (int)writer.BaseStream.Position;
         }
 
         private static int SaveHeaderPointers(BinaryWriter writer, int[] pointers)
         {
             writer.BaseStream.Position = 0L;
-            writer.Write(Main.curRelease);
+            writer.Write(Game1.curRelease);
             Stream baseStream = writer.BaseStream;
             baseStream.Position += 20L;
             writer.Write((short)pointers.Length);
@@ -1791,9 +1791,9 @@ namespace GameManager.IO
 
         private static int SaveNPCs(BinaryWriter writer)
         {
-            for (int i = 0; i < Main.npc.Length; i++)
+            for (int i = 0; i < Game1.npc.Length; i++)
             {
-                NPC npc = Main.npc[i];
+                NPC npc = Game1.npc[i];
                 if ((npc.active && npc.townNPC) && (npc.type != 0x170))
                 {
                     writer.Write(npc.active);
@@ -1807,9 +1807,9 @@ namespace GameManager.IO
                 }
             }
             writer.Write(false);
-            for (int j = 0; j < Main.npc.Length; j++)
+            for (int j = 0; j < Game1.npc.Length; j++)
             {
-                NPC npc2 = Main.npc[j];
+                NPC npc2 = Game1.npc[j];
                 if (npc2.active && NPCID.Sets.SavesAndLoads[npc2.type])
                 {
                     writer.Write(npc2.active);
@@ -1827,7 +1827,7 @@ namespace GameManager.IO
             short num = 0;
             for (int i = 0; i < 0x3e8; i++)
             {
-                sign = Main.sign[i];
+                sign = Game1.sign[i];
                 if ((sign != null) && (sign.text != null))
                 {
                     num = (short)(num + 1);
@@ -1836,7 +1836,7 @@ namespace GameManager.IO
             writer.Write(num);
             for (int j = 0; j < 0x3e8; j++)
             {
-                sign = Main.sign[j];
+                sign = Game1.sign[j];
                 if ((sign != null) && (sign.text != null))
                 {
                     writer.Write(sign.text);
@@ -1866,27 +1866,27 @@ namespace GameManager.IO
         {
             if (!useCloudSaving)
             {
-                if (Main.worldName == "")
+                if (Game1.worldName == "")
                 {
-                    Main.worldName = "World";
+                    Game1.worldName = "World";
                 }
                 if (!WorldGen.saveLock)
                 {
                     WorldGen.saveLock = true;
                     while (WorldGen.IsGeneratingHardMode)
                     {
-                        Main.statusText = Lang.gen[0x30];
+                        Game1.statusText = Lang.gen[0x30];
                     }
                     lock (padlock)
                     {
                         try
                         {
-                            Directory.CreateDirectory(Main.WorldPath);
+                            Directory.CreateDirectory(Game1.WorldPath);
                         }
                         catch
                         {
                         }
-                        if (Main.skipMenu)
+                        if (Game1.skipMenu)
                         {
                             return;
                         }
@@ -1902,11 +1902,11 @@ namespace GameManager.IO
                         }
                         else
                         {
-                            tempDayTime = Main.dayTime;
-                            tempTime = Main.time;
-                            tempMoonPhase = Main.moonPhase;
-                            tempBloodMoon = Main.bloodMoon;
-                            tempEclipse = Main.eclipse;
+                            tempDayTime = Game1.dayTime;
+                            tempTime = Game1.time;
+                            tempMoonPhase = Game1.moonPhase;
+                            tempBloodMoon = Game1.bloodMoon;
+                            tempEclipse = Game1.eclipse;
                             tempCultistDelay = CultistRitual.delay;
                         }
                         if (resetTime)
@@ -1918,7 +1918,7 @@ namespace GameManager.IO
                             tempEclipse = false;
                             tempCultistDelay = 0x15180;
                         }
-                        if (Main.worldPathName == null)
+                        if (Game1.worldPathName == null)
                         {
                             return;
                         }
@@ -1943,28 +1943,28 @@ namespace GameManager.IO
                             return;
                         }
                         byte[] buffer2 = null;
-                        if (FileUtilities.Exists(Main.worldPathName))
+                        if (FileUtilities.Exists(Game1.worldPathName))
                         {
-                            buffer2 = FileUtilities.ReadAllBytes(Main.worldPathName);
+                            buffer2 = FileUtilities.ReadAllBytes(Game1.worldPathName);
                         }
-                        FileUtilities.Write(Main.worldPathName, data, length);
-                        data = FileUtilities.ReadAllBytes(Main.worldPathName);
+                        FileUtilities.Write(Game1.worldPathName, data, length);
+                        data = FileUtilities.ReadAllBytes(Game1.worldPathName);
                         string path = null;
                         using (MemoryStream stream2 = new MemoryStream(data, 0, length, false))
                         {
                             using (BinaryReader reader = new BinaryReader(stream2))
                             {
-                                if (!Main.validateSaves || validateWorld(reader))
+                                if (!Game1.validateSaves || validateWorld(reader))
                                 {
                                     if (buffer2 != null)
                                     {
-                                        path = Main.worldPathName + ".bak";
-                                        Main.statusText = Lang.gen[50];
+                                        path = Game1.worldPathName + ".bak";
+                                        Game1.statusText = Lang.gen[50];
                                     }
                                 }
                                 else
                                 {
-                                    path = Main.worldPathName;
+                                    path = Game1.worldPathName;
                                 }
                             }
                         }
@@ -1974,7 +1974,7 @@ namespace GameManager.IO
                         }
                         WorldGen.saveLock = false;
                     }
-                    Main.serverGenLock = false;
+                    Game1.serverGenLock = false;
                 }
             }
         }
@@ -1995,45 +1995,45 @@ namespace GameManager.IO
 
         private static int SaveWorldHeader(BinaryWriter writer)
         {
-            writer.Write(Main.worldName);
-            writer.Write(Main.worldID);
-            writer.Write((int)Main.leftWorld);
-            writer.Write((int)Main.rightWorld);
-            writer.Write((int)Main.topWorld);
-            writer.Write((int)Main.bottomWorld);
-            writer.Write(Main.maxTilesY);
-            writer.Write(Main.maxTilesX);
-            writer.Write(Main.expertMode);
-            writer.Write(Main.ActiveWorldFileData.CreationTime.ToBinary());
-            writer.Write((byte)Main.moonType);
-            writer.Write(Main.treeX[0]);
-            writer.Write(Main.treeX[1]);
-            writer.Write(Main.treeX[2]);
-            writer.Write(Main.treeStyle[0]);
-            writer.Write(Main.treeStyle[1]);
-            writer.Write(Main.treeStyle[2]);
-            writer.Write(Main.treeStyle[3]);
-            writer.Write(Main.caveBackX[0]);
-            writer.Write(Main.caveBackX[1]);
-            writer.Write(Main.caveBackX[2]);
-            writer.Write(Main.caveBackStyle[0]);
-            writer.Write(Main.caveBackStyle[1]);
-            writer.Write(Main.caveBackStyle[2]);
-            writer.Write(Main.caveBackStyle[3]);
-            writer.Write(Main.iceBackStyle);
-            writer.Write(Main.jungleBackStyle);
-            writer.Write(Main.hellBackStyle);
-            writer.Write(Main.spawnTileX);
-            writer.Write(Main.spawnTileY);
-            writer.Write(Main.worldSurface);
-            writer.Write(Main.rockLayer);
+            writer.Write(Game1.worldName);
+            writer.Write(Game1.worldID);
+            writer.Write((int)Game1.leftWorld);
+            writer.Write((int)Game1.rightWorld);
+            writer.Write((int)Game1.topWorld);
+            writer.Write((int)Game1.bottomWorld);
+            writer.Write(Game1.maxTilesY);
+            writer.Write(Game1.maxTilesX);
+            writer.Write(Game1.expertMode);
+            writer.Write(Game1.ActiveWorldFileData.CreationTime.ToBinary());
+            writer.Write((byte)Game1.moonType);
+            writer.Write(Game1.treeX[0]);
+            writer.Write(Game1.treeX[1]);
+            writer.Write(Game1.treeX[2]);
+            writer.Write(Game1.treeStyle[0]);
+            writer.Write(Game1.treeStyle[1]);
+            writer.Write(Game1.treeStyle[2]);
+            writer.Write(Game1.treeStyle[3]);
+            writer.Write(Game1.caveBackX[0]);
+            writer.Write(Game1.caveBackX[1]);
+            writer.Write(Game1.caveBackX[2]);
+            writer.Write(Game1.caveBackStyle[0]);
+            writer.Write(Game1.caveBackStyle[1]);
+            writer.Write(Game1.caveBackStyle[2]);
+            writer.Write(Game1.caveBackStyle[3]);
+            writer.Write(Game1.iceBackStyle);
+            writer.Write(Game1.jungleBackStyle);
+            writer.Write(Game1.hellBackStyle);
+            writer.Write(Game1.spawnTileX);
+            writer.Write(Game1.spawnTileY);
+            writer.Write(Game1.worldSurface);
+            writer.Write(Game1.rockLayer);
             writer.Write(tempTime);
             writer.Write(tempDayTime);
             writer.Write(tempMoonPhase);
             writer.Write(tempBloodMoon);
             writer.Write(tempEclipse);
-            writer.Write(Main.dungeonX);
-            writer.Write(Main.dungeonY);
+            writer.Write(Game1.dungeonX);
+            writer.Write(Game1.dungeonY);
             writer.Write(WorldGen.crimson);
             writer.Write(NPC.downedBoss1);
             writer.Write(NPC.downedBoss2);
@@ -2057,13 +2057,13 @@ namespace GameManager.IO
             writer.Write(WorldGen.spawnMeteor);
             writer.Write((byte)WorldGen.shadowOrbCount);
             writer.Write(WorldGen.altarCount);
-            writer.Write(Main.hardMode);
-            writer.Write(Main.invasionDelay);
-            writer.Write(Main.invasionSize);
-            writer.Write(Main.invasionType);
-            writer.Write(Main.invasionX);
-            writer.Write(Main.slimeRainTime);
-            writer.Write((byte)Main.sundialCooldown);
+            writer.Write(Game1.hardMode);
+            writer.Write(Game1.invasionDelay);
+            writer.Write(Game1.invasionSize);
+            writer.Write(Game1.invasionType);
+            writer.Write(Game1.invasionX);
+            writer.Write(Game1.slimeRainTime);
+            writer.Write((byte)Game1.sundialCooldown);
             writer.Write(tempRaining);
             writer.Write(tempRainTime);
             writer.Write(tempMaxRain);
@@ -2078,26 +2078,26 @@ namespace GameManager.IO
             writer.Write((byte)WorldGen.crimsonBG);
             writer.Write((byte)WorldGen.desertBG);
             writer.Write((byte)WorldGen.oceanBG);
-            writer.Write((int)Main.cloudBGActive);
-            writer.Write((short)Main.numClouds);
-            writer.Write(Main.windSpeedSet);
-            writer.Write(Main.anglerWhoFinishedToday.Count);
-            for (int i = 0; i < Main.anglerWhoFinishedToday.Count; i++)
+            writer.Write((int)Game1.cloudBGActive);
+            writer.Write((short)Game1.numClouds);
+            writer.Write(Game1.windSpeedSet);
+            writer.Write(Game1.anglerWhoFinishedToday.Count);
+            for (int i = 0; i < Game1.anglerWhoFinishedToday.Count; i++)
             {
-                writer.Write(Main.anglerWhoFinishedToday[i]);
+                writer.Write(Game1.anglerWhoFinishedToday[i]);
             }
             writer.Write(NPC.savedAngler);
-            writer.Write(Main.anglerQuest);
+            writer.Write(Game1.anglerQuest);
             writer.Write(NPC.savedStylist);
             writer.Write(NPC.savedTaxCollector);
-            writer.Write(Main.invasionSizeStart);
+            writer.Write(Game1.invasionSizeStart);
             writer.Write(tempCultistDelay);
             writer.Write((short)540);
             for (int j = 0; j < 540; j++)
             {
                 writer.Write(NPC.killCount[j]);
             }
-            writer.Write(Main.fastForwardTime);
+            writer.Write(Game1.fastForwardTime);
             writer.Write(NPC.downedFishron);
             writer.Write(NPC.downedMartians);
             writer.Write(NPC.downedAncientCultist);
@@ -2122,16 +2122,16 @@ namespace GameManager.IO
         private static int SaveWorldTiles(BinaryWriter writer)
         {
             byte[] buffer = new byte[13];
-            for (int i = 0; i < Main.maxTilesX; i++)
+            for (int i = 0; i < Game1.maxTilesX; i++)
             {
-                float num12 = ((float)i) / ((float)Main.maxTilesX);
-                Main.statusText = string.Concat(new object[] { Lang.gen[0x31], " ", (int)((num12 * 100f) + 1f), "%" });
-                for (int j = 0; j < Main.maxTilesY; j++)
+                float num12 = ((float)i) / ((float)Game1.maxTilesX);
+                Game1.statusText = string.Concat(new object[] { Lang.gen[0x31], " ", (int)((num12 * 100f) + 1f), "%" });
+                for (int j = 0; j < Game1.maxTilesY; j++)
                 {
                     byte num9;
                     byte num10;
                     int num11;
-                    Tile tile = Main.tile[i, j];
+                    Tile tile = Game1.tile[i, j];
                     int index = 3;
                     byte num8 = num9 = (byte)(num10 = 0);
                     bool flag = false;
@@ -2144,7 +2144,7 @@ namespace GameManager.IO
                             if (!tile.active())
                             {
                                 flag = false;
-                                if (Main.netMode != 0)
+                                if (Game1.netMode != 0)
                                 {
                                     NetMessage.SendData(0x11, -1, -1, "", 0, (float)i, (float)j, 0f, 0, 0, 0);
                                 }
@@ -2157,7 +2157,7 @@ namespace GameManager.IO
                         if (tile.type == 0x7f)
                         {
                             WorldGen.KillTile(i, j, false, false, false);
-                            if (!tile.active() && (Main.netMode != 0))
+                            if (!tile.active() && (Game1.netMode != 0))
                             {
                                 NetMessage.SendData(0x11, -1, -1, "", 0, (float)i, (float)j, 0f, 0, 0, 0);
                             }
@@ -2170,7 +2170,7 @@ namespace GameManager.IO
                             index++;
                             num8 = (byte)(num8 | 0x20);
                         }
-                        if (Main.tileFrameImportant[tile.type])
+                        if (Game1.tileFrameImportant[tile.type])
                         {
                             buffer[index] = (byte)(tile.frameX & 0xff);
                             index++;
@@ -2265,10 +2265,10 @@ namespace GameManager.IO
                     }
                     short num4 = 0;
                     int num3 = j + 1;
-                    int num5 = (Main.maxTilesY - j) - 1;
+                    int num5 = (Game1.maxTilesY - j) - 1;
                     while (num5 > 0)
                     {
-                        if (!tile.isTheSameAs(Main.tile[i, num3]))
+                        if (!tile.isTheSameAs(Game1.tile[i, num3]))
                         {
                             break;
                         }
@@ -2313,7 +2313,7 @@ namespace GameManager.IO
                 bool flag;
                 Stream baseStream = fileIO.BaseStream;
                 int num = fileIO.ReadInt32();
-                if ((num == 0) || (num > Main.curRelease))
+                if ((num == 0) || (num > Game1.curRelease))
                 {
                     return false;
                 }
@@ -2333,8 +2333,8 @@ namespace GameManager.IO
                 baseStream.Position = numArray[1];
                 for (int i = 0; i < num4; i++)
                 {
-                    float num6 = ((float)i) / ((float)Main.maxTilesX);
-                    Main.statusText = string.Concat(new object[] { Lang.gen[0x49], " ", (int)((num6 * 100f) + 1f), "%" });
+                    float num6 = ((float)i) / ((float)Game1.maxTilesX);
+                    Game1.statusText = string.Concat(new object[] { Lang.gen[0x49], " ", (int)((num6 * 100f) + 1f), "%" });
                     for (int m = 0; m < num3; m++)
                     {
                         byte num10;

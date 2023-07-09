@@ -71,22 +71,22 @@ namespace GameManager.GameContent.UI.States
 
         private void NewCharacterClick(UIMouseEvent evt, UIElement listeningElement)
         {
-            Main.PlaySound(10, -1, -1, 1);
+            Game1.PlaySound(10, -1, -1, 1);
             Player player = new Player();
 			player.GiveStartEquipment();
-			Main.PendingPlayer = player;
-            Main.menuMode = 2;
+			Game1.PendingPlayer = player;
+            Game1.menuMode = 2;
         }
 
         private void GoBackClick(UIMouseEvent evt, UIElement listeningElement)
         {
-            Main.PlaySound(11, -1, -1, 1);
-            Main.menuMode = 0;
+            Game1.PlaySound(11, -1, -1, 1);
+            Game1.menuMode = 0;
         }
 
         private void FadedMouseOver(UIMouseEvent evt, UIElement listeningElement)
         {
-            Main.PlaySound(12, -1, -1, 1);
+            Game1.PlaySound(12, -1, -1, 1);
             ((UIPanel)evt.Target).BackgroundColor = new Color(73, 94, 171);
         }
 
@@ -97,9 +97,9 @@ namespace GameManager.GameContent.UI.States
 
         public override void OnActivate()
         {
-            Main.LoadPlayers();
+            Game1.LoadPlayers();
             _playerList.Clear();
-            foreach (PlayerFileData data in Main.PlayerList)
+            foreach (PlayerFileData data in Game1.PlayerList)
                 _playerList.Add(new UICharacterListItem(data));
         }
     }

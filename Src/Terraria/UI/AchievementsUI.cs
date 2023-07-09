@@ -19,55 +19,55 @@ namespace GameManager.UI
     {
         public static void Open()
         {
-            Main.playerInventory = false;
-            Main.editChest = false;
-            Main.npcChatText = "";
-            Main.achievementsWindow = true;
-            Main.InGameUI.SetState((UIState)Main.AchievementsMenu);
+            Game1.playerInventory = false;
+            Game1.editChest = false;
+            Game1.npcChatText = "";
+            Game1.achievementsWindow = true;
+            Game1.InGameUI.SetState((UIState)Game1.AchievementsMenu);
         }
 
         public static void OpenAndGoto(Achievement achievement)
         {
             AchievementsUI.Open();
-            Main.AchievementsMenu.GotoAchievement(achievement);
+            Game1.AchievementsMenu.GotoAchievement(achievement);
         }
 
         public static void Close()
         {
-            Main.achievementsWindow = false;
-            Main.PlaySound(11, -1, -1, 1);
-            if (!Main.gameMenu)
-                Main.playerInventory = true;
-            Main.InGameUI.SetState((UIState)null);
+            Game1.achievementsWindow = false;
+            Game1.PlaySound(11, -1, -1, 1);
+            if (!Game1.gameMenu)
+                Game1.playerInventory = true;
+            Game1.InGameUI.SetState((UIState)null);
         }
 
         public static void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            if (!Main.gameMenu && Main.player[Main.myPlayer].dead && !Main.player[Main.myPlayer].ghost)
+            if (!Game1.gameMenu && Game1.player[Game1.myPlayer].dead && !Game1.player[Game1.myPlayer].ghost)
             {
                 AchievementsUI.Close();
-                Main.playerInventory = false;
+                Game1.playerInventory = false;
             }
             else
             {
-                if (Main.gameMenu)
+                if (Game1.gameMenu)
                     return;
-                Main.mouseText = false;
-                Main.instance.GUIBarsDraw();
-                if (!Main.achievementsWindow)
-                    Main.InGameUI.SetState((UIState)null);
-                Main.instance.DrawMouseOver();
-                Main.DrawThickCursor(false);
-                spriteBatch.Draw(Main.cursorTextures[0], new Vector2((float)(Main.mouseX + 1), (float)(Main.mouseY + 1)), new Rectangle?(), new Color((int)((double)Main.cursorColor.R * 0.200000002980232), (int)((double)Main.cursorColor.G * 0.200000002980232), (int)((double)Main.cursorColor.B * 0.200000002980232), (int)((double)Main.cursorColor.A * 0.5)), 0.0f, new Vector2(), Main.cursorScale * 1.1f, SpriteEffects.None, 0.0f);
-                spriteBatch.Draw(Main.cursorTextures[0], new Vector2((float)Main.mouseX, (float)Main.mouseY), new Rectangle?(), Main.cursorColor, 0.0f, new Vector2(), Main.cursorScale, SpriteEffects.None, 0.0f);
+                Game1.mouseText = false;
+                Game1.instance.GUIBarsDraw();
+                if (!Game1.achievementsWindow)
+                    Game1.InGameUI.SetState((UIState)null);
+                Game1.instance.DrawMouseOver();
+                Game1.DrawThickCursor(false);
+                spriteBatch.Draw(Game1.cursorTextures[0], new Vector2((float)(Game1.mouseX + 1), (float)(Game1.mouseY + 1)), new Rectangle?(), new Color((int)((double)Game1.cursorColor.R * 0.200000002980232), (int)((double)Game1.cursorColor.G * 0.200000002980232), (int)((double)Game1.cursorColor.B * 0.200000002980232), (int)((double)Game1.cursorColor.A * 0.5)), 0.0f, new Vector2(), Game1.cursorScale * 1.1f, SpriteEffects.None, 0.0f);
+                spriteBatch.Draw(Game1.cursorTextures[0], new Vector2((float)Game1.mouseX, (float)Game1.mouseY), new Rectangle?(), Game1.cursorColor, 0.0f, new Vector2(), Game1.cursorScale, SpriteEffects.None, 0.0f);
             }
         }
 
         public static void MouseOver()
         {
-            if (!Main.achievementsWindow || !Main.InGameUI.IsElementUnderMouse())
+            if (!Game1.achievementsWindow || !Game1.InGameUI.IsElementUnderMouse())
                 return;
-            Main.mouseText = true;
+            Game1.mouseText = true;
         }
     }
 }

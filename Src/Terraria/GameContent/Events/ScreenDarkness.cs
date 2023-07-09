@@ -22,11 +22,11 @@ namespace GameManager.GameContent.Events
         {
             float num = 0.0f;
             float amount = 0.1f;
-            Vector2 mountedCenter = Main.player[Main.myPlayer].MountedCenter;
+            Vector2 mountedCenter = Game1.player[Game1.myPlayer].MountedCenter;
             for (int index = 0; index < 200; ++index)
             {
-                if (Main.npc[index].active && Main.npc[index].type == 370 && Main.npc[index].Distance(mountedCenter) < 3000.0 && (Main.npc[index].ai[0] >= 10.0 ||
-                    Main.npc[index].ai[0] == 9.0 && Main.npc[index].ai[2] > 120.0))
+                if (Game1.npc[index].active && Game1.npc[index].type == 370 && Game1.npc[index].Distance(mountedCenter) < 3000.0 && (Game1.npc[index].ai[0] >= 10.0 ||
+                    Game1.npc[index].ai[0] == 9.0 && Game1.npc[index].ai[2] > 120.0))
                 {
                     num = 0.95f;
                     amount = 0.03f;
@@ -42,7 +42,7 @@ namespace GameManager.GameContent.Events
                 return;
 
             Color color = Color.Black * screenObstruction;
-            spriteBatch.Draw(Main.magicPixel, new Rectangle(-2, -2, Main.screenWidth + 4, Main.screenHeight + 4), new Rectangle?(new Rectangle(0, 0, 1, 1)), color);
+            spriteBatch.Draw(Game1.magicPixel, new Rectangle(-2, -2, Game1.screenWidth + 4, Game1.screenHeight + 4), new Rectangle?(new Rectangle(0, 0, 1, 1)), color);
         }
 
         public static void DrawFront(SpriteBatch spriteBatch)
@@ -51,7 +51,7 @@ namespace GameManager.GameContent.Events
                 return;
 
             Color color = new Color(0, 0, 120) * screenObstruction * 0.3f;
-            spriteBatch.Draw(Main.magicPixel, new Rectangle(-2, -2, Main.screenWidth + 4, Main.screenHeight + 4), new Rectangle?(new Rectangle(0, 0, 1, 1)), color);
+            spriteBatch.Draw(Game1.magicPixel, new Rectangle(-2, -2, Game1.screenWidth + 4, Game1.screenHeight + 4), new Rectangle?(new Rectangle(0, 0, 1, 1)), color);
         }
     }
 }

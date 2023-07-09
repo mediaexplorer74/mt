@@ -22,7 +22,7 @@ namespace GameManager.GameContent.Liquid
         private static readonly float[] DEFAULT_OPACITY = { 0.6f, 0.95f, 0.95f };
         private static readonly Tile EMPTY_TILE = new Tile();
         public static LiquidRenderer Instance = new LiquidRenderer();
-        private Tile[,] _tiles = Main.tile;
+        private Tile[,] _tiles = Game1.tile;
         private Texture2D[] _liquidTextures = new Texture2D[12];
         private LiquidCache[] _cache = new LiquidCache[41616];
         private LiquidDrawCache[] _drawCache = new LiquidDrawCache[40000];
@@ -354,7 +354,7 @@ namespace GameManager.GameContent.Liquid
                                 liquidDrawCachePtr2->IsVisible = liquidCachePtr9->HasWall || (!liquidCachePtr9->IsHalfBrick || !liquidCachePtr9->HasLiquid);
                                 liquidDrawCachePtr2->SourceRectangle = new Rectangle((int)(16.0 - num3 * 16.0) + liquidCachePtr9->FrameOffset.X, (int)(16.0 - num5 * 16.0) +
                                     liquidCachePtr9->FrameOffset.Y, (int)Math.Ceiling((num3 - num2) * 16.0), (int)Math.Ceiling((num5 - num4) * 16.0));
-                                liquidDrawCachePtr2->IsSurfaceLiquid = liquidCachePtr9->FrameOffset.X == 16 && liquidCachePtr9->FrameOffset.Y == 0 && (index2 + rectangle.Y) > Main.worldSurface - 40.0;
+                                liquidDrawCachePtr2->IsSurfaceLiquid = liquidCachePtr9->FrameOffset.X == 16 && liquidCachePtr9->FrameOffset.Y == 0 && (index2 + rectangle.Y) > Game1.worldSurface - 40.0;
                                 liquidDrawCachePtr2->Opacity = liquidCachePtr9->Opacity;
                                 liquidDrawCachePtr2->LiquidOffset = new Vector2((float)Math.Floor(num2 * 16.0), (float)Math.Floor(num4 * 16.0));
                                 liquidDrawCachePtr2->Type = liquidCachePtr9->VisibleType;
@@ -382,12 +382,12 @@ namespace GameManager.GameContent.Liquid
                             if (_random.Next(350) == 0)
                             {
                                 int index3 = Dust.NewDust(new Vector2((float)(index1 * 16), (float)(index2 * 16)), 16, 8, 35, 0.0f, 0.0f, 50, Color.White, 1.5f);
-                                Main.dust[index3].velocity *= 0.8f;
-                                Main.dust[index3].velocity.X *= 2f;
-                                Main.dust[index3].velocity.Y -= (float)_random.Next(1, 7) * 0.1f;
+                                Game1.dust[index3].velocity *= 0.8f;
+                                Game1.dust[index3].velocity.X *= 2f;
+                                Game1.dust[index3].velocity.Y -= (float)_random.Next(1, 7) * 0.1f;
                                 if (_random.Next(10) == 0)
-                                    Main.dust[index3].velocity.Y *= (float)_random.Next(2, 5);
-                                Main.dust[index3].noGravity = true;
+                                    Game1.dust[index3].velocity.Y *= (float)_random.Next(2, 5);
+                                Game1.dust[index3].noGravity = true;
                             }
                         }
                         ++liquidCachePtr10;
@@ -433,7 +433,7 @@ namespace GameManager.GameContent.Liquid
                             vertices.BottomRightColor *= num;
                             vertices.TopLeftColor *= num;
                             vertices.TopRightColor *= num;
-                            Main.tileBatch.Draw(_liquidTextures[index], new Vector2((float)(centerX << 4), (float)(centerY << 4)) + drawOffset + vector2,
+                            Game1.tileBatch.Draw(_liquidTextures[index], new Vector2((float)(centerX << 4), (float)(centerY << 4)) + drawOffset + vector2,
                                 new Rectangle?(rectangle2), vertices, Vector2.Zero, 1f, SpriteEffects.None);
                         }
                         ++liquidDrawCachePtr2;

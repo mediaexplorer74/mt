@@ -250,7 +250,7 @@ namespace GameManager.World.Generation
 
             public override bool Apply(Point origin, int x, int y, params object[] args)
             {
-                this._spriteBatch.Draw(Main.magicPixel, new Microsoft.Xna.Framework.Rectangle((x << 4) - (int)Main.screenPosition.X, (y << 4) - (int)Main.screenPosition.Y, 16, 16), this._color);
+                this._spriteBatch.Draw(Game1.magicPixel, new Microsoft.Xna.Framework.Rectangle((x << 4) - (int)Game1.screenPosition.X, (y << 4) - (int)Game1.screenPosition.Y, 16, 16), this._color);
                 return this.UnitApply(origin, x, y, args);
             }
         }

@@ -27,7 +27,7 @@ namespace GameManager.GameContent.UI.Elements
                 if (!(_text != value))
                     return;
                 _text = value;
-                Vector2 vector2 = Main.fontDeathText.MeasureString(Text);
+                Vector2 vector2 = Game1.fontDeathText.MeasureString(Text);
                 Width.Pixels = vector2.X;
                 Height.Pixels = vector2.Y;
                 Width.Precent = 0.0f;
@@ -49,7 +49,7 @@ namespace GameManager.GameContent.UI.Elements
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
             CalculatedStyle dimensions = GetDimensions();
-            spriteBatch.DrawString(Main.fontDeathText, Text, new Vector2(dimensions.X, dimensions.Y), Color.White);
+            spriteBatch.DrawString(Game1.fontDeathText, Text, new Vector2(dimensions.X, dimensions.Y), Color.White);
         }
     }
 }

@@ -36,12 +36,12 @@ namespace GameManager.GameContent.Skies
 
         private void GenerateSlimes()
         {
-            _slimes = new Slime[Main.maxTilesY / 6];
+            _slimes = new Slime[Game1.maxTilesY / 6];
             for (int index = 0; index < _slimes.Length; ++index)
             {
-                int maxValue = (int)(Main.screenPosition.Y * 0.7 - Main.screenHeight);
-                int minValue = (int)(maxValue - Main.worldSurface * 16.0);
-                _slimes[index].Position = new Vector2((float)(_random.Next(0, Main.maxTilesX) * 16), (float)_random.Next(minValue, maxValue));
+                int maxValue = (int)(Game1.screenPosition.Y * 0.7 - Game1.screenHeight);
+                int minValue = (int)(maxValue - Game1.worldSurface * 16.0);
+                _slimes[index].Position = new Vector2((float)(_random.Next(0, Game1.maxTilesX) * 16), (float)_random.Next(minValue, maxValue));
                 _slimes[index].Speed = (float)(5.0 + 3.0 * _random.NextDouble());
                 _slimes[index].Depth = (float)(index / _slimes.Length * 1.75 + 1.60000002384186);
                 _slimes[index].Texture = _textures[_random.Next(2)];
@@ -64,7 +64,7 @@ namespace GameManager.GameContent.Skies
 
         public override void Update()
         {
-            if (Main.gamePaused || !Main.hasFocus)
+            if (Game1.gamePaused || !Game1.hasFocus)
                 return;
 
             for (int index = 0; index < _slimes.Length; ++index)
@@ -73,12 +73,12 @@ namespace GameManager.GameContent.Skies
                 {
                     ++_slimes[index].Frame;
                     _slimes[index].Position.Y += _slimes[index].Speed;
-                    if (_slimes[index].Position.Y > Main.worldSurface * 16.0)
+                    if (_slimes[index].Position.Y > Game1.worldSurface * 16.0)
                     {
                         if (!_isLeaving)
                         {
                             _slimes[index].Depth = (float)(index / _slimes.Length * 1.75 + 1.60000002384186);
-                            _slimes[index].Position = new Vector2((float)(_random.Next(0, Main.maxTilesX) * 16), -100f);
+                            _slimes[index].Position = new Vector2((float)(_random.Next(0, Game1.maxTilesX) * 16), -100f);
                             _slimes[index].Texture = _textures[_random.Next(2)];
                             _slimes[index].Speed = (float)(5.0 + 3.0 * _random.NextDouble());
                             if (_random.Next(60) == 0)
@@ -110,7 +110,7 @@ namespace GameManager.GameContent.Skies
 
         public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
         {
-            if (Main.screenPosition.Y > 10000.0 || Main.gameMenu)
+            if (Game1.screenPosition.Y > 10000.0 || Game1.gameMenu)
                 return;
 
             int num1 = -1;
@@ -129,13 +129,13 @@ namespace GameManager.GameContent.Skies
             if (num1 == -1)
                 return;
 
-            Vector2 vector2_1 = Main.screenPosition + new Vector2((float)(Main.screenWidth >> 1), (float)(Main.screenHeight >> 1));
+            Vector2 vector2_1 = Game1.screenPosition + new Vector2((float)(Game1.screenWidth >> 1), (float)(Game1.screenHeight >> 1));
             Rectangle rectangle = new Rectangle(-1000, -1000, 4000, 4000);
             for (int index = num1; index < num2; ++index)
             {
                 if (_slimes[index].Active)
                 {
-                    Color color = new Color(Main.bgColor.ToVector4() * 0.9f + new Vector4(0.1f)) * 0.8f;
+                    Color color = new Color(Game1.bgColor.ToVector4() * 0.9f + new Vector4(0.1f)) * 0.8f;
                     float num3 = 1f;
                     if (_slimes[index].Depth > 3.0)
                         num3 = 0.6f;
@@ -150,7 +150,7 @@ namespace GameManager.GameContent.Skies
                     color = new Color((int)(color.R * num4), (int)(color.G * num4), (int)(color.B * num4), (int)(color.A * num4));
                     Vector2 vector2_2 = new Vector2(1f / _slimes[index].Depth, 0.9f / _slimes[index].Depth);
                     Vector2 position = _slimes[index].Position;
-                    position = (position - vector2_1) * vector2_2 + vector2_1 - Main.screenPosition;
+                    position = (position - vector2_1) * vector2_2 + vector2_1 - Game1.screenPosition;
                     position.X = (float)((position.X + 500.0) % 4000.0);
                     if (position.X < 0.0)
                         position.X += 4000f;

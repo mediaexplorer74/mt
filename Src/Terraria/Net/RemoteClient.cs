@@ -18,7 +18,7 @@ namespace GameManager
         public ISocket Socket = (ISocket)new TcpSocket();
         public string Name = "Anonymous";
         public string StatusText = "";
-        public bool[,] TileSections = new bool[Main.maxTilesX / 200 + 1, Main.maxTilesY / 150 + 1];
+        public bool[,] TileSections = new bool[Game1.maxTilesX / 200 + 1, Game1.maxTilesY / 150 + 1];
         public float SpamProjectileMax = 100f;
         public float SpamAddBlockMax = 100f;
         public float SpamDeleteBlockMax = 500f;
@@ -92,7 +92,7 @@ namespace GameManager
             {
                 for (int index3 = sectionY1 - fluff; index3 < sectionY1 + fluff + 1; ++index3)
                 {
-                    if (index2 >= 0 && index2 < Main.maxSectionsX && (index3 >= 0 && index3 < Main.maxSectionsY) && !Netplay.Clients[index1].TileSections[index2, index3])
+                    if (index2 >= 0 && index2 < Game1.maxSectionsX && (index3 >= 0 && index3 < Game1.maxSectionsY) && !Netplay.Clients[index1].TileSections[index2, index3])
                         ++num;
                 }
             }
@@ -106,7 +106,7 @@ namespace GameManager
             {
                 for (int sectionY2 = sectionY1 - fluff; sectionY2 < sectionY1 + fluff + 1; ++sectionY2)
                 {
-                    if (index2 >= 0 && index2 < Main.maxSectionsX && (sectionY2 >= 0 && sectionY2 < Main.maxSectionsY) && !Netplay.Clients[index1].TileSections[index2, sectionY2])
+                    if (index2 >= 0 && index2 < Game1.maxSectionsX && (sectionY2 >= 0 && sectionY2 < Game1.maxSectionsY) && !Netplay.Clients[index1].TileSections[index2, sectionY2])
                     {
                         NetMessage.SendSection(index1, index2, sectionY2, false);
                         NetMessage.SendData(11, index1, -1, "", index2, (float)sectionY2, (float)index2, (float)sectionY2, 0, 0, 0);
@@ -138,9 +138,9 @@ namespace GameManager
 
         public void ResetSections()
         {
-            for (int index1 = 0; index1 < Main.maxSectionsX; ++index1)
+            for (int index1 = 0; index1 < Game1.maxSectionsX; ++index1)
             {
-                for (int index2 = 0; index2 < Main.maxSectionsY; ++index2)
+                for (int index2 = 0; index2 < Game1.maxSectionsY; ++index2)
                     this.TileSections[index1, index2] = false;
             }
         }
@@ -149,7 +149,7 @@ namespace GameManager
         {
             this.ResetSections();
             if (this.Id < (int)byte.MaxValue)
-                Main.player[this.Id] = new Player();
+                Game1.player[this.Id] = new Player();
             this.TimeOutTimer = 0;
             this.StatusCount = 0;
             this.StatusMax = 0;
@@ -179,7 +179,7 @@ namespace GameManager
                 int streamLength = length;
                 if (streamLength == 0)
                     this.PendingTermination = true;
-                else if (Main.ignoreErrors)
+                else if (Game1.ignoreErrors)
                 {
                     try
                     {

@@ -141,7 +141,7 @@ namespace GameManager
         {
             for (int index = 0; index < 255; ++index)
             {
-                if (Main.player[index].chest == i)
+                if (Game1.player[index].chest == i)
                     return true;
             }
             return false;
@@ -149,39 +149,39 @@ namespace GameManager
 
         public static bool isLocked(int x, int y)
         {
-            return Main.tile[x, y] == null || Main.tile[x, y].frameX >= 72 && Main.tile[x, y].frameX <= 106 || (Main.tile[x, y].frameX >= 144 && Main.tile[x, y].frameX <= 178 || Main.tile[x, y].frameX >= 828 && Main.tile[x, y].frameX <= 1006) || (Main.tile[x, y].frameX >= 1296 && Main.tile[x, y].frameX <= 1330 || Main.tile[x, y].frameX >= 1368 && Main.tile[x, y].frameX <= 1402 || Main.tile[x, y].frameX >= 1440 && Main.tile[x, y].frameX <= 1474);
+            return Game1.tile[x, y] == null || Game1.tile[x, y].frameX >= 72 && Game1.tile[x, y].frameX <= 106 || (Game1.tile[x, y].frameX >= 144 && Game1.tile[x, y].frameX <= 178 || Game1.tile[x, y].frameX >= 828 && Game1.tile[x, y].frameX <= 1006) || (Game1.tile[x, y].frameX >= 1296 && Game1.tile[x, y].frameX <= 1330 || Game1.tile[x, y].frameX >= 1368 && Game1.tile[x, y].frameX <= 1402 || Game1.tile[x, y].frameX >= 1440 && Game1.tile[x, y].frameX <= 1474);
         }
 
         public static void ServerPlaceItem(int plr, int slot)
         {
-            Main.player[plr].inventory[slot] = PutItemInNearbyChest(Main.player[plr].inventory[slot], Main.player[plr].Center);
-            NetMessage.SendData(5, -1, -1, "", plr, slot, Main.player[plr].inventory[slot].prefix, 0.0f, 0, 0, 0);
+            Game1.player[plr].inventory[slot] = PutItemInNearbyChest(Game1.player[plr].inventory[slot], Game1.player[plr].Center);
+            NetMessage.SendData(5, -1, -1, "", plr, slot, Game1.player[plr].inventory[slot].prefix, 0.0f, 0, 0, 0);
         }
 
         public static Item PutItemInNearbyChest(Item item, Vector2 position)
         {
-            if (Main.netMode == 1)
+            if (Game1.netMode == 1)
                 return item;
             for (int i = 0; i < 1000; ++i)
             {
                 bool flag1 = false;
                 bool flag2 = false;
-                if (Main.chest[i] != null && !IsPlayerInChest(i) && !isLocked(Main.chest[i].x, Main.chest[i].y) && (new Vector2((Main.chest[i].x * 16 + 16), (Main.chest[i].y * 16 + 16)) - position).Length() < 200.0)
+                if (Game1.chest[i] != null && !IsPlayerInChest(i) && !isLocked(Game1.chest[i].x, Game1.chest[i].y) && (new Vector2((Game1.chest[i].x * 16 + 16), (Game1.chest[i].y * 16 + 16)) - position).Length() < 200.0)
                 {
-                    for (int index = 0; index < Main.chest[i].item.Length; ++index)
+                    for (int index = 0; index < Game1.chest[i].item.Length; ++index)
                     {
-                        if (Main.chest[i].item[index].itemId > 0 && Main.chest[i].item[index].stack > 0)
+                        if (Game1.chest[i].item[index].itemId > 0 && Game1.chest[i].item[index].stack > 0)
                         {
-                            if (item.IsTheSameAs(Main.chest[i].item[index]))
+                            if (item.IsTheSameAs(Game1.chest[i].item[index]))
                             {
                                 flag1 = true;
-                                int num = Main.chest[i].item[index].maxStack - Main.chest[i].item[index].stack;
+                                int num = Game1.chest[i].item[index].maxStack - Game1.chest[i].item[index].stack;
                                 if (num > 0)
                                 {
                                     if (num > item.stack)
                                         num = item.stack;
                                     item.stack -= num;
-                                    Main.chest[i].item[index].stack += num;
+                                    Game1.chest[i].item[index].stack += num;
                                     if (item.stack <= 0)
                                     {
                                         item.SetDefaults(0, false);
@@ -195,11 +195,11 @@ namespace GameManager
                     }
                     if (flag1 && flag2 && item.stack > 0)
                     {
-                        for (int index = 0; index < Main.chest[i].item.Length; ++index)
+                        for (int index = 0; index < Game1.chest[i].item.Length; ++index)
                         {
-                            if (Main.chest[i].item[index].itemId == 0 || Main.chest[i].item[index].stack == 0)
+                            if (Game1.chest[i].item[index].itemId == 0 || Game1.chest[i].item[index].stack == 0)
                             {
-                                Main.chest[i].item[index] = item.Clone();
+                                Game1.chest[i].item[index] = item.Clone();
                                 item.SetDefaults(0, false);
                                 return item;
                             }
@@ -217,11 +217,11 @@ namespace GameManager
 
         public static bool Unlock(int X, int Y)
         {
-            if (Main.tile[X, Y] == null)
+            if (Game1.tile[X, Y] == null)
                 return false;
             short num;
             int Type;
-            switch (Main.tile[X, Y].frameX / 36)
+            switch (Game1.tile[X, Y].frameX / 36)
             {
                 case 2:
                     num = 36;
@@ -252,12 +252,12 @@ namespace GameManager
                 default:
                     return false;
             }
-            Main.PlaySound(22, X * 16, Y * 16, 1);
+            Game1.PlaySound(22, X * 16, Y * 16, 1);
             for (int index1 = X; index1 <= X + 1; ++index1)
             {
                 for (int index2 = Y; index2 <= Y + 1; ++index2)
                 {
-                    Main.tile[index1, index2].frameX -= num;
+                    Game1.tile[index1, index2].frameX -= num;
                     for (int index3 = 0; index3 < 4; ++index3)
                         Dust.NewDust(new Vector2((index1 * 16), (index2 * 16)), 16, 16, Type, 0.0f, 0.0f, 0, new Color(), 1f);
                 }
@@ -267,11 +267,11 @@ namespace GameManager
 
         public static int UsingChest(int i)
         {
-            if (Main.chest[i] != null)
+            if (Game1.chest[i] != null)
             {
                 for (int index = 0; index < 255; ++index)
                 {
-                    if (Main.player[index].active && Main.player[index].chest == i)
+                    if (Game1.player[index].active && Game1.player[index].chest == i)
                         return index;
                 }
             }
@@ -282,7 +282,7 @@ namespace GameManager
         {
             for (int index = 0; index < 1000; ++index)
             {
-                if (Main.chest[index] != null && Main.chest[index].x == X && Main.chest[index].y == Y)
+                if (Game1.chest[index] != null && Game1.chest[index].x == X && Game1.chest[index].y == Y)
                     return index;
             }
             return -1;
@@ -293,7 +293,7 @@ namespace GameManager
             int num = -1;
             for (int index = 0; index < 1000; ++index)
             {
-                Chest chest = Main.chest[index];
+                Chest chest = Game1.chest[index];
                 if (chest != null)
                 {
                     if (chest.x == x && chest.y == y)
@@ -326,14 +326,14 @@ namespace GameManager
             int emptyChest = FindEmptyChest(baseCoords.X, baseCoords.Y, 21, 0, 1);
             if (emptyChest == -1)
                 return -1;
-            if (Main.netMode != 1)
+            if (Game1.netMode != 1)
             {
                 Chest chest = new Chest(false);
                 chest.x = baseCoords.X;
                 chest.y = baseCoords.Y;
                 for (int index = 0; index < 40; ++index)
                     chest.item[index] = new Item();
-                Main.chest[emptyChest] = chest;
+                Game1.chest[emptyChest] = chest;
             }
             else if (type == 21)
                 NetMessage.SendData(34, -1, -1, "", 0, (float)x, (float)y, (float)style, 0, 0, 0);
@@ -350,14 +350,14 @@ namespace GameManager
                 index1 = Chest.FindEmptyChest(X, Y, 21, 0, 1);
                 if (index1 == -1)
                     return -1;
-                if (Main.netMode == 1)
+                if (Game1.netMode == 1)
                     return index1;
             }
-            Main.chest[index1] = new Chest(false);
-            Main.chest[index1].x = X;
-            Main.chest[index1].y = Y;
+            Game1.chest[index1] = new Chest(false);
+            Game1.chest[index1].x = X;
+            Game1.chest[index1].y = Y;
             for (int index2 = 0; index2 < 40; ++index2)
-                Main.chest[index1].item[index2] = new Item();
+                Game1.chest[index1].item[index2] = new Item();
             return index1;
         }
 
@@ -365,7 +365,7 @@ namespace GameManager
         {
             for (int index1 = 0; index1 < 1000; ++index1)
             {
-                Chest chest = Main.chest[index1];
+                Chest chest = Game1.chest[index1];
                 if (chest != null && chest.x == X && chest.y == Y)
                 {
                     for (int index2 = 0; index2 < 40; ++index2)
@@ -383,7 +383,7 @@ namespace GameManager
         {
             for (int index1 = 0; index1 < 1000; ++index1)
             {
-                Chest chest = Main.chest[index1];
+                Chest chest = Game1.chest[index1];
                 if (chest != null && chest.x == X && chest.y == Y)
                 {
                     for (int index2 = 0; index2 < 40; ++index2)
@@ -391,9 +391,9 @@ namespace GameManager
                         if (chest.item[index2] != null && chest.item[index2].itemId > 0 && chest.item[index2].stack > 0)
                             return false;
                     }
-                    Main.chest[index1] = null;
-                    if (Main.player[Main.myPlayer].chest == index1)
-                        Main.player[Main.myPlayer].chest = -1;
+                    Game1.chest[index1] = null;
+                    if (Game1.player[Game1.myPlayer].chest == index1)
+                        Game1.player[Game1.myPlayer].chest = -1;
                     return true;
                 }
             }
@@ -404,17 +404,17 @@ namespace GameManager
         {
             if (id < 0)
                 return;
-            if (id >= Main.chest.Length)
+            if (id >= Game1.chest.Length)
                 return;
             try
             {
-                Chest chest = Main.chest[id];
+                Chest chest = Game1.chest[id];
                 if (chest == null || chest.x != X || chest.y != Y)
                     return;
-                Main.chest[id] = null;
-                if (Main.player[Main.myPlayer].chest != id)
+                Game1.chest[id] = null;
+                if (Game1.player[Game1.myPlayer].chest != id)
                     return;
-                Main.player[Main.myPlayer].chest = -1;
+                Game1.player[Game1.myPlayer].chest = -1;
             }
             catch
             {
@@ -444,17 +444,17 @@ namespace GameManager
         public static void SetupTravelShop()
         {
             for (int index = 0; index < 40; ++index)
-                Main.travelShop[index] = 0;
-            int num1 = Main.rand.Next(4, 7);
-            if (Main.rand.Next(4) == 0)
+                Game1.travelShop[index] = 0;
+            int num1 = Game1.rand.Next(4, 7);
+            if (Game1.rand.Next(4) == 0)
                 ++num1;
-            if (Main.rand.Next(8) == 0)
+            if (Game1.rand.Next(8) == 0)
                 ++num1;
-            if (Main.rand.Next(16) == 0)
+            if (Game1.rand.Next(16) == 0)
                 ++num1;
-            if (Main.rand.Next(32) == 0)
+            if (Game1.rand.Next(32) == 0)
                 ++num1;
-            if (Main.expertMode && Main.rand.Next(2) == 0)
+            if (Game1.expertMode && Game1.rand.Next(2) == 0)
                 ++num1;
             int index1 = 0;
             int num2 = 0;
@@ -470,107 +470,107 @@ namespace GameManager
             while (num2 < num1)
             {
                 int num3 = 0;
-                if (Main.rand.Next(numArray[4]) == 0)
+                if (Game1.rand.Next(numArray[4]) == 0)
                     num3 = 3309;
-                if (Main.rand.Next(numArray[3]) == 0)
+                if (Game1.rand.Next(numArray[3]) == 0)
                     num3 = 3314;
-                if (Main.rand.Next(numArray[5]) == 0)
+                if (Game1.rand.Next(numArray[5]) == 0)
                     num3 = 1987;
-                if (Main.rand.Next(numArray[4]) == 0 && Main.hardMode)
+                if (Game1.rand.Next(numArray[4]) == 0 && Game1.hardMode)
                     num3 = 2270;
-                if (Main.rand.Next(numArray[4]) == 0)
+                if (Game1.rand.Next(numArray[4]) == 0)
                     num3 = 2278;
-                if (Main.rand.Next(numArray[4]) == 0)
+                if (Game1.rand.Next(numArray[4]) == 0)
                     num3 = 2271;
-                if (Main.rand.Next(numArray[3]) == 0 && Main.hardMode && NPC.downedPlantBoss)
+                if (Game1.rand.Next(numArray[3]) == 0 && Game1.hardMode && NPC.downedPlantBoss)
                     num3 = 2223;
-                if (Main.rand.Next(numArray[3]) == 0)
+                if (Game1.rand.Next(numArray[3]) == 0)
                     num3 = 2272;
-                if (Main.rand.Next(numArray[3]) == 0)
+                if (Game1.rand.Next(numArray[3]) == 0)
                     num3 = 2219;
-                if (Main.rand.Next(numArray[3]) == 0)
+                if (Game1.rand.Next(numArray[3]) == 0)
                     num3 = 2276;
-                if (Main.rand.Next(numArray[3]) == 0)
+                if (Game1.rand.Next(numArray[3]) == 0)
                     num3 = 2284;
-                if (Main.rand.Next(numArray[3]) == 0)
+                if (Game1.rand.Next(numArray[3]) == 0)
                     num3 = 2285;
-                if (Main.rand.Next(numArray[3]) == 0)
+                if (Game1.rand.Next(numArray[3]) == 0)
                     num3 = 2286;
-                if (Main.rand.Next(numArray[3]) == 0)
+                if (Game1.rand.Next(numArray[3]) == 0)
                     num3 = 2287;
-                if (Main.rand.Next(numArray[3]) == 0)
+                if (Game1.rand.Next(numArray[3]) == 0)
                     num3 = 2296;
-                if (Main.rand.Next(numArray[2]) == 0 && WorldGen.shadowOrbSmashed)
+                if (Game1.rand.Next(numArray[2]) == 0 && WorldGen.shadowOrbSmashed)
                     num3 = 2269;
-                if (Main.rand.Next(numArray[2]) == 0)
+                if (Game1.rand.Next(numArray[2]) == 0)
                     num3 = 2177;
-                if (Main.rand.Next(numArray[2]) == 0)
+                if (Game1.rand.Next(numArray[2]) == 0)
                     num3 = 1988;
-                if (Main.rand.Next(numArray[2]) == 0)
+                if (Game1.rand.Next(numArray[2]) == 0)
                     num3 = 2275;
-                if (Main.rand.Next(numArray[2]) == 0)
+                if (Game1.rand.Next(numArray[2]) == 0)
                     num3 = 2279;
-                if (Main.rand.Next(numArray[2]) == 0)
+                if (Game1.rand.Next(numArray[2]) == 0)
                     num3 = 2277;
-                if (Main.rand.Next(numArray[2]) == 0 && NPC.downedBoss1)
+                if (Game1.rand.Next(numArray[2]) == 0 && NPC.downedBoss1)
                     num3 = 3262;
-                if (Main.rand.Next(numArray[2]) == 0 && NPC.downedMechBossAny)
+                if (Game1.rand.Next(numArray[2]) == 0 && NPC.downedMechBossAny)
                     num3 = 3284;
-                if (Main.rand.Next(numArray[2]) == 0 && Main.hardMode && NPC.downedMoonlord)
+                if (Game1.rand.Next(numArray[2]) == 0 && Game1.hardMode && NPC.downedMoonlord)
                     num3 = 3596;
-                if (Main.rand.Next(numArray[2]) == 0 && Main.hardMode && NPC.downedMartians)
+                if (Game1.rand.Next(numArray[2]) == 0 && Game1.hardMode && NPC.downedMartians)
                     num3 = 2865;
-                if (Main.rand.Next(numArray[2]) == 0 && Main.hardMode && NPC.downedMartians)
+                if (Game1.rand.Next(numArray[2]) == 0 && Game1.hardMode && NPC.downedMartians)
                     num3 = 2866;
-                if (Main.rand.Next(numArray[2]) == 0 && Main.hardMode && NPC.downedMartians)
+                if (Game1.rand.Next(numArray[2]) == 0 && Game1.hardMode && NPC.downedMartians)
                     num3 = 2867;
-                if (Main.rand.Next(numArray[2]) == 0 && Main.xMas)
+                if (Game1.rand.Next(numArray[2]) == 0 && Game1.xMas)
                     num3 = 3055;
-                if (Main.rand.Next(numArray[2]) == 0 && Main.xMas)
+                if (Game1.rand.Next(numArray[2]) == 0 && Game1.xMas)
                     num3 = 3056;
-                if (Main.rand.Next(numArray[2]) == 0 && Main.xMas)
+                if (Game1.rand.Next(numArray[2]) == 0 && Game1.xMas)
                     num3 = 3057;
-                if (Main.rand.Next(numArray[2]) == 0 && Main.xMas)
+                if (Game1.rand.Next(numArray[2]) == 0 && Game1.xMas)
                     num3 = 3058;
-                if (Main.rand.Next(numArray[2]) == 0 && Main.xMas)
+                if (Game1.rand.Next(numArray[2]) == 0 && Game1.xMas)
                     num3 = 3059;
-                if (Main.rand.Next(numArray[1]) == 0)
+                if (Game1.rand.Next(numArray[1]) == 0)
                     num3 = 2214;
-                if (Main.rand.Next(numArray[1]) == 0)
+                if (Game1.rand.Next(numArray[1]) == 0)
                     num3 = 2215;
-                if (Main.rand.Next(numArray[1]) == 0)
+                if (Game1.rand.Next(numArray[1]) == 0)
                     num3 = 2216;
-                if (Main.rand.Next(numArray[1]) == 0)
+                if (Game1.rand.Next(numArray[1]) == 0)
                     num3 = 2217;
-                if (Main.rand.Next(numArray[1]) == 0)
+                if (Game1.rand.Next(numArray[1]) == 0)
                     num3 = 2273;
-                if (Main.rand.Next(numArray[1]) == 0)
+                if (Game1.rand.Next(numArray[1]) == 0)
                     num3 = 2274;
-                if (Main.rand.Next(numArray[0]) == 0)
+                if (Game1.rand.Next(numArray[0]) == 0)
                     num3 = 2266;
-                if (Main.rand.Next(numArray[0]) == 0)
+                if (Game1.rand.Next(numArray[0]) == 0)
                     num3 = 2267;
-                if (Main.rand.Next(numArray[0]) == 0)
+                if (Game1.rand.Next(numArray[0]) == 0)
                     num3 = 2268;
-                if (Main.rand.Next(numArray[0]) == 0)
-                    num3 = 2281 + Main.rand.Next(3);
-                if (Main.rand.Next(numArray[0]) == 0)
+                if (Game1.rand.Next(numArray[0]) == 0)
+                    num3 = 2281 + Game1.rand.Next(3);
+                if (Game1.rand.Next(numArray[0]) == 0)
                     num3 = 2258;
-                if (Main.rand.Next(numArray[0]) == 0)
+                if (Game1.rand.Next(numArray[0]) == 0)
                     num3 = 2242;
-                if (Main.rand.Next(numArray[0]) == 0)
+                if (Game1.rand.Next(numArray[0]) == 0)
                     num3 = 2260;
-                if (Main.rand.Next(numArray[0]) == 0)
+                if (Game1.rand.Next(numArray[0]) == 0)
                     num3 = 3119;
-                if (Main.rand.Next(numArray[0]) == 0)
+                if (Game1.rand.Next(numArray[0]) == 0)
                     num3 = 3118;
-                if (Main.rand.Next(numArray[0]) == 0)
+                if (Game1.rand.Next(numArray[0]) == 0)
                     num3 = 3099;
                 if (num3 != 0)
                 {
                     for (int index2 = 0; index2 < 40; ++index2)
                     {
-                        if (Main.travelShop[index2] == num3)
+                        if (Game1.travelShop[index2] == num3)
                         {
                             num3 = 0;
                             break;
@@ -580,13 +580,13 @@ namespace GameManager
                 if (num3 != 0)
                 {
                     ++num2;
-                    Main.travelShop[index1] = num3;
+                    Game1.travelShop[index1] = num3;
                     ++index1;
                     if (num3 == 2260)
                     {
-                        Main.travelShop[index1] = 2261;
+                        Game1.travelShop[index1] = 2261;
                         int index2 = index1 + 1;
-                        Main.travelShop[index2] = 2262;
+                        Game1.travelShop[index2] = 2262;
                         index1 = index2 + 1;
                     }
                 }
@@ -624,17 +624,17 @@ namespace GameManager
                 int index12 = index11 + 1;
                 item[index12].SetDefaults("Rope");
                 int index13 = index12 + 1;
-                if (Main.player[Main.myPlayer].ZoneSnow)
+                if (Game1.player[Game1.myPlayer].ZoneSnow)
                 {
                     item[index13].SetDefaults(967, false);
                     ++index13;
                 }
-                if (Main.bloodMoon)
+                if (Game1.bloodMoon)
                 {
                     item[index13].SetDefaults("Throwing Knife");
                     ++index13;
                 }
-                if (!Main.dayTime)
+                if (!Game1.dayTime)
                 {
                     item[index13].SetDefaults("Glowstick");
                     ++index13;
@@ -644,14 +644,14 @@ namespace GameManager
                     item[index13].SetDefaults("Safe");
                     ++index13;
                 }
-                if (Main.hardMode)
+                if (Game1.hardMode)
                 {
                     item[index13].SetDefaults(488, false);
                     ++index13;
                 }
                 for (int index14 = 0; index14 < 58; ++index14)
                 {
-                    if (Main.player[Main.myPlayer].inventory[index14].itemId == 930)
+                    if (Game1.player[Game1.myPlayer].inventory[index14].itemId == 930)
                     {
                         item[index13].SetDefaults(931, false);
                         int index15 = index13 + 1;
@@ -662,17 +662,17 @@ namespace GameManager
                 }
                 item[index13].SetDefaults(1786, false);
                 index1 = index13 + 1;
-                if (Main.hardMode)
+                if (Game1.hardMode)
                 {
                     item[index1].SetDefaults(1348, false);
                     ++index1;
                 }
-                if (Main.player[Main.myPlayer].HasItem(3107))
+                if (Game1.player[Game1.myPlayer].HasItem(3107))
                 {
                     item[index1].SetDefaults(3108, false);
                     ++index1;
                 }
-                if (Main.halloween)
+                if (Game1.halloween)
                 {
                     Item[] objArray1 = item;
                     int index14 = index1;
@@ -695,12 +695,12 @@ namespace GameManager
             {
                 item[index1].SetDefaults("Musket Ball");
                 int index2 = index1 + 1;
-                if (Main.bloodMoon || Main.hardMode)
+                if (Game1.bloodMoon || Game1.hardMode)
                 {
                     item[index2].SetDefaults("Silver Bullet");
                     ++index2;
                 }
-                if (NPC.downedBoss2 && !Main.dayTime || Main.hardMode)
+                if (NPC.downedBoss2 && !Game1.dayTime || Game1.hardMode)
                 {
                     item[index2].SetDefaults(47, false);
                     ++index2;
@@ -709,47 +709,47 @@ namespace GameManager
                 int index3 = index2 + 1;
                 item[index3].SetDefaults("Minishark");
                 index1 = index3 + 1;
-                if (!Main.dayTime)
+                if (!Game1.dayTime)
                 {
                     item[index1].SetDefaults(324, false);
                     ++index1;
                 }
-                if (Main.hardMode)
+                if (Game1.hardMode)
                 {
                     item[index1].SetDefaults(534, false);
                     ++index1;
                 }
-                if (Main.hardMode)
+                if (Game1.hardMode)
                 {
                     item[index1].SetDefaults(1432, false);
                     ++index1;
                 }
-                if (Main.player[Main.myPlayer].HasItem(1258))
+                if (Game1.player[Game1.myPlayer].HasItem(1258))
                 {
                     item[index1].SetDefaults(1261, false);
                     ++index1;
                 }
-                if (Main.player[Main.myPlayer].HasItem(1835))
+                if (Game1.player[Game1.myPlayer].HasItem(1835))
                 {
                     item[index1].SetDefaults(1836, false);
                     ++index1;
                 }
-                if (Main.player[Main.myPlayer].HasItem(3107))
+                if (Game1.player[Game1.myPlayer].HasItem(3107))
                 {
                     item[index1].SetDefaults(3108, false);
                     ++index1;
                 }
-                if (Main.player[Main.myPlayer].HasItem(1782))
+                if (Game1.player[Game1.myPlayer].HasItem(1782))
                 {
                     item[index1].SetDefaults(1783, false);
                     ++index1;
                 }
-                if (Main.player[Main.myPlayer].HasItem(1784))
+                if (Game1.player[Game1.myPlayer].HasItem(1784))
                 {
                     item[index1].SetDefaults(1785, false);
                     ++index1;
                 }
-                if (Main.halloween)
+                if (Game1.halloween)
                 {
                     item[index1].SetDefaults(1736, false);
                     int index4 = index1 + 1;
@@ -762,7 +762,7 @@ namespace GameManager
             else if (type == 3)
             {
                 int index2;
-                if (Main.bloodMoon)
+                if (Game1.bloodMoon)
                 {
                     if (WorldGen.crimson)
                     {
@@ -796,22 +796,22 @@ namespace GameManager
                 int index8 = index7 + 1;
                 item[index8].SetDefaults(747, false);
                 index1 = index8 + 1;
-                if (Main.hardMode)
+                if (Game1.hardMode)
                 {
                     item[index1].SetDefaults(746, false);
                     ++index1;
                 }
-                if (Main.hardMode)
+                if (Game1.hardMode)
                 {
                     item[index1].SetDefaults(369, false);
                     ++index1;
                 }
-                if (Main.shroomTiles > 50)
+                if (Game1.shroomTiles > 50)
                 {
                     item[index1].SetDefaults(194, false);
                     ++index1;
                 }
-                if (Main.halloween)
+                if (Game1.halloween)
                 {
                     item[index1].SetDefaults(1853, false);
                     int index3 = index1 + 1;
@@ -853,7 +853,7 @@ namespace GameManager
                     item[index3].SetDefaults(3221, false);
                     index1 = index3 + 1;
                 }
-                if (Main.hardMode)
+                if (Game1.hardMode)
                 {
                     item[index1].SetDefaults(3222, false);
                     ++index1;
@@ -867,17 +867,17 @@ namespace GameManager
                 int index3 = index2 + 1;
                 item[index3].SetDefaults("Dynamite");
                 index1 = index3 + 1;
-                if (Main.hardMode)
+                if (Game1.hardMode)
                 {
                     item[index1].SetDefaults("Hellfire Arrow");
                     ++index1;
                 }
-                if (Main.hardMode && NPC.downedPlantBoss && NPC.downedPirates)
+                if (Game1.hardMode && NPC.downedPlantBoss && NPC.downedPirates)
                 {
                     item[index1].SetDefaults(937, false);
                     ++index1;
                 }
-                if (Main.hardMode)
+                if (Game1.hardMode)
                 {
                     item[index1].SetDefaults(1347, false);
                     ++index1;
@@ -889,18 +889,18 @@ namespace GameManager
                 int index2 = index1 + 1;
                 item[index2].SetDefaults(981, false);
                 int index3 = index2 + 1;
-                if (Main.dayTime)
+                if (Game1.dayTime)
                 {
                     item[index3].SetDefaults(242, false);
                     ++index3;
                 }
-                if (Main.moonPhase == 0)
+                if (Game1.moonPhase == 0)
                 {
                     item[index3].SetDefaults(245, false);
                     int index4 = index3 + 1;
                     item[index4].SetDefaults(246, false);
                     index3 = index4 + 1;
-                    if (!Main.dayTime)
+                    if (!Game1.dayTime)
                     {
                         Item[] objArray1 = item;
                         int index5 = index3;
@@ -914,7 +914,7 @@ namespace GameManager
                         objArray2[index6].SetDefaults(1289, false);
                     }
                 }
-                else if (Main.moonPhase == 1)
+                else if (Game1.moonPhase == 1)
                 {
                     item[index3].SetDefaults(325, false);
                     int index4 = index3 + 1;
@@ -936,11 +936,11 @@ namespace GameManager
                     item[index5].SetDefaults(505, false);
                     index1 = index5 + 1;
                 }
-                if (Main.bloodMoon)
+                if (Game1.bloodMoon)
                 {
                     item[index1].SetDefaults(322, false);
                     ++index1;
-                    if (!Main.dayTime)
+                    if (!Game1.dayTime)
                     {
                         Item[] objArray1 = item;
                         int index4 = index1;
@@ -956,7 +956,7 @@ namespace GameManager
                 }
                 if (NPC.downedAncientCultist)
                 {
-                    if (Main.dayTime)
+                    if (Game1.dayTime)
                     {
                         Item[] objArray1 = item;
                         int index4 = index1;
@@ -1001,31 +1001,31 @@ namespace GameManager
                     index1 = index6 + num5;
                     objArray3[index6].SetDefaults(3244, false);
                 }
-                if (Main.player[Main.myPlayer].ZoneSnow)
+                if (Game1.player[Game1.myPlayer].ZoneSnow)
                 {
                     item[index1].SetDefaults(1429, false);
                     ++index1;
                 }
-                if (Main.halloween)
+                if (Game1.halloween)
                 {
                     item[index1].SetDefaults(1740, false);
                     ++index1;
                 }
-                if (Main.hardMode)
+                if (Game1.hardMode)
                 {
-                    if (Main.moonPhase == 2)
+                    if (Game1.moonPhase == 2)
                     {
                         item[index1].SetDefaults(869, false);
                         ++index1;
                     }
-                    if (Main.moonPhase == 4)
+                    if (Game1.moonPhase == 4)
                     {
                         item[index1].SetDefaults(864, false);
                         int index4 = index1 + 1;
                         item[index4].SetDefaults(865, false);
                         index1 = index4 + 1;
                     }
-                    if (Main.moonPhase == 6)
+                    if (Game1.moonPhase == 6)
                     {
                         item[index1].SetDefaults(873, false);
                         int index4 = index1 + 1;
@@ -1042,7 +1042,7 @@ namespace GameManager
                     item[index4].SetDefaults(1276, false);
                     index1 = index4 + 1;
                 }
-                if (Main.halloween)
+                if (Game1.halloween)
                 {
                     Item[] objArray1 = item;
                     int index4 = index1;
@@ -1089,7 +1089,7 @@ namespace GameManager
                 int index8 = index7 + 1;
                 item[index8].SetDefaults(3186, false);
                 index1 = index8 + 1;
-                if (Main.halloween)
+                if (Game1.halloween)
                 {
                     item[index1].SetDefaults(1739, false);
                     ++index1;
@@ -1132,7 +1132,7 @@ namespace GameManager
                 int num2 = 1;
                 index1 = index16 + num2;
                 objArray[index16].SetDefaults(2799, false);
-                if (NPC.AnyNPCs(369) && Main.hardMode && Main.moonPhase == 3)
+                if (NPC.AnyNPCs(369) && Game1.hardMode && Game1.moonPhase == 3)
                 {
                     item[index1].SetDefaults(2295, false);
                     ++index1;
@@ -1184,7 +1184,7 @@ namespace GameManager
                 item[index1].SetDefaults(779, false);
                 int index2 = index1 + 1;
                 int index3;
-                if (Main.moonPhase >= 4)
+                if (Game1.moonPhase >= 4)
                 {
                     item[index2].SetDefaults(748, false);
                     index3 = index2 + 1;
@@ -1217,7 +1217,7 @@ namespace GameManager
                 }
                 item[index6].SetDefaults(1263, false);
                 int index7 = index6 + 1;
-                if (Main.eclipse || Main.bloodMoon)
+                if (Game1.eclipse || Game1.bloodMoon)
                 {
                     if (WorldGen.crimson)
                     {
@@ -1230,7 +1230,7 @@ namespace GameManager
                         index1 = index7 + 1;
                     }
                 }
-                else if (Main.player[Main.myPlayer].ZoneHoly)
+                else if (Game1.player[Game1.myPlayer].ZoneHoly)
                 {
                     item[index7].SetDefaults(781, false);
                     index1 = index7 + 1;
@@ -1240,12 +1240,12 @@ namespace GameManager
                     item[index7].SetDefaults(780, false);
                     index1 = index7 + 1;
                 }
-                if (Main.hardMode)
+                if (Game1.hardMode)
                 {
                     item[index1].SetDefaults(1344, false);
                     ++index1;
                 }
-                if (Main.halloween)
+                if (Game1.halloween)
                 {
                     item[index1].SetDefaults(1742, false);
                     ++index1;
@@ -1259,19 +1259,19 @@ namespace GameManager
                 int index3 = index2 + 1;
                 item[index3].SetDefaults(1120, false);
                 index1 = index3 + 1;
-                if (Main.netMode == 1)
+                if (Game1.netMode == 1)
                 {
                     item[index1].SetDefaults(1969, false);
                     ++index1;
                 }
-                if (Main.halloween)
+                if (Game1.halloween)
                 {
                     item[index1].SetDefaults(3248, false);
                     int index4 = index1 + 1;
                     item[index4].SetDefaults(1741, false);
                     index1 = index4 + 1;
                 }
-                if (Main.moonPhase == 0)
+                if (Game1.moonPhase == 0)
                 {
                     item[index1].SetDefaults(2871, false);
                     int index4 = index1 + 1;
@@ -1308,14 +1308,14 @@ namespace GameManager
                 int num6 = 1;
                 index1 = index9 + num6;
                 objArray3[index9].SetDefaults(2738, false);
-                if (Main.player[Main.myPlayer].HasItem(3548))
+                if (Game1.player[Game1.myPlayer].HasItem(3548))
                 {
                     item[index1].SetDefaults(3548, false);
                     ++index1;
                 }
                 if (NPC.AnyNPCs(229))
                     item[index1++].SetDefaults(3369, false);
-                if (Main.hardMode)
+                if (Game1.hardMode)
                 {
                     item[index1].SetDefaults(3214, false);
                     int index10 = index1 + 1;
@@ -1335,32 +1335,32 @@ namespace GameManager
             {
                 item[index1].SetDefaults(771, false);
                 ++index1;
-                if (Main.bloodMoon)
+                if (Game1.bloodMoon)
                 {
                     item[index1].SetDefaults(772, false);
                     ++index1;
                 }
-                if (!Main.dayTime || Main.eclipse)
+                if (!Game1.dayTime || Game1.eclipse)
                 {
                     item[index1].SetDefaults(773, false);
                     ++index1;
                 }
-                if (Main.eclipse)
+                if (Game1.eclipse)
                 {
                     item[index1].SetDefaults(774, false);
                     ++index1;
                 }
-                if (Main.hardMode)
+                if (Game1.hardMode)
                 {
                     item[index1].SetDefaults(760, false);
                     ++index1;
                 }
-                if (Main.hardMode)
+                if (Game1.hardMode)
                 {
                     item[index1].SetDefaults(1346, false);
                     ++index1;
                 }
-                if (Main.halloween)
+                if (Game1.halloween)
                 {
                     item[index1].SetDefaults(1743, false);
                     int index2 = index1 + 1;
@@ -1404,7 +1404,7 @@ namespace GameManager
                 int index7 = index6 + 1;
                 item[index7].SetDefaults(1966, false);
                 int index8 = index7 + 1;
-                if (Main.hardMode)
+                if (Game1.hardMode)
                 {
                     item[index8].SetDefaults(1967, false);
                     int index9 = index8 + 1;
@@ -1413,17 +1413,17 @@ namespace GameManager
                 }
                 item[index8].SetDefaults(1490, false);
                 int index10 = index8 + 1;
-                if (Main.moonPhase <= 1)
+                if (Game1.moonPhase <= 1)
                 {
                     item[index10].SetDefaults(1481, false);
                     index1 = index10 + 1;
                 }
-                else if (Main.moonPhase <= 3)
+                else if (Game1.moonPhase <= 3)
                 {
                     item[index10].SetDefaults(1482, false);
                     index1 = index10 + 1;
                 }
-                else if (Main.moonPhase <= 5)
+                else if (Game1.moonPhase <= 5)
                 {
                     item[index10].SetDefaults(1483, false);
                     index1 = index10 + 1;
@@ -1433,52 +1433,52 @@ namespace GameManager
                     item[index10].SetDefaults(1484, false);
                     index1 = index10 + 1;
                 }
-                if (Main.player[Main.myPlayer].ZoneCrimson)
+                if (Game1.player[Game1.myPlayer].ZoneCrimson)
                 {
                     item[index1].SetDefaults(1492, false);
                     ++index1;
                 }
-                if (Main.player[Main.myPlayer].ZoneCorrupt)
+                if (Game1.player[Game1.myPlayer].ZoneCorrupt)
                 {
                     item[index1].SetDefaults(1488, false);
                     ++index1;
                 }
-                if (Main.player[Main.myPlayer].ZoneHoly)
+                if (Game1.player[Game1.myPlayer].ZoneHoly)
                 {
                     item[index1].SetDefaults(1489, false);
                     ++index1;
                 }
-                if (Main.player[Main.myPlayer].ZoneJungle)
+                if (Game1.player[Game1.myPlayer].ZoneJungle)
                 {
                     item[index1].SetDefaults(1486, false);
                     ++index1;
                 }
-                if (Main.player[Main.myPlayer].ZoneSnow)
+                if (Game1.player[Game1.myPlayer].ZoneSnow)
                 {
                     item[index1].SetDefaults(1487, false);
                     ++index1;
                 }
-                if (Main.sandTiles > 1000)
+                if (Game1.sandTiles > 1000)
                 {
                     item[index1].SetDefaults(1491, false);
                     ++index1;
                 }
-                if (Main.bloodMoon)
+                if (Game1.bloodMoon)
                 {
                     item[index1].SetDefaults(1493, false);
                     ++index1;
                 }
-                if ((double)Main.player[Main.myPlayer].position.Y / 16.0 < Main.worldSurface * 0.349999994039536)
+                if ((double)Game1.player[Game1.myPlayer].position.Y / 16.0 < Game1.worldSurface * 0.349999994039536)
                 {
                     item[index1].SetDefaults(1485, false);
                     ++index1;
                 }
-                if ((double)Main.player[Main.myPlayer].position.Y / 16.0 < Main.worldSurface * 0.349999994039536 && Main.hardMode)
+                if ((double)Game1.player[Game1.myPlayer].position.Y / 16.0 < Game1.worldSurface * 0.349999994039536 && Game1.hardMode)
                 {
                     item[index1].SetDefaults(1494, false);
                     ++index1;
                 }
-                if (Main.xMas)
+                if (Game1.xMas)
                 {
                     for (int Type = 1948; Type <= 1957; ++Type)
                     {
@@ -1507,9 +1507,9 @@ namespace GameManager
                 int index3 = index2 + 1;
                 if (NPC.AnyNPCs(108))
                     item[index3++].SetDefaults(2999, false);
-                if (Main.hardMode && NPC.downedPlantBoss)
+                if (Game1.hardMode && NPC.downedPlantBoss)
                 {
-                    if (Main.player[Main.myPlayer].HasItem(1157))
+                    if (Game1.player[Game1.myPlayer].HasItem(1157))
                     {
                         item[index3].SetDefaults(1159, false);
                         int index4 = index3 + 1;
@@ -1517,12 +1517,12 @@ namespace GameManager
                         int index5 = index4 + 1;
                         item[index5].SetDefaults(1161, false);
                         index3 = index5 + 1;
-                        if (!Main.dayTime)
+                        if (!Game1.dayTime)
                         {
                             item[index3].SetDefaults(1158, false);
                             ++index3;
                         }
-                        if (Main.player[Main.myPlayer].ZoneJungle)
+                        if (Game1.player[Game1.myPlayer].ZoneJungle)
                         {
                             item[index3].SetDefaults(1167, false);
                             ++index3;
@@ -1531,11 +1531,11 @@ namespace GameManager
                     item[index3].SetDefaults(1339, false);
                     ++index3;
                 }
-                if (Main.hardMode && Main.player[Main.myPlayer].ZoneJungle)
+                if (Game1.hardMode && Game1.player[Game1.myPlayer].ZoneJungle)
                 {
                     item[index3].SetDefaults(1171, false);
                     ++index3;
-                    if (!Main.dayTime)
+                    if (!Game1.dayTime)
                     {
                         item[index3].SetDefaults(1162, false);
                         ++index3;
@@ -1557,17 +1557,17 @@ namespace GameManager
                 int index12 = index11 + 1;
                 item[index12].SetDefaults(945, false);
                 index1 = index12 + 1;
-                if (Main.player[Main.myPlayer].HasItem(1835))
+                if (Game1.player[Game1.myPlayer].HasItem(1835))
                 {
                     item[index1].SetDefaults(1836, false);
                     ++index1;
                 }
-                if (Main.player[Main.myPlayer].HasItem(1258))
+                if (Game1.player[Game1.myPlayer].HasItem(1258))
                 {
                     item[index1].SetDefaults(1261, false);
                     ++index1;
                 }
-                if (Main.halloween)
+                if (Game1.halloween)
                 {
                     item[index1].SetDefaults(1791, false);
                     ++index1;
@@ -1587,13 +1587,13 @@ namespace GameManager
                 int index6 = index5 + 1;
                 item[index6].SetDefaults(2434, false);
                 index1 = index6 + 1;
-                int num = (int)((Main.screenPosition.X + (Main.screenWidth / 2)) / 16.0);
-                if (Main.screenPosition.Y / 16.0 < Main.worldSurface + 10.0 && (num < 380 || num > Main.maxTilesX - 380))
+                int num = (int)((Game1.screenPosition.X + (Game1.screenWidth / 2)) / 16.0);
+                if (Game1.screenPosition.Y / 16.0 < Game1.worldSurface + 10.0 && (num < 380 || num > Game1.maxTilesX - 380))
                 {
                     item[index1].SetDefaults(1180, false);
                     ++index1;
                 }
-                if (Main.hardMode && NPC.downedMechBossAny && NPC.AnyNPCs(208))
+                if (Game1.hardMode && NPC.downedMechBossAny && NPC.AnyNPCs(208))
                 {
                     item[index1].SetDefaults(1337, false);
                     ++index1;
@@ -1605,12 +1605,12 @@ namespace GameManager
                 int index2 = index1 + 1;
                 item[index2].SetDefaults(1979, false);
                 index1 = index2 + 1;
-                if (Main.player[Main.myPlayer].statLifeMax >= 400)
+                if (Game1.player[Game1.myPlayer].statLifeMax >= 400)
                 {
                     item[index1].SetDefaults(1977, false);
                     ++index1;
                 }
-                if (Main.player[Main.myPlayer].statManaMax >= 200)
+                if (Game1.player[Game1.myPlayer].statManaMax >= 200)
                 {
                     item[index1].SetDefaults(1978, false);
                     ++index1;
@@ -1618,31 +1618,31 @@ namespace GameManager
                 long num = 0L;
                 for (int index3 = 0; index3 < 54; ++index3)
                 {
-                    if (Main.player[Main.myPlayer].inventory[index3].itemId == 71)
-                        num += Main.player[Main.myPlayer].inventory[index3].stack;
-                    if (Main.player[Main.myPlayer].inventory[index3].itemId == 72)
-                        num += (Main.player[Main.myPlayer].inventory[index3].stack * 100);
-                    if (Main.player[Main.myPlayer].inventory[index3].itemId == 73)
-                        num += (Main.player[Main.myPlayer].inventory[index3].stack * 10000);
-                    if (Main.player[Main.myPlayer].inventory[index3].itemId == 74)
-                        num += (Main.player[Main.myPlayer].inventory[index3].stack * 1000000);
+                    if (Game1.player[Game1.myPlayer].inventory[index3].itemId == 71)
+                        num += Game1.player[Game1.myPlayer].inventory[index3].stack;
+                    if (Game1.player[Game1.myPlayer].inventory[index3].itemId == 72)
+                        num += (Game1.player[Game1.myPlayer].inventory[index3].stack * 100);
+                    if (Game1.player[Game1.myPlayer].inventory[index3].itemId == 73)
+                        num += (Game1.player[Game1.myPlayer].inventory[index3].stack * 10000);
+                    if (Game1.player[Game1.myPlayer].inventory[index3].itemId == 74)
+                        num += (Game1.player[Game1.myPlayer].inventory[index3].stack * 1000000);
                 }
                 if (num >= 1000000L)
                 {
                     item[index1].SetDefaults(1980, false);
                     ++index1;
                 }
-                if (Main.moonPhase % 2 == 0 && Main.dayTime || Main.moonPhase % 2 == 1 && !Main.dayTime)
+                if (Game1.moonPhase % 2 == 0 && Game1.dayTime || Game1.moonPhase % 2 == 1 && !Game1.dayTime)
                 {
                     item[index1].SetDefaults(1981, false);
                     ++index1;
                 }
-                if (Main.player[Main.myPlayer].team != 0)
+                if (Game1.player[Game1.myPlayer].team != 0)
                 {
                     item[index1].SetDefaults(1982, false);
                     ++index1;
                 }
-                if (Main.hardMode)
+                if (Game1.hardMode)
                 {
                     item[index1].SetDefaults(1983, false);
                     ++index1;
@@ -1652,17 +1652,17 @@ namespace GameManager
                     item[index1].SetDefaults(1984, false);
                     ++index1;
                 }
-                if (Main.hardMode && NPC.downedMechBoss1 && (NPC.downedMechBoss2 && NPC.downedMechBoss3))
+                if (Game1.hardMode && NPC.downedMechBoss1 && (NPC.downedMechBoss2 && NPC.downedMechBoss3))
                 {
                     item[index1].SetDefaults(1985, false);
                     ++index1;
                 }
-                if (Main.hardMode && NPC.downedMechBossAny)
+                if (Game1.hardMode && NPC.downedMechBossAny)
                 {
                     item[index1].SetDefaults(1986, false);
                     ++index1;
                 }
-                if (Main.hardMode && NPC.downedMartians)
+                if (Game1.hardMode && NPC.downedMartians)
                 {
                     item[index1].SetDefaults(2863, false);
                     int index3 = index1 + 1;
@@ -1674,40 +1674,40 @@ namespace GameManager
             {
                 for (int index2 = 0; index2 < 40; ++index2)
                 {
-                    if (Main.travelShop[index2] != 0)
+                    if (Game1.travelShop[index2] != 0)
                     {
-                        item[index1].netDefaults(Main.travelShop[index2]);
+                        item[index1].netDefaults(Game1.travelShop[index2]);
                         ++index1;
                     }
                 }
             }
             else if (type == 20)
             {
-                if (Main.moonPhase % 2 == 0)
+                if (Game1.moonPhase % 2 == 0)
                     item[index1].SetDefaults(3001, false);
                 else
                     item[index1].SetDefaults(28, false);
                 int index2 = index1 + 1;
-                if (!Main.dayTime || Main.moonPhase == 0)
+                if (!Game1.dayTime || Game1.moonPhase == 0)
                     item[index2].SetDefaults(3002, false);
                 else
                     item[index2].SetDefaults(282, false);
                 int index3 = index2 + 1;
-                if (Main.time % 60.0 * 60.0 * 6.0 <= 10800.0)
+                if (Game1.time % 60.0 * 60.0 * 6.0 <= 10800.0)
                     item[index3].SetDefaults(3004, false);
                 else
                     item[index3].SetDefaults(8, false);
                 int index4 = index3 + 1;
-                if (Main.moonPhase == 0 || Main.moonPhase == 1 || (Main.moonPhase == 4 || Main.moonPhase == 5))
+                if (Game1.moonPhase == 0 || Game1.moonPhase == 1 || (Game1.moonPhase == 4 || Game1.moonPhase == 5))
                     item[index4].SetDefaults(3003, false);
                 else
                     item[index4].SetDefaults(40, false);
                 int index5 = index4 + 1;
-                if (Main.moonPhase % 4 == 0)
+                if (Game1.moonPhase % 4 == 0)
                     item[index5].SetDefaults(3310, false);
-                else if (Main.moonPhase % 4 == 1)
+                else if (Game1.moonPhase % 4 == 1)
                     item[index5].SetDefaults(3313, false);
-                else if (Main.moonPhase % 4 == 2)
+                else if (Game1.moonPhase % 4 == 2)
                     item[index5].SetDefaults(3312, false);
                 else
                     item[index5].SetDefaults(3311, false);
@@ -1716,28 +1716,28 @@ namespace GameManager
                 int index7 = index6 + 1;
                 item[index7].SetDefaults(965, false);
                 index1 = index7 + 1;
-                if (Main.hardMode)
+                if (Game1.hardMode)
                 {
-                    if (Main.moonPhase < 4)
+                    if (Game1.moonPhase < 4)
                         item[index1].SetDefaults(3316, false);
                     else
                         item[index1].SetDefaults(3315, false);
                     int index8 = index1 + 1;
                     item[index8].SetDefaults(3334, false);
                     index1 = index8 + 1;
-                    if (Main.bloodMoon)
+                    if (Game1.bloodMoon)
                     {
                         item[index1].SetDefaults(3258, false);
                         ++index1;
                     }
                 }
-                if (Main.moonPhase == 0 && !Main.dayTime)
+                if (Game1.moonPhase == 0 && !Game1.dayTime)
                 {
                     item[index1].SetDefaults(3043, false);
                     ++index1;
                 }
             }
-            if (!Main.player[Main.myPlayer].discount)
+            if (!Game1.player[Game1.myPlayer].discount)
                 return;
             for (int index2 = 0; index2 < index1; ++index2)
                 item[index2].value = (int)(item[index2].value * 0.800000011920929);
@@ -1748,12 +1748,12 @@ namespace GameManager
             bool[] flagArray = new bool[1000];
             for (int index = 0; index < 255; ++index)
             {
-                if (Main.player[index].active && Main.player[index].chest >= 0 && Main.player[index].chest < 1000)
-                    flagArray[Main.player[index].chest] = true;
+                if (Game1.player[index].active && Game1.player[index].chest >= 0 && Game1.player[index].chest < 1000)
+                    flagArray[Game1.player[index].chest] = true;
             }
             for (int index = 0; index < 1000; ++index)
             {
-                Chest chest = Main.chest[index];
+                Chest chest = Game1.chest[index];
                 if (chest != null)
                 {
                     if (flagArray[index])
@@ -1774,7 +1774,7 @@ namespace GameManager
 			if (i < 0)
 				return;
 
-			var chest = Main.chest[i];
+			var chest = Game1.chest[i];
 			if (chest == null)
 				return;
 
@@ -1794,14 +1794,14 @@ namespace GameManager
 					npc = NPCID.GoblinTinkerer;
 					break;
 				case 998:
-					NPC.SpawnOnPlayer((int)Player.FindClosest(new Vector2((float)(Main.maxTilesX / 2), (float)Main.worldSurface / 2f) * 16f, 0, 0), 398);
+					NPC.SpawnOnPlayer((int)Player.FindClosest(new Vector2((float)(Game1.maxTilesX / 2), (float)Game1.worldSurface / 2f) * 16f, 0, 0), 398);
 					break;
 				}
 
 				if (npc != -1)
 				{
 					int number = NPC.NewNPC(chest.x * 16 + 16, chest.y * 16 + 32, npc, 0, 0.0f, 0.0f, 0.0f, 0.0f, 255);
-					Main.npc[number].whoAmI = number;
+					Game1.npc[number].whoAmI = number;
 					NetMessage.SendData(23, -1, -1, "", number, 0.0f, 0.0f, 0.0f, 0, 0, 0);
 				}
 			}

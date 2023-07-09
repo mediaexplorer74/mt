@@ -49,24 +49,24 @@ namespace GameManager
                 if (compareItem.itemId != 0)
                 {
                     int num1 = compareItem.stack;
-                    if (this.alchemy && Main.player[Main.myPlayer].alchemyTable)
+                    if (this.alchemy && Game1.player[Game1.myPlayer].alchemyTable)
                     {
                         if (num1 > 1)
                         {
                             int num2 = 0;
                             for (int index2 = 0; index2 < num1; ++index2)
                             {
-                                if (Main.rand.Next(3) == 0)
+                                if (Game1.rand.Next(3) == 0)
                                     ++num2;
                             }
                             num1 -= num2;
                         }
-                        else if (Main.rand.Next(3) == 0)
+                        else if (Game1.rand.Next(3) == 0)
                             num1 = 0;
                     }
                     if (num1 > 0)
                     {
-                        Item[] objArray = Main.player[Main.myPlayer].inventory;
+                        Item[] objArray = Game1.player[Game1.myPlayer].inventory;
                         for (int index2 = 0; index2 < 58; ++index2)
                         {
                             Item obj = objArray[index2];
@@ -89,14 +89,14 @@ namespace GameManager
                             else
                                 break;
                         }
-                        if (Main.player[Main.myPlayer].chest != -1)
+                        if (Game1.player[Game1.myPlayer].chest != -1)
                         {
-                            if (Main.player[Main.myPlayer].chest > -1)
-                                objArray = Main.chest[Main.player[Main.myPlayer].chest].item;
-                            else if (Main.player[Main.myPlayer].chest == -2)
-                                objArray = Main.player[Main.myPlayer].bank.item;
-                            else if (Main.player[Main.myPlayer].chest == -3)
-                                objArray = Main.player[Main.myPlayer].bank2.item;
+                            if (Game1.player[Game1.myPlayer].chest > -1)
+                                objArray = Game1.chest[Game1.player[Game1.myPlayer].chest].item;
+                            else if (Game1.player[Game1.myPlayer].chest == -2)
+                                objArray = Game1.player[Game1.myPlayer].bank.item;
+                            else if (Game1.player[Game1.myPlayer].chest == -3)
+                                objArray = Game1.player[Game1.myPlayer].bank2.item;
                             for (int index2 = 0; index2 < 40; ++index2)
                             {
                                 Item obj = objArray[index2];
@@ -107,16 +107,16 @@ namespace GameManager
                                         if (obj.stack > num1)
                                         {
                                             obj.stack -= num1;
-                                            if (Main.netMode == 1 && Main.player[Main.myPlayer].chest >= 0)
-                                                NetMessage.SendData(32, -1, -1, "", Main.player[Main.myPlayer].chest, (float)index2, 0.0f, 0.0f, 0, 0, 0);
+                                            if (Game1.netMode == 1 && Game1.player[Game1.myPlayer].chest >= 0)
+                                                NetMessage.SendData(32, -1, -1, "", Game1.player[Game1.myPlayer].chest, (float)index2, 0.0f, 0.0f, 0, 0, 0);
                                             num1 = 0;
                                         }
                                         else
                                         {
                                             num1 -= obj.stack;
                                             objArray[index2] = new Item();
-                                            if (Main.netMode == 1 && Main.player[Main.myPlayer].chest >= 0)
-                                                NetMessage.SendData(32, -1, -1, "", Main.player[Main.myPlayer].chest, (float)index2, 0.0f, 0.0f, 0, 0, 0);
+                                            if (Game1.netMode == 1 && Game1.player[Game1.myPlayer].chest >= 0)
+                                                NetMessage.SendData(32, -1, -1, "", Game1.player[Game1.myPlayer].chest, (float)index2, 0.0f, 0.0f, 0, 0, 0);
                                         }
                                     }
                                 }
@@ -130,7 +130,7 @@ namespace GameManager
                     break;
             }
             AchievementsHelper.NotifyItemCraft(this);
-            AchievementsHelper.NotifyItemPickup(Main.player[Main.myPlayer], this.createItem);
+            AchievementsHelper.NotifyItemPickup(Game1.player[Game1.myPlayer], this.createItem);
             Recipe.FindRecipes();
         }
 
@@ -231,21 +231,21 @@ namespace GameManager
 
         public static void FindRecipes()
         {
-            int num1 = Main.availableRecipe[Main.focusRecipe];
-            float num2 = Main.availableRecipeY[Main.focusRecipe];
+            int num1 = Game1.availableRecipe[Game1.focusRecipe];
+            float num2 = Game1.availableRecipeY[Game1.focusRecipe];
             for (int index = 0; index < Recipe.maxRecipes; ++index)
-                Main.availableRecipe[index] = 0;
-            Main.numAvailableRecipes = 0;
-            if (Main.guideItem.itemId > 0 && Main.guideItem.stack > 0 && Main.guideItem.name != "")
+                Game1.availableRecipe[index] = 0;
+            Game1.numAvailableRecipes = 0;
+            if (Game1.guideItem.itemId > 0 && Game1.guideItem.stack > 0 && Game1.guideItem.name != "")
             {
-                for (int index1 = 0; index1 < Recipe.maxRecipes && Main.recipe[index1].createItem.itemId != 0; ++index1)
+                for (int index1 = 0; index1 < Recipe.maxRecipes && Game1.recipe[index1].createItem.itemId != 0; ++index1)
                 {
-                    for (int index2 = 0; index2 < Recipe.maxRequirements && Main.recipe[index1].requiredItem[index2].itemId != 0; ++index2)
+                    for (int index2 = 0; index2 < Recipe.maxRequirements && Game1.recipe[index1].requiredItem[index2].itemId != 0; ++index2)
                     {
-                        if (Main.guideItem.IsTheSameAs(Main.recipe[index1].requiredItem[index2]) || Main.recipe[index1].useWood(Main.guideItem.itemId, Main.recipe[index1].requiredItem[index2].itemId) || (Main.recipe[index1].useSand(Main.guideItem.itemId, Main.recipe[index1].requiredItem[index2].itemId) || Main.recipe[index1].useIronBar(Main.guideItem.itemId, Main.recipe[index1].requiredItem[index2].itemId)) || (Main.recipe[index1].useFragment(Main.guideItem.itemId, Main.recipe[index1].requiredItem[index2].itemId) || Main.recipe[index1].usePressurePlate(Main.guideItem.itemId, Main.recipe[index1].requiredItem[index2].itemId)))
+                        if (Game1.guideItem.IsTheSameAs(Game1.recipe[index1].requiredItem[index2]) || Game1.recipe[index1].useWood(Game1.guideItem.itemId, Game1.recipe[index1].requiredItem[index2].itemId) || (Game1.recipe[index1].useSand(Game1.guideItem.itemId, Game1.recipe[index1].requiredItem[index2].itemId) || Game1.recipe[index1].useIronBar(Game1.guideItem.itemId, Game1.recipe[index1].requiredItem[index2].itemId)) || (Game1.recipe[index1].useFragment(Game1.guideItem.itemId, Game1.recipe[index1].requiredItem[index2].itemId) || Game1.recipe[index1].usePressurePlate(Game1.guideItem.itemId, Game1.recipe[index1].requiredItem[index2].itemId)))
                         {
-                            Main.availableRecipe[Main.numAvailableRecipes] = index1;
-                            ++Main.numAvailableRecipes;
+                            Game1.availableRecipe[Game1.numAvailableRecipes] = index1;
+                            ++Game1.numAvailableRecipes;
                             break;
                         }
                     }
@@ -254,7 +254,7 @@ namespace GameManager
             else
             {
                 Dictionary<int, int> dictionary1 = new Dictionary<int, int>();
-                Item[] objArray = Main.player[Main.myPlayer].inventory;
+                Item[] objArray = Game1.player[Game1.myPlayer].inventory;
                 for (int index1 = 0; index1 < 58; ++index1)
                 {
                     Item obj = objArray[index1];
@@ -270,14 +270,14 @@ namespace GameManager
                             dictionary1[obj.netID] = obj.stack;
                     }
                 }
-                if (Main.player[Main.myPlayer].chest != -1)
+                if (Game1.player[Game1.myPlayer].chest != -1)
                 {
-                    if (Main.player[Main.myPlayer].chest > -1)
-                        objArray = Main.chest[Main.player[Main.myPlayer].chest].item;
-                    else if (Main.player[Main.myPlayer].chest == -2)
-                        objArray = Main.player[Main.myPlayer].bank.item;
-                    else if (Main.player[Main.myPlayer].chest == -3)
-                        objArray = Main.player[Main.myPlayer].bank2.item;
+                    if (Game1.player[Game1.myPlayer].chest > -1)
+                        objArray = Game1.chest[Game1.player[Game1.myPlayer].chest].item;
+                    else if (Game1.player[Game1.myPlayer].chest == -2)
+                        objArray = Game1.player[Game1.myPlayer].bank.item;
+                    else if (Game1.player[Game1.myPlayer].chest == -3)
+                        objArray = Game1.player[Game1.myPlayer].bank2.item;
                     for (int index1 = 0; index1 < 40; ++index1)
                     {
                         Item obj = objArray[index1];
@@ -294,14 +294,14 @@ namespace GameManager
                         }
                     }
                 }
-                for (int index1 = 0; index1 < Recipe.maxRecipes && Main.recipe[index1].createItem.itemId != 0; ++index1)
+                for (int index1 = 0; index1 < Recipe.maxRecipes && Game1.recipe[index1].createItem.itemId != 0; ++index1)
                 {
                     bool flag1 = true;
                     if (flag1)
                     {
-                        for (int index2 = 0; index2 < Recipe.maxRequirements && Main.recipe[index1].requiredTile[index2] != -1; ++index2)
+                        for (int index2 = 0; index2 < Recipe.maxRequirements && Game1.recipe[index1].requiredTile[index2] != -1; ++index2)
                         {
-                            if (!Main.player[Main.myPlayer].adjTile[Main.recipe[index1].requiredTile[index2]])
+                            if (!Game1.player[Game1.myPlayer].adjTile[Game1.recipe[index1].requiredTile[index2]])
                             {
                                 flag1 = false;
                                 break;
@@ -312,14 +312,14 @@ namespace GameManager
                     {
                         for (int index2 = 0; index2 < Recipe.maxRequirements; ++index2)
                         {
-                            Item obj = Main.recipe[index1].requiredItem[index2];
+                            Item obj = Game1.recipe[index1].requiredItem[index2];
                             if (obj.itemId != 0)
                             {
                                 int num3 = obj.stack;
                                 bool flag2 = false;
                                 foreach (int invType in dictionary1.Keys)
                                 {
-                                    if (Main.recipe[index1].useWood(invType, obj.itemId) || Main.recipe[index1].useSand(invType, obj.itemId) || (Main.recipe[index1].useIronBar(invType, obj.itemId) || Main.recipe[index1].useFragment(invType, obj.itemId)) || Main.recipe[index1].usePressurePlate(invType, obj.itemId))
+                                    if (Game1.recipe[index1].useWood(invType, obj.itemId) || Game1.recipe[index1].useSand(invType, obj.itemId) || (Game1.recipe[index1].useIronBar(invType, obj.itemId) || Game1.recipe[index1].useFragment(invType, obj.itemId)) || Game1.recipe[index1].usePressurePlate(invType, obj.itemId))
                                     {
                                         num3 -= dictionary1[invType];
                                         flag2 = true;
@@ -337,30 +337,30 @@ namespace GameManager
                                 break;
                         }
                     }
-                    if (flag1 && (Main.recipe[index1].needWater && (!Main.player[Main.myPlayer].adjWater && !Main.player[Main.myPlayer].adjTile[172]) || Main.recipe[index1].needHoney && Main.recipe[index1].needHoney != Main.player[Main.myPlayer].adjHoney || Main.recipe[index1].needLava && Main.recipe[index1].needLava != Main.player[Main.myPlayer].adjLava))
+                    if (flag1 && (Game1.recipe[index1].needWater && (!Game1.player[Game1.myPlayer].adjWater && !Game1.player[Game1.myPlayer].adjTile[172]) || Game1.recipe[index1].needHoney && Game1.recipe[index1].needHoney != Game1.player[Game1.myPlayer].adjHoney || Game1.recipe[index1].needLava && Game1.recipe[index1].needLava != Game1.player[Game1.myPlayer].adjLava))
                         flag1 = false;
                     if (flag1)
                     {
-                        Main.availableRecipe[Main.numAvailableRecipes] = index1;
-                        ++Main.numAvailableRecipes;
+                        Game1.availableRecipe[Game1.numAvailableRecipes] = index1;
+                        ++Game1.numAvailableRecipes;
                     }
                 }
             }
-            for (int index = 0; index < Main.numAvailableRecipes; ++index)
+            for (int index = 0; index < Game1.numAvailableRecipes; ++index)
             {
-                if (num1 == Main.availableRecipe[index])
+                if (num1 == Game1.availableRecipe[index])
                 {
-                    Main.focusRecipe = index;
+                    Game1.focusRecipe = index;
                     break;
                 }
             }
-            if (Main.focusRecipe >= Main.numAvailableRecipes)
-                Main.focusRecipe = Main.numAvailableRecipes - 1;
-            if (Main.focusRecipe < 0)
-                Main.focusRecipe = 0;
-            float num4 = Main.availableRecipeY[Main.focusRecipe] - num2;
+            if (Game1.focusRecipe >= Game1.numAvailableRecipes)
+                Game1.focusRecipe = Game1.numAvailableRecipes - 1;
+            if (Game1.focusRecipe < 0)
+                Game1.focusRecipe = 0;
+            float num4 = Game1.availableRecipeY[Game1.focusRecipe] - num2;
             for (int index = 0; index < Recipe.maxRecipes; ++index)
-                Main.availableRecipeY[index] -= num4;
+                Game1.availableRecipeY[index] -= num4;
         }
 
         public static void SetupRecipes()
@@ -10022,9 +10022,9 @@ namespace GameManager
             Recipe.PlatformReturn();
             for (int index1 = 0; index1 < Recipe.numRecipes; ++index1)
             {
-                for (int index2 = 0; Main.recipe[index1].requiredItem[index2].itemId > 0; ++index2)
-                    Main.recipe[index1].requiredItem[index2].checkMat();
-                Main.recipe[index1].createItem.checkMat();
+                for (int index2 = 0; Game1.recipe[index1].requiredItem[index2].itemId > 0; ++index2)
+                    Game1.recipe[index1].requiredItem[index2].checkMat();
+                Game1.recipe[index1].createItem.checkMat();
             }
             int num3 = Recipe.numRecipes;
         }
@@ -10034,19 +10034,19 @@ namespace GameManager
             int num = Recipe.numRecipes;
             for (int index1 = 0; index1 < num; ++index1)
             {
-                if (Main.recipe[index1].createItem.createTile == 19 && Main.recipe[index1].requiredItem[1].itemId == 0)
+                if (Game1.recipe[index1].createItem.createTile == 19 && Game1.recipe[index1].requiredItem[1].itemId == 0)
                 {
-                    Recipe.newRecipe.createItem.SetDefaults(Main.recipe[index1].requiredItem[0].itemId, false);
-                    Recipe.newRecipe.createItem.stack = Main.recipe[index1].requiredItem[0].stack;
-                    Recipe.newRecipe.requiredItem[0].SetDefaults(Main.recipe[index1].createItem.itemId, false);
-                    Recipe.newRecipe.requiredItem[0].stack = Main.recipe[index1].createItem.stack;
+                    Recipe.newRecipe.createItem.SetDefaults(Game1.recipe[index1].requiredItem[0].itemId, false);
+                    Recipe.newRecipe.createItem.stack = Game1.recipe[index1].requiredItem[0].stack;
+                    Recipe.newRecipe.requiredItem[0].SetDefaults(Game1.recipe[index1].createItem.itemId, false);
+                    Recipe.newRecipe.requiredItem[0].stack = Game1.recipe[index1].createItem.stack;
                     for (int index2 = 0; index2 < Recipe.newRecipe.requiredTile.Length; ++index2)
-                        Recipe.newRecipe.requiredTile[index2] = Main.recipe[index1].requiredTile[index2];
+                        Recipe.newRecipe.requiredTile[index2] = Game1.recipe[index1].requiredTile[index2];
                     Recipe.AddRecipe();
-                    Recipe recipe = Main.recipe[Recipe.numRecipes - 1];
+                    Recipe recipe = Game1.recipe[Recipe.numRecipes - 1];
                     for (int index2 = Recipe.numRecipes - 2; index2 > index1; --index2)
-                        Main.recipe[index2 + 1] = Main.recipe[index2];
-                    Main.recipe[index1 + 1] = recipe;
+                        Game1.recipe[index2 + 1] = Game1.recipe[index2];
+                    Game1.recipe[index1 + 1] = recipe;
                 }
             }
         }
@@ -10056,19 +10056,19 @@ namespace GameManager
             int num = Recipe.numRecipes;
             for (int index1 = 0; index1 < num; ++index1)
             {
-                if (Main.recipe[index1].createItem.createWall > 0 && Main.recipe[index1].requiredItem[1].itemId == 0 && Main.recipe[index1].requiredItem[0].createWall == -1)
+                if (Game1.recipe[index1].createItem.createWall > 0 && Game1.recipe[index1].requiredItem[1].itemId == 0 && Game1.recipe[index1].requiredItem[0].createWall == -1)
                 {
-                    Recipe.newRecipe.createItem.SetDefaults(Main.recipe[index1].requiredItem[0].itemId, false);
-                    Recipe.newRecipe.createItem.stack = Main.recipe[index1].requiredItem[0].stack;
-                    Recipe.newRecipe.requiredItem[0].SetDefaults(Main.recipe[index1].createItem.itemId, false);
-                    Recipe.newRecipe.requiredItem[0].stack = Main.recipe[index1].createItem.stack;
+                    Recipe.newRecipe.createItem.SetDefaults(Game1.recipe[index1].requiredItem[0].itemId, false);
+                    Recipe.newRecipe.createItem.stack = Game1.recipe[index1].requiredItem[0].stack;
+                    Recipe.newRecipe.requiredItem[0].SetDefaults(Game1.recipe[index1].createItem.itemId, false);
+                    Recipe.newRecipe.requiredItem[0].stack = Game1.recipe[index1].createItem.stack;
                     for (int index2 = 0; index2 < Recipe.newRecipe.requiredTile.Length; ++index2)
-                        Recipe.newRecipe.requiredTile[index2] = Main.recipe[index1].requiredTile[index2];
+                        Recipe.newRecipe.requiredTile[index2] = Game1.recipe[index1].requiredTile[index2];
                     Recipe.AddRecipe();
-                    Recipe recipe = Main.recipe[Recipe.numRecipes - 1];
+                    Recipe recipe = Game1.recipe[Recipe.numRecipes - 1];
                     for (int index2 = Recipe.numRecipes - 2; index2 > index1; --index2)
-                        Main.recipe[index2 + 1] = Main.recipe[index2];
-                    Main.recipe[index1 + 1] = recipe;
+                        Game1.recipe[index2 + 1] = Game1.recipe[index2];
+                    Game1.recipe[index1 + 1] = recipe;
                 }
             }
         }
@@ -10077,7 +10077,7 @@ namespace GameManager
         {
             if (Recipe.newRecipe.requiredTile[0] == 13)
                 Recipe.newRecipe.alchemy = true;
-            Main.recipe[Recipe.numRecipes] = Recipe.newRecipe;
+            Game1.recipe[Recipe.numRecipes] = Recipe.newRecipe;
             Recipe.newRecipe = new Recipe();
             ++Recipe.numRecipes;
         }

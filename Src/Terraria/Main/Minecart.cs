@@ -53,8 +53,8 @@ namespace GameManager
 
         public static void Initialize()
         {
-            if ((double)Main.minecartMountTexture.Width != 50.0)
-                throw new Exception("Be sure to update Minecart.textureWidth to match the actual texture size of " + (object)Main.minecartMountTexture.Width + ".");
+            if ((double)Game1.minecartMountTexture.Width != 50.0)
+                throw new Exception("Be sure to update Minecart.textureWidth to match the actual texture size of " + (object)Game1.minecartMountTexture.Width + ".");
             Minecart._rightSideConnection = new int[36];
             Minecart._leftSideConnection = new int[36];
             Minecart._trackType = new int[36];
@@ -502,11 +502,11 @@ namespace GameManager
                         flag2 = false;
                     else
                         flag8 = true;
-                    tileTrack = Main.tile[index1, index2];
+                    tileTrack = Game1.tile[index1, index2];
                     if (tileTrack == null)
                     {
                         tileTrack = new Tile();
-                        Main.tile[index1, index2] = tileTrack;
+                        Game1.tile[index1, index2] = tileTrack;
                     }
                     flag1 = tileTrack.nactive() && (int)tileTrack.type == 314;
                 }
@@ -705,7 +705,7 @@ namespace GameManager
                                     int num7 = (int)((double)Position.Y / 16.0);
                                     if (fallStart < num7 - 1)
                                     {
-                                        Main.PlaySound(2, (int)Position.X + Width / 2, (int)Position.Y + Height / 2, 53);
+                                        Game1.PlaySound(2, (int)Position.X + Width / 2, (int)Position.Y + Height / 2, 53);
                                         Minecart.WheelSparks(MinecartDust, Position, Width, Height, 10);
                                     }
                                 }
@@ -821,25 +821,25 @@ namespace GameManager
         public static bool FrameTrack(int i, int j, bool pound, bool mute = false)
         {
             int index1 = 0;
-            Tile tileTrack = Main.tile[i, j];
+            Tile tileTrack = Game1.tile[i, j];
             if (tileTrack == null)
             {
                 tileTrack = new Tile();
-                Main.tile[i, j] = tileTrack;
+                Game1.tile[i, j] = tileTrack;
             }
             if (mute && (int)tileTrack.type != 314)
                 return false;
-            if (Main.tile[i - 1, j - 1] != null && (int)Main.tile[i - 1, j - 1].type == 314)
+            if (Game1.tile[i - 1, j - 1] != null && (int)Game1.tile[i - 1, j - 1].type == 314)
                 ++index1;
-            if (Main.tile[i - 1, j] != null && (int)Main.tile[i - 1, j].type == 314)
+            if (Game1.tile[i - 1, j] != null && (int)Game1.tile[i - 1, j].type == 314)
                 index1 += 2;
-            if (Main.tile[i - 1, j + 1] != null && (int)Main.tile[i - 1, j + 1].type == 314)
+            if (Game1.tile[i - 1, j + 1] != null && (int)Game1.tile[i - 1, j + 1].type == 314)
                 index1 += 4;
-            if (Main.tile[i + 1, j - 1] != null && (int)Main.tile[i + 1, j - 1].type == 314)
+            if (Game1.tile[i + 1, j - 1] != null && (int)Game1.tile[i + 1, j - 1].type == 314)
                 index1 += 8;
-            if (Main.tile[i + 1, j] != null && (int)Main.tile[i + 1, j].type == 314)
+            if (Game1.tile[i + 1, j] != null && (int)Game1.tile[i + 1, j].type == 314)
                 index1 += 16;
-            if (Main.tile[i + 1, j + 1] != null && (int)Main.tile[i + 1, j + 1].type == 314)
+            if (Game1.tile[i + 1, j + 1] != null && (int)Game1.tile[i + 1, j + 1].type == 314)
                 index1 += 32;
             int index2 = (int)Minecart.FrontTrack(tileTrack);
             int num1 = (int)Minecart.BackTrack(tileTrack);
@@ -1002,7 +1002,7 @@ namespace GameManager
 
         public static bool GetOnTrack(int tileX, int tileY, ref Vector2 Position, int Width, int Height)
         {
-            Tile tile = Main.tile[tileX, tileY];
+            Tile tile = Game1.tile[tileX, tileY];
             if ((int)tile.type != 314)
                 return false;
             Vector2 vector2_1 = new Vector2((float)(Width / 2) - 25f, (float)(Height / 2));
@@ -1046,7 +1046,7 @@ namespace GameManager
             Vector2 vector2 = Position + new Vector2((float)(Width / 2) - 25f, (float)(Height / 2)) + Minecart._trackMagnetOffset;
             int index1 = (int)((double)vector2.X / 16.0);
             int index2 = (int)((double)vector2.Y / 16.0);
-            return (int)Main.tile[index1, index2].type == 314;
+            return (int)Game1.tile[index1, index2].type == 314;
         }
 
         public static float TrackRotation(ref float rotation, Vector2 Position, int Width, int Height, bool followDown, bool followUp, Action<Vector2> MinecartDust)
@@ -1081,7 +1081,7 @@ namespace GameManager
 
         public static void FlipSwitchTrack(int i, int j)
         {
-            Tile tileTrack = Main.tile[i, j];
+            Tile tileTrack = Game1.tile[i, j];
             short trackID = Minecart.FrontTrack(tileTrack);
             if ((int)trackID == -1)
                 return;
@@ -1150,7 +1150,7 @@ namespace GameManager
                             num10 = 0;
                             break;
                     }
-                    Tile tile = index % 2 != 0 ? Main.tile[i + 1, j + num10] : Main.tile[i - 1, j + num10];
+                    Tile tile = index % 2 != 0 ? Game1.tile[i + 1, j + num10] : Game1.tile[i - 1, j + num10];
                     int num11 = tile == null || !tile.active() || (int)tile.type != 314 ? 0 : (int)tile.color();
                     switch (index)
                     {

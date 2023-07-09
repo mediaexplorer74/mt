@@ -67,21 +67,21 @@ namespace GameManager.Map
         }
         public void Load()
         {
-            if (!Main.mapEnabled)
+            if (!Game1.mapEnabled)
             {
                 return;
             }
-            string text = Main.playerPathName.Substring(0, Main.playerPathName.Length - 4);
+            string text = Game1.playerPathName.Substring(0, Game1.playerPathName.Length - 4);
             string text2 = string.Concat(new object[]
 			{
 				text,
 				Path.DirectorySeparatorChar,
-				Main.worldID,
+				Game1.worldID,
 				".map"
 			});
             if (!FileUtilities.Exists(text2))
             {
-                Main.MapFileMetadata = FileMetadata.FromCurrentSettings(FileType.Map);
+                Game1.MapFileMetadata = FileMetadata.FromCurrentSettings(FileType.Map);
                 return;
             }
             using (MemoryStream memoryStream = new MemoryStream(FileUtilities.ReadAllBytes(text2)))
@@ -91,7 +91,7 @@ namespace GameManager.Map
                     try
                     {
                         int num = binaryReader.ReadInt32();
-                        if (num <= Main.curRelease)
+                        if (num <= Game1.curRelease)
                         {
                             if (num <= 91)
                             {
@@ -101,10 +101,10 @@ namespace GameManager.Map
                             {
                                 MapHelper.LoadMapVersion2(binaryReader, num);
                             }
-                            Main.clearMap = true;
-                            Main.loadMap = true;
-                            Main.loadMapLock = true;
-                            Main.refreshMap = false;
+                            Game1.clearMap = true;
+                            Game1.loadMap = true;
+                            Game1.loadMapLock = true;
+                            Game1.refreshMap = false;
                         }
                     }
                     catch (Exception value)

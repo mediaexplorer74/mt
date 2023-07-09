@@ -35,7 +35,7 @@ namespace GameManager.GameContent.UI.Elements
 
         public void SetText(string text, float textScale, bool large)
         {
-            Vector2 vector2 = new Vector2((large ? Main.fontDeathText : Main.fontMouseText).MeasureString(text).X, large ? 32f : 16f) * textScale;
+            Vector2 vector2 = new Vector2((large ? Game1.fontDeathText : Game1.fontMouseText).MeasureString(text).X, large ? 32f : 16f) * textScale;
             _text = text;
             _textScale = textScale;
             _textSize = vector2;

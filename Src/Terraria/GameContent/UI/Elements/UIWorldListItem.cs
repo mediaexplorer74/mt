@@ -130,13 +130,13 @@ namespace GameManager.GameContent.UI.Elements
 
         private void DeleteButtonClick(UIMouseEvent evt, UIElement listeningElement)
         {
-            for (int index = 0; index < Main.WorldList.Count; ++index)
+            for (int index = 0; index < Game1.WorldList.Count; ++index)
             {
-                if (Main.WorldList[index] == _data)
+                if (Game1.WorldList[index] == _data)
                 {
-                    Main.PlaySound(10, -1, -1, 1);
-                    Main.selectedWorld = index;
-                    Main.menuMode = 9;
+                    Game1.PlaySound(10, -1, -1, 1);
+                    Game1.selectedWorld = index;
+                    Game1.menuMode = 9;
                     break;
                 }
             }
@@ -148,10 +148,10 @@ namespace GameManager.GameContent.UI.Elements
                 return;
 
             _data.SetAsActive();
-            Main.PlaySound(10, -1, -1, 1);
-            Main.GetInputText("");
-            Main.menuMode = 889;
-            if (Main.menuMultiplayer)
+            Game1.PlaySound(10, -1, -1, 1);
+            Game1.GetInputText("");
+            Game1.menuMode = 889;
+            if (Game1.menuMultiplayer)
                 return;
             WorldGen.playWorld();
         }
@@ -226,21 +226,21 @@ namespace GameManager.GameContent.UI.Elements
             float width1 = 80f;
             DrawPanel(spriteBatch, position, width1);
             string text1 = _data.IsExpertMode ? "Expert" : "Normal";
-            float num1 = Main.fontMouseText.MeasureString(text1).X;
+            float num1 = Game1.fontMouseText.MeasureString(text1).X;
             float x2 = (float)(width1 * 0.5 - num1 * 0.5);
             Utils.DrawBorderString(spriteBatch, text1, position + new Vector2(x2, 3f), _data.IsExpertMode ? new Color(217, 143, 244) : Color.White, 1f, 0.0f, 0.0f, -1);
             position.X += width1 + 5f;
             float width2 = 140f;
             DrawPanel(spriteBatch, position, width2);
             string text2 = _data.WorldSizeName + " World";
-            float num2 = Main.fontMouseText.MeasureString(text2).X;
+            float num2 = Game1.fontMouseText.MeasureString(text2).X;
             float x3 = (float)(width2 * 0.5 - num2 * 0.5);
             Utils.DrawBorderString(spriteBatch, text2, position + new Vector2(x3, 3f), Color.White, 1f, 0.0f, 0.0f, -1);
             position.X += width2 + 5f;
             float width3 = innerDimensions.X + innerDimensions.Width - position.X;
             DrawPanel(spriteBatch, position, width3);
             string text3 = "Created: " + _data.CreationTime.ToString("d MMMM yyyy");
-            float num3 = Main.fontMouseText.MeasureString(text3).X;
+            float num3 = Game1.fontMouseText.MeasureString(text3).X;
             float x4 = (float)(width3 * 0.5 - num3 * 0.5);
             Utils.DrawBorderString(spriteBatch, text3, position + new Vector2(x4, 3f), Color.White, 1f, 0.0f, 0.0f, -1);
             position.X += width3 + 5f;

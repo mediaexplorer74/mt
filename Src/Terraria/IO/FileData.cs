@@ -40,7 +40,7 @@ namespace GameManager.IO
         {
             Type = type;
             _path = path;
-            _isFavorite = Main.LocalFavoriteData.IsFavorite(this);
+            _isFavorite = Game1.LocalFavoriteData.IsFavorite(this);
         }
 
         public void ToggleFavorite()
@@ -59,7 +59,7 @@ namespace GameManager.IO
             if (!saveChanges)
                 return;
 
-            Main.LocalFavoriteData.SaveFavorite(this);
+            Game1.LocalFavoriteData.SaveFavorite(this);
         }
 
         public abstract void SetAsActive();

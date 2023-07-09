@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 
@@ -89,8 +90,10 @@ namespace GameManager.IO
         public bool Save(bool createFile = true)
         {
             bool result;
-            lock (_lock)
-            {
+
+            // RnD
+            //lock (_lock)
+            //{
                 try
                 {
                     if (OnSave != null)
@@ -124,14 +127,16 @@ namespace GameManager.IO
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Unable to write file at: " + _path);
-                    Console.WriteLine(ex.ToString());
-                    Monitor.Exit(_lock);
+                    Debug.WriteLine("Unable to write file at: " + _path);
+                    Debug.WriteLine(ex.ToString());
+                    
+                    //RnD
+                    //Monitor.Exit(_lock);
                     result = false;
-                    return result;
+                    //return result;
                 }
                 result = true;
-            }
+            //}
             return result;
         }
 

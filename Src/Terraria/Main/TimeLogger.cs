@@ -109,7 +109,7 @@ namespace GameManager
             {
                 TimeLogger.startLoggingNextFrame = true;
                 TimeLogger.endLoggingThisFrame = false;
-                Main.NewText("Detailed logging started", (byte)250, (byte)250, (byte)0, false);
+                Game1.NewText("Detailed logging started", (byte)250, (byte)250, (byte)0, false);
             }
         }
 
@@ -136,7 +136,7 @@ namespace GameManager
                 }
                 catch
                 {
-                    Main.NewText("Detailed logging could not be started.", (byte)250, (byte)250, (byte)0, false);
+                    Game1.NewText("Detailed logging could not be started.", (byte)250, (byte)250, (byte)0, false);
                 }
             }
             if (TimeLogger.currentlyLogging)
@@ -165,7 +165,7 @@ namespace GameManager
                 ++TimeLogger.currentFrame;
                 if (TimeLogger.currentFrame > TimeLogger.framesToLog)
                 {
-                    Main.NewText("Detailed logging ended.", (byte)250, (byte)250, (byte)0, false);
+                    Game1.NewText("Detailed logging ended.", (byte)250, (byte)250, (byte)0, false);
                     TimeLogger.logWriter.Write(TimeLogger.logBuilder.ToString());
                     TimeLogger.logBuilder.Clear();
                     TimeLogger.logBuilder = (StringBuilder)null;

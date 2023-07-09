@@ -90,8 +90,8 @@ namespace GameManager
                 for (int index = 0; index < Lighting.threadSwipes.Length; ++index)
                     Lighting.threadSwipes[index] = new Lighting.LightingSwipeData();
             }
-            int length1 = Main.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10;
-            int length2 = Main.screenHeight / 16 + Lighting.offScreenTiles * 2 + 10;
+            int length1 = Game1.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10;
+            int length2 = Game1.screenHeight / 16 + Lighting.offScreenTiles * 2 + 10;
             if (Lighting.states != null && Lighting.states.Length >= length1 && Lighting.states[0].Length >= length2)
                 return;
             Lighting.states = new Lighting.LightingState[length1][];
@@ -113,11 +113,11 @@ namespace GameManager
 
         public static void LightTiles(int firstX, int lastX, int firstY, int lastY)
         {
-            Main.render = true;
+            Game1.render = true;
             Lighting.oldSkyColor = Lighting.skyColor;
-            float num1 = (float)Main.tileColor.R / (float)byte.MaxValue;
-            float num2 = (float)Main.tileColor.G / (float)byte.MaxValue;
-            float num3 = (float)Main.tileColor.B / (float)byte.MaxValue;
+            float num1 = (float)Game1.tileColor.R / (float)byte.MaxValue;
+            float num2 = (float)Game1.tileColor.G / (float)byte.MaxValue;
+            float num3 = (float)Game1.tileColor.B / (float)byte.MaxValue;
             Lighting.skyColor = (float)(((double)num1 + (double)num2 + (double)num3) / 3.0);
             if (Lighting.lightMode < 2)
             {
@@ -131,7 +131,7 @@ namespace GameManager
                 Lighting.offScreenTiles2 = 18;
                 Lighting.offScreenTiles = 23;
             }
-            if (Main.player[Main.myPlayer].blind)
+            if (Game1.player[Game1.myPlayer].blind)
                 Lighting.brightness = 1f;
             Lighting.defBrightness = Lighting.brightness;
             Lighting.firstTileX = firstX;
@@ -144,24 +144,24 @@ namespace GameManager
             Lighting.lastToLightY = Lighting.lastTileY + Lighting.offScreenTiles;
             if (Lighting.firstToLightX < 0)
                 Lighting.firstToLightX = 0;
-            if (Lighting.lastToLightX >= Main.maxTilesX)
-                Lighting.lastToLightX = Main.maxTilesX - 1;
+            if (Lighting.lastToLightX >= Game1.maxTilesX)
+                Lighting.lastToLightX = Game1.maxTilesX - 1;
             if (Lighting.firstToLightY < 0)
                 Lighting.firstToLightY = 0;
-            if (Lighting.lastToLightY >= Main.maxTilesY)
-                Lighting.lastToLightY = Main.maxTilesY - 1;
+            if (Lighting.lastToLightY >= Game1.maxTilesY)
+                Lighting.lastToLightY = Game1.maxTilesY - 1;
             ++Lighting.lightCounter;
-            ++Main.renderCount;
-            int num4 = Main.screenWidth / 16 + Lighting.offScreenTiles * 2;
-            int num5 = Main.screenHeight / 16 + Lighting.offScreenTiles * 2;
-            Vector2 vector2_1 = Main.screenLastPosition;
-            if (Main.renderCount < 3)
+            ++Game1.renderCount;
+            int num4 = Game1.screenWidth / 16 + Lighting.offScreenTiles * 2;
+            int num5 = Game1.screenHeight / 16 + Lighting.offScreenTiles * 2;
+            Vector2 vector2_1 = Game1.screenLastPosition;
+            if (Game1.renderCount < 3)
                 Lighting.doColors();
-            if (Main.renderCount == 2)
+            if (Game1.renderCount == 2)
             {
-                Vector2 vector2_2 = Main.screenPosition;
-                int num6 = (int)((double)Main.screenPosition.X / 16.0) - Lighting.scrX;
-                int num7 = (int)((double)Main.screenPosition.Y / 16.0) - Lighting.scrY;
+                Vector2 vector2_2 = Game1.screenPosition;
+                int num6 = (int)((double)Game1.screenPosition.X / 16.0) - Lighting.scrX;
+                int num7 = (int)((double)Game1.screenPosition.Y / 16.0) - Lighting.scrY;
                 if (num6 > 16)
                     num6 = 0;
                 if (num7 > 16)
@@ -211,9 +211,9 @@ namespace GameManager
                     }
                 }
             }
-            else if (!Main.renderNow)
+            else if (!Game1.renderNow)
             {
-                int num6 = (int)((double)Main.screenPosition.X / 16.0) - (int)((double)vector2_1.X / 16.0);
+                int num6 = (int)((double)Game1.screenPosition.X / 16.0) - (int)((double)vector2_1.X / 16.0);
                 if (num6 > 5 || num6 < -5)
                     num6 = 0;
                 int num7;
@@ -232,7 +232,7 @@ namespace GameManager
                     num8 = 0;
                     num9 = num4 - num6;
                 }
-                int num10 = (int)((double)Main.screenPosition.Y / 16.0) - (int)((double)vector2_1.Y / 16.0);
+                int num10 = (int)((double)Game1.screenPosition.Y / 16.0) - (int)((double)vector2_1.Y / 16.0);
                 if (num10 > 5 || num10 < -5)
                     num10 = 0;
                 int num11;
@@ -272,26 +272,26 @@ namespace GameManager
                     }
                 }
                 if (Netplay.Connection.StatusMax > 0)
-                    Main.mapTime = 1;
-                if (Main.mapTime == 0 && Main.mapEnabled)
+                    Game1.mapTime = 1;
+                if (Game1.mapTime == 0 && Game1.mapEnabled)
                 {
-                    if (Main.renderCount == 3)
+                    if (Game1.renderCount == 3)
                     {
                         try
                         {
-                            Main.mapTime = Main.mapTimeMax;
-                            Main.updateMap = true;
-                            Main.mapMinX = Lighting.firstToLightX + Lighting.offScreenTiles;
-                            Main.mapMaxX = Lighting.lastToLightX - Lighting.offScreenTiles;
-                            Main.mapMinY = Lighting.firstToLightY + Lighting.offScreenTiles;
-                            Main.mapMaxY = Lighting.lastToLightY - Lighting.offScreenTiles;
-                            for (int x = Main.mapMinX; x < Main.mapMaxX; ++x)
+                            Game1.mapTime = Game1.mapTimeMax;
+                            Game1.updateMap = true;
+                            Game1.mapMinX = Lighting.firstToLightX + Lighting.offScreenTiles;
+                            Game1.mapMaxX = Lighting.lastToLightX - Lighting.offScreenTiles;
+                            Game1.mapMinY = Lighting.firstToLightY + Lighting.offScreenTiles;
+                            Game1.mapMaxY = Lighting.lastToLightY - Lighting.offScreenTiles;
+                            for (int x = Game1.mapMinX; x < Game1.mapMaxX; ++x)
                             {
                                 Lighting.LightingState[] lightingStateArray = Lighting.states[x - Lighting.firstTileX + Lighting.offScreenTiles];
-                                for (int y = Main.mapMinY; y < Main.mapMaxY; ++y)
+                                for (int y = Game1.mapMinY; y < Game1.mapMaxY; ++y)
                                 {
                                     Lighting.LightingState lightingState = lightingStateArray[y - Lighting.firstTileY + Lighting.offScreenTiles];
-                                    Tile tile = Main.tile[x, y];
+                                    Tile tile = Game1.tile[x, y];
                                     float num14 = 0.0f;
                                     if ((double)lightingState.r > (double)num14)
                                         num14 = lightingState.r;
@@ -302,13 +302,13 @@ namespace GameManager
                                     if (Lighting.lightMode < 2)
                                         num14 *= 1.5f;
                                     byte light = (byte)Math.Min((float)byte.MaxValue, num14 * (float)byte.MaxValue);
-                                    if ((double)y < Main.worldSurface && !tile.active() && ((int)tile.wall == 0 && (int)tile.liquid == 0))
+                                    if ((double)y < Game1.worldSurface && !tile.active() && ((int)tile.wall == 0 && (int)tile.liquid == 0))
                                         light = (byte)22;
-                                    if ((int)light > 18 || (int)Main.Map[x, y].Light > 0)
+                                    if ((int)light > 18 || (int)Game1.Map[x, y].Light > 0)
                                     {
                                         if ((int)light < 22)
                                             light = (byte)22;
-                                        Main.Map.UpdateLighting(x, y, light);
+                                        Game1.Map.UpdateLighting(x, y, light);
                                     }
                                 }
                             }
@@ -323,8 +323,8 @@ namespace GameManager
                     int num14 = Lighting.firstToLightX;
                     int num15 = Lighting.firstToLightY;
                     int num16 = Lighting.lastToLightX;
-                    int num17 = (double)Lighting.lastToLightY < Main.worldSurface ? Lighting.lastToLightY : (int)Main.worldSurface - 1;
-                    if ((double)num15 < Main.worldSurface)
+                    int num17 = (double)Lighting.lastToLightY < Game1.worldSurface ? Lighting.lastToLightY : (int)Game1.worldSurface - 1;
+                    if ((double)num15 < Game1.worldSurface)
                     {
                         for (int index1 = num14; index1 < num16; ++index1)
                         {
@@ -332,13 +332,13 @@ namespace GameManager
                             for (int index2 = num15; index2 < num17; ++index2)
                             {
                                 Lighting.LightingState lightingState = lightingStateArray[index2 - Lighting.firstToLightY];
-                                Tile tile = Main.tile[index1, index2];
+                                Tile tile = Game1.tile[index1, index2];
                                 if (tile == null)
                                 {
                                     tile = new Tile();
-                                    Main.tile[index1, index2] = tile;
+                                    Game1.tile[index1, index2] = tile;
                                 }
-                                if ((!tile.active() || !Main.tileNoSunLight[(int)tile.type]) && ((double)lightingState.r < (double)Lighting.skyColor && (int)tile.liquid < 200) && (Main.wallLight[(int)tile.wall] || (int)tile.wall == 73))
+                                if ((!tile.active() || !Game1.tileNoSunLight[(int)tile.type]) && ((double)lightingState.r < (double)Lighting.skyColor && (int)tile.liquid < 200) && (Game1.wallLight[(int)tile.wall] || (int)tile.wall == 73))
                                 {
                                     lightingState.r = num1;
                                     if ((double)lightingState.g < (double)Lighting.skyColor)
@@ -353,22 +353,22 @@ namespace GameManager
             }
             else
                 Lighting.lightCounter = 0;
-            if (Main.renderCount <= Lighting.maxRenderCount)
+            if (Game1.renderCount <= Lighting.maxRenderCount)
                 return;
             Lighting.PreRenderPhase();
         }
 
         public static void PreRenderPhase()
         {
-            float num1 = (float)Main.tileColor.R / (float)byte.MaxValue;
-            float num2 = (float)Main.tileColor.G / (float)byte.MaxValue;
-            float num3 = (float)Main.tileColor.B / (float)byte.MaxValue;
+            float num1 = (float)Game1.tileColor.R / (float)byte.MaxValue;
+            float num2 = (float)Game1.tileColor.G / (float)byte.MaxValue;
+            float num3 = (float)Game1.tileColor.B / (float)byte.MaxValue;
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             int num4 = 0;
-            int num5 = Main.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10;
+            int num5 = Game1.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10;
             int num6 = 0;
-            int num7 = Main.screenHeight / 16 + Lighting.offScreenTiles * 2 + 10;
+            int num7 = Game1.screenHeight / 16 + Lighting.offScreenTiles * 2 + 10;
             Lighting.minX = num5;
             Lighting.maxX = num4;
             Lighting.minY = num7;
@@ -388,20 +388,20 @@ namespace GameManager
                     lightingState.honeyLight = false;
                 }
             }
-            if (Main.wof >= 0)
+            if (Game1.wof >= 0)
             {
-                if (Main.player[Main.myPlayer].gross)
+                if (Game1.player[Game1.myPlayer].gross)
                 {
                     try
                     {
-                        int num8 = (int)Main.screenPosition.Y / 16 - 10;
-                        int num9 = (int)((double)Main.screenPosition.Y + (double)Main.screenHeight) / 16 + 10;
-                        int num10 = (int)Main.npc[Main.wof].position.X / 16;
-                        int num11 = Main.npc[Main.wof].direction <= 0 ? num10 + 2 : num10 - 3;
+                        int num8 = (int)Game1.screenPosition.Y / 16 - 10;
+                        int num9 = (int)((double)Game1.screenPosition.Y + (double)Game1.screenHeight) / 16 + 10;
+                        int num10 = (int)Game1.npc[Game1.wof].position.X / 16;
+                        int num11 = Game1.npc[Game1.wof].direction <= 0 ? num10 + 2 : num10 - 3;
                         int num12 = num11 + 8;
-                        float num13 = (float)(0.5 * (double)Main.demonTorch + 1.0 * (1.0 - (double)Main.demonTorch));
+                        float num13 = (float)(0.5 * (double)Game1.demonTorch + 1.0 * (1.0 - (double)Game1.demonTorch));
                         float num14 = 0.3f;
-                        float num15 = (float)(1.0 * (double)Main.demonTorch + 0.5 * (1.0 - (double)Main.demonTorch));
+                        float num15 = (float)(1.0 * (double)Game1.demonTorch + 0.5 * (1.0 - (double)Game1.demonTorch));
                         float num16 = num13 * 0.2f;
                         float num17 = num14 * 0.1f;
                         float num18 = num15 * 0.3f;
@@ -425,59 +425,59 @@ namespace GameManager
                     }
                 }
             }
-            Main.sandTiles = 0;
-            Main.evilTiles = 0;
-            Main.bloodTiles = 0;
-            Main.shroomTiles = 0;
-            Main.snowTiles = 0;
-            Main.holyTiles = 0;
-            Main.meteorTiles = 0;
-            Main.jungleTiles = 0;
-            Main.dungeonTiles = 0;
-            Main.campfire = false;
-            Main.sunflower = false;
-            Main.starInBottle = false;
-            Main.heartLantern = false;
-            Main.campfire = false;
-            Main.clock = false;
-            Main.musicBox = -1;
-            Main.waterCandles = 0;
-            for (int index = 0; index < Main.player[Main.myPlayer].NPCBannerBuff.Length; ++index)
-                Main.player[Main.myPlayer].NPCBannerBuff[index] = false;
-            Main.player[Main.myPlayer].hasBanner = false;
+            Game1.sandTiles = 0;
+            Game1.evilTiles = 0;
+            Game1.bloodTiles = 0;
+            Game1.shroomTiles = 0;
+            Game1.snowTiles = 0;
+            Game1.holyTiles = 0;
+            Game1.meteorTiles = 0;
+            Game1.jungleTiles = 0;
+            Game1.dungeonTiles = 0;
+            Game1.campfire = false;
+            Game1.sunflower = false;
+            Game1.starInBottle = false;
+            Game1.heartLantern = false;
+            Game1.campfire = false;
+            Game1.clock = false;
+            Game1.musicBox = -1;
+            Game1.waterCandles = 0;
+            for (int index = 0; index < Game1.player[Game1.myPlayer].NPCBannerBuff.Length; ++index)
+                Game1.player[Game1.myPlayer].NPCBannerBuff[index] = false;
+            Game1.player[Game1.myPlayer].hasBanner = false;
             int[] numArray = WorldGen.tileCounts;
             int num19 = Lighting.firstToLightX;
             int num20 = Lighting.lastToLightX;
             int num21 = Lighting.firstToLightY;
             int num22 = Lighting.lastToLightY;
-            int num23 = (num20 - num19 - Main.zoneX) / 2;
-            int num24 = (num22 - num21 - Main.zoneY) / 2;
-            Main.fountainColor = -1;
-            Main.monolithType = -1;
+            int num23 = (num20 - num19 - Game1.zoneX) / 2;
+            int num24 = (num22 - num21 - Game1.zoneY) / 2;
+            Game1.fountainColor = -1;
+            Game1.monolithType = -1;
             for (int index1 = num19; index1 < num20; ++index1)
             {
                 Lighting.LightingState[] lightingStateArray = Lighting.states[index1 - Lighting.firstToLightX];
                 for (int index2 = num21; index2 < num22; ++index2)
                 {
                     Lighting.LightingState lightingState = lightingStateArray[index2 - Lighting.firstToLightY];
-                    Tile tile = Main.tile[index1, index2];
+                    Tile tile = Game1.tile[index1, index2];
                     if (tile == null)
                     {
                         tile = new Tile();
-                        Main.tile[index1, index2] = tile;
+                        Game1.tile[index1, index2] = tile;
                     }
                     float num8 = 0.0f;
                     float num9 = 0.0f;
                     float num10 = 0.0f;
-                    if ((double)index2 < Main.worldSurface)
+                    if ((double)index2 < Game1.worldSurface)
                     {
-                        if ((!tile.active() || !Main.tileNoSunLight[(int)tile.type] || ((int)tile.slope() != 0 || tile.halfBrick()) && ((int)Main.tile[index1, index2 - 1].liquid == 0 && (int)Main.tile[index1, index2 + 1].liquid == 0) && ((int)Main.tile[index1 - 1, index2].liquid == 0 && (int)Main.tile[index1 + 1, index2].liquid == 0)) && ((double)lightingState.r2 < (double)Lighting.skyColor && (Main.wallLight[(int)tile.wall] || (int)tile.wall == 73) && ((int)tile.liquid < 200 && (!tile.halfBrick() || (int)Main.tile[index1, index2 - 1].liquid < 200))))
+                        if ((!tile.active() || !Game1.tileNoSunLight[(int)tile.type] || ((int)tile.slope() != 0 || tile.halfBrick()) && ((int)Game1.tile[index1, index2 - 1].liquid == 0 && (int)Game1.tile[index1, index2 + 1].liquid == 0) && ((int)Game1.tile[index1 - 1, index2].liquid == 0 && (int)Game1.tile[index1 + 1, index2].liquid == 0)) && ((double)lightingState.r2 < (double)Lighting.skyColor && (Game1.wallLight[(int)tile.wall] || (int)tile.wall == 73) && ((int)tile.liquid < 200 && (!tile.halfBrick() || (int)Game1.tile[index1, index2 - 1].liquid < 200))))
                         {
                             num8 = num1;
                             num9 = num2;
                             num10 = num3;
                         }
-                        if ((!tile.active() || tile.halfBrick() || !Main.tileNoSunLight[(int)tile.type]) && ((int)tile.wall >= 88 && (int)tile.wall <= 93 && (int)tile.liquid < (int)byte.MaxValue))
+                        if ((!tile.active() || tile.halfBrick() || !Game1.tileNoSunLight[(int)tile.type]) && ((int)tile.wall >= 88 && (int)tile.wall <= 93 && (int)tile.liquid < (int)byte.MaxValue))
                         {
                             num8 = num1;
                             num9 = num2;
@@ -512,9 +512,9 @@ namespace GameManager
                                 case (byte)93:
                                     float num11 = 0.2f;
                                     float num12 = 0.7f - num11;
-                                    num8 *= num12 + (float)Main.DiscoR / (float)byte.MaxValue * num11;
-                                    num9 *= num12 + (float)Main.DiscoG / (float)byte.MaxValue * num11;
-                                    num10 *= num12 + (float)Main.DiscoB / (float)byte.MaxValue * num11;
+                                    num8 *= num12 + (float)Game1.DiscoR / (float)byte.MaxValue * num11;
+                                    num9 *= num12 + (float)Game1.DiscoG / (float)byte.MaxValue * num11;
+                                    num10 *= num12 + (float)Game1.DiscoB / (float)byte.MaxValue * num11;
                                     break;
                             }
                         }
@@ -532,16 +532,16 @@ namespace GameManager
                         if ((double)lightingState.b2 < (double)num10)
                             lightingState.b2 = num10;
                     }
-                    float num13 = (float)(0.550000011920929 + Math.Sin((double)Main.GlobalTime * 2.0) * 0.0799999982118607);
-                    if (index2 > Main.maxTilesY - 200)
+                    float num13 = (float)(0.550000011920929 + Math.Sin((double)Game1.GlobalTime * 2.0) * 0.0799999982118607);
+                    if (index2 > Game1.maxTilesY - 200)
                     {
-                        if ((!tile.active() || !Main.tileNoSunLight[(int)tile.type] || ((int)tile.slope() != 0 || tile.halfBrick()) && ((int)Main.tile[index1, index2 - 1].liquid == 0 && (int)Main.tile[index1, index2 + 1].liquid == 0) && ((int)Main.tile[index1 - 1, index2].liquid == 0 && (int)Main.tile[index1 + 1, index2].liquid == 0)) && ((double)lightingState.r2 < (double)num13 && (Main.wallLight[(int)tile.wall] || (int)tile.wall == 73) && ((int)tile.liquid < 200 && (!tile.halfBrick() || (int)Main.tile[index1, index2 - 1].liquid < 200))))
+                        if ((!tile.active() || !Game1.tileNoSunLight[(int)tile.type] || ((int)tile.slope() != 0 || tile.halfBrick()) && ((int)Game1.tile[index1, index2 - 1].liquid == 0 && (int)Game1.tile[index1, index2 + 1].liquid == 0) && ((int)Game1.tile[index1 - 1, index2].liquid == 0 && (int)Game1.tile[index1 + 1, index2].liquid == 0)) && ((double)lightingState.r2 < (double)num13 && (Game1.wallLight[(int)tile.wall] || (int)tile.wall == 73) && ((int)tile.liquid < 200 && (!tile.halfBrick() || (int)Game1.tile[index1, index2 - 1].liquid < 200))))
                         {
                             num8 = num13;
                             num9 = num13 * 0.6f;
                             num10 = num13 * 0.2f;
                         }
-                        if ((!tile.active() || tile.halfBrick() || !Main.tileNoSunLight[(int)tile.type]) && ((int)tile.wall >= 88 && (int)tile.wall <= 93 && (int)tile.liquid < (int)byte.MaxValue))
+                        if ((!tile.active() || tile.halfBrick() || !Game1.tileNoSunLight[(int)tile.type]) && ((int)tile.wall >= 88 && (int)tile.wall <= 93 && (int)tile.liquid < (int)byte.MaxValue))
                         {
                             num8 = num13;
                             num9 = num13 * 0.6f;
@@ -576,9 +576,9 @@ namespace GameManager
                                 case (byte)93:
                                     float num11 = 0.2f;
                                     float num12 = 0.7f - num11;
-                                    num8 *= num12 + (float)Main.DiscoR / (float)byte.MaxValue * num11;
-                                    num9 *= num12 + (float)Main.DiscoG / (float)byte.MaxValue * num11;
-                                    num10 *= num12 + (float)Main.DiscoB / (float)byte.MaxValue * num11;
+                                    num8 *= num12 + (float)Game1.DiscoR / (float)byte.MaxValue * num11;
+                                    num9 *= num12 + (float)Game1.DiscoG / (float)byte.MaxValue * num11;
+                                    num10 *= num12 + (float)Game1.DiscoB / (float)byte.MaxValue * num11;
                                     break;
                             }
                         }
@@ -603,22 +603,22 @@ namespace GameManager
                         {
                             if ((int)num14 != 44)
                             {
-                                if ((int)num14 == 137 && (!tile.active() || !Main.tileBlockLight[(int)tile.type]))
+                                if ((int)num14 == 137 && (!tile.active() || !Game1.tileBlockLight[(int)tile.type]))
                                 {
-                                    float num11 = 0.4f + (float)(270 - (int)Main.mouseTextColor) / 1500f + (float)Main.rand.Next(0, 50) * 0.0005f;
+                                    float num11 = 0.4f + (float)(270 - (int)Game1.mouseTextColor) / 1500f + (float)Game1.rand.Next(0, 50) * 0.0005f;
                                     num8 = 1f * num11;
                                     num9 = 0.5f * num11;
                                     num10 = 0.1f * num11;
                                 }
                             }
-                            else if (!tile.active() || !Main.tileBlockLight[(int)tile.type])
+                            else if (!tile.active() || !Game1.tileBlockLight[(int)tile.type])
                             {
-                                num8 = (float)((double)Main.DiscoR / (double)byte.MaxValue * 0.150000005960464);
-                                num9 = (float)((double)Main.DiscoG / (double)byte.MaxValue * 0.150000005960464);
-                                num10 = (float)((double)Main.DiscoB / (double)byte.MaxValue * 0.150000005960464);
+                                num8 = (float)((double)Game1.DiscoR / (double)byte.MaxValue * 0.150000005960464);
+                                num9 = (float)((double)Game1.DiscoG / (double)byte.MaxValue * 0.150000005960464);
+                                num10 = (float)((double)Game1.DiscoB / (double)byte.MaxValue * 0.150000005960464);
                             }
                         }
-                        else if (!tile.active() || !Main.tileBlockLight[(int)tile.type])
+                        else if (!tile.active() || !Game1.tileBlockLight[(int)tile.type])
                         {
                             num8 = 0.09f;
                             num9 = 0.0525f;
@@ -662,14 +662,14 @@ namespace GameManager
                         switch (num14)
                         {
                             case (byte)174:
-                                if (!tile.active() || !Main.tileBlockLight[(int)tile.type])
+                                if (!tile.active() || !Game1.tileBlockLight[(int)tile.type])
                                 {
                                     num8 = 0.2975f;
                                     break;
                                 }
                                 break;
                             case (byte)175:
-                                if (!tile.active() || !Main.tileBlockLight[(int)tile.type])
+                                if (!tile.active() || !Game1.tileBlockLight[(int)tile.type])
                                 {
                                     num8 = 0.075f;
                                     num9 = 0.15f;
@@ -678,7 +678,7 @@ namespace GameManager
                                 }
                                 break;
                             case (byte)176:
-                                if (!tile.active() || !Main.tileBlockLight[(int)tile.type])
+                                if (!tile.active() || !Game1.tileBlockLight[(int)tile.type])
                                 {
                                     num8 = 0.1f;
                                     num9 = 0.1f;
@@ -687,7 +687,7 @@ namespace GameManager
                                 }
                                 break;
                             case (byte)182:
-                                if (!tile.active() || !Main.tileBlockLight[(int)tile.type])
+                                if (!tile.active() || !Game1.tileBlockLight[(int)tile.type])
                                 {
                                     num8 = 0.24f;
                                     num9 = 0.12f;
@@ -703,13 +703,13 @@ namespace GameManager
                         {
                             ++numArray[(int)tile.type];
                             if ((int)tile.type == 215 && (int)tile.frameY < 36)
-                                Main.campfire = true;
+                                Game1.campfire = true;
                             if ((int)tile.type == 405)
-                                Main.campfire = true;
+                                Game1.campfire = true;
                             if ((int)tile.type == 42 && (int)tile.frameY >= 324 && (int)tile.frameY <= 358)
-                                Main.heartLantern = true;
+                                Game1.heartLantern = true;
                             if ((int)tile.type == 42 && (int)tile.frameY >= 252 && (int)tile.frameY <= 286)
-                                Main.starInBottle = true;
+                                Game1.starInBottle = true;
                             if ((int)tile.type == 91 && ((int)tile.frameX >= 396 || (int)tile.frameY >= 54))
                             {
                                 int index3 = (int)tile.frameX / 18 - 21;
@@ -719,8 +719,8 @@ namespace GameManager
                                     index3 = index3 + 90 + 21;
                                     num11 -= 54;
                                 }
-                                Main.player[Main.myPlayer].NPCBannerBuff[index3] = true;
-                                Main.player[Main.myPlayer].hasBanner = true;
+                                Game1.player[Game1.myPlayer].NPCBannerBuff[index3] = true;
+                                Game1.player[Game1.myPlayer].hasBanner = true;
                             }
                         }
                         switch (tile.type)
@@ -728,7 +728,7 @@ namespace GameManager
                             case (ushort)139:
                                 if ((int)tile.frameX >= 36)
                                 {
-                                    Main.musicBox = (int)tile.frameY / 36;
+                                    Game1.musicBox = (int)tile.frameY / 36;
                                     break;
                                 }
                                 break;
@@ -738,31 +738,31 @@ namespace GameManager
                                     switch ((int)tile.frameX / 36)
                                     {
                                         case 0:
-                                            Main.fountainColor = 0;
+                                            Game1.fountainColor = 0;
                                             break;
                                         case 1:
-                                            Main.fountainColor = 6;
+                                            Game1.fountainColor = 6;
                                             break;
                                         case 2:
-                                            Main.fountainColor = 3;
+                                            Game1.fountainColor = 3;
                                             break;
                                         case 3:
-                                            Main.fountainColor = 5;
+                                            Game1.fountainColor = 5;
                                             break;
                                         case 4:
-                                            Main.fountainColor = 2;
+                                            Game1.fountainColor = 2;
                                             break;
                                         case 5:
-                                            Main.fountainColor = 10;
+                                            Game1.fountainColor = 10;
                                             break;
                                         case 6:
-                                            Main.fountainColor = 4;
+                                            Game1.fountainColor = 4;
                                             break;
                                         case 7:
-                                            Main.fountainColor = 9;
+                                            Game1.fountainColor = 9;
                                             break;
                                         default:
-                                            Main.fountainColor = -1;
+                                            Game1.fountainColor = -1;
                                             break;
                                     }
                                 }
@@ -772,16 +772,16 @@ namespace GameManager
                             case (ushort)410:
                                 if ((int)tile.frameY >= 56)
                                 {
-                                    Main.monolithType = (int)tile.frameX / 36;
+                                    Game1.monolithType = (int)tile.frameX / 36;
                                     break;
                                 }
                                 break;
                         }
-                        if (Main.tileBlockLight[(int)tile.type] && (Lighting.lightMode >= 2 || (int)tile.type != 131 && !tile.inActive() && (int)tile.slope() == 0))
+                        if (Game1.tileBlockLight[(int)tile.type] && (Lighting.lightMode >= 2 || (int)tile.type != 131 && !tile.inActive() && (int)tile.slope() == 0))
                             lightingState.stopLight = true;
                         if ((int)tile.type == 104)
-                            Main.clock = true;
-                        if (Main.tileLighted[(int)tile.type])
+                            Game1.clock = true;
+                        if (Game1.tileLighted[(int)tile.type])
                         {
                             ushort num11 = tile.type;
                             if ((uint)num11 <= 160U)
@@ -839,9 +839,9 @@ namespace GameManager
                                                         num10 = 0.0f;
                                                         goto label_405;
                                                     case 7:
-                                                        num8 = (float)(0.5 * (double)Main.demonTorch + 1.0 * (1.0 - (double)Main.demonTorch));
+                                                        num8 = (float)(0.5 * (double)Game1.demonTorch + 1.0 * (1.0 - (double)Game1.demonTorch));
                                                         num9 = 0.3f;
-                                                        num10 = (float)(1.0 * (double)Main.demonTorch + 0.5 * (1.0 - (double)Main.demonTorch));
+                                                        num10 = (float)(1.0 * (double)Game1.demonTorch + 0.5 * (1.0 - (double)Game1.demonTorch));
                                                         goto label_405;
                                                     case 8:
                                                         num8 = 0.85f;
@@ -874,9 +874,9 @@ namespace GameManager
                                                         num10 = 1.3f;
                                                         goto label_405;
                                                     case 14:
-                                                        num8 = (float)Main.DiscoR / (float)byte.MaxValue;
-                                                        num9 = (float)Main.DiscoG / (float)byte.MaxValue;
-                                                        num10 = (float)Main.DiscoB / (float)byte.MaxValue;
+                                                        num8 = (float)Game1.DiscoR / (float)byte.MaxValue;
+                                                        num9 = (float)Game1.DiscoG / (float)byte.MaxValue;
+                                                        num10 = (float)Game1.DiscoB / (float)byte.MaxValue;
                                                         goto label_405;
                                                     case 15:
                                                         num8 = 1f;
@@ -903,7 +903,7 @@ namespace GameManager
                                                 case (ushort)31:
                                                     if ((int)tile.type == 31 && (int)tile.frameX >= 36 || (int)tile.type == 26 && (int)tile.frameX >= 54)
                                                     {
-                                                        float num12 = (float)Main.rand.Next(-5, 6) * (1.0f / 400.0f);
+                                                        float num12 = (float)Game1.rand.Next(-5, 6) * (1.0f / 400.0f);
                                                         num8 = (float)(0.5 + (double)num12 * 2.0);
                                                         num9 = 0.2f + num12;
                                                         num10 = 0.1f;
@@ -911,7 +911,7 @@ namespace GameManager
                                                     }
                                                     else
                                                     {
-                                                        float num12 = (float)Main.rand.Next(-5, 6) * (1.0f / 400.0f);
+                                                        float num12 = (float)Game1.rand.Next(-5, 6) * (1.0f / 400.0f);
                                                         num8 = 0.31f + num12;
                                                         num9 = 0.1f;
                                                         num10 = (float)(0.439999997615814 + (double)num12 * 2.0);
@@ -947,9 +947,9 @@ namespace GameManager
                                                                 num10 = 1f;
                                                                 goto label_405;
                                                             case 25:
-                                                                num8 = (float)(0.5 * (double)Main.demonTorch + 1.0 * (1.0 - (double)Main.demonTorch));
+                                                                num8 = (float)(0.5 * (double)Game1.demonTorch + 1.0 * (1.0 - (double)Game1.demonTorch));
                                                                 num9 = 0.3f;
-                                                                num10 = (float)(1.0 * (double)Main.demonTorch + 0.5 * (1.0 - (double)Main.demonTorch));
+                                                                num10 = (float)(1.0 * (double)Game1.demonTorch + 0.5 * (1.0 - (double)Game1.demonTorch));
                                                                 goto label_405;
                                                             case 28:
                                                                 num8 = 0.9f;
@@ -1057,9 +1057,9 @@ namespace GameManager
                                                                 num10 = 1f;
                                                                 goto label_405;
                                                             case 32:
-                                                                num8 = (float)(0.5 * (double)Main.demonTorch + 1.0 * (1.0 - (double)Main.demonTorch));
+                                                                num8 = (float)(0.5 * (double)Game1.demonTorch + 1.0 * (1.0 - (double)Game1.demonTorch));
                                                                 num9 = 0.3f;
-                                                                num10 = (float)(1.0 * (double)Main.demonTorch + 0.5 * (1.0 - (double)Main.demonTorch));
+                                                                num10 = (float)(1.0 * (double)Game1.demonTorch + 0.5 * (1.0 - (double)Game1.demonTorch));
                                                                 goto label_405;
                                                             case 35:
                                                                 num8 = 0.9f;
@@ -1149,7 +1149,7 @@ namespace GameManager
                                                     num10 = 0.3f;
                                                     goto label_405;
                                                 case 7:
-                                                    float num15 = Main.demonTorch * 0.2f;
+                                                    float num15 = Game1.demonTorch * 0.2f;
                                                     num8 = 0.9f - num15;
                                                     num9 = 0.9f - num15;
                                                     num10 = 0.7f + num15;
@@ -1162,9 +1162,9 @@ namespace GameManager
                                                 case 9:
                                                     float num16 = 1f;
                                                     float num17 = 0.3f;
-                                                    num10 = 0.5f + Main.demonTorch * 0.2f;
-                                                    num8 = num16 - Main.demonTorch * 0.1f;
-                                                    num9 = num17 - Main.demonTorch * 0.2f;
+                                                    num10 = 0.5f + Game1.demonTorch * 0.2f;
+                                                    num8 = num16 - Game1.demonTorch * 0.1f;
+                                                    num9 = num17 - Game1.demonTorch * 0.2f;
                                                     goto label_405;
                                                 case 28:
                                                     num8 = 0.37f;
@@ -1182,9 +1182,9 @@ namespace GameManager
                                                     num10 = 1f;
                                                     goto label_405;
                                                 case 32:
-                                                    num8 = (float)(0.5 * (double)Main.demonTorch + 1.0 * (1.0 - (double)Main.demonTorch));
+                                                    num8 = (float)(0.5 * (double)Game1.demonTorch + 1.0 * (1.0 - (double)Game1.demonTorch));
                                                     num9 = 0.3f;
-                                                    num10 = (float)(1.0 * (double)Main.demonTorch + 0.5 * (1.0 - (double)Main.demonTorch));
+                                                    num10 = (float)(1.0 * (double)Game1.demonTorch + 0.5 * (1.0 - (double)Game1.demonTorch));
                                                     goto label_405;
                                                 case 35:
                                                     num8 = 0.7f;
@@ -1208,8 +1208,8 @@ namespace GameManager
                                             case (ushort)61:
                                                 if ((int)tile.frameX == 144)
                                                 {
-                                                    float num12 = (float)(1.0 + (double)(270 - (int)Main.mouseTextColor) / 400.0);
-                                                    float num18 = (float)(0.800000011920929 - (double)(270 - (int)Main.mouseTextColor) / 400.0);
+                                                    float num12 = (float)(1.0 + (double)(270 - (int)Game1.mouseTextColor) / 400.0);
+                                                    float num18 = (float)(0.800000011920929 - (double)(270 - (int)Game1.mouseTextColor) / 400.0);
                                                     num8 = 0.42f * num18;
                                                     num9 = 0.81f * num12;
                                                     num10 = 0.52f * num18;
@@ -1238,7 +1238,7 @@ namespace GameManager
                                                 num10 = 0.25f;
                                                 goto label_405;
                                             case (ushort)83:
-                                                if ((int)tile.frameX == 18 && !Main.dayTime)
+                                                if ((int)tile.frameX == 18 && !Game1.dayTime)
                                                 {
                                                     num8 = 0.1f;
                                                     num9 = 0.4f;
@@ -1251,7 +1251,7 @@ namespace GameManager
                                                 int num25 = (int)tile.frameX / 18;
                                                 if (num25 == 2)
                                                 {
-                                                    float num12 = (float)(270 - (int)Main.mouseTextColor) / 800f;
+                                                    float num12 = (float)(270 - (int)Game1.mouseTextColor) / 800f;
                                                     if ((double)num12 > 1.0)
                                                         num12 = 1f;
                                                     else if ((double)num12 < 0.0)
@@ -1348,9 +1348,9 @@ namespace GameManager
                                                             num10 = 1f;
                                                             goto label_405;
                                                         case 23:
-                                                            num8 = (float)(0.5 * (double)Main.demonTorch + 1.0 * (1.0 - (double)Main.demonTorch));
+                                                            num8 = (float)(0.5 * (double)Game1.demonTorch + 1.0 * (1.0 - (double)Game1.demonTorch));
                                                             num9 = 0.3f;
-                                                            num10 = (float)(1.0 * (double)Main.demonTorch + 0.5 * (1.0 - (double)Main.demonTorch));
+                                                            num10 = (float)(1.0 * (double)Game1.demonTorch + 0.5 * (1.0 - (double)Game1.demonTorch));
                                                             goto label_405;
                                                         case 24:
                                                             num8 = 0.35f;
@@ -1406,16 +1406,16 @@ namespace GameManager
                                             case (ushort)100:
                                                 goto label_294;
                                             case (ushort)125:
-                                                float num26 = (float)Main.rand.Next(28, 42) * 0.01f + (float)(270 - (int)Main.mouseTextColor) / 800f;
+                                                float num26 = (float)Game1.rand.Next(28, 42) * 0.01f + (float)(270 - (int)Game1.mouseTextColor) / 800f;
                                                 num9 = lightingState.g2 = 0.3f * num26;
                                                 num10 = lightingState.b2 = 0.6f * num26;
                                                 goto label_405;
                                             case (ushort)126:
                                                 if ((int)tile.frameX < 36)
                                                 {
-                                                    num8 = (float)Main.DiscoR / (float)byte.MaxValue;
-                                                    num9 = (float)Main.DiscoG / (float)byte.MaxValue;
-                                                    num10 = (float)Main.DiscoB / (float)byte.MaxValue;
+                                                    num8 = (float)Game1.DiscoR / (float)byte.MaxValue;
+                                                    num9 = (float)Game1.DiscoG / (float)byte.MaxValue;
+                                                    num10 = (float)Game1.DiscoB / (float)byte.MaxValue;
                                                     goto label_405;
                                                 }
                                                 else
@@ -1460,9 +1460,9 @@ namespace GameManager
                                 {
                                     if ((int)num11 == 160)
                                     {
-                                        num8 = (float)((double)Main.DiscoR / (double)byte.MaxValue * 0.25);
-                                        num9 = (float)((double)Main.DiscoG / (double)byte.MaxValue * 0.25);
-                                        num10 = (float)((double)Main.DiscoB / (double)byte.MaxValue * 0.25);
+                                        num8 = (float)((double)Game1.DiscoR / (double)byte.MaxValue * 0.25);
+                                        num9 = (float)((double)Game1.DiscoG / (double)byte.MaxValue * 0.25);
+                                        num10 = (float)((double)Game1.DiscoB / (double)byte.MaxValue * 0.25);
                                         goto label_405;
                                     }
                                     else
@@ -1488,9 +1488,9 @@ namespace GameManager
                                             num10 = 0.1f;
                                             break;
                                     }
-                                    num8 *= (float)Main.rand.Next(970, 1031) * (1 / 1000);
-                                    num9 *= (float)Main.rand.Next(970, 1031) * (1 / 1000);
-                                    num10 *= (float)Main.rand.Next(970, 1031) * (1 / 1000);
+                                    num8 *= (float)Game1.rand.Next(970, 1031) * (1 / 1000);
+                                    num9 *= (float)Game1.rand.Next(970, 1031) * (1 / 1000);
+                                    num10 *= (float)Game1.rand.Next(970, 1031) * (1 / 1000);
                                     goto label_405;
                                 }
                                 else
@@ -1518,7 +1518,7 @@ namespace GameManager
                                                         index3 -= (int)tile.frameX;
                                                         index4 -= (int)tile.frameY;
                                                     }
-                                                    switch (((int)Main.tile[index3, index4].frameY & 15360) >> 10)
+                                                    switch (((int)Game1.tile[index3, index4].frameY & 15360) >> 10)
                                                     {
                                                         case 1:
                                                             num8 = 0.1f;
@@ -1615,7 +1615,7 @@ namespace GameManager
                                             case (ushort)215:
                                                 if ((int)tile.frameY < 36)
                                                 {
-                                                    float num15 = (float)Main.rand.Next(28, 42) * 0.005f + (float)(270 - (int)Main.mouseTextColor) / 700f;
+                                                    float num15 = (float)Game1.rand.Next(28, 42) * 0.005f + (float)(270 - (int)Game1.mouseTextColor) / 700f;
                                                     float num16;
                                                     float num17;
                                                     float num18;
@@ -1627,9 +1627,9 @@ namespace GameManager
                                                             num18 = 0.5f;
                                                             break;
                                                         case 2:
-                                                            num16 = (float)(0.5 * (double)Main.demonTorch + 1.0 * (1.0 - (double)Main.demonTorch));
+                                                            num16 = (float)(0.5 * (double)Game1.demonTorch + 1.0 * (1.0 - (double)Game1.demonTorch));
                                                             num17 = 0.3f;
-                                                            num18 = (float)(1.0 * (double)Main.demonTorch + 0.5 * (1.0 - (double)Main.demonTorch));
+                                                            num18 = (float)(1.0 * (double)Game1.demonTorch + 0.5 * (1.0 - (double)Game1.demonTorch));
                                                             break;
                                                         case 3:
                                                             num16 = 0.45f;
@@ -1642,9 +1642,9 @@ namespace GameManager
                                                             num18 = 0.5f;
                                                             break;
                                                         case 5:
-                                                            num16 = (float)Main.DiscoR / (float)byte.MaxValue;
-                                                            num17 = (float)Main.DiscoG / (float)byte.MaxValue;
-                                                            num18 = (float)Main.DiscoB / (float)byte.MaxValue;
+                                                            num16 = (float)Game1.DiscoR / (float)byte.MaxValue;
+                                                            num17 = (float)Game1.DiscoG / (float)byte.MaxValue;
+                                                            num18 = (float)Game1.DiscoB / (float)byte.MaxValue;
                                                             break;
                                                         default:
                                                             num16 = 0.9f;
@@ -1748,8 +1748,8 @@ namespace GameManager
                                             case (ushort)316:
                                             case (ushort)317:
                                             case (ushort)318:
-                                                int index5 = (index1 - (int)tile.frameX / 18) / 2 * ((index2 - (int)tile.frameY / 18) / 3) % Main.cageFrames;
-                                                bool flag = (int)Main.jellyfishCageMode[(int)tile.type - 316, index5] == 2;
+                                                int index5 = (index1 - (int)tile.frameX / 18) / 2 * ((index2 - (int)tile.frameY / 18) / 3) % Game1.cageFrames;
+                                                bool flag = (int)Game1.jellyfishCageMode[(int)tile.type - 316, index5] == 2;
                                                 if ((int)tile.type == 316)
                                                 {
                                                     if (flag)
@@ -1808,7 +1808,7 @@ namespace GameManager
                                         switch (num11)
                                         {
                                             case (ushort)327:
-                                                float num25 = 0.5f + (float)(270 - (int)Main.mouseTextColor) / 1500f + (float)Main.rand.Next(0, 50) * 0.0005f;
+                                                float num25 = 0.5f + (float)(270 - (int)Game1.mouseTextColor) / 1500f + (float)Game1.rand.Next(0, 50) * 0.0005f;
                                                 num8 = 1f * num25;
                                                 num9 = 0.5f * num25;
                                                 num10 = 0.1f * num25;
@@ -1824,9 +1824,9 @@ namespace GameManager
                                                 num10 = 0.45f;
                                                 goto label_405;
                                             case (ushort)341:
-                                                num8 = (float)(0.400000005960464 * (double)Main.demonTorch + 0.600000023841858 * (1.0 - (double)Main.demonTorch));
+                                                num8 = (float)(0.400000005960464 * (double)Game1.demonTorch + 0.600000023841858 * (1.0 - (double)Game1.demonTorch));
                                                 num9 = 0.35f;
-                                                num10 = (float)(1.0 * (double)Main.demonTorch + 0.600000023841858 * (1.0 - (double)Main.demonTorch));
+                                                num10 = (float)(1.0 * (double)Game1.demonTorch + 0.600000023841858 * (1.0 - (double)Game1.demonTorch));
                                                 goto label_405;
                                             case (ushort)342:
                                                 num8 = 0.5f;
@@ -1849,7 +1849,7 @@ namespace GameManager
                                             case (ushort)349:
                                                 goto label_371;
                                             case (ushort)350:
-                                                double num26 = Main.time * 0.08;
+                                                double num26 = Game1.time * 0.08;
                                                 float num27 = (float)(-Math.Cos((int)(num26 / 6.283) % 3 == 1 ? num26 : 0.0) * 0.1 + 0.1);
                                                 num8 = num27;
                                                 num9 = num27;
@@ -1905,7 +1905,7 @@ namespace GameManager
                                         case (ushort)405:
                                             if ((int)tile.frameX < 54)
                                             {
-                                                float num15 = (float)Main.rand.Next(28, 42) * 0.005f + (float)(270 - (int)Main.mouseTextColor) / 700f;
+                                                float num15 = (float)Game1.rand.Next(28, 42) * 0.005f + (float)(270 - (int)Game1.mouseTextColor) / 700f;
                                                 float num16;
                                                 float num17;
                                                 float num18;
@@ -1917,9 +1917,9 @@ namespace GameManager
                                                         num18 = 0.5f;
                                                         break;
                                                     case 2:
-                                                        num16 = (float)(0.5 * (double)Main.demonTorch + 1.0 * (1.0 - (double)Main.demonTorch));
+                                                        num16 = (float)(0.5 * (double)Game1.demonTorch + 1.0 * (1.0 - (double)Game1.demonTorch));
                                                         num17 = 0.3f;
-                                                        num18 = (float)(1.0 * (double)Main.demonTorch + 0.5 * (1.0 - (double)Main.demonTorch));
+                                                        num18 = (float)(1.0 * (double)Game1.demonTorch + 0.5 * (1.0 - (double)Game1.demonTorch));
                                                         break;
                                                     case 3:
                                                         num16 = 0.45f;
@@ -1932,9 +1932,9 @@ namespace GameManager
                                                         num18 = 0.5f;
                                                         break;
                                                     case 5:
-                                                        num16 = (float)Main.DiscoR / (float)byte.MaxValue;
-                                                        num17 = (float)Main.DiscoG / (float)byte.MaxValue;
-                                                        num18 = (float)Main.DiscoB / (float)byte.MaxValue;
+                                                        num16 = (float)Game1.DiscoR / (float)byte.MaxValue;
+                                                        num17 = (float)Game1.DiscoG / (float)byte.MaxValue;
+                                                        num18 = (float)Game1.DiscoB / (float)byte.MaxValue;
                                                         break;
                                                     default:
                                                         num16 = 0.9f;
@@ -2038,9 +2038,9 @@ namespace GameManager
                                         num10 = 0.5f;
                                         goto label_405;
                                     case 25:
-                                        num8 = (float)(0.5 * (double)Main.demonTorch + 1.0 * (1.0 - (double)Main.demonTorch));
+                                        num8 = (float)(0.5 * (double)Game1.demonTorch + 1.0 * (1.0 - (double)Game1.demonTorch));
                                         num9 = 0.3f;
-                                        num10 = (float)(1.0 * (double)Main.demonTorch + 0.5 * (1.0 - (double)Main.demonTorch));
+                                        num10 = (float)(1.0 * (double)Game1.demonTorch + 0.5 * (1.0 - (double)Game1.demonTorch));
                                         goto label_405;
                                     case 29:
                                         num8 = 0.9f;
@@ -2064,7 +2064,7 @@ namespace GameManager
                         label_371:
                             if ((int)tile.type != 349 || (int)tile.frameX >= 36)
                             {
-                                float num12 = (float)Main.rand.Next(28, 42) * 0.005f + (float)(270 - (int)Main.mouseTextColor) / 1000f;
+                                float num12 = (float)Game1.rand.Next(28, 42) * 0.005f + (float)(270 - (int)Game1.mouseTextColor) / 1000f;
                                 num8 = 0.1f;
                                 num9 = (float)(0.200000002980232 + (double)num12 / 2.0);
                                 num10 = 0.7f + num12;
@@ -2092,7 +2092,7 @@ namespace GameManager
                         if (Lighting.RGB)
                         {
                             float num11 = (float)((double)((int)tile.liquid / (int)byte.MaxValue) * 0.409999996423721 + 0.140000000596046);
-                            float num12 = 0.55f + (float)(270 - (int)Main.mouseTextColor) / 900f;
+                            float num12 = 0.55f + (float)(270 - (int)Game1.mouseTextColor) / 900f;
                             if ((double)lightingState.r2 < (double)num12)
                                 lightingState.r2 = num12;
                             if ((double)lightingState.g2 < (double)num12)
@@ -2102,7 +2102,7 @@ namespace GameManager
                         }
                         else
                         {
-                            float num11 = (float)((double)((int)tile.liquid / (int)byte.MaxValue) * 0.379999995231628 + 0.0799999982118607) + (float)(270 - (int)Main.mouseTextColor) / 2000f;
+                            float num11 = (float)((double)((int)tile.liquid / (int)byte.MaxValue) * 0.379999995231628 + 0.0799999982118607) + (float)(270 - (int)Game1.mouseTextColor) / 2000f;
                             if ((double)lightingState.r2 < (double)num11)
                                 lightingState.r2 = num11;
                         }
@@ -2132,7 +2132,7 @@ namespace GameManager
             {
                 int index1 = (int)keyValuePair.Key.X - Lighting.firstTileX + Lighting.offScreenTiles;
                 int index2 = (int)keyValuePair.Key.Y - Lighting.firstTileY + Lighting.offScreenTiles;
-                if (index1 >= 0 && index1 < Main.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10 && (index2 >= 0 && index2 < Main.screenHeight / 16 + Lighting.offScreenTiles * 2 + 10))
+                if (index1 >= 0 && index1 < Game1.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10 && (index2 >= 0 && index2 < Game1.screenHeight / 16 + Lighting.offScreenTiles * 2 + 10))
                 {
                     Lighting.LightingState lightingState = Lighting.states[index1][index2];
                     if ((double)lightingState.r2 < (double)keyValuePair.Value.r)
@@ -2151,48 +2151,48 @@ namespace GameManager
                         Lighting.maxY = index2;
                 }
             }
-            if (!Main.gamePaused)
+            if (!Game1.gamePaused)
                 Lighting.tempLights.Clear();
             if (numArray[27] > 0)
-                Main.sunflower = true;
-            Main.holyTiles = numArray[109] + numArray[110] + numArray[113] + numArray[117] + numArray[116] + numArray[164] + numArray[403] + numArray[402];
-            Main.evilTiles = numArray[23] + numArray[24] + numArray[25] + numArray[32] + numArray[112] + numArray[163] + numArray[400] + numArray[398] + -5 * numArray[27];
-            Main.bloodTiles = numArray[199] + numArray[203] + numArray[200] + numArray[401] + numArray[399] + numArray[234] + numArray[352] - 5 * numArray[27];
-            Main.snowTiles = numArray[147] + numArray[148] + numArray[161] + numArray[162] + numArray[164] + numArray[163] + numArray[200];
-            Main.jungleTiles = numArray[60] + numArray[61] + numArray[62] + numArray[74] + numArray[226];
-            Main.shroomTiles = numArray[70] + numArray[71] + numArray[72];
-            Main.meteorTiles = numArray[37];
-            Main.dungeonTiles = numArray[41] + numArray[43] + numArray[44];
-            Main.sandTiles = numArray[53] + numArray[112] + numArray[116] + numArray[234] + numArray[397] + numArray[398] + numArray[402] + numArray[399] + numArray[396] + numArray[400] + numArray[403] + numArray[401];
-            Main.waterCandles = numArray[49];
-            Main.peaceCandles = numArray[372];
-            if (Main.player[Main.myPlayer].accOreFinder)
+                Game1.sunflower = true;
+            Game1.holyTiles = numArray[109] + numArray[110] + numArray[113] + numArray[117] + numArray[116] + numArray[164] + numArray[403] + numArray[402];
+            Game1.evilTiles = numArray[23] + numArray[24] + numArray[25] + numArray[32] + numArray[112] + numArray[163] + numArray[400] + numArray[398] + -5 * numArray[27];
+            Game1.bloodTiles = numArray[199] + numArray[203] + numArray[200] + numArray[401] + numArray[399] + numArray[234] + numArray[352] - 5 * numArray[27];
+            Game1.snowTiles = numArray[147] + numArray[148] + numArray[161] + numArray[162] + numArray[164] + numArray[163] + numArray[200];
+            Game1.jungleTiles = numArray[60] + numArray[61] + numArray[62] + numArray[74] + numArray[226];
+            Game1.shroomTiles = numArray[70] + numArray[71] + numArray[72];
+            Game1.meteorTiles = numArray[37];
+            Game1.dungeonTiles = numArray[41] + numArray[43] + numArray[44];
+            Game1.sandTiles = numArray[53] + numArray[112] + numArray[116] + numArray[234] + numArray[397] + numArray[398] + numArray[402] + numArray[399] + numArray[396] + numArray[400] + numArray[403] + numArray[401];
+            Game1.waterCandles = numArray[49];
+            Game1.peaceCandles = numArray[372];
+            if (Game1.player[Game1.myPlayer].accOreFinder)
             {
-                Main.player[Main.myPlayer].bestOre = -1;
+                Game1.player[Game1.myPlayer].bestOre = -1;
                 for (int index = 0; index < 419; ++index)
                 {
-                    if (numArray[index] > 0 && (int)Main.tileValue[index] > 0 && (Main.player[Main.myPlayer].bestOre < 0 || (int)Main.tileValue[index] > (int)Main.tileValue[Main.player[Main.myPlayer].bestOre]))
-                        Main.player[Main.myPlayer].bestOre = index;
+                    if (numArray[index] > 0 && (int)Game1.tileValue[index] > 0 && (Game1.player[Game1.myPlayer].bestOre < 0 || (int)Game1.tileValue[index] > (int)Game1.tileValue[Game1.player[Game1.myPlayer].bestOre]))
+                        Game1.player[Game1.myPlayer].bestOre = index;
                 }
             }
             Array.Clear((Array)numArray, 0, numArray.Length);
-            if (Main.holyTiles < 0)
-                Main.holyTiles = 0;
-            if (Main.evilTiles < 0)
-                Main.evilTiles = 0;
-            if (Main.bloodTiles < 0)
-                Main.bloodTiles = 0;
-            int num28 = Main.holyTiles;
-            Main.holyTiles -= Main.evilTiles;
-            Main.holyTiles -= Main.bloodTiles;
-            Main.evilTiles -= num28;
-            Main.bloodTiles -= num28;
-            if (Main.holyTiles < 0)
-                Main.holyTiles = 0;
-            if (Main.evilTiles < 0)
-                Main.evilTiles = 0;
-            if (Main.bloodTiles < 0)
-                Main.bloodTiles = 0;
+            if (Game1.holyTiles < 0)
+                Game1.holyTiles = 0;
+            if (Game1.evilTiles < 0)
+                Game1.evilTiles = 0;
+            if (Game1.bloodTiles < 0)
+                Game1.bloodTiles = 0;
+            int num28 = Game1.holyTiles;
+            Game1.holyTiles -= Game1.evilTiles;
+            Game1.holyTiles -= Game1.bloodTiles;
+            Game1.evilTiles -= num28;
+            Game1.bloodTiles -= num28;
+            if (Game1.holyTiles < 0)
+                Game1.holyTiles = 0;
+            if (Game1.evilTiles < 0)
+                Game1.evilTiles = 0;
+            if (Game1.bloodTiles < 0)
+                Game1.bloodTiles = 0;
             Lighting.minX += Lighting.firstToLightX;
             Lighting.maxX += Lighting.firstToLightX;
             Lighting.minY += Lighting.firstToLightY;
@@ -2215,15 +2215,15 @@ namespace GameManager
             Lighting.lastToLightY27 = Lighting.lastTileY + Lighting.offScreenTiles2;
             if (Lighting.firstToLightX27 < 0)
                 Lighting.firstToLightX27 = 0;
-            if (Lighting.lastToLightX27 >= Main.maxTilesX)
-                Lighting.lastToLightX27 = Main.maxTilesX - 1;
+            if (Lighting.lastToLightX27 >= Game1.maxTilesX)
+                Lighting.lastToLightX27 = Game1.maxTilesX - 1;
             if (Lighting.firstToLightY27 < 0)
                 Lighting.firstToLightY27 = 0;
-            if (Lighting.lastToLightY27 >= Main.maxTilesY)
-                Lighting.lastToLightY27 = Main.maxTilesY - 1;
-            Lighting.scrX = (int)Main.screenPosition.X / 16;
-            Lighting.scrY = (int)Main.screenPosition.Y / 16;
-            Main.renderCount = 0;
+            if (Lighting.lastToLightY27 >= Game1.maxTilesY)
+                Lighting.lastToLightY27 = Game1.maxTilesY - 1;
+            Lighting.scrX = (int)Game1.screenPosition.X / 16;
+            Lighting.scrY = (int)Game1.screenPosition.Y / 16;
+            Game1.renderCount = 0;
             TimeLogger.LightingTime(0, stopwatch.Elapsed.TotalMilliseconds);
             Lighting.doColors();
         }
@@ -2250,7 +2250,7 @@ namespace GameManager
                     Lighting.honeyLightG = 0.7f * Lighting.negLight * Lighting.blueWave;
                     Lighting.honeyLightR = 0.75f * Lighting.negLight * Lighting.blueWave;
                     Lighting.honeyLightB = 0.6f * Lighting.negLight * Lighting.blueWave;
-                    switch (Main.waterStyle)
+                    switch (Game1.waterStyle)
                     {
                         case 0:
                         case 1:
@@ -2308,22 +2308,22 @@ namespace GameManager
                     Lighting.negLight2 = 0.54f;
                     Lighting.wetLightR = 0.95f * Lighting.negLight * Lighting.blueWave;
                 }
-                if (Main.player[Main.myPlayer].nightVision)
+                if (Game1.player[Game1.myPlayer].nightVision)
                 {
                     Lighting.negLight *= 1.03f;
                     Lighting.negLight2 *= 1.03f;
                 }
-                if (Main.player[Main.myPlayer].blind)
+                if (Game1.player[Game1.myPlayer].blind)
                 {
                     Lighting.negLight *= 0.95f;
                     Lighting.negLight2 *= 0.95f;
                 }
-                if (Main.player[Main.myPlayer].blackout)
+                if (Game1.player[Game1.myPlayer].blackout)
                 {
                     Lighting.negLight *= 0.85f;
                     Lighting.negLight2 *= 0.85f;
                 }
-                if (Main.player[Main.myPlayer].headcovered)
+                if (Game1.player[Game1.myPlayer].headcovered)
                 {
                     Lighting.negLight *= 0.85f;
                     Lighting.negLight2 *= 0.85f;
@@ -2333,22 +2333,22 @@ namespace GameManager
             {
                 Lighting.negLight = 0.04f;
                 Lighting.negLight2 = 0.16f;
-                if (Main.player[Main.myPlayer].nightVision)
+                if (Game1.player[Game1.myPlayer].nightVision)
                 {
                     Lighting.negLight -= 0.013f;
                     Lighting.negLight2 -= 0.04f;
                 }
-                if (Main.player[Main.myPlayer].blind)
+                if (Game1.player[Game1.myPlayer].blind)
                 {
                     Lighting.negLight += 0.03f;
                     Lighting.negLight2 += 0.06f;
                 }
-                if (Main.player[Main.myPlayer].blackout)
+                if (Game1.player[Game1.myPlayer].blackout)
                 {
                     Lighting.negLight += 0.09f;
                     Lighting.negLight2 += 0.18f;
                 }
-                if (Main.player[Main.myPlayer].headcovered)
+                if (Game1.player[Game1.myPlayer].headcovered)
                 {
                     Lighting.negLight += 0.09f;
                     Lighting.negLight2 += 0.18f;
@@ -2358,7 +2358,7 @@ namespace GameManager
             }
             int num1;
             int num2;
-            switch (Main.renderCount)
+            switch (Game1.renderCount)
             {
                 case 0:
                     num1 = 0;
@@ -2842,7 +2842,7 @@ namespace GameManager
 
         public static void AddLight(int i, int j, float R, float G, float B)
         {
-            if (Main.gamePaused || Main.netMode == 2 || (i - Lighting.firstTileX + Lighting.offScreenTiles < 0 || i - Lighting.firstTileX + Lighting.offScreenTiles >= Main.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10) || (j - Lighting.firstTileY + Lighting.offScreenTiles < 0 || j - Lighting.firstTileY + Lighting.offScreenTiles >= Main.screenHeight / 16 + Lighting.offScreenTiles * 2 + 10 || Lighting.tempLights.Count == Lighting.maxTempLights))
+            if (Game1.gamePaused || Game1.netMode == 2 || (i - Lighting.firstTileX + Lighting.offScreenTiles < 0 || i - Lighting.firstTileX + Lighting.offScreenTiles >= Game1.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10) || (j - Lighting.firstTileY + Lighting.offScreenTiles < 0 || j - Lighting.firstTileY + Lighting.offScreenTiles >= Game1.screenHeight / 16 + Lighting.offScreenTiles * 2 + 10 || Lighting.tempLights.Count == Lighting.maxTempLights))
                 return;
             Point16 key = new Point16(i, j);
             Lighting.ColorTriplet colorTriplet;
@@ -2881,15 +2881,15 @@ namespace GameManager
                 Lighting.lightMode = 0;
             if (Lighting.lightMode != 2 && Lighting.lightMode != 0)
                 return;
-            Main.renderCount = 0;
-            Main.renderNow = true;
+            Game1.renderCount = 0;
+            Game1.renderNow = true;
             Lighting.BlackOut();
         }
 
         public static void BlackOut()
         {
-            int num1 = Main.screenWidth / 16 + Lighting.offScreenTiles * 2;
-            int num2 = Main.screenHeight / 16 + Lighting.offScreenTiles * 2;
+            int num1 = Game1.screenWidth / 16 + Lighting.offScreenTiles * 2;
+            int num2 = Game1.screenHeight / 16 + Lighting.offScreenTiles * 2;
             for (int index1 = 0; index1 < num1; ++index1)
             {
                 Lighting.LightingState[] lightingStateArray = Lighting.states[index1];
@@ -2907,9 +2907,9 @@ namespace GameManager
         {
             int index1 = x - Lighting.firstTileX + Lighting.offScreenTiles;
             int index2 = y - Lighting.firstTileY + Lighting.offScreenTiles;
-            if (Main.gameMenu)
+            if (Game1.gameMenu)
                 return oldColor;
-            if (index1 < 0 || index2 < 0 || (index1 >= Main.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10 || index2 >= Main.screenHeight / 16 + Lighting.offScreenTiles * 2 + 10))
+            if (index1 < 0 || index2 < 0 || (index1 >= Game1.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10 || index2 >= Game1.screenHeight / 16 + Lighting.offScreenTiles * 2 + 10))
                 return Color.Black;
             Color white = Color.White;
             Lighting.LightingState lightingState = Lighting.states[index1][index2];
@@ -2932,9 +2932,9 @@ namespace GameManager
         {
             int index1 = x - Lighting.firstTileX + Lighting.offScreenTiles;
             int index2 = y - Lighting.firstTileY + Lighting.offScreenTiles;
-            if (Main.gameMenu)
+            if (Game1.gameMenu)
                 return Color.White;
-            if (index1 < 0 || index2 < 0 || (index1 >= Main.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10 || index2 >= Main.screenHeight / 16 + Lighting.offScreenTiles * 2))
+            if (index1 < 0 || index2 < 0 || (index1 >= Game1.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10 || index2 >= Game1.screenHeight / 16 + Lighting.offScreenTiles * 2))
                 return Color.Black;
             Lighting.LightingState lightingState = Lighting.states[index1][index2];
             int num1 = (int)((double)byte.MaxValue * (double)lightingState.r * (double)Lighting.brightness);
@@ -2953,7 +2953,7 @@ namespace GameManager
         {
             int num1 = centerX - Lighting.firstTileX + Lighting.offScreenTiles;
             int num2 = centerY - Lighting.firstTileY + Lighting.offScreenTiles;
-            if (num1 <= 0 || num2 <= 0 || (num1 >= Main.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10 - 1 || num2 >= Main.screenHeight / 16 + Lighting.offScreenTiles * 2 - 1))
+            if (num1 <= 0 || num2 <= 0 || (num1 >= Game1.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10 - 1 || num2 >= Game1.screenHeight / 16 + Lighting.offScreenTiles * 2 - 1))
             {
                 for (int index = 0; index < 9; ++index)
                     slices[index] = Color.Black;
@@ -2990,7 +2990,7 @@ namespace GameManager
             Vector2 vector2_2 = new Vector2(vector2_1.X % 1f, vector2_1.Y % 1f);
             int index1 = (int)vector2_1.X - Lighting.firstTileX + Lighting.offScreenTiles;
             int index2 = (int)vector2_1.Y - Lighting.firstTileY + Lighting.offScreenTiles;
-            if (index1 <= 0 || index2 <= 0 || (index1 >= Main.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10 - 1 || index2 >= Main.screenHeight / 16 + Lighting.offScreenTiles * 2 - 1))
+            if (index1 <= 0 || index2 <= 0 || (index1 >= Game1.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10 - 1 || index2 >= Game1.screenHeight / 16 + Lighting.offScreenTiles * 2 - 1))
                 return Vector3.One;
             Vector3 vector3_1 = Lighting.states[index1][index2].ToVector3();
             Vector3 vector3_2 = Lighting.states[index1 + 1][index2].ToVector3();
@@ -3003,7 +3003,7 @@ namespace GameManager
         {
             int index1 = centerX - Lighting.firstTileX + Lighting.offScreenTiles;
             int index2 = centerY - Lighting.firstTileY + Lighting.offScreenTiles;
-            if (index1 <= 0 || index2 <= 0 || (index1 >= Main.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10 - 1 || index2 >= Main.screenHeight / 16 + Lighting.offScreenTiles * 2 - 1))
+            if (index1 <= 0 || index2 <= 0 || (index1 >= Game1.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10 - 1 || index2 >= Game1.screenHeight / 16 + Lighting.offScreenTiles * 2 - 1))
             {
                 vertices.BottomLeftColor = Color.Black;
                 vertices.BottomRightColor = Color.Black;
@@ -3069,7 +3069,7 @@ namespace GameManager
         {
             int index1 = centerX - Lighting.firstTileX + Lighting.offScreenTiles;
             int index2 = centerY - Lighting.firstTileY + Lighting.offScreenTiles;
-            if (index1 <= 0 || index2 <= 0 || (index1 >= Main.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10 - 1 || index2 >= Main.screenHeight / 16 + Lighting.offScreenTiles * 2 - 1))
+            if (index1 <= 0 || index2 <= 0 || (index1 >= Game1.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10 - 1 || index2 >= Game1.screenHeight / 16 + Lighting.offScreenTiles * 2 - 1))
             {
                 vertices.BottomLeftColor = Color.Black;
                 vertices.BottomRightColor = Color.Black;
@@ -3137,7 +3137,7 @@ namespace GameManager
         {
             int index1 = centerX - Lighting.firstTileX + Lighting.offScreenTiles;
             int index2 = centerY - Lighting.firstTileY + Lighting.offScreenTiles;
-            if (index1 <= 0 || index2 <= 0 || (index1 >= Main.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10 - 1 || index2 >= Main.screenHeight / 16 + Lighting.offScreenTiles * 2 - 1))
+            if (index1 <= 0 || index2 <= 0 || (index1 >= Game1.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10 - 1 || index2 >= Game1.screenHeight / 16 + Lighting.offScreenTiles * 2 - 1))
             {
                 for (int index3 = 0; index3 < 4; ++index3)
                     slices[index3] = Color.Black;
@@ -3263,7 +3263,7 @@ namespace GameManager
         {
             int index1 = x - Lighting.firstTileX + Lighting.offScreenTiles;
             int index2 = y - Lighting.firstTileY + Lighting.offScreenTiles;
-            if (index1 < 0 || index2 < 0 || (index1 >= Main.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10 || index2 >= Main.screenHeight / 16 + Lighting.offScreenTiles * 2 + 10))
+            if (index1 < 0 || index2 < 0 || (index1 >= Game1.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10 || index2 >= Game1.screenHeight / 16 + Lighting.offScreenTiles * 2 + 10))
                 return Color.Black;
             return new Color(0, 0, 0, (int)(byte)((double)byte.MaxValue - (double)byte.MaxValue * (double)Lighting.states[index1][index2].r));
         }
@@ -3272,7 +3272,7 @@ namespace GameManager
         {
             int index1 = x - Lighting.firstTileX + Lighting.offScreenTiles;
             int index2 = y - Lighting.firstTileY + Lighting.offScreenTiles;
-            if (index1 < 0 || index2 < 0 || (index1 >= Main.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10 || index2 >= Main.screenHeight / 16 + Lighting.offScreenTiles * 2 + 10))
+            if (index1 < 0 || index2 < 0 || (index1 >= Game1.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10 || index2 >= Game1.screenHeight / 16 + Lighting.offScreenTiles * 2 + 10))
                 return 0.0f;
             Lighting.LightingState lightingState = Lighting.states[index1][index2];
             return (float)((double)Lighting.brightness * ((double)lightingState.r + (double)lightingState.g + (double)lightingState.b) / 3.0);
@@ -3288,10 +3288,10 @@ namespace GameManager
                 num1 = 0;
             if (num2 < 0)
                 num2 = 0;
-            if (num3 >= Main.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10)
-                num3 = Main.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10;
-            if (num4 >= Main.screenHeight / 16 + Lighting.offScreenTiles * 2 + 10)
-                num4 = Main.screenHeight / 16 + Lighting.offScreenTiles * 2 + 10;
+            if (num3 >= Game1.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10)
+                num3 = Game1.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10;
+            if (num4 >= Game1.screenHeight / 16 + Lighting.offScreenTiles * 2 + 10)
+                num4 = Game1.screenHeight / 16 + Lighting.offScreenTiles * 2 + 10;
             float num5 = 0.0f;
             float num6 = 0.0f;
             for (int index1 = num1; index1 < num3; ++index1)

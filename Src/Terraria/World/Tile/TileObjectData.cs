@@ -3041,11 +3041,11 @@ namespace GameManager
                 {
                     case (byte)0:
                     case (byte)2:
-                        if (Main.tileWaterDeath[type])
+                        if (Game1.tileWaterDeath[type])
                             return false;
                         break;
                     case (byte)1:
-                        if (Main.tileLavaDeath[type])
+                        if (Game1.tileLavaDeath[type])
                             return false;
                         break;
                 }
@@ -3057,7 +3057,7 @@ namespace GameManager
         {
             TileObjectData tileData = TileObjectData.GetTileData(type, style, 0);
             if (tileData == null)
-                return Main.tileWaterDeath[type];
+                return Game1.tileWaterDeath[type];
             return tileData.WaterDeath;
         }
 
@@ -3067,7 +3067,7 @@ namespace GameManager
                 return false;
             TileObjectData tileData = TileObjectData.GetTileData(checkTile);
             if (tileData == null)
-                return Main.tileWaterDeath[(int)checkTile.type];
+                return Game1.tileWaterDeath[(int)checkTile.type];
             return tileData.WaterDeath;
         }
 
@@ -3075,7 +3075,7 @@ namespace GameManager
         {
             TileObjectData tileData = TileObjectData.GetTileData(type, style, 0);
             if (tileData == null)
-                return Main.tileLavaDeath[type];
+                return Game1.tileLavaDeath[type];
             return tileData.LavaDeath;
         }
 
@@ -3085,7 +3085,7 @@ namespace GameManager
                 return false;
             TileObjectData tileData = TileObjectData.GetTileData(checkTile);
             if (tileData == null)
-                return Main.tileLavaDeath[(int)checkTile.type];
+                return Game1.tileLavaDeath[(int)checkTile.type];
             return tileData.LavaDeath;
         }
 

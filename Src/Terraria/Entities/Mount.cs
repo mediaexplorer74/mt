@@ -390,12 +390,12 @@ namespace GameManager
             mountData1.swimFrameCount = mountData1.inAirFrameCount;
             mountData1.swimFrameDelay = mountData1.inAirFrameDelay;
             mountData1.swimFrameStart = mountData1.inAirFrameStart;
-            if (Main.netMode != 2)
+            if (Game1.netMode != 2)
             {
-                mountData1.backTexture = Main.rudolphMountTexture[0];
+                mountData1.backTexture = Game1.rudolphMountTexture[0];
                 mountData1.backTextureExtra = (Texture2D)null;
-                mountData1.frontTexture = Main.rudolphMountTexture[1];
-                mountData1.frontTextureExtra = Main.rudolphMountTexture[2];
+                mountData1.frontTexture = Game1.rudolphMountTexture[1];
+                mountData1.frontTextureExtra = Game1.rudolphMountTexture[2];
                 mountData1.textureWidth = mountData1.backTexture.Width;
                 mountData1.textureHeight = mountData1.backTexture.Height;
             }
@@ -441,9 +441,9 @@ namespace GameManager
             mountData2.swimFrameCount = mountData2.inAirFrameCount;
             mountData2.swimFrameDelay = mountData2.inAirFrameDelay;
             mountData2.swimFrameStart = mountData2.inAirFrameStart;
-            if (Main.netMode != 2)
+            if (Game1.netMode != 2)
             {
-                mountData2.backTexture = Main.pigronMountTexture;
+                mountData2.backTexture = Game1.pigronMountTexture;
                 mountData2.backTextureExtra = (Texture2D)null;
                 mountData2.frontTexture = (Texture2D)null;
                 mountData2.frontTextureExtra = (Texture2D)null;
@@ -494,9 +494,9 @@ namespace GameManager
             mountData3.swimFrameCount = mountData3.inAirFrameCount;
             mountData3.swimFrameDelay = mountData3.inAirFrameDelay;
             mountData3.swimFrameStart = mountData3.inAirFrameStart;
-            if (Main.netMode != 2)
+            if (Game1.netMode != 2)
             {
-                mountData3.backTexture = Main.bunnyMountTexture;
+                mountData3.backTexture = Game1.bunnyMountTexture;
                 mountData3.backTextureExtra = (Texture2D)null;
                 mountData3.frontTexture = (Texture2D)null;
                 mountData3.frontTextureExtra = (Texture2D)null;
@@ -543,9 +543,9 @@ namespace GameManager
             mountData4.idleFrameDelay = 0;
             mountData4.idleFrameStart = 0;
             mountData4.idleFrameLoop = false;
-            if (Main.netMode != 2)
+            if (Game1.netMode != 2)
             {
-                mountData4.backTexture = Main.slimeMountTexture;
+                mountData4.backTexture = Game1.slimeMountTexture;
                 mountData4.backTextureExtra = (Texture2D)null;
                 mountData4.frontTexture = (Texture2D)null;
                 mountData4.frontTextureExtra = (Texture2D)null;
@@ -594,11 +594,11 @@ namespace GameManager
             mountData5.idleFrameDelay = 0;
             mountData5.idleFrameStart = 0;
             mountData5.idleFrameLoop = false;
-            if (Main.netMode != 2)
+            if (Game1.netMode != 2)
             {
                 mountData5.backTexture = (Texture2D)null;
                 mountData5.backTextureExtra = (Texture2D)null;
-                mountData5.frontTexture = Main.minecartMountTexture;
+                mountData5.frontTexture = Game1.minecartMountTexture;
                 mountData5.frontTextureExtra = (Texture2D)null;
                 mountData5.textureWidth = mountData5.frontTexture.Width;
                 mountData5.textureHeight = mountData5.frontTexture.Height;
@@ -644,9 +644,9 @@ namespace GameManager
             mountData6.swimFrameCount = 6;
             mountData6.swimFrameDelay = 12;
             mountData6.swimFrameStart = 6;
-            if (Main.netMode != 2)
+            if (Game1.netMode != 2)
             {
-                mountData6.backTexture = Main.turtleMountTexture;
+                mountData6.backTexture = Game1.turtleMountTexture;
                 mountData6.backTextureExtra = (Texture2D)null;
                 mountData6.frontTexture = (Texture2D)null;
                 mountData6.frontTextureExtra = (Texture2D)null;
@@ -697,10 +697,10 @@ namespace GameManager
             mountData7.swimFrameCount = 0;
             mountData7.swimFrameDelay = 12;
             mountData7.swimFrameStart = 0;
-            if (Main.netMode != 2)
+            if (Game1.netMode != 2)
             {
-                mountData7.backTexture = Main.beeMountTexture[0];
-                mountData7.backTextureExtra = Main.beeMountTexture[1];
+                mountData7.backTexture = Game1.beeMountTexture[0];
+                mountData7.backTextureExtra = Game1.beeMountTexture[1];
                 mountData7.frontTexture = (Texture2D)null;
                 mountData7.frontTextureExtra = (Texture2D)null;
                 mountData7.textureWidth = mountData7.backTexture.Width;
@@ -750,12 +750,12 @@ namespace GameManager
             mountData8.swimFrameCount = 0;
             mountData8.swimFrameDelay = 12;
             mountData8.swimFrameStart = 0;
-            if (Main.netMode != 2)
+            if (Game1.netMode != 2)
             {
                 mountData8.backTexture = (Texture2D)null;
                 mountData8.backTextureExtra = (Texture2D)null;
-                mountData8.frontTexture = Main.UFOMountTexture[0];
-                mountData8.frontTextureExtra = Main.UFOMountTexture[1];
+                mountData8.frontTexture = Game1.UFOMountTexture[0];
+                mountData8.frontTextureExtra = Game1.UFOMountTexture[1];
                 mountData8.textureWidth = mountData8.frontTexture.Width;
                 mountData8.textureHeight = mountData8.frontTexture.Height;
             }
@@ -804,16 +804,16 @@ namespace GameManager
             mountData9.swimFrameCount = 0;
             mountData9.swimFrameDelay = 12;
             mountData9.swimFrameStart = 0;
-            if (Main.netMode != 2)
+            if (Game1.netMode != 2)
             {
-                mountData9.backTexture = Main.drillMountTexture[0];
-                mountData9.backTextureGlow = Main.drillMountTexture[3];
+                mountData9.backTexture = Game1.drillMountTexture[0];
+                mountData9.backTextureGlow = Game1.drillMountTexture[3];
                 mountData9.backTextureExtra = (Texture2D)null;
                 mountData9.backTextureExtraGlow = (Texture2D)null;
-                mountData9.frontTexture = Main.drillMountTexture[1];
-                mountData9.frontTextureGlow = Main.drillMountTexture[4];
-                mountData9.frontTextureExtra = Main.drillMountTexture[2];
-                mountData9.frontTextureExtraGlow = Main.drillMountTexture[5];
+                mountData9.frontTexture = Game1.drillMountTexture[1];
+                mountData9.frontTextureGlow = Game1.drillMountTexture[4];
+                mountData9.frontTextureExtra = Game1.drillMountTexture[2];
+                mountData9.frontTextureExtraGlow = Game1.drillMountTexture[5];
                 mountData9.textureWidth = mountData9.frontTexture.Width;
                 mountData9.textureHeight = mountData9.frontTexture.Height;
             }
@@ -866,12 +866,12 @@ namespace GameManager
             mountData10.swimFrameCount = 0;
             mountData10.swimFrameDelay = 12;
             mountData10.swimFrameStart = 0;
-            if (Main.netMode != 2)
+            if (Game1.netMode != 2)
             {
-                mountData10.backTexture = Main.scutlixMountTexture[0];
+                mountData10.backTexture = Game1.scutlixMountTexture[0];
                 mountData10.backTextureExtra = (Texture2D)null;
-                mountData10.frontTexture = Main.scutlixMountTexture[1];
-                mountData10.frontTextureExtra = Main.scutlixMountTexture[2];
+                mountData10.frontTexture = Game1.scutlixMountTexture[1];
+                mountData10.frontTextureExtra = Game1.scutlixMountTexture[2];
                 mountData10.textureWidth = mountData10.backTexture.Width;
                 mountData10.textureHeight = mountData10.backTexture.Height;
             }
@@ -942,9 +942,9 @@ namespace GameManager
             mountData11.swimFrameCount = mountData11.inAirFrameCount;
             mountData11.swimFrameDelay = mountData11.inAirFrameDelay;
             mountData11.swimFrameStart = mountData11.inAirFrameStart;
-            if (Main.netMode != 2)
+            if (Game1.netMode != 2)
             {
-                mountData11.backTexture = Main.unicornMountTexture;
+                mountData11.backTexture = Game1.unicornMountTexture;
                 mountData11.backTextureExtra = (Texture2D)null;
                 mountData11.frontTexture = (Texture2D)null;
                 mountData11.frontTextureExtra = (Texture2D)null;
@@ -992,12 +992,12 @@ namespace GameManager
             mountData12.idleFrameDelay = 0;
             mountData12.idleFrameStart = 0;
             mountData12.idleFrameLoop = false;
-            if (Main.netMode != 2)
+            if (Game1.netMode != 2)
             {
                 mountData12.backTexture = (Texture2D)null;
                 mountData12.backTextureExtra = (Texture2D)null;
-                mountData12.frontTexture = Main.minecartMechMountTexture[0];
-                mountData12.frontTextureGlow = Main.minecartMechMountTexture[1];
+                mountData12.frontTexture = Game1.minecartMechMountTexture[0];
+                mountData12.frontTextureGlow = Game1.minecartMechMountTexture[1];
                 mountData12.frontTextureExtra = (Texture2D)null;
                 mountData12.textureWidth = mountData12.frontTexture.Width;
                 mountData12.textureHeight = mountData12.frontTexture.Height;
@@ -1046,10 +1046,10 @@ namespace GameManager
             mountData13.swimFrameCount = 8;
             mountData13.swimFrameDelay = 4;
             mountData13.swimFrameStart = 15;
-            if (Main.netMode != 2)
+            if (Game1.netMode != 2)
             {
-                mountData13.backTexture = Main.cuteFishronMountTexture[0];
-                mountData13.backTextureGlow = Main.cuteFishronMountTexture[1];
+                mountData13.backTexture = Game1.cuteFishronMountTexture[0];
+                mountData13.backTextureGlow = Game1.cuteFishronMountTexture[1];
                 mountData13.frontTexture = (Texture2D)null;
                 mountData13.frontTextureExtra = (Texture2D)null;
                 mountData13.textureWidth = mountData13.backTexture.Width;
@@ -1097,11 +1097,11 @@ namespace GameManager
             mountData14.idleFrameDelay = 0;
             mountData14.idleFrameStart = 0;
             mountData14.idleFrameLoop = false;
-            if (Main.netMode == 2)
+            if (Game1.netMode == 2)
                 return;
             mountData14.backTexture = (Texture2D)null;
             mountData14.backTextureExtra = (Texture2D)null;
-            mountData14.frontTexture = Main.minecartWoodMountTexture;
+            mountData14.frontTexture = Game1.minecartWoodMountTexture;
             mountData14.frontTextureExtra = (Texture2D)null;
             mountData14.textureWidth = mountData14.frontTexture.Width;
             mountData14.textureHeight = mountData14.frontTexture.Height;
@@ -1158,12 +1158,12 @@ namespace GameManager
 
         public void StartAbilityCharge(Player mountedPlayer)
         {
-            if (Main.myPlayer == mountedPlayer.whoAmI)
+            if (Game1.myPlayer == mountedPlayer.whoAmI)
             {
                 if (this._type != 9)
                     return;
-                float X = Main.screenPosition.X + (float)Main.mouseX;
-                float Y = Main.screenPosition.Y + (float)Main.mouseY;
+                float X = Game1.screenPosition.X + (float)Game1.mouseX;
+                float Y = Game1.screenPosition.Y + (float)Game1.mouseY;
                 float ai0 = X - mountedPlayer.position.X;
                 float ai1 = Y - mountedPlayer.position.Y;
                 Projectile.NewProjectile(X, Y, 0.0f, 0.0f, 441, 0, 0.0f, mountedPlayer.whoAmI, ai0, ai1);
@@ -1267,12 +1267,12 @@ namespace GameManager
                         float num1 = Utils.ToRotation(Position - mountedPlayer.Center);
                         for (int index2 = 0; index2 < 2; ++index2)
                         {
-                            float num2 = num1 + (float)((Main.rand.Next(2) == 1 ? -1.0 : 1.0) * 1.57079637050629);
-                            float num3 = (float)(Main.rand.NextDouble() * 2.0 + 2.0);
+                            float num2 = num1 + (float)((Game1.rand.Next(2) == 1 ? -1.0 : 1.0) * 1.57079637050629);
+                            float num3 = (float)(Game1.rand.NextDouble() * 2.0 + 2.0);
                             Vector2 vector2 = new Vector2((float)Math.Cos((double)num2) * num3, (float)Math.Sin((double)num2) * num3);
                             int index3 = Dust.NewDust(Position, 0, 0, 230, vector2.X, vector2.Y, 0, new Color(), 1f);
-                            Main.dust[index3].noGravity = true;
-                            Main.dust[index3].customData = (object)mountedPlayer;
+                            Game1.dust[index3].noGravity = true;
+                            Game1.dust[index3].customData = (object)mountedPlayer;
                         }
                         Tile.SmoothSlope((int)point16.X, (int)point16.Y, true);
                         drillBeam.cooldown = Mount.drillPickTime;
@@ -1286,7 +1286,7 @@ namespace GameManager
 
         private Point16 DrillSmartCursor(Player mountedPlayer, Mount.DrillMountData data)
         {
-            Vector2 vector2_1 = mountedPlayer.whoAmI != Main.myPlayer ? data.crosshairPosition : Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);
+            Vector2 vector2_1 = mountedPlayer.whoAmI != Game1.myPlayer ? data.crosshairPosition : Game1.screenPosition + new Vector2((float)Game1.mouseX, (float)Game1.mouseY);
             Vector2 center = mountedPlayer.Center;
             Vector2 vector2_2 = vector2_1 - center;
             float num1 = vector2_2.Length();
@@ -1305,7 +1305,7 @@ namespace GameManager
                     if (data.beams[index].curTileTarget == tilePoint)
                         return true;
                 }
-                return !WorldGen.CanKillTile(x, y) || Main.tile[x, y] == null || (Main.tile[x, y].inActive() || !Main.tile[x, y].active());
+                return !WorldGen.CanKillTile(x, y) || Game1.tile[x, y] == null || (Game1.tile[x, y].inActive() || !Game1.tile[x, y].active());
             })))
                 return tilePoint;
             return new Point16(-1, -1);
@@ -1316,7 +1316,7 @@ namespace GameManager
             switch (this._type)
             {
                 case 8:
-                    if (Main.myPlayer == mountedPlayer.whoAmI)
+                    if (Game1.myPlayer == mountedPlayer.whoAmI)
                     {
                         if (!toggleOn)
                         {
@@ -1325,10 +1325,10 @@ namespace GameManager
                         }
                         if (this._abilityActive)
                             break;
-                        if (mountedPlayer.whoAmI == Main.myPlayer)
+                        if (mountedPlayer.whoAmI == Game1.myPlayer)
                         {
-                            float X = Main.screenPosition.X + (float)Main.mouseX;
-                            float Y = Main.screenPosition.Y + (float)Main.mouseY;
+                            float X = Game1.screenPosition.X + (float)Game1.mouseX;
+                            float Y = Game1.screenPosition.Y + (float)Game1.mouseY;
                             float ai0 = X - mountedPlayer.position.X;
                             float ai1 = Y - mountedPlayer.position.Y;
                             Projectile.NewProjectile(X, Y, 0.0f, 0.0f, 453, 0, 0.0f, mountedPlayer.whoAmI, ai0, ai1);
@@ -1339,7 +1339,7 @@ namespace GameManager
                     this._abilityActive = toggleOn;
                     break;
                 case 9:
-                    if (Main.myPlayer != mountedPlayer.whoAmI)
+                    if (Game1.myPlayer != mountedPlayer.whoAmI)
                         break;
                     mousePosition = this.ClampToDeadZone(mountedPlayer, mousePosition);
                     Vector2 vector2_1;
@@ -1356,7 +1356,7 @@ namespace GameManager
                         Vector2 vector2_4 = vector2_3 * 14f;
                         int Damage = 100;
                         vector2_2 += vector2_4;
-                        Projectile.NewProjectile(vector2_2.X, vector2_2.Y, vector2_4.X, vector2_4.Y, 606, Damage, 0.0f, Main.myPlayer, 0.0f, 0.0f);
+                        Projectile.NewProjectile(vector2_2.X, vector2_2.Y, vector2_4.X, vector2_4.Y, 606, Damage, 0.0f, Game1.myPlayer, 0.0f, 0.0f);
                     }
                     break;
             }
@@ -1566,27 +1566,27 @@ namespace GameManager
                         {
                             Vector2 Position = mountedPlayer.Center + new Vector2((float)(mountedPlayer.width * mountedPlayer.direction), 0.0f);
                             Vector2 vector2_1 = new Vector2(40f, 30f);
-                            float num1 = 6.283185f * Utils.NextFloat(Main.rand);
+                            float num1 = 6.283185f * Utils.NextFloat(Game1.rand);
                             for (float num2 = 0.0f; (double)num2 < 14.0; ++num2)
                             {
-                                Dust dust = Main.dust[Dust.NewDust(Position, 0, 0, Utils.SelectRandom<int>(Main.rand, 176, 177, 179), 0.0f, 0.0f, 0, new Color(), 1f)];
+                                Dust dust = Game1.dust[Dust.NewDust(Position, 0, 0, Utils.SelectRandom<int>(Game1.rand, 176, 177, 179), 0.0f, 0.0f, 0, new Color(), 1f)];
                                 Vector2 vector2_2 = Utils.RotatedBy(Vector2.UnitY, (double)num2 * 6.28318548202515 / 14.0 + (double)num1, new Vector2()) * (0.2f * (float)this._frameExtra);
                                 dust.position = Position + vector2_2 * vector2_1;
                                 dust.velocity = vector2_2 + new Vector2(this.RunSpeed - (float)(Math.Sign(velocity.X) * this._frameExtra * 2), 0.0f);
                                 dust.noGravity = true;
-                                dust.scale = (float)(1.0 + (double)Utils.NextFloat(Main.rand) * 0.800000011920929);
-                                dust.fadeIn = Utils.NextFloat(Main.rand) * 2f;
+                                dust.scale = (float)(1.0 + (double)Utils.NextFloat(Game1.rand) * 0.800000011920929);
+                                dust.fadeIn = Utils.NextFloat(Game1.rand) * 2f;
                                 dust.shader = GameShaders.Armor.GetSecondaryShader(mountedPlayer.cMount, mountedPlayer);
                             }
                         }
                     }
                     if (flag1)
                     {
-                        Dust dust = Main.dust[Dust.NewDust(mountedPlayer.position, mountedPlayer.width, mountedPlayer.height, Utils.SelectRandom<int>(Main.rand, 176, 177, 179), 0.0f, 0.0f, 0, new Color(), 1f)];
+                        Dust dust = Game1.dust[Dust.NewDust(mountedPlayer.position, mountedPlayer.width, mountedPlayer.height, Utils.SelectRandom<int>(Game1.rand, 176, 177, 179), 0.0f, 0.0f, 0, new Color(), 1f)];
                         dust.velocity = Vector2.Zero;
                         dust.noGravity = true;
-                        dust.scale = (float)(0.5 + (double)Utils.NextFloat(Main.rand) * 0.800000011920929);
-                        dust.fadeIn = (float)(1.0 + (double)Utils.NextFloat(Main.rand) * 2.0);
+                        dust.scale = (float)(0.5 + (double)Utils.NextFloat(Game1.rand) * 0.800000011920929);
+                        dust.fadeIn = (float)(1.0 + (double)Utils.NextFloat(Game1.rand) * 2.0);
                         dust.shader = GameShaders.Armor.GetSecondaryShader(mountedPlayer.cMount, mountedPlayer);
                         break;
                     }
@@ -1611,7 +1611,7 @@ namespace GameManager
                             }
                         }
                         else if (this._idleTime == 0)
-                            this._idleTimeNext = Main.rand.Next(900, 1500);
+                            this._idleTimeNext = Game1.rand.Next(900, 1500);
                         ++this._idleTime;
                     }
                     ++this._frameCounter;
@@ -1802,7 +1802,7 @@ namespace GameManager
                     float num1 = 1500f;
                     for (int index = 0; index < 200; ++index)
                     {
-                        NPC npc = Main.npc[index];
+                        NPC npc = Game1.npc[index];
                         if (npc.CanBeChasedBy((object)this, false))
                         {
                             float num2 = Vector2.Distance(npc.Center, vector2_1);
@@ -1824,7 +1824,7 @@ namespace GameManager
                         flag2 = false;
                     if (flag2)
                     {
-                        if (this._abilityCooldown == 0 && mountedPlayer.whoAmI == Main.myPlayer)
+                        if (this._abilityCooldown == 0 && mountedPlayer.whoAmI == Game1.myPlayer)
                         {
                             this.AimAbility(mountedPlayer, vector2_1);
                             this.StopAbilityCharge();
@@ -1853,7 +1853,7 @@ namespace GameManager
                     int num5 = Math.Sign(mountedPlayer.velocity.X);
                     if (num5 == 0)
                         num5 = mountedPlayer.direction;
-                    if (Main.netMode != 2)
+                    if (Game1.netMode != 2)
                     {
                         Vector3 vector3_2 = vector3_1 * num4;
                         Lighting.AddLight(mountedPlayer.Center, vector3_2.X, vector3_2.Y, vector3_2.Z);
@@ -1879,7 +1879,7 @@ namespace GameManager
                                 ++num6;
                             for (float num7 = 1f; (double)num7 <= (double)num6; ++num7)
                             {
-                                Dust dust = Main.dust[Dust.NewDust(mountedPlayer.Center, 0, 0, 182, 0.0f, 0.0f, 0, new Color(), 1f)];
+                                Dust dust = Game1.dust[Dust.NewDust(mountedPlayer.Center, 0, 0, 182, 0.0f, 0.0f, 0, new Color(), 1f)];
                                 dust.position = Vector2.Lerp(vector2_5, vector2_4, num7 / (float)num6);
                                 dust.noGravity = true;
                                 dust.velocity = Vector2.Zero;
@@ -1889,7 +1889,7 @@ namespace GameManager
                         }
                         else
                         {
-                            Dust dust = Main.dust[Dust.NewDust(mountedPlayer.Center, 0, 0, 182, 0.0f, 0.0f, 0, new Color(), 1f)];
+                            Dust dust = Game1.dust[Dust.NewDust(mountedPlayer.Center, 0, 0, 182, 0.0f, 0.0f, 0, new Color(), 1f)];
                             dust.position = vector2_4;
                             dust.noGravity = true;
                             dust.velocity = Vector2.Zero;
@@ -1897,7 +1897,7 @@ namespace GameManager
                             dust.shader = GameShaders.Armor.GetSecondaryShader(mountedPlayer.cMinecart, mountedPlayer);
                         }
                     }
-                    if (mountedPlayer.whoAmI != Main.myPlayer || (double)mountedPlayer.velocity.X == 0.0)
+                    if (mountedPlayer.whoAmI != Game1.myPlayer || (double)mountedPlayer.velocity.X == 0.0)
                         break;
                     Vector2 minecartMechPoint = Mount.GetMinecartMechPoint(mountedPlayer, 20, -19);
                     int num8 = 60;
@@ -1905,18 +1905,18 @@ namespace GameManager
                     float num10 = 0.0f;
                     for (int index1 = 0; index1 < 200; ++index1)
                     {
-                        NPC npc = Main.npc[index1];
+                        NPC npc = Game1.npc[index1];
                         if (npc.active && npc.immune[mountedPlayer.whoAmI] <= 0 && (!npc.dontTakeDamage && (double)npc.Distance(minecartMechPoint) < 300.0) && (npc.CanBeChasedBy((object)mountedPlayer, false) && Collision.CanHitLine(npc.position, npc.width, npc.height, minecartMechPoint, 0, 0)) && (double)Math.Abs(MathHelper.WrapAngle(MathHelper.WrapAngle(npc.AngleFrom(minecartMechPoint)) - MathHelper.WrapAngle((double)mountedPlayer.fullRotation + (double)num5 == -1.0 ? 3.141593f : 0.0f))) < 0.785398185253143)
                         {
-                            Vector2 v = npc.position + npc.Size * Utils.RandomVector2(Main.rand, 0.0f, 1f) - minecartMechPoint;
+                            Vector2 v = npc.position + npc.Size * Utils.RandomVector2(Game1.rand, 0.0f, 1f) - minecartMechPoint;
                             num10 += Utils.ToRotation(v);
                             ++num9;
                             int index2 = Projectile.NewProjectile(minecartMechPoint.X, minecartMechPoint.Y, v.X, v.Y, 591, 0, 0.0f, mountedPlayer.whoAmI, (float)mountedPlayer.whoAmI, 0.0f);
-                            Main.projectile[index2].Center = npc.Center;
-                            Main.projectile[index2].damage = num8;
-                            Main.projectile[index2].Damage();
-                            Main.projectile[index2].damage = 0;
-                            Main.projectile[index2].Center = minecartMechPoint;
+                            Game1.projectile[index2].Center = npc.Center;
+                            Game1.projectile[index2].damage = num8;
+                            Game1.projectile[index2].Damage();
+                            Game1.projectile[index2].damage = 0;
+                            Game1.projectile[index2].Center = minecartMechPoint;
                         }
                     }
                     break;
@@ -2147,8 +2147,8 @@ namespace GameManager
             int num1 = this.YOffset + this.PlayerOffset;
             if (drawPlayer.direction <= 0 && (!this.Cart || !this.Directional))
                 xoffset *= -1;
-            Position.X = (float)(int)((double)Position.X - (double)Main.screenPosition.X + (double)(drawPlayer.width / 2) + (double)xoffset);
-            Position.Y = (float)(int)((double)Position.Y - (double)Main.screenPosition.Y + (double)(drawPlayer.height / 2) + (double)num1);
+            Position.X = (float)(int)((double)Position.X - (double)Game1.screenPosition.X + (double)(drawPlayer.width / 2) + (double)xoffset);
+            Position.Y = (float)(int)((double)Position.Y - (double)Game1.screenPosition.Y + (double)(drawPlayer.height / 2) + (double)num1);
             int num2;
             switch (this._type)
             {
@@ -2311,7 +2311,7 @@ namespace GameManager
                 {
                     for (int index2 = 0; index2 < 2; ++index2)
                     {
-                        Vector2 vector2_3 = new Vector2((float)((int)drillBeam.curTileTarget.X * 16 + 8), (float)((int)drillBeam.curTileTarget.Y * 16 + 8)) - Main.screenPosition - Position;
+                        Vector2 vector2_3 = new Vector2((float)((int)drillBeam.curTileTarget.X * 16 + 8), (float)((int)drillBeam.curTileTarget.Y * 16 + 8)) - Game1.screenPosition - Position;
                         Vector2 vector2_4;
                         Color color2;
                         if (index2 == 0)
@@ -2329,7 +2329,7 @@ namespace GameManager
                         Vector2 v = vector2_3 - vector2_4;
                         float num3 = Utils.ToRotation(v);
                         Vector2 scale2 = new Vector2(2f, v.Length());
-                        drawData = new DrawData(Main.magicPixel, vector2_4 + Position, new Rectangle?(rectangle2), color3, num3 - 1.570796f, Vector2.Zero, scale2, SpriteEffects.None, 0);
+                        drawData = new DrawData(Game1.magicPixel, vector2_4 + Position, new Rectangle?(rectangle2), color3, num3 - 1.570796f, Vector2.Zero, scale2, SpriteEffects.None, 0);
                         drawData.ignorePlayerRotation = true;
                         drawData.shader = Mount.currentShader;
                         playerDrawData.Add(drawData);
@@ -2354,7 +2354,7 @@ namespace GameManager
             }
             mountedPlayer.fullRotation = 0.0f;
             mountedPlayer.fullRotationOrigin = Vector2.Zero;
-            if (Main.netMode != 2)
+            if (Game1.netMode != 2)
             {
                 for (int index1 = 0; index1 < 100; ++index1)
                 {
@@ -2362,26 +2362,26 @@ namespace GameManager
                     {
                         if (index1 % 10 == 0)
                         {
-                            int Type = Main.rand.Next(61, 64);
+                            int Type = Game1.rand.Next(61, 64);
                             int index2 = Gore.NewGore(new Vector2(mountedPlayer.position.X - 20f, mountedPlayer.position.Y), Vector2.Zero, Type, 1f);
-                            Main.gore[index2].alpha = 100;
-                            Main.gore[index2].velocity = Vector2.Transform(new Vector2(1f, 0.0f), Matrix.CreateRotationZ((float)(Main.rand.NextDouble() * 6.28318548202515)));
+                            Game1.gore[index2].alpha = 100;
+                            Game1.gore[index2].velocity = Vector2.Transform(new Vector2(1f, 0.0f), Matrix.CreateRotationZ((float)(Game1.rand.NextDouble() * 6.28318548202515)));
                         }
                     }
                     else
                     {
                         int index2 = Dust.NewDust(new Vector2(mountedPlayer.position.X - 20f, mountedPlayer.position.Y), mountedPlayer.width + 40, mountedPlayer.height, this._data.spawnDust, 0.0f, 0.0f, 0, new Color(), 1f);
-                        Main.dust[index2].scale += (float)Main.rand.Next(-10, 21) * 0.01f;
+                        Game1.dust[index2].scale += (float)Game1.rand.Next(-10, 21) * 0.01f;
                         if (this._data.spawnDustNoGravity)
-                            Main.dust[index2].noGravity = true;
-                        else if (Main.rand.Next(2) == 0)
+                            Game1.dust[index2].noGravity = true;
+                        else if (Game1.rand.Next(2) == 0)
                         {
-                            Main.dust[index2].scale *= 1.3f;
-                            Main.dust[index2].noGravity = true;
+                            Game1.dust[index2].scale *= 1.3f;
+                            Game1.dust[index2].noGravity = true;
                         }
                         else
-                            Main.dust[index2].velocity *= 0.5f;
-                        Main.dust[index2].velocity += mountedPlayer.velocity * 0.8f;
+                            Game1.dust[index2].velocity *= 0.5f;
+                        Game1.dust[index2].velocity += mountedPlayer.velocity * 0.8f;
                     }
                 }
             }
@@ -2389,7 +2389,7 @@ namespace GameManager
             mountedPlayer.position.Y += (float)mountedPlayer.height;
             mountedPlayer.height = 42;
             mountedPlayer.position.Y -= (float)mountedPlayer.height;
-            if (mountedPlayer.whoAmI != Main.myPlayer)
+            if (mountedPlayer.whoAmI != Game1.myPlayer)
                 return;
             NetMessage.SendData(13, -1, -1, "", mountedPlayer.whoAmI, 0.0f, 0.0f, 0.0f, 0, 0, 0);
         }
@@ -2440,7 +2440,7 @@ namespace GameManager
                 mountedPlayer.fullRotationOrigin = new Vector2((float)(mountedPlayer.width / 2), (float)(mountedPlayer.height / 2));
             if (this._type == 8)
                 this._mountSpecificData = (object)new Mount.DrillMountData();
-            if (Main.netMode != 2)
+            if (Game1.netMode != 2)
             {
                 for (int index1 = 0; index1 < 100; ++index1)
                 {
@@ -2448,30 +2448,30 @@ namespace GameManager
                     {
                         if (index1 % 10 == 0)
                         {
-                            int Type = Main.rand.Next(61, 64);
+                            int Type = Game1.rand.Next(61, 64);
                             int index2 = Gore.NewGore(new Vector2(mountedPlayer.position.X - 20f, mountedPlayer.position.Y), Vector2.Zero, Type, 1f);
-                            Main.gore[index2].alpha = 100;
-                            Main.gore[index2].velocity = Vector2.Transform(new Vector2(1f, 0.0f), Matrix.CreateRotationZ((float)(Main.rand.NextDouble() * 6.28318548202515)));
+                            Game1.gore[index2].alpha = 100;
+                            Game1.gore[index2].velocity = Vector2.Transform(new Vector2(1f, 0.0f), Matrix.CreateRotationZ((float)(Game1.rand.NextDouble() * 6.28318548202515)));
                         }
                     }
                     else
                     {
                         int index2 = Dust.NewDust(new Vector2(mountedPlayer.position.X - 20f, mountedPlayer.position.Y), mountedPlayer.width + 40, mountedPlayer.height, this._data.spawnDust, 0.0f, 0.0f, 0, new Color(), 1f);
-                        Main.dust[index2].scale += (float)Main.rand.Next(-10, 21) * 0.01f;
+                        Game1.dust[index2].scale += (float)Game1.rand.Next(-10, 21) * 0.01f;
                         if (this._data.spawnDustNoGravity)
-                            Main.dust[index2].noGravity = true;
-                        else if (Main.rand.Next(2) == 0)
+                            Game1.dust[index2].noGravity = true;
+                        else if (Game1.rand.Next(2) == 0)
                         {
-                            Main.dust[index2].scale *= 1.3f;
-                            Main.dust[index2].noGravity = true;
+                            Game1.dust[index2].scale *= 1.3f;
+                            Game1.dust[index2].noGravity = true;
                         }
                         else
-                            Main.dust[index2].velocity *= 0.5f;
-                        Main.dust[index2].velocity += mountedPlayer.velocity * 0.8f;
+                            Game1.dust[index2].velocity *= 0.5f;
+                        Game1.dust[index2].velocity += mountedPlayer.velocity * 0.8f;
                     }
                 }
             }
-            if (mountedPlayer.whoAmI != Main.myPlayer)
+            if (mountedPlayer.whoAmI != Game1.myPlayer)
                 return;
             NetMessage.SendData(13, -1, -1, "", mountedPlayer.whoAmI, 0.0f, 0.0f, 0.0f, 0, 0, 0);
         }
@@ -2488,9 +2488,9 @@ namespace GameManager
             int index2 = (int)((double)position.Y / 16.0);
             for (int index3 = 0; index3 <= maxTilesDown; ++index3)
             {
-                Tile tile = Main.tile[index1, index2];
-                bool flag1 = Main.tileSolid[(int)tile.type];
-                bool flag2 = Main.tileSolidTop[(int)tile.type];
+                Tile tile = Game1.tile[index1, index2];
+                bool flag1 = Game1.tileSolid[(int)tile.type];
+                bool flag2 = Game1.tileSolidTop[(int)tile.type];
                 ++index2;
             }
             tileHeight = 0.0f;

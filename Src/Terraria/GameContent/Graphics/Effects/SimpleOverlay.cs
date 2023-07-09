@@ -33,7 +33,7 @@ namespace GameManager.Graphics.Effects
             : base(priority)
         {
             _texture = TextureManager.Retrieve(textureName == null ? "" : textureName);
-            _shader = new ScreenShaderData(Main.screenShader, shaderName);
+            _shader = new ScreenShaderData(Game1.screenShader, shaderName);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -41,7 +41,7 @@ namespace GameManager.Graphics.Effects
             _shader.UseGlobalOpacity(Opacity);
             _shader.UseTargetPosition(TargetPosition);
             _shader.Apply();
-            spriteBatch.Draw(_texture.Value, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White);
+            spriteBatch.Draw(_texture.Value, new Rectangle(0, 0, Game1.screenWidth, Game1.screenHeight), Color.White);
         }
 
         internal override void Activate(Vector2 position, params object[] args)

@@ -27,7 +27,7 @@ namespace GameManager.GameContent.Skies
 
         public override void Update()
         {
-            if (Main.gamePaused || !Main.hasFocus)
+            if (Game1.gamePaused || !Game1.hasFocus)
                 return;
 
             int index1 = _activeUfos;
@@ -64,7 +64,7 @@ namespace GameManager.GameContent.Skies
 
         public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
         {
-            if (Main.screenPosition.Y > 10000.0)
+            if (Game1.screenPosition.Y > 10000.0)
                 return;
 
             int num1 = -1;
@@ -83,14 +83,14 @@ namespace GameManager.GameContent.Skies
             if (num1 == -1)
                 return;
 
-            Color color = new Color(Main.bgColor.ToVector4() * 0.9f + new Vector4(0.1f));
-            Vector2 vector2_1 = Main.screenPosition + new Vector2((Main.screenWidth >> 1), (Main.screenHeight >> 1));
+            Color color = new Color(Game1.bgColor.ToVector4() * 0.9f + new Vector4(0.1f));
+            Vector2 vector2_1 = Game1.screenPosition + new Vector2((Game1.screenWidth >> 1), (Game1.screenHeight >> 1));
             Rectangle rectangle = new Rectangle(-1000, -1000, 4000, 4000);
             for (int index = num1; index < num2; ++index)
             {
                 Vector2 vector2_2 = new Vector2(1f / _ufos[index].Depth, 0.9f / _ufos[index].Depth);
                 Vector2 position = _ufos[index].Position;
-                position = (position - vector2_1) * vector2_2 + vector2_1 - Main.screenPosition;
+                position = (position - vector2_1) * vector2_2 + vector2_1 - Game1.screenPosition;
                 if (_ufos[index].IsActive && rectangle.Contains((int)position.X, (int)position.Y))
                 {
                     spriteBatch.Draw(_ufos[index].Texture, position, new Rectangle?(_ufos[index].GetSourceRectangle()), color * _ufos[index].Opacity, _ufos[index].Rotation,
@@ -104,22 +104,22 @@ namespace GameManager.GameContent.Skies
 
         private void GenerateUfos()
         {
-            _maxUfos = (int)(256.0 * (Main.maxTilesX / 4200f));
+            _maxUfos = (int)(256.0 * (Game1.maxTilesX / 4200f));
             _ufos = new Ufo[_maxUfos];
             int num1 = _maxUfos >> 4;
             for (int index = 0; index < num1; ++index)
             {
                 double num2 = index / num1;
-                _ufos[index] = new Ufo(Main.extraTexture[5], (float)(Main.rand.NextDouble() * 4.0 + 6.59999990463257));
-                _ufos[index].GlowTexture = Main.glowMaskTexture[90];
+                _ufos[index] = new Ufo(Game1.extraTexture[5], (float)(Game1.rand.NextDouble() * 4.0 + 6.59999990463257));
+                _ufos[index].GlowTexture = Game1.glowMaskTexture[90];
             }
 
             for (int index = num1; index < this._ufos.Length; ++index)
             {
                 double num2 = (index - num1) / (_ufos.Length - num1);
-                _ufos[index] = new Ufo(Main.extraTexture[6], (float)(Main.rand.NextDouble() * 5.0 + 1.60000002384186));
+                _ufos[index] = new Ufo(Game1.extraTexture[6], (float)(Game1.rand.NextDouble() * 5.0 + 1.60000002384186));
                 _ufos[index].Scale = 0.5f;
-                _ufos[index].GlowTexture = Main.glowMaskTexture[91];
+                _ufos[index].GlowTexture = Game1.glowMaskTexture[91];
             }
         }
 
@@ -162,7 +162,7 @@ namespace GameManager.GameContent.Skies
 
             public override void InitializeUfo(ref Ufo ufo)
             {
-                ufo.Position.X = (float)Ufo.Random.NextDouble() * (Main.maxTilesX << 4);
+                ufo.Position.X = (float)Ufo.Random.NextDouble() * (Game1.maxTilesX << 4);
                 ufo.Position.Y = (float)(Ufo.Random.NextDouble() * 5000.0);
                 ufo.Opacity = 0.0f;
                 float num1 = (float)(Ufo.Random.NextDouble() * 5.0 + 10.0);
@@ -196,7 +196,7 @@ namespace GameManager.GameContent.Skies
 
             public override void InitializeUfo(ref Ufo ufo)
             {
-                ufo.Position.X = (float)Ufo.Random.NextDouble() * (float)(Main.maxTilesX << 4);
+                ufo.Position.X = (float)Ufo.Random.NextDouble() * (float)(Game1.maxTilesX << 4);
                 ufo.Position.Y = (float)(Ufo.Random.NextDouble() * 5000.0);
                 ufo.Opacity = 0.0f;
                 ufo.Rotation = 0.0f;

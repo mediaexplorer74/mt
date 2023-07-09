@@ -79,7 +79,7 @@ namespace GameManager
                     for (int index2 = 0; index2 < tileData.Height; ++index2)
                     {
                         Tile tileSafely = Framing.GetTileSafely(num6 + index1, num7 + index2);
-                        if (tileSafely.active() && Main.tileCut[(int)tileSafely.type])
+                        if (tileSafely.active() && Game1.tileCut[(int)tileSafely.type])
                             WorldGen.KillTile(num6 + index1, num7 + index2, false, false, false);
                     }
                 }
@@ -111,7 +111,7 @@ namespace GameManager
                     for (int index = 0; index < anchorData.tileCount; ++index)
                     {
                         Tile tileSafely = Framing.GetTileSafely(num + index, j);
-                        if (Main.tileSolid[(int)tileSafely.type] && !Main.tileSolidTop[(int)tileSafely.type] && tileSafely.blockType() != 0)
+                        if (Game1.tileSolid[(int)tileSafely.type] && !Game1.tileSolidTop[(int)tileSafely.type] && tileSafely.blockType() != 0)
                             WorldGen.SlopeTile(num + index, j, 0);
                     }
                 }
@@ -123,7 +123,7 @@ namespace GameManager
                     for (int index = 0; index < anchorData.tileCount; ++index)
                     {
                         Tile tileSafely = Framing.GetTileSafely(num + index, j);
-                        if (Main.tileSolid[(int)tileSafely.type] && !Main.tileSolidTop[(int)tileSafely.type] && tileSafely.blockType() != 0)
+                        if (Game1.tileSolid[(int)tileSafely.type] && !Game1.tileSolidTop[(int)tileSafely.type] && tileSafely.blockType() != 0)
                             WorldGen.SlopeTile(num + index, j, 0);
                     }
                 }
@@ -135,7 +135,7 @@ namespace GameManager
                     for (int index = 0; index < anchorData.tileCount; ++index)
                     {
                         Tile tileSafely = Framing.GetTileSafely(i, num + index);
-                        if (Main.tileSolid[(int)tileSafely.type] && !Main.tileSolidTop[(int)tileSafely.type] && tileSafely.blockType() != 0)
+                        if (Game1.tileSolid[(int)tileSafely.type] && !Game1.tileSolidTop[(int)tileSafely.type] && tileSafely.blockType() != 0)
                             WorldGen.SlopeTile(i, num + index, 0);
                     }
                 }
@@ -147,7 +147,7 @@ namespace GameManager
                     for (int index = 0; index < anchorData.tileCount; ++index)
                     {
                         Tile tileSafely = Framing.GetTileSafely(i, num + index);
-                        if (Main.tileSolid[(int)tileSafely.type] && !Main.tileSolidTop[(int)tileSafely.type] && tileSafely.blockType() != 0)
+                        if (Game1.tileSolid[(int)tileSafely.type] && !Game1.tileSolidTop[(int)tileSafely.type] && tileSafely.blockType() != 0)
                             WorldGen.SlopeTile(i, num + index, 0);
                     }
                 }
@@ -163,7 +163,7 @@ namespace GameManager
                 return false;
             int num1 = x - (int)tileData1.Origin.X;
             int num2 = y - (int)tileData1.Origin.Y;
-            if (num1 < 0 || num1 + tileData1.Width >= Main.maxTilesX || (num2 < 0 || num2 + tileData1.Height >= Main.maxTilesY))
+            if (num1 < 0 || num1 + tileData1.Width >= Game1.maxTilesX || (num2 < 0 || num2 + tileData1.Height >= Game1.maxTilesY))
                 return false;
             bool flag1 = tileData1.RandomStyleRange > 0;
             if (TileObjectPreviewData.placementCache == null)
@@ -186,7 +186,7 @@ namespace GameManager
                 {
                     int num8 = x - (int)tileData2.Origin.X;
                     int num9 = y - (int)tileData2.Origin.Y;
-                    if (num8 < 5 || num8 + tileData2.Width > Main.maxTilesX - 5 || (num9 < 5 || num9 + tileData2.Height > Main.maxTilesY - 5))
+                    if (num8 < 5 || num8 + tileData2.Width > Game1.maxTilesX - 5 || (num9 < 5 || num9 + tileData2.Height > Game1.maxTilesY - 5))
                         return false;
                     Rectangle rectangle = new Rectangle(0, 0, tileData2.Width, tileData2.Height);
                     int X = 0;
@@ -302,7 +302,7 @@ namespace GameManager
                                     ++num15;
                             }
                             bool flag4 = false;
-                            if (tileSafely.active() && !Main.tileCut[(int)tileSafely.type])
+                            if (tileSafely.active() && !Game1.tileCut[(int)tileSafely.type])
                                 flag4 = true;
                             if (flag4 || flag2 || flag3)
                             {
@@ -329,7 +329,7 @@ namespace GameManager
                             bool flag2 = false;
                             if (tileSafely.nactive())
                             {
-                                if ((anchorBottom.type & AnchorType.SolidTile) == AnchorType.SolidTile && Main.tileSolid[(int)tileSafely.type] && (!Main.tileSolidTop[(int)tileSafely.type] && !Main.tileNoAttach[(int)tileSafely.type]) && (tileData2.FlattenAnchors || tileSafely.blockType() == 0))
+                                if ((anchorBottom.type & AnchorType.SolidTile) == AnchorType.SolidTile && Game1.tileSolid[(int)tileSafely.type] && (!Game1.tileSolidTop[(int)tileSafely.type] && !Game1.tileNoAttach[(int)tileSafely.type]) && (tileData2.FlattenAnchors || tileSafely.blockType() == 0))
                                     flag2 = tileData2.isValidTileAnchor((int)tileSafely.type);
                                 if (!flag2 && ((anchorBottom.type & AnchorType.SolidWithTop) == AnchorType.SolidWithTop || (anchorBottom.type & AnchorType.Table) == AnchorType.Table))
                                 {
@@ -339,12 +339,12 @@ namespace GameManager
                                         if (!tileSafely.halfBrick() && num11 >= 0 && num11 <= 7 || (num11 >= 12 && num11 <= 16 || num11 >= 25 && num11 <= 26))
                                             flag2 = true;
                                     }
-                                    else if (Main.tileSolid[(int)tileSafely.type] && Main.tileSolidTop[(int)tileSafely.type])
+                                    else if (Game1.tileSolid[(int)tileSafely.type] && Game1.tileSolidTop[(int)tileSafely.type])
                                         flag2 = true;
                                 }
-                                if (!flag2 && (anchorBottom.type & AnchorType.Table) == AnchorType.Table && ((int)tileSafely.type != 19 && Main.tileTable[(int)tileSafely.type]) && tileSafely.blockType() == 0)
+                                if (!flag2 && (anchorBottom.type & AnchorType.Table) == AnchorType.Table && ((int)tileSafely.type != 19 && Game1.tileTable[(int)tileSafely.type]) && tileSafely.blockType() == 0)
                                     flag2 = true;
-                                if (!flag2 && (anchorBottom.type & AnchorType.SolidSide) == AnchorType.SolidSide && (Main.tileSolid[(int)tileSafely.type] && !Main.tileSolidTop[(int)tileSafely.type]))
+                                if (!flag2 && (anchorBottom.type & AnchorType.SolidSide) == AnchorType.SolidSide && (Game1.tileSolid[(int)tileSafely.type] && !Game1.tileSolidTop[(int)tileSafely.type]))
                                 {
                                     switch (tileSafely.blockType())
                                     {
@@ -384,11 +384,11 @@ namespace GameManager
                             bool flag2 = false;
                             if (tileSafely.nactive())
                             {
-                                if (Main.tileSolid[(int)tileSafely.type] && !Main.tileSolidTop[(int)tileSafely.type] && !Main.tileNoAttach[(int)tileSafely.type] && (tileData2.FlattenAnchors || tileSafely.blockType() == 0))
+                                if (Game1.tileSolid[(int)tileSafely.type] && !Game1.tileSolidTop[(int)tileSafely.type] && !Game1.tileNoAttach[(int)tileSafely.type] && (tileData2.FlattenAnchors || tileSafely.blockType() == 0))
                                     flag2 = tileData2.isValidTileAnchor((int)tileSafely.type);
-                                if (!flag2 && (anchorTop.type & AnchorType.SolidBottom) == AnchorType.SolidBottom && (Main.tileSolid[(int)tileSafely.type] && (!Main.tileSolidTop[(int)tileSafely.type] || (int)tileSafely.type == 19 && (tileSafely.halfBrick() || tileSafely.topSlope())) || (tileSafely.halfBrick() || tileSafely.topSlope())) && (!TileID.Sets.NotReallySolid[(int)tileSafely.type] && !tileSafely.bottomSlope()))
+                                if (!flag2 && (anchorTop.type & AnchorType.SolidBottom) == AnchorType.SolidBottom && (Game1.tileSolid[(int)tileSafely.type] && (!Game1.tileSolidTop[(int)tileSafely.type] || (int)tileSafely.type == 19 && (tileSafely.halfBrick() || tileSafely.topSlope())) || (tileSafely.halfBrick() || tileSafely.topSlope())) && (!TileID.Sets.NotReallySolid[(int)tileSafely.type] && !tileSafely.bottomSlope()))
                                     flag2 = tileData2.isValidTileAnchor((int)tileSafely.type);
-                                if (!flag2 && (anchorTop.type & AnchorType.SolidSide) == AnchorType.SolidSide && (Main.tileSolid[(int)tileSafely.type] && !Main.tileSolidTop[(int)tileSafely.type]))
+                                if (!flag2 && (anchorTop.type & AnchorType.SolidSide) == AnchorType.SolidSide && (Game1.tileSolid[(int)tileSafely.type] && !Game1.tileSolidTop[(int)tileSafely.type]))
                                 {
                                     switch (tileSafely.blockType())
                                     {
@@ -428,9 +428,9 @@ namespace GameManager
                             bool flag2 = false;
                             if (tileSafely1.nactive())
                             {
-                                if (Main.tileSolid[(int)tileSafely1.type] && !Main.tileSolidTop[(int)tileSafely1.type] && !Main.tileNoAttach[(int)tileSafely1.type] && (tileData2.FlattenAnchors || tileSafely1.blockType() == 0))
+                                if (Game1.tileSolid[(int)tileSafely1.type] && !Game1.tileSolidTop[(int)tileSafely1.type] && !Game1.tileNoAttach[(int)tileSafely1.type] && (tileData2.FlattenAnchors || tileSafely1.blockType() == 0))
                                     flag2 = tileData2.isValidTileAnchor((int)tileSafely1.type);
-                                if (!flag2 && (anchorRight.type & AnchorType.SolidSide) == AnchorType.SolidSide && (Main.tileSolid[(int)tileSafely1.type] && !Main.tileSolidTop[(int)tileSafely1.type]))
+                                if (!flag2 && (anchorRight.type & AnchorType.SolidSide) == AnchorType.SolidSide && (Game1.tileSolid[(int)tileSafely1.type] && !Game1.tileSolidTop[(int)tileSafely1.type]))
                                 {
                                     switch (tileSafely1.blockType())
                                     {
@@ -500,9 +500,9 @@ namespace GameManager
                             bool flag2 = false;
                             if (tileSafely1.nactive())
                             {
-                                if (Main.tileSolid[(int)tileSafely1.type] && !Main.tileSolidTop[(int)tileSafely1.type] && !Main.tileNoAttach[(int)tileSafely1.type] && (tileData2.FlattenAnchors || tileSafely1.blockType() == 0))
+                                if (Game1.tileSolid[(int)tileSafely1.type] && !Game1.tileSolidTop[(int)tileSafely1.type] && !Game1.tileNoAttach[(int)tileSafely1.type] && (tileData2.FlattenAnchors || tileSafely1.blockType() == 0))
                                     flag2 = tileData2.isValidTileAnchor((int)tileSafely1.type);
-                                if (!flag2 && (anchorLeft.type & AnchorType.SolidSide) == AnchorType.SolidSide && (Main.tileSolid[(int)tileSafely1.type] && !Main.tileSolidTop[(int)tileSafely1.type]))
+                                if (!flag2 && (anchorLeft.type & AnchorType.SolidSide) == AnchorType.SolidSide && (Game1.tileSolid[(int)tileSafely1.type] && !Game1.tileSolidTop[(int)tileSafely1.type]))
                                 {
                                     switch (tileSafely1.blockType())
                                     {
@@ -613,7 +613,7 @@ namespace GameManager
                 }
                 else
                     flag2 = true;
-                num19 = !flag2 ? TileObjectPreviewData.randomCache.Random : Main.rand.Next(tileData1.RandomStyleRange);
+                num19 = !flag2 ? TileObjectPreviewData.randomCache.Random : Game1.rand.Next(tileData1.RandomStyleRange);
             }
             if (onlyCheck)
             {
@@ -643,7 +643,7 @@ namespace GameManager
         public static void DrawPreview(SpriteBatch sb, TileObjectPreviewData op, Vector2 position)
         {
             Point16 coordinates = op.Coordinates;
-            Texture2D texture = Main.tileTexture[(int)op.Type];
+            Texture2D texture = Game1.tileTexture[(int)op.Type];
             TileObjectData tileData = TileObjectData.GetTileData((int)op.Type, (int)op.Style, op.Alternate);
             int num1 = tileData.CalculatePlacementStyle((int)op.Style, op.Alternate, op.Random);
             int num2 = 0;

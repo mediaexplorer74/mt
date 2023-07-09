@@ -1113,14 +1113,14 @@ namespace GameManager.Map
         }
         public static MapTile CreateMapTile(int i, int j, byte Light)
         {
-            Tile tile = Main.tile[i, j];
+            Tile tile = Game1.tile[i, j];
             if (tile == null)
             {
-                tile = (Main.tile[i, j] = new Tile());
+                tile = (Game1.tile[i, j] = new Tile());
             }
             int num = 0;
             int num2 = (int)Light;
-            ushort type = Main.Map[i, j].Type;
+            ushort type = Game1.Map[i, j].Type;
             int num3 = 0;
             int num4 = 0;
             if (tile.active())
@@ -1720,23 +1720,23 @@ namespace GameManager.Map
         IL_949:
             if (num3 == 0)
             {
-                if ((double)j < Main.worldSurface)
+                if ((double)j < Game1.worldSurface)
                 {
-                    int num10 = (int)((byte)(255.0 * ((double)j / Main.worldSurface)));
+                    int num10 = (int)((byte)(255.0 * ((double)j / Game1.worldSurface)));
                     num3 = (int)MapHelper.skyPosition + num10;
                     num2 = 255;
                     num = 0;
                 }
-                else if (j < Main.maxTilesY - 200)
+                else if (j < Game1.maxTilesY - 200)
                 {
                     num = 0;
                     bool flag = type < MapHelper.dirtPosition || type >= MapHelper.hellPosition;
                     byte b = 0;
-                    float num11 = Main.screenPosition.X / 16f - 5f;
-                    float num12 = (Main.screenPosition.X + (float)Main.screenWidth) / 16f + 5f;
-                    float num13 = Main.screenPosition.Y / 16f - 5f;
-                    float num14 = (Main.screenPosition.Y + (float)Main.screenHeight) / 16f + 5f;
-                    if (((float)i < num11 || (float)i > num12 || (float)j < num13 || (float)j > num14) && i > 40 && i < Main.maxTilesX - 40 && j > 40 && j < Main.maxTilesY - 40 && flag)
+                    float num11 = Game1.screenPosition.X / 16f - 5f;
+                    float num12 = (Game1.screenPosition.X + (float)Game1.screenWidth) / 16f + 5f;
+                    float num13 = Game1.screenPosition.Y / 16f - 5f;
+                    float num14 = (Game1.screenPosition.Y + (float)Game1.screenHeight) / 16f + 5f;
+                    if (((float)i < num11 || (float)i > num12 || (float)j < num13 || (float)j > num14) && i > 40 && i < Game1.maxTilesX - 40 && j > 40 && j < Game1.maxTilesY - 40 && flag)
                     {
                         for (int k = i - 36; k <= i + 30; k += 10)
                         {
@@ -1757,7 +1757,7 @@ namespace GameManager.Map
                     }
                     else
                     {
-                        float num15 = (float)Main.snowTiles / 1000f;
+                        float num15 = (float)Game1.snowTiles / 1000f;
                         num15 *= 255f;
                         if (num15 > 255f)
                         {
@@ -1765,7 +1765,7 @@ namespace GameManager.Map
                         }
                         b = (byte)num15;
                     }
-                    if ((double)j < Main.rockLayer)
+                    if ((double)j < Game1.rockLayer)
                     {
                         num3 = (int)(MapHelper.dirtPosition + (ushort)b);
                     }
@@ -1784,11 +1784,11 @@ namespace GameManager.Map
         }
         public static void SaveMap()
         {
-            if (!Main.mapEnabled || MapHelper.saveLock)
+            if (!Game1.mapEnabled || MapHelper.saveLock)
             {
                 return;
             }
-            string text = Main.playerPathName.Substring(0, Main.playerPathName.Length - 4);
+            string text = Game1.playerPathName.Substring(0, Game1.playerPathName.Length - 4);
             lock (MapHelper.padlock)
             {
                 try
@@ -1805,13 +1805,13 @@ namespace GameManager.Map
 					{
 						text,
 						Path.DirectorySeparatorChar,
-						Main.worldID,
+						Game1.worldID,
 						".map"
 					});
                     Stopwatch stopwatch = new Stopwatch();
                     stopwatch.Start();
                     bool flag2 = false;
-                    if (!Main.gameMenu)
+                    if (!Game1.gameMenu)
                     {
                         flag2 = true;
                     }
@@ -1823,12 +1823,12 @@ namespace GameManager.Map
                             {
                                 int num = 0;
                                 byte[] array = new byte[16384];
-                                binaryWriter.Write(Main.curRelease);
-                                Main.MapFileMetadata.IncrementAndWrite(binaryWriter);
-                                binaryWriter.Write(Main.worldName);
-                                binaryWriter.Write(Main.worldID);
-                                binaryWriter.Write(Main.maxTilesY);
-                                binaryWriter.Write(Main.maxTilesX);
+                                binaryWriter.Write(Game1.curRelease);
+                                Game1.MapFileMetadata.IncrementAndWrite(binaryWriter);
+                                binaryWriter.Write(Game1.worldName);
+                                binaryWriter.Write(Game1.worldID);
+                                binaryWriter.Write(Game1.maxTilesY);
+                                binaryWriter.Write(Game1.maxTilesX);
                                 binaryWriter.Write(419);
                                 binaryWriter.Write(225);
                                 binaryWriter.Write(3);
@@ -1899,12 +1899,12 @@ namespace GameManager.Map
                                     }
                                 }
                                 binaryWriter.Flush();
-                                for (int j = 0; j < Main.maxTilesY; j++)
+                                for (int j = 0; j < Game1.maxTilesY; j++)
                                 {
                                     if (!flag2)
                                     {
-                                        float num2 = (float)j / (float)Main.maxTilesY;
-                                        Main.statusText = string.Concat(new object[]
+                                        float num2 = (float)j / (float)Game1.maxTilesY;
+                                        Game1.statusText = string.Concat(new object[]
 										{
 											Lang.gen[66],
 											" ",
@@ -1912,9 +1912,9 @@ namespace GameManager.Map
 											"%"
 										});
                                     }
-                                    for (int k = 0; k < Main.maxTilesX; k++)
+                                    for (int k = 0; k < Game1.maxTilesX; k++)
                                     {
-                                        MapTile mapTile = Main.Map[k, j];
+                                        MapTile mapTile = Game1.Map[k, j];
                                         byte b4;
                                         byte b3 = b4 = 0;
                                         bool flag3 = true;
@@ -1933,10 +1933,10 @@ namespace GameManager.Map
                                             num6 = 0;
                                             num7 = 0;
                                             int num8 = k + 1;
-                                            int l = Main.maxTilesX - k - 1;
+                                            int l = Game1.maxTilesX - k - 1;
                                             while (l > 0)
                                             {
-                                                if (Main.Map[num8, j].Light > 18)
+                                                if (Game1.Map[num8, j].Light > 18)
                                                 {
                                                     break;
                                                 }
@@ -1995,11 +1995,11 @@ namespace GameManager.Map
                                             {
                                                 num7 = 0;
                                                 int num8 = k + 1;
-                                                int l = Main.maxTilesX - k - 1;
+                                                int l = Game1.maxTilesX - k - 1;
                                                 num3 = num8;
                                                 while (l > 0)
                                                 {
-                                                    MapTile mapTile2 = Main.Map[num8, j];
+                                                    MapTile mapTile2 = Game1.Map[num8, j];
                                                     if (!mapTile.EqualsWithoutLight(ref mapTile2))
                                                     {
                                                         num4 = num8;
@@ -2014,10 +2014,10 @@ namespace GameManager.Map
                                             {
                                                 num7 = 0;
                                                 int num8 = k + 1;
-                                                int l = Main.maxTilesX - k - 1;
+                                                int l = Game1.maxTilesX - k - 1;
                                                 while (l > 0)
                                                 {
-                                                    MapTile mapTile3 = Main.Map[num8, j];
+                                                    MapTile mapTile3 = Game1.Map[num8, j];
                                                     if (!mapTile.Equals(ref mapTile3))
                                                     {
                                                         break;
@@ -2090,7 +2090,7 @@ namespace GameManager.Map
                                         }
                                         for (int m = num3; m < num4; m++)
                                         {
-                                            array[num] = Main.Map[m, j].Light;
+                                            array[num] = Game1.Map[m, j].Light;
                                             num++;
                                         }
                                         k += num7;
@@ -2130,21 +2130,21 @@ namespace GameManager.Map
             int num = fileIO.ReadInt32();
             int num2 = fileIO.ReadInt32();
             int num3 = fileIO.ReadInt32();
-            if (a != Main.worldName || num != Main.worldID || num3 != Main.maxTilesX || num2 != Main.maxTilesY)
+            if (a != Game1.worldName || num != Game1.worldID || num3 != Game1.maxTilesX || num2 != Game1.maxTilesY)
             {
                 throw new Exception("Map meta-data is invalid.");
             }
-            for (int i = 0; i < Main.maxTilesX; i++)
+            for (int i = 0; i < Game1.maxTilesX; i++)
             {
-                float num4 = (float)i / (float)Main.maxTilesX;
-                Main.statusText = string.Concat(new object[]
+                float num4 = (float)i / (float)Game1.maxTilesX;
+                Game1.statusText = string.Concat(new object[]
 				{
 					Lang.gen[67],
 					" ",
 					(int)(num4 * 100f + 1f),
 					"%"
 				});
-                for (int j = 0; j < Main.maxTilesY; j++)
+                for (int j = 0; j < Game1.maxTilesY; j++)
                 {
                     bool flag = fileIO.ReadBoolean();
                     if (flag)
@@ -2192,13 +2192,13 @@ namespace GameManager.Map
                         {
                             num7 = num6 + (int)MapHelper.wallLookup[num5];
                         }
-                        else if ((double)j < Main.worldSurface)
+                        else if ((double)j < Game1.worldSurface)
                         {
                             flag2 = true;
-                            int num8 = (int)((byte)(256.0 * ((double)j / Main.worldSurface)));
+                            int num8 = (int)((byte)(256.0 * ((double)j / Game1.worldSurface)));
                             num7 = (int)MapHelper.skyPosition + num8;
                         }
-                        else if ((double)j < Main.rockLayer)
+                        else if ((double)j < Game1.rockLayer)
                         {
                             flag2 = true;
                             if (num5 > 255)
@@ -2207,7 +2207,7 @@ namespace GameManager.Map
                             }
                             num7 = num5 + (int)MapHelper.dirtPosition;
                         }
-                        else if (j < Main.maxTilesY - 200)
+                        else if (j < Game1.maxTilesY - 200)
                         {
                             flag2 = true;
                             if (num5 > 255)
@@ -2221,7 +2221,7 @@ namespace GameManager.Map
                             num7 = (int)MapHelper.hellPosition;
                         }
                         MapTile mapTile = MapTile.Create((ushort)num7, b, 0);
-                        Main.Map.SetTile(i, j, ref mapTile);
+                        Game1.Map.SetTile(i, j, ref mapTile);
                         int k = (int)fileIO.ReadInt16();
                         if (b == 255)
                         {
@@ -2231,18 +2231,18 @@ namespace GameManager.Map
                                 j++;
                                 if (flag2)
                                 {
-                                    if ((double)j < Main.worldSurface)
+                                    if ((double)j < Game1.worldSurface)
                                     {
                                         flag2 = true;
-                                        int num9 = (int)((byte)(256.0 * ((double)j / Main.worldSurface)));
+                                        int num9 = (int)((byte)(256.0 * ((double)j / Game1.worldSurface)));
                                         num7 = (int)MapHelper.skyPosition + num9;
                                     }
-                                    else if ((double)j < Main.rockLayer)
+                                    else if ((double)j < Game1.rockLayer)
                                     {
                                         flag2 = true;
                                         num7 = num5 + (int)MapHelper.dirtPosition;
                                     }
-                                    else if (j < Main.maxTilesY - 200)
+                                    else if (j < Game1.maxTilesY - 200)
                                     {
                                         flag2 = true;
                                         num7 = num5 + (int)MapHelper.rockPosition;
@@ -2254,7 +2254,7 @@ namespace GameManager.Map
                                     }
                                     mapTile.Type = (ushort)num7;
                                 }
-                                Main.Map.SetTile(i, j, ref mapTile);
+                                Game1.Map.SetTile(i, j, ref mapTile);
                             }
                         }
                         else
@@ -2269,18 +2269,18 @@ namespace GameManager.Map
                                     mapTile.Light = b;
                                     if (flag2)
                                     {
-                                        if ((double)j < Main.worldSurface)
+                                        if ((double)j < Game1.worldSurface)
                                         {
                                             flag2 = true;
-                                            int num10 = (int)((byte)(256.0 * ((double)j / Main.worldSurface)));
+                                            int num10 = (int)((byte)(256.0 * ((double)j / Game1.worldSurface)));
                                             num7 = (int)MapHelper.skyPosition + num10;
                                         }
-                                        else if ((double)j < Main.rockLayer)
+                                        else if ((double)j < Game1.rockLayer)
                                         {
                                             flag2 = true;
                                             num7 = num5 + (int)MapHelper.dirtPosition;
                                         }
-                                        else if (j < Main.maxTilesY - 200)
+                                        else if (j < Game1.maxTilesY - 200)
                                         {
                                             flag2 = true;
                                             num7 = num5 + (int)MapHelper.rockPosition;
@@ -2292,7 +2292,7 @@ namespace GameManager.Map
                                         }
                                         mapTile.Type = (ushort)num7;
                                     }
-                                    Main.Map.SetTile(i, j, ref mapTile);
+                                    Game1.Map.SetTile(i, j, ref mapTile);
                                 }
                             }
                         }
@@ -2309,17 +2309,17 @@ namespace GameManager.Map
         {
             if (release >= 135)
             {
-                Main.MapFileMetadata = FileMetadata.Read(fileIO, FileType.Map);
+                Game1.MapFileMetadata = FileMetadata.Read(fileIO, FileType.Map);
             }
             else
             {
-                Main.MapFileMetadata = FileMetadata.FromCurrentSettings(FileType.Map);
+                Game1.MapFileMetadata = FileMetadata.FromCurrentSettings(FileType.Map);
             }
             string a = fileIO.ReadString();
             int num = fileIO.ReadInt32();
             int num2 = fileIO.ReadInt32();
             int num3 = fileIO.ReadInt32();
-            if (a != Main.worldName || num != Main.worldID || num3 != Main.maxTilesX || num2 != Main.maxTilesY)
+            if (a != Game1.worldName || num != Game1.worldID || num3 != Game1.maxTilesX || num2 != Game1.maxTilesY)
             {
                 throw new Exception("Map meta-data is invalid.");
             }
@@ -2496,17 +2496,17 @@ namespace GameManager.Map
             {
                 binaryReader = new BinaryReader(fileIO.BaseStream);
             }
-            for (int l = 0; l < Main.maxTilesY; l++)
+            for (int l = 0; l < Game1.maxTilesY; l++)
             {
-                float num26 = (float)l / (float)Main.maxTilesY;
-                Main.statusText = string.Concat(new object[]
+                float num26 = (float)l / (float)Game1.maxTilesY;
+                Game1.statusText = string.Concat(new object[]
 				{
 					Lang.gen[67],
 					" ",
 					(int)(num26 * 100f + 1f),
 					"%"
 				});
-                for (int m = 0; m < Main.maxTilesX; m++)
+                for (int m = 0; m < Game1.maxTilesX; m++)
                 {
                     byte b3 = binaryReader.ReadByte();
                     byte b4;
@@ -2603,9 +2603,9 @@ namespace GameManager.Map
                                 num27 += (ushort)(num21 + (b5 - 3));
                                 break;
                             case 6:
-                                if ((double)l < Main.worldSurface)
+                                if ((double)l < Game1.worldSurface)
                                 {
-                                    ushort num28 = (ushort)((double)num7 * ((double)l / Main.worldSurface));
+                                    ushort num28 = (ushort)((double)num7 * ((double)l / Game1.worldSurface));
                                     num27 += (ushort)(num22 + num28);
                                 }
                                 else
@@ -2614,7 +2614,7 @@ namespace GameManager.Map
                                 }
                                 break;
                             case 7:
-                                if ((double)l < Main.rockLayer)
+                                if ((double)l < Game1.rockLayer)
                                 {
                                     num27 += num23;
                                 }
@@ -2625,13 +2625,13 @@ namespace GameManager.Map
                                 break;
                         }
                         MapTile mapTile = MapTile.Create(array5[(int)num27], b6, (byte)(b4 >> 1 & 31));
-                        Main.Map.SetTile(m, l, ref mapTile);
+                        Game1.Map.SetTile(m, l, ref mapTile);
                         if (b6 == 255)
                         {
                             while (n > 0)
                             {
                                 m++;
-                                Main.Map.SetTile(m, l, ref mapTile);
+                                Game1.Map.SetTile(m, l, ref mapTile);
                                 n--;
                             }
                         }
@@ -2641,7 +2641,7 @@ namespace GameManager.Map
                             {
                                 m++;
                                 mapTile = mapTile.WithLight(binaryReader.ReadByte());
-                                Main.Map.SetTile(m, l, ref mapTile);
+                                Game1.Map.SetTile(m, l, ref mapTile);
                                 n--;
                             }
                         }

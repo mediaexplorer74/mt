@@ -21,7 +21,7 @@ namespace GameManager.Initializers
     {
         private static void LoadBasicColorDye(int baseDyeItem, int blackDyeItem, int brightDyeItem, int silverDyeItem, float r, float g, float b, float saturation = 1f, int oldShader = 1)
         {
-            Effect shader = Main.pixelShader;
+            Effect shader = Game1.pixelShader;
             GameShaders.Armor.BindShader<ArmorShaderData>(baseDyeItem, new ArmorShaderData(shader, "ArmorColored")).UseColor(r, g, b).UseSaturation(saturation);
             GameShaders.Armor.BindShader<ArmorShaderData>(blackDyeItem, new ArmorShaderData(shader, "ArmorColoredAndBlack")).UseColor(r, g, b).UseSaturation(saturation);
             GameShaders.Armor.BindShader<ArmorShaderData>(brightDyeItem, new ArmorShaderData(shader, "ArmorColored")).UseColor((float)((double)r * 0.5 + 0.5), (float)((double)g * 0.5 + 0.5), (float)((double)b * 0.5 + 0.5)).UseSaturation(saturation);
@@ -52,7 +52,7 @@ namespace GameManager.Initializers
 
         private static void LoadArmorDyes()
         {
-            Effect shader = Main.pixelShader;
+            Effect shader = Game1.pixelShader;
             DyeInitializer.LoadBasicColorDyes();
             GameShaders.Armor.BindShader<ArmorShaderData>(1050, new ArmorShaderData(shader, "ArmorBrightnessColored")).UseColor(0.6f, 0.6f, 0.6f);
             GameShaders.Armor.BindShader<ArmorShaderData>(1037, new ArmorShaderData(shader, "ArmorBrightnessColored")).UseColor(1f, 1f, 1f);
@@ -123,14 +123,14 @@ namespace GameManager.Initializers
 
         private static void LoadHairDyes()
         {
-            Effect shader = Main.pixelShader;
+            Effect shader = Game1.pixelShader;
             DyeInitializer.LoadLegacyHairdyes();
             GameShaders.Hair.BindShader<HairShaderData>(3259, new HairShaderData(shader, "ArmorTwilight")).UseImage("Images/Misc/noise").UseColor(0.5f, 0.1f, 1f);
         }
 
         private static void LoadLegacyHairdyes()
         {
-            Effect effect = Main.pixelShader;
+            Effect effect = Game1.pixelShader;
             GameShaders.Hair.BindShader<LegacyHairShaderData>(1977, new LegacyHairShaderData().UseLegacyMethod((LegacyHairShaderData.ColorProcessingMethod)((Player player, Color newColor, ref bool lighting) =>
             {
                 newColor.R = (byte)((double)player.statLife / (double)player.statLifeMax2 * 235.0 + 20.0);
@@ -147,10 +147,10 @@ namespace GameManager.Initializers
             })));
             GameShaders.Hair.BindShader<LegacyHairShaderData>(1979, new LegacyHairShaderData().UseLegacyMethod((LegacyHairShaderData.ColorProcessingMethod)((Player player, Color newColor, ref bool lighting) =>
             {
-                float num1 = (float)(Main.worldSurface * 0.45) * 16f;
-                float num2 = (float)(Main.worldSurface + Main.rockLayer) * 8f;
-                float num3 = ((float)Main.rockLayer + (float)Main.maxTilesY) * 8f;
-                float num4 = (float)(Main.maxTilesY - 150) * 16f;
+                float num1 = (float)(Game1.worldSurface * 0.45) * 16f;
+                float num2 = (float)(Game1.worldSurface + Game1.rockLayer) * 8f;
+                float num3 = ((float)Game1.rockLayer + (float)Game1.maxTilesY) * 8f;
+                float num4 = (float)(Game1.maxTilesY - 150) * 16f;
                 Vector2 center = player.Center;
                 if ((double)center.Y < (double)num1)
                 {
@@ -252,11 +252,11 @@ namespace GameManager.Initializers
                 Color color2 = new Color((int)byte.MaxValue, (int)byte.MaxValue, 0);
                 Color color3 = new Color(211, 45, (int)sbyte.MaxValue);
                 Color color4 = new Color(67, 44, 118);
-                if (Main.dayTime)
+                if (Game1.dayTime)
                 {
-                    if (Main.time < 27000.0)
+                    if (Game1.time < 27000.0)
                     {
-                        float num1 = (float)(Main.time / 27000.0);
+                        float num1 = (float)(Game1.time / 27000.0);
                         float num2 = 1f - num1;
                         newColor.R = (byte)((double)color1.R * (double)num2 + (double)color2.R * (double)num1);
                         newColor.G = (byte)((double)color1.G * (double)num2 + (double)color2.G * (double)num1);
@@ -265,16 +265,16 @@ namespace GameManager.Initializers
                     else
                     {
                         float num1 = 27000f;
-                        float num2 = (float)((Main.time - (double)num1) / (54000.0 - (double)num1));
+                        float num2 = (float)((Game1.time - (double)num1) / (54000.0 - (double)num1));
                         float num3 = 1f - num2;
                         newColor.R = (byte)((double)color2.R * (double)num3 + (double)color3.R * (double)num2);
                         newColor.G = (byte)((double)color2.G * (double)num3 + (double)color3.G * (double)num2);
                         newColor.B = (byte)((double)color2.B * (double)num3 + (double)color3.B * (double)num2);
                     }
                 }
-                else if (Main.time < 16200.0)
+                else if (Game1.time < 16200.0)
                 {
-                    float num1 = (float)(Main.time / 16200.0);
+                    float num1 = (float)(Game1.time / 16200.0);
                     float num2 = 1f - num1;
                     newColor.R = (byte)((double)color3.R * (double)num2 + (double)color4.R * (double)num1);
                     newColor.G = (byte)((double)color3.G * (double)num2 + (double)color4.G * (double)num1);
@@ -283,7 +283,7 @@ namespace GameManager.Initializers
                 else
                 {
                     float num1 = 16200f;
-                    float num2 = (float)((Main.time - (double)num1) / (32400.0 - (double)num1));
+                    float num2 = (float)((Game1.time - (double)num1) / (32400.0 - (double)num1));
                     float num3 = 1f - num2;
                     newColor.R = (byte)((double)color4.R * (double)num3 + (double)color1.R * (double)num2);
                     newColor.G = (byte)((double)color4.G * (double)num3 + (double)color1.G * (double)num2);
@@ -293,14 +293,14 @@ namespace GameManager.Initializers
             })));
             GameShaders.Hair.BindShader<LegacyHairShaderData>(1982, new LegacyHairShaderData().UseLegacyMethod((LegacyHairShaderData.ColorProcessingMethod)((Player player, Color newColor, ref bool lighting) =>
             {
-                if (player.team >= 0 && player.team < Main.teamColor.Length)
-                    newColor = Main.teamColor[player.team];
+                if (player.team >= 0 && player.team < Game1.teamColor.Length)
+                    newColor = Game1.teamColor[player.team];
                 return newColor;
             })));
             GameShaders.Hair.BindShader<LegacyHairShaderData>(1983, new LegacyHairShaderData().UseLegacyMethod((LegacyHairShaderData.ColorProcessingMethod)((Player player, Color newColor, ref bool lighting) =>
             {
                 Color color1 = new Color();
-                color1 = Main.waterStyle != 2 ? (Main.waterStyle != 3 ? (Main.waterStyle != 4 ? (Main.waterStyle != 5 ? (Main.waterStyle != 6 ? (Main.waterStyle != 7 ? (Main.waterStyle != 8 ? (Main.waterStyle != 9 ? (Main.waterStyle != 10 ? new Color(28, 216, 94) : new Color(208, 80, 80)) : new Color(200, 0, 0)) : new Color(128, 128, 128)) : new Color(151, 107, 75)) : new Color(230, 219, 100)) : new Color(189, 231, (int)byte.MaxValue)) : new Color(78, 193, 227)) : new Color(143, 215, 29)) : new Color(124, 118, 242);
+                color1 = Game1.waterStyle != 2 ? (Game1.waterStyle != 3 ? (Game1.waterStyle != 4 ? (Game1.waterStyle != 5 ? (Game1.waterStyle != 6 ? (Game1.waterStyle != 7 ? (Game1.waterStyle != 8 ? (Game1.waterStyle != 9 ? (Game1.waterStyle != 10 ? new Color(28, 216, 94) : new Color(208, 80, 80)) : new Color(200, 0, 0)) : new Color(128, 128, 128)) : new Color(151, 107, 75)) : new Color(230, 219, 100)) : new Color(189, 231, (int)byte.MaxValue)) : new Color(78, 193, 227)) : new Color(143, 215, 29)) : new Color(124, 118, 242);
                 Color color2 = player.hairDyeColor;
                 if ((int)color2.A == 0)
                     color2 = color1;
@@ -322,38 +322,38 @@ namespace GameManager.Initializers
             GameShaders.Hair.BindShader<LegacyHairShaderData>(1984, new LegacyHairShaderData().UseLegacyMethod((LegacyHairShaderData.ColorProcessingMethod)((Player player, Color newColor, ref bool lighting) =>
             {
                 newColor = new Color(244, 22, 175);
-                if (!Main.gameMenu && !Main.gamePaused)
+                if (!Game1.gameMenu && !Game1.gamePaused)
                 {
-                    if (Main.rand.Next(45) == 0)
+                    if (Game1.rand.Next(45) == 0)
                     {
-                        int Type = Main.rand.Next(139, 143);
+                        int Type = Game1.rand.Next(139, 143);
                         int index = Dust.NewDust(player.position, player.width, 8, Type, 0.0f, 0.0f, 0, new Color(), 1.2f);
-                        Main.dust[index].velocity.X *= (float)(1.0 + (double)Main.rand.Next(-50, 51) * 0.00999999977648258);
-                        Main.dust[index].velocity.Y *= (float)(1.0 + (double)Main.rand.Next(-50, 51) * 0.00999999977648258);
-                        Main.dust[index].velocity.X += (float)Main.rand.Next(-50, 51) * 0.01f;
-                        Main.dust[index].velocity.Y += (float)Main.rand.Next(-50, 51) * 0.01f;
-                        --Main.dust[index].velocity.Y;
-                        Main.dust[index].scale *= (float)(0.699999988079071 + (double)Main.rand.Next(-30, 31) * 0.00999999977648258);
-                        Main.dust[index].velocity += player.velocity * 0.2f;
+                        Game1.dust[index].velocity.X *= (float)(1.0 + (double)Game1.rand.Next(-50, 51) * 0.00999999977648258);
+                        Game1.dust[index].velocity.Y *= (float)(1.0 + (double)Game1.rand.Next(-50, 51) * 0.00999999977648258);
+                        Game1.dust[index].velocity.X += (float)Game1.rand.Next(-50, 51) * 0.01f;
+                        Game1.dust[index].velocity.Y += (float)Game1.rand.Next(-50, 51) * 0.01f;
+                        --Game1.dust[index].velocity.Y;
+                        Game1.dust[index].scale *= (float)(0.699999988079071 + (double)Game1.rand.Next(-30, 31) * 0.00999999977648258);
+                        Game1.dust[index].velocity += player.velocity * 0.2f;
                     }
-                    if (Main.rand.Next(225) == 0)
+                    if (Game1.rand.Next(225) == 0)
                     {
-                        int Type = Main.rand.Next(276, 283);
-                        int index = Gore.NewGore(new Vector2(player.position.X + (float)Main.rand.Next(player.width), player.position.Y + (float)Main.rand.Next(8)), player.velocity, Type, 1f);
-                        Main.gore[index].velocity.X *= (float)(1.0 + (double)Main.rand.Next(-50, 51) * 0.00999999977648258);
-                        Main.gore[index].velocity.Y *= (float)(1.0 + (double)Main.rand.Next(-50, 51) * 0.00999999977648258);
-                        Main.gore[index].scale *= (float)(1.0 + (double)Main.rand.Next(-20, 21) * 0.00999999977648258);
-                        Main.gore[index].velocity.X += (float)Main.rand.Next(-50, 51) * 0.01f;
-                        Main.gore[index].velocity.Y += (float)Main.rand.Next(-50, 51) * 0.01f;
-                        --Main.gore[index].velocity.Y;
-                        Main.gore[index].velocity += player.velocity * 0.2f;
+                        int Type = Game1.rand.Next(276, 283);
+                        int index = Gore.NewGore(new Vector2(player.position.X + (float)Game1.rand.Next(player.width), player.position.Y + (float)Game1.rand.Next(8)), player.velocity, Type, 1f);
+                        Game1.gore[index].velocity.X *= (float)(1.0 + (double)Game1.rand.Next(-50, 51) * 0.00999999977648258);
+                        Game1.gore[index].velocity.Y *= (float)(1.0 + (double)Game1.rand.Next(-50, 51) * 0.00999999977648258);
+                        Game1.gore[index].scale *= (float)(1.0 + (double)Game1.rand.Next(-20, 21) * 0.00999999977648258);
+                        Game1.gore[index].velocity.X += (float)Game1.rand.Next(-50, 51) * 0.01f;
+                        Game1.gore[index].velocity.Y += (float)Game1.rand.Next(-50, 51) * 0.01f;
+                        --Game1.gore[index].velocity.Y;
+                        Game1.gore[index].velocity += player.velocity * 0.2f;
                     }
                 }
                 return newColor;
             })));
             GameShaders.Hair.BindShader<LegacyHairShaderData>(1985, new LegacyHairShaderData().UseLegacyMethod((LegacyHairShaderData.ColorProcessingMethod)((Player player, Color newColor, ref bool lighting) =>
             {
-                newColor = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB);
+                newColor = new Color(Game1.DiscoR, Game1.DiscoG, Game1.DiscoB);
                 return newColor;
             })));
             GameShaders.Hair.BindShader<LegacyHairShaderData>(1986, new LegacyHairShaderData().UseLegacyMethod((LegacyHairShaderData.ColorProcessingMethod)((Player player, Color newColor, ref bool lighting) =>
@@ -382,7 +382,7 @@ namespace GameManager.Initializers
 
         private static void LoadMisc()
         {
-            Effect shader = Main.pixelShader;
+            Effect shader = Game1.pixelShader;
             GameShaders.Misc["ForceField"] = new MiscShaderData(shader, "ForceField");
         }
 
@@ -397,8 +397,8 @@ namespace GameManager.Initializers
         {
             for (int index = 0; index < Recipe.maxRecipes; ++index)
             {
-                Main.recipe[index].createItem.dye = (byte)GameShaders.Armor.GetShaderIdFromItemId(Main.recipe[index].createItem.itemId);
-                Main.recipe[index].createItem.hairDye = GameShaders.Hair.GetShaderIdFromItemId(Main.recipe[index].createItem.itemId);
+                Game1.recipe[index].createItem.dye = (byte)GameShaders.Armor.GetShaderIdFromItemId(Game1.recipe[index].createItem.itemId);
+                Game1.recipe[index].createItem.hairDye = GameShaders.Hair.GetShaderIdFromItemId(Game1.recipe[index].createItem.itemId);
             }
         }
     }

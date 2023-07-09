@@ -428,7 +428,7 @@ namespace GameManager
 
         public static Vector2 RotatedByRandom(this Vector2 spinninpoint, double maxRadians)
         {
-            return Utils.RotatedBy(spinninpoint, Main.rand.NextDouble() * maxRadians - Main.rand.NextDouble() * maxRadians, new Vector2());
+            return Utils.RotatedBy(spinninpoint, Game1.rand.NextDouble() * maxRadians - Game1.rand.NextDouble() * maxRadians, new Vector2());
         }
 
         public static Vector2 Floor(this Vector2 vec)
@@ -758,7 +758,7 @@ namespace GameManager
         {
             if (stringLimit != -1 && text.Length > stringLimit)
                 text.Substring(0, stringLimit);
-            SpriteFont spriteFont = Main.fontMouseText;
+            SpriteFont spriteFont = Game1.fontMouseText;
             for (int index1 = -1; index1 < 2; ++index1)
             {
                 for (int index2 = -1; index2 < 2; ++index2)
@@ -772,7 +772,7 @@ namespace GameManager
         {
             if (stringLimit != -1 && text.Length > stringLimit)
                 text.Substring(0, stringLimit);
-            SpriteFont spriteFont = Main.fontDeathText;
+            SpriteFont spriteFont = Game1.fontDeathText;
             for (int index1 = -1; index1 < 2; ++index1)
             {
                 for (int index2 = -1; index2 < 2; ++index2)
@@ -796,7 +796,7 @@ namespace GameManager
         {
             if (c == new Color())
                 c = new Color(63, 65, 151, (int)byte.MaxValue) * 0.785f;
-            Texture2D texture = Main.inventoryBack13Texture;
+            Texture2D texture = Game1.inventoryBack13Texture;
             if (w < 20)
                 w = 20;
             if (h < 20)
@@ -858,13 +858,13 @@ namespace GameManager
             float num1 = Vector2.Distance(start, end);
             Vector2 v = (end - start) / num1;
             Vector2 vector2_1 = start;
-            Vector2 vector2_2 = Main.screenPosition;
+            Vector2 vector2_2 = Game1.screenPosition;
             float rotation = Utils.ToRotation(v);
             float num2 = 0.0f;
             while ((double)num2 <= (double)num1)
             {
                 float num3 = num2 / num1;
-                spriteBatch.Draw(Main.blackTileTexture, vector2_1 - vector2_2, new Rectangle?(), new Color(new Vector4(num3, num3, num3, 1f) * color.ToVector4()), rotation, Vector2.Zero, 0.25f, SpriteEffects.None, 0.0f);
+                spriteBatch.Draw(Game1.blackTileTexture, vector2_1 - vector2_2, new Rectangle?(), new Color(new Vector4(num3, num3, num3, 1f) * color.ToVector4()), rotation, Vector2.Zero, 0.25f, SpriteEffects.None, 0.0f);
                 vector2_1 = start + num2 * v;
                 num2 += 4f;
             }
@@ -902,7 +902,7 @@ namespace GameManager
             bool flag2 = true;
             bool flag3 = true;
             Vector2 origin = Vector2.Zero;
-            Vector2 position = new Vector2((float)Main.mouseX, (float)Main.mouseY);
+            Vector2 position = new Vector2((float)Game1.mouseX, (float)Game1.mouseY);
             if (manualPosition != Vector2.Zero)
                 position = manualPosition;
             if (float.IsNaN(rot))
@@ -933,13 +933,13 @@ namespace GameManager
                     }
                 }
             }
-            if (Main.ThickMouse && cursorSlot == 0 || cursorSlot == 1)
-                Main.DrawThickCursor(cursorSlot == 1);
+            if (Game1.ThickMouse && cursorSlot == 0 || cursorSlot == 1)
+                Game1.DrawThickCursor(cursorSlot == 1);
             if (flag2)
-                sb.Draw(Main.cursorTextures[cursorSlot], position + Vector2.One, new Rectangle?(), Utils.MultiplyRGB(color, new Color(0.2f, 0.2f, 0.2f, 0.5f)), rot, origin, scale * 1.1f, SpriteEffects.None, 0.0f);
+                sb.Draw(Game1.cursorTextures[cursorSlot], position + Vector2.One, new Rectangle?(), Utils.MultiplyRGB(color, new Color(0.2f, 0.2f, 0.2f, 0.5f)), rot, origin, scale * 1.1f, SpriteEffects.None, 0.0f);
             if (!flag3)
                 return;
-            sb.Draw(Main.cursorTextures[cursorSlot], position, new Rectangle?(), color, rot, origin, scale, SpriteEffects.None, 0.0f);
+            sb.Draw(Game1.cursorTextures[cursorSlot], position, new Rectangle?(), color, rot, origin, scale, SpriteEffects.None, 0.0f);
         }
 
         public delegate bool PerLinePoint(int x, int y);

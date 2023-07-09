@@ -249,20 +249,20 @@ namespace GameManager
             int num2 = (int)(((double)Position2.Y + (double)(Height2 / 2)) / 16.0);
             if (index1 <= 1)
                 index1 = 1;
-            if (index1 >= Main.maxTilesX)
-                index1 = Main.maxTilesX - 1;
+            if (index1 >= Game1.maxTilesX)
+                index1 = Game1.maxTilesX - 1;
             if (num1 <= 1)
                 num1 = 1;
-            if (num1 >= Main.maxTilesX)
-                num1 = Main.maxTilesX - 1;
+            if (num1 >= Game1.maxTilesX)
+                num1 = Game1.maxTilesX - 1;
             if (index2 <= 1)
                 index2 = 1;
-            if (index2 >= Main.maxTilesY)
-                index2 = Main.maxTilesY - 1;
+            if (index2 >= Game1.maxTilesY)
+                index2 = Game1.maxTilesY - 1;
             if (num2 <= 1)
                 num2 = 1;
-            if (num2 >= Main.maxTilesY)
-                num2 = Main.maxTilesY - 1;
+            if (num2 >= Game1.maxTilesY)
+                num2 = Game1.maxTilesY - 1;
             try
             {
                 do
@@ -277,7 +277,7 @@ namespace GameManager
                             ++index1;
                         else
                             --index1;
-                        if (Main.tile[index1, index2 - 1] == null || Main.tile[index1, index2 + 1] == null || !Main.tile[index1, index2 - 1].inActive() && Main.tile[index1, index2 - 1].active() && (Main.tileSolid[(int)Main.tile[index1, index2 - 1].type] && !Main.tileSolidTop[(int)Main.tile[index1, index2 - 1].type]) && ((int)Main.tile[index1, index2 - 1].slope() == 0 && !Main.tile[index1, index2 - 1].halfBrick() && (!Main.tile[index1, index2 + 1].inActive() && Main.tile[index1, index2 + 1].active())) && (Main.tileSolid[(int)Main.tile[index1, index2 + 1].type] && !Main.tileSolidTop[(int)Main.tile[index1, index2 + 1].type] && ((int)Main.tile[index1, index2 + 1].slope() == 0 && !Main.tile[index1, index2 + 1].halfBrick())))
+                        if (Game1.tile[index1, index2 - 1] == null || Game1.tile[index1, index2 + 1] == null || !Game1.tile[index1, index2 - 1].inActive() && Game1.tile[index1, index2 - 1].active() && (Game1.tileSolid[(int)Game1.tile[index1, index2 - 1].type] && !Game1.tileSolidTop[(int)Game1.tile[index1, index2 - 1].type]) && ((int)Game1.tile[index1, index2 - 1].slope() == 0 && !Game1.tile[index1, index2 - 1].halfBrick() && (!Game1.tile[index1, index2 + 1].inActive() && Game1.tile[index1, index2 + 1].active())) && (Game1.tileSolid[(int)Game1.tile[index1, index2 + 1].type] && !Game1.tileSolidTop[(int)Game1.tile[index1, index2 + 1].type] && ((int)Game1.tile[index1, index2 + 1].slope() == 0 && !Game1.tile[index1, index2 + 1].halfBrick())))
                             return false;
                     }
                     else
@@ -286,11 +286,11 @@ namespace GameManager
                             ++index2;
                         else
                             --index2;
-                        if (Main.tile[index1 - 1, index2] == null || Main.tile[index1 + 1, index2] == null || !Main.tile[index1 - 1, index2].inActive() && Main.tile[index1 - 1, index2].active() && (Main.tileSolid[(int)Main.tile[index1 - 1, index2].type] && !Main.tileSolidTop[(int)Main.tile[index1 - 1, index2].type]) && ((int)Main.tile[index1 - 1, index2].slope() == 0 && !Main.tile[index1 - 1, index2].halfBrick() && (!Main.tile[index1 + 1, index2].inActive() && Main.tile[index1 + 1, index2].active())) && (Main.tileSolid[(int)Main.tile[index1 + 1, index2].type] && !Main.tileSolidTop[(int)Main.tile[index1 + 1, index2].type] && ((int)Main.tile[index1 + 1, index2].slope() == 0 && !Main.tile[index1 + 1, index2].halfBrick())))
+                        if (Game1.tile[index1 - 1, index2] == null || Game1.tile[index1 + 1, index2] == null || !Game1.tile[index1 - 1, index2].inActive() && Game1.tile[index1 - 1, index2].active() && (Game1.tileSolid[(int)Game1.tile[index1 - 1, index2].type] && !Game1.tileSolidTop[(int)Game1.tile[index1 - 1, index2].type]) && ((int)Game1.tile[index1 - 1, index2].slope() == 0 && !Game1.tile[index1 - 1, index2].halfBrick() && (!Game1.tile[index1 + 1, index2].inActive() && Game1.tile[index1 + 1, index2].active())) && (Game1.tileSolid[(int)Game1.tile[index1 + 1, index2].type] && !Game1.tileSolidTop[(int)Game1.tile[index1 + 1, index2].type] && ((int)Game1.tile[index1 + 1, index2].slope() == 0 && !Game1.tile[index1 + 1, index2].halfBrick())))
                             return false;
                     }
                 }
-                while (Main.tile[index1, index2] != null && (Main.tile[index1, index2].inActive() || !Main.tile[index1, index2].active() || (!Main.tileSolid[(int)Main.tile[index1, index2].type] || Main.tileSolidTop[(int)Main.tile[index1, index2].type])));
+                while (Game1.tile[index1, index2] != null && (Game1.tile[index1, index2].inActive() || !Game1.tile[index1, index2].active() || (!Game1.tileSolid[(int)Game1.tile[index1, index2].type] || Game1.tileSolidTop[(int)Game1.tile[index1, index2].type])));
                 return false;
             }
             catch
@@ -307,20 +307,20 @@ namespace GameManager
             int num2 = (int)(((double)Position2.Y + (double)(Height2 / 2)) / 16.0);
             if (x <= 1)
                 x = 1;
-            if (x >= Main.maxTilesX)
-                x = Main.maxTilesX - 1;
+            if (x >= Game1.maxTilesX)
+                x = Game1.maxTilesX - 1;
             if (num1 <= 1)
                 num1 = 1;
-            if (num1 >= Main.maxTilesX)
-                num1 = Main.maxTilesX - 1;
+            if (num1 >= Game1.maxTilesX)
+                num1 = Game1.maxTilesX - 1;
             if (y <= 1)
                 y = 1;
-            if (y >= Main.maxTilesY)
-                y = Main.maxTilesY - 1;
+            if (y >= Game1.maxTilesY)
+                y = Game1.maxTilesY - 1;
             if (num2 <= 1)
                 num2 = 1;
-            if (num2 >= Main.maxTilesY)
-                num2 = Main.maxTilesY - 1;
+            if (num2 >= Game1.maxTilesY)
+                num2 = Game1.maxTilesY - 1;
             try
             {
                 do
@@ -335,7 +335,7 @@ namespace GameManager
                             ++x;
                         else
                             --x;
-                        if (Main.tile[x, y - 1] == null || Main.tile[x, y + 1] == null || !Main.tile[x, y - 1].inActive() && Main.tile[x, y - 1].active() && (Main.tileSolid[(int)Main.tile[x, y - 1].type] && !Main.tileSolidTop[(int)Main.tile[x, y - 1].type]) && ((int)Main.tile[x, y - 1].slope() == 0 && !Main.tile[x, y - 1].halfBrick() && (!Main.tile[x, y + 1].inActive() && Main.tile[x, y + 1].active())) && (Main.tileSolid[(int)Main.tile[x, y + 1].type] && !Main.tileSolidTop[(int)Main.tile[x, y + 1].type] && ((int)Main.tile[x, y + 1].slope() == 0 && !Main.tile[x, y + 1].halfBrick())))
+                        if (Game1.tile[x, y - 1] == null || Game1.tile[x, y + 1] == null || !Game1.tile[x, y - 1].inActive() && Game1.tile[x, y - 1].active() && (Game1.tileSolid[(int)Game1.tile[x, y - 1].type] && !Game1.tileSolidTop[(int)Game1.tile[x, y - 1].type]) && ((int)Game1.tile[x, y - 1].slope() == 0 && !Game1.tile[x, y - 1].halfBrick() && (!Game1.tile[x, y + 1].inActive() && Game1.tile[x, y + 1].active())) && (Game1.tileSolid[(int)Game1.tile[x, y + 1].type] && !Game1.tileSolidTop[(int)Game1.tile[x, y + 1].type] && ((int)Game1.tile[x, y + 1].slope() == 0 && !Game1.tile[x, y + 1].halfBrick())))
                             return false;
                     }
                     else
@@ -344,11 +344,11 @@ namespace GameManager
                             ++y;
                         else
                             --y;
-                        if (Main.tile[x - 1, y] == null || Main.tile[x + 1, y] == null || !Main.tile[x - 1, y].inActive() && Main.tile[x - 1, y].active() && (Main.tileSolid[(int)Main.tile[x - 1, y].type] && !Main.tileSolidTop[(int)Main.tile[x - 1, y].type]) && ((int)Main.tile[x - 1, y].slope() == 0 && !Main.tile[x - 1, y].halfBrick() && (!Main.tile[x + 1, y].inActive() && Main.tile[x + 1, y].active())) && (Main.tileSolid[(int)Main.tile[x + 1, y].type] && !Main.tileSolidTop[(int)Main.tile[x + 1, y].type] && ((int)Main.tile[x + 1, y].slope() == 0 && !Main.tile[x + 1, y].halfBrick())))
+                        if (Game1.tile[x - 1, y] == null || Game1.tile[x + 1, y] == null || !Game1.tile[x - 1, y].inActive() && Game1.tile[x - 1, y].active() && (Game1.tileSolid[(int)Game1.tile[x - 1, y].type] && !Game1.tileSolidTop[(int)Game1.tile[x - 1, y].type]) && ((int)Game1.tile[x - 1, y].slope() == 0 && !Game1.tile[x - 1, y].halfBrick() && (!Game1.tile[x + 1, y].inActive() && Game1.tile[x + 1, y].active())) && (Game1.tileSolid[(int)Game1.tile[x + 1, y].type] && !Game1.tileSolidTop[(int)Game1.tile[x + 1, y].type] && ((int)Game1.tile[x + 1, y].slope() == 0 && !Game1.tile[x + 1, y].halfBrick())))
                             return false;
                     }
                 }
-                while (Main.tile[x, y] != null && (Main.tile[x, y].inActive() || !Main.tile[x, y].active() || (!Main.tileSolid[(int)Main.tile[x, y].type] || Main.tileSolidTop[(int)Main.tile[x, y].type])) && check(x, y));
+                while (Game1.tile[x, y] != null && (Game1.tile[x, y].inActive() || !Game1.tile[x, y].active() || (!Game1.tileSolid[(int)Game1.tile[x, y].type] || Game1.tileSolidTop[(int)Game1.tile[x, y].type])) && check(x, y));
                 return false;
             }
             catch
@@ -365,20 +365,20 @@ namespace GameManager
             int num2 = (int)(((double)Position2.Y + (double)(Height2 / 2)) / 16.0);
             if (index1 <= 1)
                 index1 = 1;
-            if (index1 >= Main.maxTilesX)
-                index1 = Main.maxTilesX - 1;
+            if (index1 >= Game1.maxTilesX)
+                index1 = Game1.maxTilesX - 1;
             if (num1 <= 1)
                 num1 = 1;
-            if (num1 >= Main.maxTilesX)
-                num1 = Main.maxTilesX - 1;
+            if (num1 >= Game1.maxTilesX)
+                num1 = Game1.maxTilesX - 1;
             if (index2 <= 1)
                 index2 = 1;
-            if (index2 >= Main.maxTilesY)
-                index2 = Main.maxTilesY - 1;
+            if (index2 >= Game1.maxTilesY)
+                index2 = Game1.maxTilesY - 1;
             if (num2 <= 1)
                 num2 = 1;
-            if (num2 >= Main.maxTilesY)
-                num2 = Main.maxTilesY - 1;
+            if (num2 >= Game1.maxTilesY)
+                num2 = Game1.maxTilesY - 1;
             float num3 = (float)Math.Abs(index1 - num1);
             float num4 = (float)Math.Abs(index2 - num2);
             if ((double)num3 == 0.0 && (double)num4 == 0.0)
@@ -418,12 +418,12 @@ namespace GameManager
                         num7 = num14 % 1f;
                         for (int index3 = 0; index3 < num15; ++index3)
                         {
-                            if (Main.tile[index1, index2 - 1] == null || Main.tile[index1, index2] == null || Main.tile[index1, index2 + 1] == null)
+                            if (Game1.tile[index1, index2 - 1] == null || Game1.tile[index1, index2] == null || Game1.tile[index1, index2 + 1] == null)
                                 return false;
-                            Tile tile1 = Main.tile[index1, index2 - 1];
-                            Tile tile2 = Main.tile[index1, index2 + 1];
-                            Tile tile3 = Main.tile[index1, index2];
-                            if (!tile1.inActive() && tile1.active() && (Main.tileSolid[(int)tile1.type] && !Main.tileSolidTop[(int)tile1.type]) || !tile2.inActive() && tile2.active() && (Main.tileSolid[(int)tile2.type] && !Main.tileSolidTop[(int)tile2.type]) || !tile3.inActive() && tile3.active() && (Main.tileSolid[(int)tile3.type] && !Main.tileSolidTop[(int)tile3.type]))
+                            Tile tile1 = Game1.tile[index1, index2 - 1];
+                            Tile tile2 = Game1.tile[index1, index2 + 1];
+                            Tile tile3 = Game1.tile[index1, index2];
+                            if (!tile1.inActive() && tile1.active() && (Game1.tileSolid[(int)tile1.type] && !Game1.tileSolidTop[(int)tile1.type]) || !tile2.inActive() && tile2.active() && (Game1.tileSolid[(int)tile2.type] && !Game1.tileSolidTop[(int)tile2.type]) || !tile3.inActive() && tile3.active() && (Game1.tileSolid[(int)tile3.type] && !Game1.tileSolidTop[(int)tile3.type]))
                                 return false;
                             if (num10 == 0 && num11 == 0)
                             {
@@ -445,12 +445,12 @@ namespace GameManager
                         num8 = num14 % 1f;
                         for (int index3 = 0; index3 < num15; ++index3)
                         {
-                            if (Main.tile[index1 - 1, index2] == null || Main.tile[index1, index2] == null || Main.tile[index1 + 1, index2] == null)
+                            if (Game1.tile[index1 - 1, index2] == null || Game1.tile[index1, index2] == null || Game1.tile[index1 + 1, index2] == null)
                                 return false;
-                            Tile tile1 = Main.tile[index1 - 1, index2];
-                            Tile tile2 = Main.tile[index1 + 1, index2];
-                            Tile tile3 = Main.tile[index1, index2];
-                            if (!tile1.inActive() && tile1.active() && (Main.tileSolid[(int)tile1.type] && !Main.tileSolidTop[(int)tile1.type]) || !tile2.inActive() && tile2.active() && (Main.tileSolid[(int)tile2.type] && !Main.tileSolidTop[(int)tile2.type]) || !tile3.inActive() && tile3.active() && (Main.tileSolid[(int)tile3.type] && !Main.tileSolidTop[(int)tile3.type]))
+                            Tile tile1 = Game1.tile[index1 - 1, index2];
+                            Tile tile2 = Game1.tile[index1 + 1, index2];
+                            Tile tile3 = Game1.tile[index1, index2];
+                            if (!tile1.inActive() && tile1.active() && (Game1.tileSolid[(int)tile1.type] && !Game1.tileSolidTop[(int)tile1.type]) || !tile2.inActive() && tile2.active() && (Game1.tileSolid[(int)tile2.type] && !Game1.tileSolidTop[(int)tile2.type]) || !tile3.inActive() && tile3.active() && (Game1.tileSolid[(int)tile3.type] && !Game1.tileSolidTop[(int)tile3.type]))
                                 return false;
                             if (num10 == 0 && num11 == 0)
                             {
@@ -465,10 +465,10 @@ namespace GameManager
                         if (num10 != 0)
                             num9 = 2;
                     }
-                    if (Main.tile[index1, index2] == null)
+                    if (Game1.tile[index1, index2] == null)
                         return false;
-                    Tile tile = Main.tile[index1, index2];
-                    if (!tile.inActive() && tile.active() && (Main.tileSolid[(int)tile.type] && !Main.tileSolidTop[(int)tile.type]))
+                    Tile tile = Game1.tile[index1, index2];
+                    if (!tile.inActive() && tile.active() && (Game1.tileSolid[(int)tile.type] && !Game1.tileSolidTop[(int)tile.type]))
                         return false;
                 }
                 while (!flag1 && !flag2);
@@ -486,10 +486,10 @@ namespace GameManager
             int num2 = y1;
             int num3 = x2;
             int num4 = y2;
-            int index1 = Utils.Clamp<int>(num1, 1, Main.maxTilesX - 1);
-            int num5 = Utils.Clamp<int>(num3, 1, Main.maxTilesX - 1);
-            int index2 = Utils.Clamp<int>(num2, 1, Main.maxTilesY - 1);
-            int num6 = Utils.Clamp<int>(num4, 1, Main.maxTilesY - 1);
+            int index1 = Utils.Clamp<int>(num1, 1, Game1.maxTilesX - 1);
+            int num5 = Utils.Clamp<int>(num3, 1, Game1.maxTilesX - 1);
+            int index2 = Utils.Clamp<int>(num2, 1, Game1.maxTilesY - 1);
+            int num6 = Utils.Clamp<int>(num4, 1, Game1.maxTilesY - 1);
             float num7 = (float)Math.Abs(index1 - num5);
             float num8 = (float)Math.Abs(index2 - num6);
             if ((double)num7 == 0.0 && (double)num8 == 0.0)
@@ -532,32 +532,32 @@ namespace GameManager
                         num11 = num18 % 1f;
                         for (int index3 = 0; index3 < num19; ++index3)
                         {
-                            if (Main.tile[index1, index2 - 1] == null)
+                            if (Game1.tile[index1, index2 - 1] == null)
                             {
                                 col = new Tuple<int, int>(index1, index2 - 1);
                                 return false;
                             }
-                            if (Main.tile[index1, index2 + 1] == null)
+                            if (Game1.tile[index1, index2 + 1] == null)
                             {
                                 col = new Tuple<int, int>(index1, index2 + 1);
                                 return false;
                             }
-                            Tile tile1 = Main.tile[index1, index2 - 1];
-                            Tile tile2 = Main.tile[index1, index2 + 1];
-                            Tile tile3 = Main.tile[index1, index2];
+                            Tile tile1 = Game1.tile[index1, index2 - 1];
+                            Tile tile2 = Game1.tile[index1, index2 + 1];
+                            Tile tile3 = Game1.tile[index1, index2];
                             if (!ignoreTargets.Contains(new Tuple<int, int>(index1, index2)) && !ignoreTargets.Contains(new Tuple<int, int>(index1, index2 - 1)) && !ignoreTargets.Contains(new Tuple<int, int>(index1, index2 + 1)))
                             {
-                                if (ignoreY != -1 && num17 < 0 && (!tile1.inActive() && tile1.active()) && (Main.tileSolid[(int)tile1.type] && !Main.tileSolidTop[(int)tile1.type]))
+                                if (ignoreY != -1 && num17 < 0 && (!tile1.inActive() && tile1.active()) && (Game1.tileSolid[(int)tile1.type] && !Game1.tileSolidTop[(int)tile1.type]))
                                 {
                                     col = new Tuple<int, int>(index1, index2 - 1);
                                     return true;
                                 }
-                                if (ignoreY != 1 && num17 > 0 && (!tile2.inActive() && tile2.active()) && (Main.tileSolid[(int)tile2.type] && !Main.tileSolidTop[(int)tile2.type]))
+                                if (ignoreY != 1 && num17 > 0 && (!tile2.inActive() && tile2.active()) && (Game1.tileSolid[(int)tile2.type] && !Game1.tileSolidTop[(int)tile2.type]))
                                 {
                                     col = new Tuple<int, int>(index1, index2 + 1);
                                     return true;
                                 }
-                                if (!tile3.inActive() && tile3.active() && (Main.tileSolid[(int)tile3.type] && !Main.tileSolidTop[(int)tile3.type]))
+                                if (!tile3.inActive() && tile3.active() && (Game1.tileSolid[(int)tile3.type] && !Game1.tileSolidTop[(int)tile3.type]))
                                 {
                                     col = new Tuple<int, int>(index1, index2);
                                     return true;
@@ -583,32 +583,32 @@ namespace GameManager
                         num12 = num18 % 1f;
                         for (int index3 = 0; index3 < num19; ++index3)
                         {
-                            if (Main.tile[index1 - 1, index2] == null)
+                            if (Game1.tile[index1 - 1, index2] == null)
                             {
                                 col = new Tuple<int, int>(index1 - 1, index2);
                                 return false;
                             }
-                            if (Main.tile[index1 + 1, index2] == null)
+                            if (Game1.tile[index1 + 1, index2] == null)
                             {
                                 col = new Tuple<int, int>(index1 + 1, index2);
                                 return false;
                             }
-                            Tile tile1 = Main.tile[index1 - 1, index2];
-                            Tile tile2 = Main.tile[index1 + 1, index2];
-                            Tile tile3 = Main.tile[index1, index2];
+                            Tile tile1 = Game1.tile[index1 - 1, index2];
+                            Tile tile2 = Game1.tile[index1 + 1, index2];
+                            Tile tile3 = Game1.tile[index1, index2];
                             if (!ignoreTargets.Contains(new Tuple<int, int>(index1, index2)) && !ignoreTargets.Contains(new Tuple<int, int>(index1 - 1, index2)) && !ignoreTargets.Contains(new Tuple<int, int>(index1 + 1, index2)))
                             {
-                                if (ignoreX != -1 && num16 < 0 && (!tile1.inActive() && tile1.active()) && (Main.tileSolid[(int)tile1.type] && !Main.tileSolidTop[(int)tile1.type]))
+                                if (ignoreX != -1 && num16 < 0 && (!tile1.inActive() && tile1.active()) && (Game1.tileSolid[(int)tile1.type] && !Game1.tileSolidTop[(int)tile1.type]))
                                 {
                                     col = new Tuple<int, int>(index1 - 1, index2);
                                     return true;
                                 }
-                                if (ignoreX != 1 && num16 > 0 && (!tile2.inActive() && tile2.active()) && (Main.tileSolid[(int)tile2.type] && !Main.tileSolidTop[(int)tile2.type]))
+                                if (ignoreX != 1 && num16 > 0 && (!tile2.inActive() && tile2.active()) && (Game1.tileSolid[(int)tile2.type] && !Game1.tileSolidTop[(int)tile2.type]))
                                 {
                                     col = new Tuple<int, int>(index1 + 1, index2);
                                     return true;
                                 }
-                                if (!tile3.inActive() && tile3.active() && (Main.tileSolid[(int)tile3.type] && !Main.tileSolidTop[(int)tile3.type]))
+                                if (!tile3.inActive() && tile3.active() && (Game1.tileSolid[(int)tile3.type] && !Game1.tileSolidTop[(int)tile3.type]))
                                 {
                                     col = new Tuple<int, int>(index1, index2);
                                     return true;
@@ -627,13 +627,13 @@ namespace GameManager
                         if (num14 != 0)
                             num13 = 2;
                     }
-                    if (Main.tile[index1, index2] == null)
+                    if (Game1.tile[index1, index2] == null)
                     {
                         col = new Tuple<int, int>(index1, index2);
                         return false;
                     }
-                    Tile tile = Main.tile[index1, index2];
-                    if (!ignoreTargets.Contains(new Tuple<int, int>(index1, index2)) && !tile.inActive() && (tile.active() && Main.tileSolid[(int)tile.type]) && !Main.tileSolidTop[(int)tile.type])
+                    Tile tile = Game1.tile[index1, index2];
+                    if (!ignoreTargets.Contains(new Tuple<int, int>(index1, index2)) && !tile.inActive() && (tile.active() && Game1.tileSolid[(int)tile.type]) && !Game1.tileSolidTop[(int)tile.type])
                     {
                         col = new Tuple<int, int>(index1, index2);
                         return true;
@@ -658,20 +658,20 @@ namespace GameManager
             int num2 = y2;
             if (x <= 1)
                 x = 1;
-            if (x >= Main.maxTilesX)
-                x = Main.maxTilesX - 1;
+            if (x >= Game1.maxTilesX)
+                x = Game1.maxTilesX - 1;
             if (num1 <= 1)
                 num1 = 1;
-            if (num1 >= Main.maxTilesX)
-                num1 = Main.maxTilesX - 1;
+            if (num1 >= Game1.maxTilesX)
+                num1 = Game1.maxTilesX - 1;
             if (y <= 1)
                 y = 1;
-            if (y >= Main.maxTilesY)
-                y = Main.maxTilesY - 1;
+            if (y >= Game1.maxTilesY)
+                y = Game1.maxTilesY - 1;
             if (num2 <= 1)
                 num2 = 1;
-            if (num2 >= Main.maxTilesY)
-                num2 = Main.maxTilesY - 1;
+            if (num2 >= Game1.maxTilesY)
+                num2 = Game1.maxTilesY - 1;
             float num3 = (float)Math.Abs(x - num1);
             float num4 = (float)Math.Abs(y - num2);
             if ((double)num3 == 0.0 && (double)num4 == 0.0)
@@ -711,7 +711,7 @@ namespace GameManager
                         num7 = num14 % 1f;
                         for (int index = 0; index < num15; ++index)
                         {
-                            Tile tile = Main.tile[x, y];
+                            Tile tile = Game1.tile[x, y];
                             if (Collision.HitWallSubstep(x, y))
                                 return new Tuple<int, int>(x, y);
                             if (num10 == 0 && num11 == 0)
@@ -734,7 +734,7 @@ namespace GameManager
                         num8 = num14 % 1f;
                         for (int index = 0; index < num15; ++index)
                         {
-                            Tile tile = Main.tile[x, y];
+                            Tile tile = Game1.tile[x, y];
                             if (Collision.HitWallSubstep(x, y))
                                 return new Tuple<int, int>(x, y);
                             if (num10 == 0 && num11 == 0)
@@ -750,9 +750,9 @@ namespace GameManager
                         if (num10 != 0)
                             num9 = 2;
                     }
-                    if (Main.tile[x, y] == null)
+                    if (Game1.tile[x, y] == null)
                         return new Tuple<int, int>(-1, -1);
-                    Tile tile1 = Main.tile[x, y];
+                    Tile tile1 = Game1.tile[x, y];
                     if (Collision.HitWallSubstep(x, y))
                         return new Tuple<int, int>(x, y);
                 }
@@ -767,10 +767,10 @@ namespace GameManager
 
         public static bool HitWallSubstep(int x, int y)
         {
-            if ((int)Main.tile[x, y].wall == 0)
+            if ((int)Game1.tile[x, y].wall == 0)
                 return false;
             bool flag1 = false;
-            if (Main.wallHouse[(int)Main.tile[x, y].wall])
+            if (Game1.wallHouse[(int)Game1.tile[x, y].wall])
                 flag1 = true;
             if (!flag1)
             {
@@ -778,12 +778,12 @@ namespace GameManager
                 {
                     for (int index2 = -1; index2 < 2; ++index2)
                     {
-                        if ((index1 != 0 || index2 != 0) && (int)Main.tile[x + index1, y + index2].wall == 0)
+                        if ((index1 != 0 || index2 != 0) && (int)Game1.tile[x + index1, y + index2].wall == 0)
                             flag1 = true;
                     }
                 }
             }
-            if (Main.tile[x, y].active() && flag1)
+            if (Game1.tile[x, y].active() && flag1)
             {
                 bool flag2 = true;
                 for (int index1 = -1; index1 < 2; ++index1)
@@ -792,8 +792,8 @@ namespace GameManager
                     {
                         if (index1 != 0 || index2 != 0)
                         {
-                            Tile tile = Main.tile[x + index1, y + index2];
-                            if (!tile.active() || !Main.tileSolid[(int)tile.type] || Main.tileSolidTop[(int)tile.type])
+                            Tile tile = Game1.tile[x + index1, y + index2];
+                            if (!tile.active() || !Game1.tileSolid[(int)tile.type] || Game1.tileSolidTop[(int)tile.type])
                                 flag2 = false;
                         }
                     }
@@ -807,16 +807,16 @@ namespace GameManager
         public static bool EmptyTile(int i, int j, bool ignoreTiles = false)
         {
             Rectangle rectangle = new Rectangle(i * 16, j * 16, 16, 16);
-            if (Main.tile[i, j].active() && !ignoreTiles)
+            if (Game1.tile[i, j].active() && !ignoreTiles)
                 return false;
             for (int index = 0; index < (int)byte.MaxValue; ++index)
             {
-                if (Main.player[index].active && rectangle.Intersects(new Rectangle((int)Main.player[index].position.X, (int)Main.player[index].position.Y, Main.player[index].width, Main.player[index].height)))
+                if (Game1.player[index].active && rectangle.Intersects(new Rectangle((int)Game1.player[index].position.X, (int)Game1.player[index].position.Y, Game1.player[index].width, Game1.player[index].height)))
                     return false;
             }
             for (int index = 0; index < 200; ++index)
             {
-                if (Main.npc[index].active && rectangle.Intersects(new Rectangle((int)Main.npc[index].position.X, (int)Main.npc[index].position.Y, Main.npc[index].width, Main.npc[index].height)))
+                if (Game1.npc[index].active && rectangle.Intersects(new Rectangle((int)Game1.npc[index].position.X, (int)Game1.npc[index].position.Y, Game1.npc[index].width, Game1.npc[index].height)))
                     return false;
             }
             return true;
@@ -838,21 +838,21 @@ namespace GameManager
             int num4 = (int)(((double)Position.X + (double)Width) / 16.0) + 2;
             int num5 = (int)((double)Position.Y / 16.0) - 1;
             int num6 = (int)(((double)Position.Y + (double)Height) / 16.0) + 2;
-            int num7 = Utils.Clamp<int>(num3, 0, Main.maxTilesX - 1);
-            int num8 = Utils.Clamp<int>(num4, 0, Main.maxTilesX - 1);
-            int num9 = Utils.Clamp<int>(num5, 0, Main.maxTilesY - 1);
-            int num10 = Utils.Clamp<int>(num6, 0, Main.maxTilesY - 1);
+            int num7 = Utils.Clamp<int>(num3, 0, Game1.maxTilesX - 1);
+            int num8 = Utils.Clamp<int>(num4, 0, Game1.maxTilesX - 1);
+            int num9 = Utils.Clamp<int>(num5, 0, Game1.maxTilesY - 1);
+            int num10 = Utils.Clamp<int>(num6, 0, Game1.maxTilesY - 1);
             for (int index1 = num7; index1 < num8; ++index1)
             {
                 for (int index2 = num9; index2 < num10; ++index2)
                 {
-                    if (Main.tile[index1, index2] != null && (int)Main.tile[index1, index2].liquid > 0 && !Main.tile[index1, index2].lava())
+                    if (Game1.tile[index1, index2] != null && (int)Game1.tile[index1, index2].liquid > 0 && !Game1.tile[index1, index2].lava())
                     {
                         Vector2 vector2_2;
                         vector2_2.X = (float)(index1 * 16);
                         vector2_2.Y = (float)(index2 * 16);
                         int num11 = 16;
-                        float num12 = (float)(256 - (int)Main.tile[index1, index2].liquid) / 32f;
+                        float num12 = (float)(256 - (int)Game1.tile[index1, index2].liquid) / 32f;
                         vector2_2.Y += num12 * 2f;
                         int num13 = num11 - (int)((double)num12 * 2.0);
                         if ((double)vector2_1.X + (double)num1 > (double)vector2_2.X && (double)vector2_1.X < (double)vector2_2.X + 16.0 && ((double)vector2_1.Y + (double)num2 > (double)vector2_2.Y && (double)vector2_1.Y < (double)vector2_2.Y + (double)num13))
@@ -878,40 +878,40 @@ namespace GameManager
             int num4 = (int)(((double)Position.X + (double)Width) / 16.0) + 2;
             int num5 = (int)((double)Position.Y / 16.0) - 1;
             int num6 = (int)(((double)Position.Y + (double)Height) / 16.0) + 2;
-            int num7 = Utils.Clamp<int>(num3, 0, Main.maxTilesX - 1);
-            int num8 = Utils.Clamp<int>(num4, 0, Main.maxTilesX - 1);
-            int num9 = Utils.Clamp<int>(num5, 0, Main.maxTilesY - 1);
-            int num10 = Utils.Clamp<int>(num6, 0, Main.maxTilesY - 1);
+            int num7 = Utils.Clamp<int>(num3, 0, Game1.maxTilesX - 1);
+            int num8 = Utils.Clamp<int>(num4, 0, Game1.maxTilesX - 1);
+            int num9 = Utils.Clamp<int>(num5, 0, Game1.maxTilesY - 1);
+            int num10 = Utils.Clamp<int>(num6, 0, Game1.maxTilesY - 1);
             Vector2 vector2_2;
             for (int index1 = num7; index1 < num8; ++index1)
             {
                 for (int index2 = num9; index2 < num10; ++index2)
                 {
-                    if (Main.tile[index1, index2] != null)
+                    if (Game1.tile[index1, index2] != null)
                     {
-                        if ((int)Main.tile[index1, index2].liquid > 0)
+                        if ((int)Game1.tile[index1, index2].liquid > 0)
                         {
                             vector2_2.X = (float)(index1 * 16);
                             vector2_2.Y = (float)(index2 * 16);
                             int num11 = 16;
-                            float num12 = (float)(256 - (int)Main.tile[index1, index2].liquid) / 32f;
+                            float num12 = (float)(256 - (int)Game1.tile[index1, index2].liquid) / 32f;
                             vector2_2.Y += num12 * 2f;
                             int num13 = num11 - (int)((double)num12 * 2.0);
                             if ((double)vector2_1.X + (double)num1 > (double)vector2_2.X && (double)vector2_1.X < (double)vector2_2.X + 16.0 && ((double)vector2_1.Y + (double)num2 > (double)vector2_2.Y && (double)vector2_1.Y < (double)vector2_2.Y + (double)num13))
                             {
-                                if (Main.tile[index1, index2].honey())
+                                if (Game1.tile[index1, index2].honey())
                                     Collision.honey = true;
                                 return true;
                             }
                         }
-                        else if (Main.tile[index1, index2].active() && (int)Main.tile[index1, index2].slope() != 0 && (index2 > 0 && Main.tile[index1, index2 - 1] != null) && (int)Main.tile[index1, index2 - 1].liquid > 0)
+                        else if (Game1.tile[index1, index2].active() && (int)Game1.tile[index1, index2].slope() != 0 && (index2 > 0 && Game1.tile[index1, index2 - 1] != null) && (int)Game1.tile[index1, index2 - 1].liquid > 0)
                         {
                             vector2_2.X = (float)(index1 * 16);
                             vector2_2.Y = (float)(index2 * 16);
                             int num11 = 16;
                             if ((double)vector2_1.X + (double)num1 > (double)vector2_2.X && (double)vector2_1.X < (double)vector2_2.X + 16.0 && ((double)vector2_1.Y + (double)num2 > (double)vector2_2.Y && (double)vector2_1.Y < (double)vector2_2.Y + (double)num11))
                             {
-                                if (Main.tile[index1, index2 - 1].honey())
+                                if (Game1.tile[index1, index2 - 1].honey())
                                     Collision.honey = true;
                                 return true;
                             }
@@ -929,21 +929,21 @@ namespace GameManager
             int num3 = (int)(((double)Position.X + (double)Width) / 16.0) + 2;
             int num4 = (int)((double)Position.Y / 16.0) - 1;
             int num5 = (int)(((double)Position.Y + (double)Height) / 16.0) + 2;
-            int num6 = Utils.Clamp<int>(num2, 0, Main.maxTilesX - 1);
-            int num7 = Utils.Clamp<int>(num3, 0, Main.maxTilesX - 1);
-            int num8 = Utils.Clamp<int>(num4, 0, Main.maxTilesY - 1);
-            int num9 = Utils.Clamp<int>(num5, 0, Main.maxTilesY - 1);
+            int num6 = Utils.Clamp<int>(num2, 0, Game1.maxTilesX - 1);
+            int num7 = Utils.Clamp<int>(num3, 0, Game1.maxTilesX - 1);
+            int num8 = Utils.Clamp<int>(num4, 0, Game1.maxTilesY - 1);
+            int num9 = Utils.Clamp<int>(num5, 0, Game1.maxTilesY - 1);
             for (int index1 = num6; index1 < num7; ++index1)
             {
                 for (int index2 = num8; index2 < num9; ++index2)
                 {
-                    if (Main.tile[index1, index2] != null && (int)Main.tile[index1, index2].liquid > 0 && Main.tile[index1, index2].lava())
+                    if (Game1.tile[index1, index2] != null && (int)Game1.tile[index1, index2].liquid > 0 && Game1.tile[index1, index2].lava())
                     {
                         Vector2 vector2;
                         vector2.X = (float)(index1 * 16);
                         vector2.Y = (float)(index2 * 16);
                         int num10 = 16;
-                        float num11 = (float)(256 - (int)Main.tile[index1, index2].liquid) / 32f;
+                        float num11 = (float)(256 - (int)Game1.tile[index1, index2].liquid) / 32f;
                         vector2.Y += num11 * 2f;
                         int num12 = num10 - (int)((double)num11 * 2.0);
                         if ((double)Position.X + (double)Width > (double)vector2.X && (double)Position.X < (double)vector2.X + 16.0 && ((double)Position.Y + (double)num1 > (double)vector2.Y && (double)Position.Y < (double)vector2.Y + (double)num12))
@@ -962,9 +962,9 @@ namespace GameManager
             int num1 = (int)((double)vector2_1.X / 16.0);
             int num2 = (int)(((double)vector2_1.X + (double)Width) / 16.0);
             int num3 = (int)(((double)Position.Y + (double)Height + 4.0) / 16.0);
-            int num4 = Utils.Clamp<int>(num1, 0, Main.maxTilesX - 1);
-            int num5 = Utils.Clamp<int>(num2, 0, Main.maxTilesX - 1);
-            int num6 = Utils.Clamp<int>(num3, 0, Main.maxTilesY - 3);
+            int num4 = Utils.Clamp<int>(num1, 0, Game1.maxTilesX - 1);
+            int num5 = Utils.Clamp<int>(num2, 0, Game1.maxTilesX - 1);
+            int num6 = Utils.Clamp<int>(num3, 0, Game1.maxTilesY - 3);
             float num7 = (float)((num6 + 3) * 16);
             int index1 = -1;
             int index2 = -1;
@@ -975,22 +975,22 @@ namespace GameManager
             {
                 for (int index4 = num6; index4 <= num6 + 1; ++index4)
                 {
-                    if (Main.tile[index3, index4] == null)
-                        Main.tile[index3, index4] = new Tile();
-                    if (Main.tile[index3, index4].nactive() && (Main.tileSolid[(int)Main.tile[index3, index4].type] || Main.tileSolidTop[(int)Main.tile[index3, index4].type]))
+                    if (Game1.tile[index3, index4] == null)
+                        Game1.tile[index3, index4] = new Tile();
+                    if (Game1.tile[index3, index4].nactive() && (Game1.tileSolid[(int)Game1.tile[index3, index4].type] || Game1.tileSolidTop[(int)Game1.tile[index3, index4].type]))
                     {
                         int num9 = index4 * 16;
-                        if (Main.tile[index3, index4].halfBrick())
+                        if (Game1.tile[index3, index4].halfBrick())
                             num9 += 8;
                         if (new Rectangle(index3 * 16, index4 * 16 - 17, 16, 16).Intersects(new Rectangle((int)Position.X, (int)Position.Y, Width, Height)) && (double)num9 <= (double)num7)
                         {
                             if ((double)num7 == (double)num9)
                             {
-                                if ((int)Main.tile[index3, index4].slope() != 0)
+                                if ((int)Game1.tile[index3, index4].slope() != 0)
                                 {
-                                    if (index1 != -1 && index2 != -1 && (Main.tile[index1, index2] != null && (int)Main.tile[index1, index2].slope() != 0))
+                                    if (index1 != -1 && index2 != -1 && (Game1.tile[index1, index2] != null && (int)Game1.tile[index1, index2].slope() != 0))
                                     {
-                                        if ((int)Main.tile[index3, index4].slope() == num8)
+                                        if ((int)Game1.tile[index3, index4].slope() == num8)
                                         {
                                             num7 = (float)num9;
                                             index1 = index3;
@@ -1017,9 +1017,9 @@ namespace GameManager
             }
             int index5 = index1;
             int index6 = index2;
-            if (index1 != -1 && index2 != -1 && (Main.tile[index5, index6] != null && (int)Main.tile[index5, index6].slope() > 0))
+            if (index1 != -1 && index2 != -1 && (Game1.tile[index5, index6] != null && (int)Game1.tile[index5, index6].slope() > 0))
             {
-                int num9 = (int)Main.tile[index5, index6].slope();
+                int num9 = (int)Game1.tile[index5, index6].slope();
                 Vector2 vector2_2;
                 vector2_2.X = (float)(index5 * 16);
                 vector2_2.Y = (float)(index6 * 16);
@@ -1054,10 +1054,10 @@ namespace GameManager
             int num4 = (int)(((double)Position.X + (double)Width) / 16.0) + 2;
             int num5 = (int)((double)Position.Y / 16.0) - 1;
             int num6 = (int)(((double)Position.Y + (double)Height) / 16.0) + 2;
-            int num7 = Utils.Clamp<int>(num3, 0, Main.maxTilesX - 1);
-            int num8 = Utils.Clamp<int>(num4, 0, Main.maxTilesX - 1);
-            int num9 = Utils.Clamp<int>(num5, 0, Main.maxTilesY - 1);
-            int num10 = Utils.Clamp<int>(num6, 0, Main.maxTilesY - 1);
+            int num7 = Utils.Clamp<int>(num3, 0, Game1.maxTilesX - 1);
+            int num8 = Utils.Clamp<int>(num4, 0, Game1.maxTilesX - 1);
+            int num9 = Utils.Clamp<int>(num5, 0, Game1.maxTilesY - 1);
+            int num10 = Utils.Clamp<int>(num6, 0, Game1.maxTilesY - 1);
             int num11 = 1;
             int num12 = 1;
             int num13 = num8;
@@ -1080,13 +1080,13 @@ namespace GameManager
                 int index2 = num16;
                 while (index2 != num14)
                 {
-                    if (Main.tile[index1, index2] != null && Main.tile[index1, index2].active() && !Main.tile[index1, index2].inActive() && (Main.tileSolid[(int)Main.tile[index1, index2].type] || Main.tileSolidTop[(int)Main.tile[index1, index2].type] && (int)Main.tile[index1, index2].frameY == 0))
+                    if (Game1.tile[index1, index2] != null && Game1.tile[index1, index2].active() && !Game1.tile[index1, index2].inActive() && (Game1.tileSolid[(int)Game1.tile[index1, index2].type] || Game1.tileSolidTop[(int)Game1.tile[index1, index2].type] && (int)Game1.tile[index1, index2].frameY == 0))
                     {
                         Vector2 vector2_4;
                         vector2_4.X = (float)(index1 * 16);
                         vector2_4.Y = (float)(index2 * 16);
                         int num17 = 16;
-                        if (Main.tile[index1, index2].halfBrick())
+                        if (Game1.tile[index1, index2].halfBrick())
                         {
                             vector2_4.Y += 8f;
                             num17 -= 8;
@@ -1094,24 +1094,24 @@ namespace GameManager
                         if ((double)Position.X + (double)Width > (double)vector2_4.X && (double)Position.X < (double)vector2_4.X + 16.0 && ((double)Position.Y + (double)Height > (double)vector2_4.Y && (double)Position.Y < (double)vector2_4.Y + (double)num17))
                         {
                             bool flag1 = true;
-                            if ((int)Main.tile[index1, index2].slope() > 0)
+                            if ((int)Game1.tile[index1, index2].slope() > 0)
                             {
-                                if ((int)Main.tile[index1, index2].slope() > 2)
+                                if ((int)Game1.tile[index1, index2].slope() > 2)
                                 {
-                                    if ((int)Main.tile[index1, index2].slope() == 3 && (double)vector2_1.Y + (double)Math.Abs(Velocity.X) + 1.0 >= (double)vector2_4.Y && (double)vector2_1.X >= (double)vector2_4.X)
+                                    if ((int)Game1.tile[index1, index2].slope() == 3 && (double)vector2_1.Y + (double)Math.Abs(Velocity.X) + 1.0 >= (double)vector2_4.Y && (double)vector2_1.X >= (double)vector2_4.X)
                                         flag1 = true;
-                                    if ((int)Main.tile[index1, index2].slope() == 4 && (double)vector2_1.Y + (double)Math.Abs(Velocity.X) + 1.0 >= (double)vector2_4.Y && (double)vector2_1.X + (double)Width <= (double)vector2_4.X + 16.0)
+                                    if ((int)Game1.tile[index1, index2].slope() == 4 && (double)vector2_1.Y + (double)Math.Abs(Velocity.X) + 1.0 >= (double)vector2_4.Y && (double)vector2_1.X + (double)Width <= (double)vector2_4.X + 16.0)
                                         flag1 = true;
                                 }
                                 else
                                 {
-                                    if ((int)Main.tile[index1, index2].slope() == 1 && (double)vector2_1.Y + (double)Height - (double)Math.Abs(Velocity.X) - 1.0 <= (double)vector2_4.Y + (double)num17 && (double)vector2_1.X >= (double)vector2_4.X)
+                                    if ((int)Game1.tile[index1, index2].slope() == 1 && (double)vector2_1.Y + (double)Height - (double)Math.Abs(Velocity.X) - 1.0 <= (double)vector2_4.Y + (double)num17 && (double)vector2_1.X >= (double)vector2_4.X)
                                         flag1 = true;
-                                    if ((int)Main.tile[index1, index2].slope() == 2 && (double)vector2_1.Y + (double)Height - (double)Math.Abs(Velocity.X) - 1.0 <= (double)vector2_4.Y + (double)num17 && (double)vector2_1.X + (double)Width <= (double)vector2_4.X + 16.0)
+                                    if ((int)Game1.tile[index1, index2].slope() == 2 && (double)vector2_1.Y + (double)Height - (double)Math.Abs(Velocity.X) - 1.0 <= (double)vector2_4.Y + (double)num17 && (double)vector2_1.X + (double)Width <= (double)vector2_4.X + 16.0)
                                         flag1 = true;
                                 }
                             }
-                            if ((int)Main.tile[index1, index2].type == 19)
+                            if ((int)Game1.tile[index1, index2].type == 19)
                             {
                                 if ((double)Velocity.Y < 0.0)
                                     flag1 = false;
@@ -1121,9 +1121,9 @@ namespace GameManager
                             if (flag1)
                             {
                                 bool flag2 = false;
-                                if (fall && (int)Main.tile[index1, index2].type == 19)
+                                if (fall && (int)Game1.tile[index1, index2].type == 19)
                                     flag2 = true;
-                                int index3 = (int)Main.tile[index1, index2].slope();
+                                int index3 = (int)Game1.tile[index1, index2].slope();
                                 vector2_4.X = (float)(index1 * 16);
                                 vector2_4.Y = (float)(index2 * 16);
                                 if ((double)Position.X + (double)Width > (double)vector2_4.X && (double)Position.X < (double)vector2_4.X + 16.0 && ((double)Position.Y + (double)Height > (double)vector2_4.Y && (double)Position.Y < (double)vector2_4.Y + 16.0))
@@ -1180,7 +1180,7 @@ namespace GameManager
                                                     }
                                                     else
                                                     {
-                                                        Collision.stair = (int)Main.tile[index1, index2].type == 19;
+                                                        Collision.stair = (int)Game1.tile[index1, index2].type == 19;
                                                         vector2_2.Y += num19;
                                                         num1 = vector2_2.Y;
                                                         if ((double)vector2_3.Y > 0.0)
@@ -1190,7 +1190,7 @@ namespace GameManager
                                                 }
                                             }
                                         }
-                                        else if ((int)Main.tile[index1, index2].type == 19 && (double)Position.Y + (double)Height - 4.0 - (double)Math.Abs(Velocity.X) > (double)vector2_4.Y)
+                                        else if ((int)Game1.tile[index1, index2].type == 19 && (double)Position.Y + (double)Height - 4.0 - (double)Math.Abs(Velocity.X) > (double)vector2_4.Y)
                                         {
                                             if (flag2)
                                                 Collision.stairFall = true;
@@ -1206,7 +1206,7 @@ namespace GameManager
                                                 }
                                                 else
                                                 {
-                                                    Collision.stair = (int)Main.tile[index1, index2].type == 19;
+                                                    Collision.stair = (int)Game1.tile[index1, index2].type == 19;
                                                     vector2_2.Y = num19;
                                                     if ((double)vector2_3.Y > 0.0)
                                                         vector2_3.Y = 0.0f;
@@ -1266,21 +1266,21 @@ namespace GameManager
             int num4 = (int)(((double)Position.X + (double)Width) / 16.0) + 2;
             int num5 = (int)((double)Position.Y / 16.0) - 1;
             int num6 = (int)(((double)Position.Y + (double)Height) / 16.0) + 2;
-            int num7 = Utils.Clamp<int>(num3, 0, Main.maxTilesX - 1);
-            int num8 = Utils.Clamp<int>(num4, 0, Main.maxTilesX - 1);
-            int num9 = Utils.Clamp<int>(num5, 0, Main.maxTilesY - 1);
-            int num10 = Utils.Clamp<int>(num6, 0, Main.maxTilesY - 1);
+            int num7 = Utils.Clamp<int>(num3, 0, Game1.maxTilesX - 1);
+            int num8 = Utils.Clamp<int>(num4, 0, Game1.maxTilesX - 1);
+            int num9 = Utils.Clamp<int>(num5, 0, Game1.maxTilesY - 1);
+            int num10 = Utils.Clamp<int>(num6, 0, Game1.maxTilesY - 1);
             for (int index1 = num7; index1 < num8; ++index1)
             {
                 for (int index2 = num9; index2 < num10; ++index2)
                 {
-                    if (Main.tile[index1, index2] != null && Main.tile[index1, index2].active() && !Main.tile[index1, index2].inActive() && (Main.tileSolid[(int)Main.tile[index1, index2].type] || Main.tileSolidTop[(int)Main.tile[index1, index2].type] && (int)Main.tile[index1, index2].frameY == 0))
+                    if (Game1.tile[index1, index2] != null && Game1.tile[index1, index2].active() && !Game1.tile[index1, index2].inActive() && (Game1.tileSolid[(int)Game1.tile[index1, index2].type] || Game1.tileSolidTop[(int)Game1.tile[index1, index2].type] && (int)Game1.tile[index1, index2].frameY == 0))
                     {
                         Vector2 vector2_4;
                         vector2_4.X = (float)(index1 * 16);
                         vector2_4.Y = (float)(index2 * 16);
                         int num11 = 16;
-                        if (Main.tile[index1, index2].halfBrick())
+                        if (Game1.tile[index1, index2].halfBrick())
                         {
                             vector2_4.Y += 8f;
                             num11 -= 8;
@@ -1288,24 +1288,24 @@ namespace GameManager
                         if ((double)Position.X + (double)Width > (double)vector2_4.X && (double)Position.X < (double)vector2_4.X + 16.0 && ((double)Position.Y + (double)Height > (double)vector2_4.Y && (double)Position.Y < (double)vector2_4.Y + (double)num11))
                         {
                             bool flag1 = true;
-                            if ((int)Main.tile[index1, index2].slope() > 0)
+                            if ((int)Game1.tile[index1, index2].slope() > 0)
                             {
-                                if ((int)Main.tile[index1, index2].slope() > 2)
+                                if ((int)Game1.tile[index1, index2].slope() > 2)
                                 {
-                                    if ((int)Main.tile[index1, index2].slope() == 3 && (double)vector2_1.Y + (double)Math.Abs(Velocity.X) + 1.0 >= (double)vector2_4.Y && (double)vector2_1.X >= (double)vector2_4.X)
+                                    if ((int)Game1.tile[index1, index2].slope() == 3 && (double)vector2_1.Y + (double)Math.Abs(Velocity.X) + 1.0 >= (double)vector2_4.Y && (double)vector2_1.X >= (double)vector2_4.X)
                                         flag1 = true;
-                                    if ((int)Main.tile[index1, index2].slope() == 4 && (double)vector2_1.Y + (double)Math.Abs(Velocity.X) + 1.0 >= (double)vector2_4.Y && (double)vector2_1.X + (double)Width <= (double)vector2_4.X + 16.0)
+                                    if ((int)Game1.tile[index1, index2].slope() == 4 && (double)vector2_1.Y + (double)Math.Abs(Velocity.X) + 1.0 >= (double)vector2_4.Y && (double)vector2_1.X + (double)Width <= (double)vector2_4.X + 16.0)
                                         flag1 = true;
                                 }
                                 else
                                 {
-                                    if ((int)Main.tile[index1, index2].slope() == 1 && (double)vector2_1.Y + (double)Height - (double)Math.Abs(Velocity.X) - 1.0 <= (double)vector2_4.Y + (double)num11 && (double)vector2_1.X >= (double)vector2_4.X)
+                                    if ((int)Game1.tile[index1, index2].slope() == 1 && (double)vector2_1.Y + (double)Height - (double)Math.Abs(Velocity.X) - 1.0 <= (double)vector2_4.Y + (double)num11 && (double)vector2_1.X >= (double)vector2_4.X)
                                         flag1 = true;
-                                    if ((int)Main.tile[index1, index2].slope() == 2 && (double)vector2_1.Y + (double)Height - (double)Math.Abs(Velocity.X) - 1.0 <= (double)vector2_4.Y + (double)num11 && (double)vector2_1.X + (double)Width <= (double)vector2_4.X + 16.0)
+                                    if ((int)Game1.tile[index1, index2].slope() == 2 && (double)vector2_1.Y + (double)Height - (double)Math.Abs(Velocity.X) - 1.0 <= (double)vector2_4.Y + (double)num11 && (double)vector2_1.X + (double)Width <= (double)vector2_4.X + 16.0)
                                         flag1 = true;
                                 }
                             }
-                            if ((int)Main.tile[index1, index2].type == 19)
+                            if ((int)Game1.tile[index1, index2].type == 19)
                             {
                                 if ((double)Velocity.Y < 0.0)
                                     flag1 = false;
@@ -1315,9 +1315,9 @@ namespace GameManager
                             if (flag1)
                             {
                                 bool flag2 = false;
-                                if (fall && (int)Main.tile[index1, index2].type == 19)
+                                if (fall && (int)Game1.tile[index1, index2].type == 19)
                                     flag2 = true;
-                                int index3 = (int)Main.tile[index1, index2].slope();
+                                int index3 = (int)Game1.tile[index1, index2].slope();
                                 vector2_4.X = (float)(index1 * 16);
                                 vector2_4.Y = (float)(index2 * 16);
                                 if ((double)Position.X + (double)Width > (double)vector2_4.X && (double)Position.X < (double)vector2_4.X + 16.0 && ((double)Position.Y + (double)Height > (double)vector2_4.Y && (double)Position.Y < (double)vector2_4.Y + 16.0))
@@ -1374,7 +1374,7 @@ namespace GameManager
                                                     }
                                                     else
                                                     {
-                                                        Collision.stair = (int)Main.tile[index1, index2].type == 19;
+                                                        Collision.stair = (int)Game1.tile[index1, index2].type == 19;
                                                         vector2_2.Y = Position.Y + num13;
                                                         num1 = vector2_2.Y;
                                                         if ((double)vector2_3.Y > 0.0)
@@ -1384,7 +1384,7 @@ namespace GameManager
                                                 }
                                             }
                                         }
-                                        else if ((int)Main.tile[index1, index2].type == 19 && (double)Position.Y + (double)Height - 4.0 - (double)Math.Abs(Velocity.X) > (double)vector2_4.Y)
+                                        else if ((int)Game1.tile[index1, index2].type == 19 && (double)Position.Y + (double)Height - 4.0 - (double)Math.Abs(Velocity.X) > (double)vector2_4.Y)
                                         {
                                             if (flag2)
                                                 Collision.stairFall = true;
@@ -1400,7 +1400,7 @@ namespace GameManager
                                                 }
                                                 else
                                                 {
-                                                    Collision.stair = (int)Main.tile[index1, index2].type == 19;
+                                                    Collision.stair = (int)Game1.tile[index1, index2].type == 19;
                                                     vector2_2.Y = num13;
                                                     if ((double)vector2_3.Y > 0.0)
                                                         vector2_3.Y = 0.0f;
@@ -1459,22 +1459,22 @@ namespace GameManager
             int num6 = -1;
             int num7 = -1;
             int num8 = -1;
-            int num9 = Utils.Clamp<int>(num1, 0, Main.maxTilesX - 1);
-            int num10 = Utils.Clamp<int>(num2, 0, Main.maxTilesX - 1);
-            int num11 = Utils.Clamp<int>(num3, 0, Main.maxTilesY - 1);
-            int num12 = Utils.Clamp<int>(num4, 0, Main.maxTilesY - 1);
+            int num9 = Utils.Clamp<int>(num1, 0, Game1.maxTilesX - 1);
+            int num10 = Utils.Clamp<int>(num2, 0, Game1.maxTilesX - 1);
+            int num11 = Utils.Clamp<int>(num3, 0, Game1.maxTilesY - 1);
+            int num12 = Utils.Clamp<int>(num4, 0, Game1.maxTilesY - 1);
             float num13 = (float)((num12 + 3) * 16);
             for (int index1 = num9; index1 < num10; ++index1)
             {
                 for (int index2 = num11; index2 < num12; ++index2)
                 {
-                    if (Main.tile[index1, index2] != null && Main.tile[index1, index2].active() && (Main.tileSolid[(int)Main.tile[index1, index2].type] || Main.tileSolidTop[(int)Main.tile[index1, index2].type] && (int)Main.tile[index1, index2].frameY == 0))
+                    if (Game1.tile[index1, index2] != null && Game1.tile[index1, index2].active() && (Game1.tileSolid[(int)Game1.tile[index1, index2].type] || Game1.tileSolidTop[(int)Game1.tile[index1, index2].type] && (int)Game1.tile[index1, index2].frameY == 0))
                     {
                         Vector2 vector2_5;
                         vector2_5.X = (float)(index1 * 16);
                         vector2_5.Y = (float)(index2 * 16);
                         int num14 = 16;
-                        if (Main.tile[index1, index2].halfBrick())
+                        if (Game1.tile[index1, index2].halfBrick())
                         {
                             vector2_5.Y += 8f;
                             num14 -= 8;
@@ -1484,7 +1484,7 @@ namespace GameManager
                             if ((double)vector2_4.Y + (double)Height <= (double)vector2_5.Y)
                             {
                                 Collision.down = true;
-                                if ((!Main.tileSolidTop[(int)Main.tile[index1, index2].type] || !fallThrough || (double)Velocity.Y > 1.0 && !fall2) && (double)num13 > (double)vector2_5.Y)
+                                if ((!Game1.tileSolidTop[(int)Game1.tile[index1, index2].type] || !fallThrough || (double)Velocity.Y > 1.0 && !fall2) && (double)num13 > (double)vector2_5.Y)
                                 {
                                     num7 = index1;
                                     num8 = index2;
@@ -1497,7 +1497,7 @@ namespace GameManager
                                     }
                                 }
                             }
-                            else if ((double)vector2_4.X + (double)Width <= (double)vector2_5.X && !Main.tileSolidTop[(int)Main.tile[index1, index2].type])
+                            else if ((double)vector2_4.X + (double)Width <= (double)vector2_5.X && !Game1.tileSolidTop[(int)Game1.tile[index1, index2].type])
                             {
                                 num5 = index1;
                                 num6 = index2;
@@ -1506,7 +1506,7 @@ namespace GameManager
                                 if (num7 == num5)
                                     vector2_1.Y = vector2_2.Y;
                             }
-                            else if ((double)vector2_4.X >= (double)vector2_5.X + 16.0 && !Main.tileSolidTop[(int)Main.tile[index1, index2].type])
+                            else if ((double)vector2_4.X >= (double)vector2_5.X + 16.0 && !Game1.tileSolidTop[(int)Game1.tile[index1, index2].type])
                             {
                                 num5 = index1;
                                 num6 = index2;
@@ -1515,7 +1515,7 @@ namespace GameManager
                                 if (num7 == num5)
                                     vector2_1.Y = vector2_2.Y;
                             }
-                            else if ((double)vector2_4.Y >= (double)vector2_5.Y + (double)num14 && !Main.tileSolidTop[(int)Main.tile[index1, index2].type])
+                            else if ((double)vector2_4.Y >= (double)vector2_5.Y + (double)num14 && !Game1.tileSolidTop[(int)Game1.tile[index1, index2].type])
                             {
                                 Collision.up = true;
                                 num7 = index1;
@@ -1547,22 +1547,22 @@ namespace GameManager
             int num6 = -1;
             int num7 = -1;
             int num8 = -1;
-            int num9 = Utils.Clamp<int>(num1, 0, Main.maxTilesX - 1);
-            int num10 = Utils.Clamp<int>(num2, 0, Main.maxTilesX - 1);
-            int num11 = Utils.Clamp<int>(num3, 0, Main.maxTilesY - 1);
-            int num12 = Utils.Clamp<int>(num4, 0, Main.maxTilesY - 1);
+            int num9 = Utils.Clamp<int>(num1, 0, Game1.maxTilesX - 1);
+            int num10 = Utils.Clamp<int>(num2, 0, Game1.maxTilesX - 1);
+            int num11 = Utils.Clamp<int>(num3, 0, Game1.maxTilesY - 1);
+            int num12 = Utils.Clamp<int>(num4, 0, Game1.maxTilesY - 1);
             float num13 = (float)((num12 + 3) * 16);
             for (int index1 = num9; index1 < num10; ++index1)
             {
                 for (int index2 = num11; index2 < num12; ++index2)
                 {
-                    if (Main.tile[index1, index2] != null && Main.tile[index1, index2].active() && !Main.tile[index1, index2].inActive() && (Main.tileSolid[(int)Main.tile[index1, index2].type] || Main.tileSolidTop[(int)Main.tile[index1, index2].type] && (int)Main.tile[index1, index2].frameY == 0))
+                    if (Game1.tile[index1, index2] != null && Game1.tile[index1, index2].active() && !Game1.tile[index1, index2].inActive() && (Game1.tileSolid[(int)Game1.tile[index1, index2].type] || Game1.tileSolidTop[(int)Game1.tile[index1, index2].type] && (int)Game1.tile[index1, index2].frameY == 0))
                     {
                         Vector2 vector2_5;
                         vector2_5.X = (float)(index1 * 16);
                         vector2_5.Y = (float)(index2 * 16);
                         int num14 = 16;
-                        if (Main.tile[index1, index2].halfBrick())
+                        if (Game1.tile[index1, index2].halfBrick())
                         {
                             vector2_5.Y += 8f;
                             num14 -= 8;
@@ -1571,19 +1571,19 @@ namespace GameManager
                         {
                             bool flag1 = false;
                             bool flag2 = false;
-                            if ((int)Main.tile[index1, index2].slope() > 2)
+                            if ((int)Game1.tile[index1, index2].slope() > 2)
                             {
-                                if ((int)Main.tile[index1, index2].slope() == 3 && (double)vector2_4.Y + (double)Math.Abs(Velocity.X) >= (double)vector2_5.Y && (double)vector2_4.X >= (double)vector2_5.X)
+                                if ((int)Game1.tile[index1, index2].slope() == 3 && (double)vector2_4.Y + (double)Math.Abs(Velocity.X) >= (double)vector2_5.Y && (double)vector2_4.X >= (double)vector2_5.X)
                                     flag2 = true;
-                                if ((int)Main.tile[index1, index2].slope() == 4 && (double)vector2_4.Y + (double)Math.Abs(Velocity.X) >= (double)vector2_5.Y && (double)vector2_4.X + (double)Width <= (double)vector2_5.X + 16.0)
+                                if ((int)Game1.tile[index1, index2].slope() == 4 && (double)vector2_4.Y + (double)Math.Abs(Velocity.X) >= (double)vector2_5.Y && (double)vector2_4.X + (double)Width <= (double)vector2_5.X + 16.0)
                                     flag2 = true;
                             }
-                            else if ((int)Main.tile[index1, index2].slope() > 0)
+                            else if ((int)Game1.tile[index1, index2].slope() > 0)
                             {
                                 flag1 = true;
-                                if ((int)Main.tile[index1, index2].slope() == 1 && (double)vector2_4.Y + (double)Height - (double)Math.Abs(Velocity.X) <= (double)vector2_5.Y + (double)num14 && (double)vector2_4.X >= (double)vector2_5.X)
+                                if ((int)Game1.tile[index1, index2].slope() == 1 && (double)vector2_4.Y + (double)Height - (double)Math.Abs(Velocity.X) <= (double)vector2_5.Y + (double)num14 && (double)vector2_4.X >= (double)vector2_5.X)
                                     flag2 = true;
-                                if ((int)Main.tile[index1, index2].slope() == 2 && (double)vector2_4.Y + (double)Height - (double)Math.Abs(Velocity.X) <= (double)vector2_5.Y + (double)num14 && (double)vector2_4.X + (double)Width <= (double)vector2_5.X + 16.0)
+                                if ((int)Game1.tile[index1, index2].slope() == 2 && (double)vector2_4.Y + (double)Height - (double)Math.Abs(Velocity.X) <= (double)vector2_5.Y + (double)num14 && (double)vector2_4.X + (double)Width <= (double)vector2_5.X + 16.0)
                                     flag2 = true;
                             }
                             if (!flag2)
@@ -1591,7 +1591,7 @@ namespace GameManager
                                 if ((double)vector2_4.Y + (double)Height <= (double)vector2_5.Y)
                                 {
                                     Collision.down = true;
-                                    if ((!Main.tileSolidTop[(int)Main.tile[index1, index2].type] || !fallThrough || (double)Velocity.Y > 1.0 && !fall2) && (double)num13 > (double)vector2_5.Y)
+                                    if ((!Game1.tileSolidTop[(int)Game1.tile[index1, index2].type] || !fallThrough || (double)Velocity.Y > 1.0 && !fall2) && (double)num13 > (double)vector2_5.Y)
                                     {
                                         num7 = index1;
                                         num8 = index2;
@@ -1604,11 +1604,11 @@ namespace GameManager
                                         }
                                     }
                                 }
-                                else if ((double)vector2_4.X + (double)Width <= (double)vector2_5.X && !Main.tileSolidTop[(int)Main.tile[index1, index2].type])
+                                else if ((double)vector2_4.X + (double)Width <= (double)vector2_5.X && !Game1.tileSolidTop[(int)Game1.tile[index1, index2].type])
                                 {
-                                    if (Main.tile[index1 - 1, index2] == null)
-                                        Main.tile[index1 - 1, index2] = new Tile();
-                                    if ((int)Main.tile[index1 - 1, index2].slope() != 2 && (int)Main.tile[index1 - 1, index2].slope() != 4)
+                                    if (Game1.tile[index1 - 1, index2] == null)
+                                        Game1.tile[index1 - 1, index2] = new Tile();
+                                    if ((int)Game1.tile[index1 - 1, index2].slope() != 2 && (int)Game1.tile[index1 - 1, index2].slope() != 4)
                                     {
                                         num5 = index1;
                                         num6 = index2;
@@ -1618,11 +1618,11 @@ namespace GameManager
                                             vector2_1.Y = vector2_2.Y;
                                     }
                                 }
-                                else if ((double)vector2_4.X >= (double)vector2_5.X + 16.0 && !Main.tileSolidTop[(int)Main.tile[index1, index2].type])
+                                else if ((double)vector2_4.X >= (double)vector2_5.X + 16.0 && !Game1.tileSolidTop[(int)Game1.tile[index1, index2].type])
                                 {
-                                    if (Main.tile[index1 + 1, index2] == null)
-                                        Main.tile[index1 + 1, index2] = new Tile();
-                                    if ((int)Main.tile[index1 + 1, index2].slope() != 1 && (int)Main.tile[index1 + 1, index2].slope() != 3)
+                                    if (Game1.tile[index1 + 1, index2] == null)
+                                        Game1.tile[index1 + 1, index2] = new Tile();
+                                    if ((int)Game1.tile[index1 + 1, index2].slope() != 1 && (int)Game1.tile[index1 + 1, index2].slope() != 3)
                                     {
                                         num5 = index1;
                                         num6 = index2;
@@ -1632,7 +1632,7 @@ namespace GameManager
                                             vector2_1.Y = vector2_2.Y;
                                     }
                                 }
-                                else if ((double)vector2_4.Y >= (double)vector2_5.Y + (double)num14 && !Main.tileSolidTop[(int)Main.tile[index1, index2].type])
+                                else if ((double)vector2_4.Y >= (double)vector2_5.Y + (double)num14 && !Game1.tileSolidTop[(int)Game1.tile[index1, index2].type])
                                 {
                                     Collision.up = true;
                                     num7 = index1;
@@ -1795,21 +1795,21 @@ namespace GameManager
             int num2 = (int)(((double)Position.X + (double)Width) / 16.0) + 2;
             int num3 = (int)((double)Position.Y / 16.0) - 1;
             int num4 = (int)(((double)Position.Y + (double)Height) / 16.0) + 2;
-            int num5 = Utils.Clamp<int>(num1, 0, Main.maxTilesX - 1);
-            int num6 = Utils.Clamp<int>(num2, 0, Main.maxTilesX - 1);
-            int num7 = Utils.Clamp<int>(num3, 0, Main.maxTilesY - 1);
-            int num8 = Utils.Clamp<int>(num4, 0, Main.maxTilesY - 1);
+            int num5 = Utils.Clamp<int>(num1, 0, Game1.maxTilesX - 1);
+            int num6 = Utils.Clamp<int>(num2, 0, Game1.maxTilesX - 1);
+            int num7 = Utils.Clamp<int>(num3, 0, Game1.maxTilesY - 1);
+            int num8 = Utils.Clamp<int>(num4, 0, Game1.maxTilesY - 1);
             for (int index1 = num5; index1 < num6; ++index1)
             {
                 for (int index2 = num7; index2 < num8; ++index2)
                 {
-                    if (Main.tile[index1, index2] != null && !Main.tile[index1, index2].inActive() && (Main.tile[index1, index2].active() && Main.tileSolid[(int)Main.tile[index1, index2].type]) && !Main.tileSolidTop[(int)Main.tile[index1, index2].type])
+                    if (Game1.tile[index1, index2] != null && !Game1.tile[index1, index2].inActive() && (Game1.tile[index1, index2].active() && Game1.tileSolid[(int)Game1.tile[index1, index2].type]) && !Game1.tileSolidTop[(int)Game1.tile[index1, index2].type])
                     {
                         Vector2 vector2;
                         vector2.X = (float)(index1 * 16);
                         vector2.Y = (float)(index2 * 16);
                         int num9 = 16;
-                        if (Main.tile[index1, index2].halfBrick())
+                        if (Game1.tile[index1, index2].halfBrick())
                         {
                             vector2.Y += 8f;
                             num9 -= 8;
@@ -1831,17 +1831,17 @@ namespace GameManager
             int num2 = (int)(((double)Position.X + (double)Width) / 16.0) + 2;
             int num3 = (int)((double)Position.Y / 16.0) - 1;
             int num4 = (int)(((double)Position.Y + (double)Height) / 16.0) + 2;
-            int num5 = Utils.Clamp<int>(num1, 0, Main.maxTilesX - 1);
-            int num6 = Utils.Clamp<int>(num2, 0, Main.maxTilesX - 1);
-            int num7 = Utils.Clamp<int>(num3, 0, Main.maxTilesY - 1);
-            int num8 = Utils.Clamp<int>(num4, 0, Main.maxTilesY - 1);
+            int num5 = Utils.Clamp<int>(num1, 0, Game1.maxTilesX - 1);
+            int num6 = Utils.Clamp<int>(num2, 0, Game1.maxTilesX - 1);
+            int num7 = Utils.Clamp<int>(num3, 0, Game1.maxTilesY - 1);
+            int num8 = Utils.Clamp<int>(num4, 0, Game1.maxTilesY - 1);
             for (int index1 = num5; index1 < num6; ++index1)
             {
                 for (int index2 = num7; index2 < num8; ++index2)
                 {
-                    if (Main.tile[index1, index2] != null && (int)Main.tile[index1, index2].liquid > 0 && (int)Main.tile[index1, index2 - 1].liquid == 0 && (!Main.tile[index1, index2].lava() || lavaWalk))
+                    if (Game1.tile[index1, index2] != null && (int)Game1.tile[index1, index2].liquid > 0 && (int)Game1.tile[index1, index2 - 1].liquid == 0 && (!Game1.tile[index1, index2].lava() || lavaWalk))
                     {
-                        int num9 = (int)Main.tile[index1, index2].liquid / 32 * 2 + 2;
+                        int num9 = (int)Game1.tile[index1, index2].liquid / 32 * 2 + 2;
                         Vector2 vector2_4;
                         vector2_4.X = (float)(index1 * 16);
                         vector2_4.Y = (float)(index2 * 16 + 16 - num9);
@@ -1869,23 +1869,23 @@ namespace GameManager
             int num8 = -1;
             if (num1 < 0)
                 num1 = 0;
-            if (num2 > Main.maxTilesX)
-                num2 = Main.maxTilesX;
+            if (num2 > Game1.maxTilesX)
+                num2 = Game1.maxTilesX;
             if (num3 < 0)
                 num3 = 0;
-            if (num4 > Main.maxTilesY)
-                num4 = Main.maxTilesY;
+            if (num4 > Game1.maxTilesY)
+                num4 = Game1.maxTilesY;
             for (int index1 = num1; index1 < num2; ++index1)
             {
                 for (int index2 = num3; index2 < num4; ++index2)
                 {
-                    if (Main.tile[index1, index2] != null && Main.tile[index1, index2].active() && !Main.tile[index1, index2].inActive())
+                    if (Game1.tile[index1, index2] != null && Game1.tile[index1, index2].active() && !Game1.tile[index1, index2].inActive())
                     {
                         Vector2 vector2_5;
                         vector2_5.X = (float)(index1 * 16);
                         vector2_5.Y = (float)(index2 * 16);
                         int num9 = 16;
-                        if (Main.tile[index1, index2].halfBrick())
+                        if (Game1.tile[index1, index2].halfBrick())
                         {
                             vector2_5.Y += 8f;
                             num9 -= 8;
@@ -1899,7 +1899,7 @@ namespace GameManager
                                 if (num7 != num5)
                                     vector2_1.Y = vector2_5.Y - (vector2_4.Y + (float)Height);
                             }
-                            else if ((double)vector2_4.X + (double)Width <= (double)vector2_5.X && !Main.tileSolidTop[(int)Main.tile[index1, index2].type])
+                            else if ((double)vector2_4.X + (double)Width <= (double)vector2_5.X && !Game1.tileSolidTop[(int)Game1.tile[index1, index2].type])
                             {
                                 num5 = index1;
                                 num6 = index2;
@@ -1908,7 +1908,7 @@ namespace GameManager
                                 if (num7 == num5)
                                     vector2_1.Y = vector2_2.Y;
                             }
-                            else if ((double)vector2_4.X >= (double)vector2_5.X + 16.0 && !Main.tileSolidTop[(int)Main.tile[index1, index2].type])
+                            else if ((double)vector2_4.X >= (double)vector2_5.X + 16.0 && !Game1.tileSolidTop[(int)Game1.tile[index1, index2].type])
                             {
                                 num5 = index1;
                                 num6 = index2;
@@ -1917,7 +1917,7 @@ namespace GameManager
                                 if (num7 == num5)
                                     vector2_1.Y = vector2_2.Y;
                             }
-                            else if ((double)vector2_4.Y >= (double)vector2_5.Y + (double)num9 && !Main.tileSolidTop[(int)Main.tile[index1, index2].type])
+                            else if ((double)vector2_4.Y >= (double)vector2_5.Y + (double)num9 && !Game1.tileSolidTop[(int)Game1.tile[index1, index2].type])
                             {
                                 num7 = index1;
                                 num8 = index2;
@@ -1941,23 +1941,23 @@ namespace GameManager
             int num4 = (int)(((double)Position.Y + (double)Height) / 16.0) + 2;
             if (num1 < 0)
                 num1 = 0;
-            if (num2 > Main.maxTilesX)
-                num2 = Main.maxTilesX;
+            if (num2 > Game1.maxTilesX)
+                num2 = Game1.maxTilesX;
             if (num3 < 0)
                 num3 = 0;
-            if (num4 > Main.maxTilesY)
-                num4 = Main.maxTilesY;
+            if (num4 > Game1.maxTilesY)
+                num4 = Game1.maxTilesY;
             for (int i = num1; i < num2; ++i)
             {
                 for (int j = num3; j < num4; ++j)
                 {
-                    if (Main.tile[i, j] != null && !Main.tile[i, j].inActive() && Main.tile[i, j].active() && (Main.tileSolid[(int)Main.tile[i, j].type] || Main.tileSolidTop[(int)Main.tile[i, j].type] && (int)Main.tile[i, j].frameY == 0))
+                    if (Game1.tile[i, j] != null && !Game1.tile[i, j].inActive() && Game1.tile[i, j].active() && (Game1.tileSolid[(int)Game1.tile[i, j].type] || Game1.tileSolidTop[(int)Game1.tile[i, j].type] && (int)Game1.tile[i, j].frameY == 0))
                     {
                         Vector2 vector2_2;
                         vector2_2.X = (float)(i * 16);
                         vector2_2.Y = (float)(j * 16);
                         int num5 = 16;
-                        if (Main.tile[i, j].halfBrick())
+                        if (Game1.tile[i, j].halfBrick())
                         {
                             vector2_2.Y += 8f;
                             num5 -= 8;
@@ -1978,30 +1978,30 @@ namespace GameManager
             int num4 = (int)(((double)Position.Y + (double)Height) / 16.0) + 2;
             if (num1 < 0)
                 num1 = 0;
-            if (num2 > Main.maxTilesX)
-                num2 = Main.maxTilesX;
+            if (num2 > Game1.maxTilesX)
+                num2 = Game1.maxTilesX;
             if (num3 < 0)
                 num3 = 0;
-            if (num4 > Main.maxTilesY)
-                num4 = Main.maxTilesY;
+            if (num4 > Game1.maxTilesY)
+                num4 = Game1.maxTilesY;
             for (int i = num1; i < num2; ++i)
             {
                 for (int j = num3; j < num4; ++j)
                 {
-                    if (Main.tile[i, j] != null && (int)Main.tile[i, j].slope() == 0 && (!Main.tile[i, j].inActive() && Main.tile[i, j].active()) && ((int)Main.tile[i, j].type == 32 || (int)Main.tile[i, j].type == 37 || ((int)Main.tile[i, j].type == 48 || (int)Main.tile[i, j].type == 232) || ((int)Main.tile[i, j].type == 53 || (int)Main.tile[i, j].type == 57 || ((int)Main.tile[i, j].type == 58 || (int)Main.tile[i, j].type == 69)) || ((int)Main.tile[i, j].type == 76 || (int)Main.tile[i, j].type == 112 || ((int)Main.tile[i, j].type == 116 || (int)Main.tile[i, j].type == 123) || ((int)Main.tile[i, j].type == 224 || (int)Main.tile[i, j].type == 234 || (int)Main.tile[i, j].type == 352))))
+                    if (Game1.tile[i, j] != null && (int)Game1.tile[i, j].slope() == 0 && (!Game1.tile[i, j].inActive() && Game1.tile[i, j].active()) && ((int)Game1.tile[i, j].type == 32 || (int)Game1.tile[i, j].type == 37 || ((int)Game1.tile[i, j].type == 48 || (int)Game1.tile[i, j].type == 232) || ((int)Game1.tile[i, j].type == 53 || (int)Game1.tile[i, j].type == 57 || ((int)Game1.tile[i, j].type == 58 || (int)Game1.tile[i, j].type == 69)) || ((int)Game1.tile[i, j].type == 76 || (int)Game1.tile[i, j].type == 112 || ((int)Game1.tile[i, j].type == 116 || (int)Game1.tile[i, j].type == 123) || ((int)Game1.tile[i, j].type == 224 || (int)Game1.tile[i, j].type == 234 || (int)Game1.tile[i, j].type == 352))))
                     {
                         Vector2 vector2_2;
                         vector2_2.X = (float)(i * 16);
                         vector2_2.Y = (float)(j * 16);
                         int num5 = 0;
-                        int num6 = (int)Main.tile[i, j].type;
+                        int num6 = (int)Game1.tile[i, j].type;
                         int num7 = 16;
-                        if (Main.tile[i, j].halfBrick())
+                        if (Game1.tile[i, j].halfBrick())
                         {
                             vector2_2.Y += 8f;
                             num7 -= 8;
                         }
-                        if (num6 == 32 || num6 == 69 || (num6 == 80 || num6 == 352) || num6 == 80 && Main.expertMode)
+                        if (num6 == 32 || num6 == 69 || (num6 == 80 || num6 == 352) || num6 == 80 && Game1.expertMode)
                         {
                             if ((double)vector2_1.X + (double)Width > (double)vector2_2.X && (double)vector2_1.X < (double)vector2_2.X + 16.0 && ((double)vector2_1.Y + (double)Height > (double)vector2_2.Y && (double)vector2_1.Y < (double)vector2_2.Y + (double)num7 + 11.0 / 1000.0))
                             {
@@ -2016,7 +2016,7 @@ namespace GameManager
                                 if (num6 == 32 || num6 == 69 || num6 == 352)
                                 {
                                     WorldGen.KillTile(i, j, false, false, false);
-                                    if (Main.netMode == 1 && !Main.tile[i, j].active() && Main.netMode == 1)
+                                    if (Game1.netMode == 1 && !Game1.tile[i, j].active() && Game1.netMode == 1)
                                         NetMessage.SendData(17, -1, -1, "", 4, (float)i, (float)j, 0.0f, 0, 0, 0);
                                 }
                                 return new Vector2((float)num8, (float)num9);
@@ -2060,28 +2060,28 @@ namespace GameManager
             int num4 = (int)(((double)Position.Y + (double)Height) / 16.0) + 2;
             if (num1 < 0)
                 num1 = 0;
-            if (num2 > Main.maxTilesX)
-                num2 = Main.maxTilesX;
+            if (num2 > Game1.maxTilesX)
+                num2 = Game1.maxTilesX;
             if (num3 < 0)
                 num3 = 0;
-            if (num4 > Main.maxTilesY)
-                num4 = Main.maxTilesY;
+            if (num4 > Game1.maxTilesY)
+                num4 = Game1.maxTilesY;
             for (int index = num1; index < num2; ++index)
             {
                 for (int j = num3; j < num4; ++j)
                 {
-                    if (Main.tile[index, j] != null && Main.tile[index, j].active() && ((int)Main.tile[index, j].type == 135 || (int)Main.tile[index, j].type == 210))
+                    if (Game1.tile[index, j] != null && Game1.tile[index, j].active() && ((int)Game1.tile[index, j].type == 135 || (int)Game1.tile[index, j].type == 210))
                     {
                         Vector2 vector2;
                         vector2.X = (float)(index * 16);
                         vector2.Y = (float)(j * 16 + 12);
                         if ((double)Position.X + (double)Width > (double)vector2.X && (double)Position.X < (double)vector2.X + 16.0 && ((double)Position.Y + (double)Height > (double)vector2.Y && (double)Position.Y < (double)vector2.Y + 4.01))
                         {
-                            if ((int)Main.tile[index, j].type == 210)
+                            if ((int)Game1.tile[index, j].type == 210)
                                 WorldGen.ExplodeMine(index, j);
                             else if ((double)oldPosition.X + (double)Width <= (double)vector2.X || (double)oldPosition.X >= (double)vector2.X + 16.0 || ((double)oldPosition.Y + (double)Height <= (double)vector2.Y || (double)oldPosition.Y >= (double)vector2.Y + 16.01))
                             {
-                                int num5 = (int)Main.tile[index, j].frameY / 18;
+                                int num5 = (int)Game1.tile[index, j].frameY / 18;
                                 bool flag = true;
                                 if ((num5 == 4 || num5 == 2 || (num5 == 3 || num5 == 6)) && objType != 1)
                                     flag = false;
@@ -2110,45 +2110,45 @@ namespace GameManager
             int num4 = (int)(((double)Position.Y + (double)Height) / 16.0) + 2;
             if (num1 < 0)
                 num1 = 0;
-            if (num2 > Main.maxTilesX)
-                num2 = Main.maxTilesX;
+            if (num2 > Game1.maxTilesX)
+                num2 = Game1.maxTilesX;
             if (num3 < 0)
                 num3 = 0;
-            if (num4 > Main.maxTilesY)
-                num4 = Main.maxTilesY;
+            if (num4 > Game1.maxTilesY)
+                num4 = Game1.maxTilesY;
             Vector2 vector2_2;
             for (int index1 = num1; index1 < num2; ++index1)
             {
                 for (int index2 = num3; index2 < num4; ++index2)
                 {
-                    if (Main.tile[index1, index2] != null && Main.tile[index1, index2].active() && !Main.tile[index1, index2].inActive())
+                    if (Game1.tile[index1, index2] != null && Game1.tile[index1, index2].active() && !Game1.tile[index1, index2].inActive())
                     {
-                        if ((int)Main.tile[index1, index2].type == 51)
+                        if ((int)Game1.tile[index1, index2].type == 51)
                         {
                             int num5 = 0;
                             vector2_2.X = (float)(index1 * 16);
                             vector2_2.Y = (float)(index2 * 16);
                             if ((double)vector2_1.X + (double)Width > (double)vector2_2.X - (double)num5 && (double)vector2_1.X < (double)vector2_2.X + 16.0 + (double)num5 && ((double)vector2_1.Y + (double)Height > (double)vector2_2.Y && (double)vector2_1.Y < (double)vector2_2.Y + 16.01))
                             {
-                                if ((int)Main.tile[index1, index2].type == 51 && (double)Math.Abs(Velocity.X) + (double)Math.Abs(Velocity.Y) > 0.7 && Main.rand.Next(30) == 0)
+                                if ((int)Game1.tile[index1, index2].type == 51 && (double)Math.Abs(Velocity.X) + (double)Math.Abs(Velocity.Y) > 0.7 && Game1.rand.Next(30) == 0)
                                     Dust.NewDust(new Vector2((float)(index1 * 16), (float)(index2 * 16)), 16, 16, 30, 0.0f, 0.0f, 0, new Color(), 1f);
                                 return new Vector2((float)index1, (float)index2);
                             }
                         }
-                        else if ((int)Main.tile[index1, index2].type == 229 && (int)Main.tile[index1, index2].slope() == 0)
+                        else if ((int)Game1.tile[index1, index2].type == 229 && (int)Game1.tile[index1, index2].slope() == 0)
                         {
                             int num5 = 1;
                             vector2_2.X = (float)(index1 * 16);
                             vector2_2.Y = (float)(index2 * 16);
                             float num6 = 16.01f;
-                            if (Main.tile[index1, index2].halfBrick())
+                            if (Game1.tile[index1, index2].halfBrick())
                             {
                                 vector2_2.Y += 8f;
                                 num6 -= 8f;
                             }
                             if ((double)vector2_1.X + (double)Width > (double)vector2_2.X - (double)num5 && (double)vector2_1.X < (double)vector2_2.X + 16.0 + (double)num5 && ((double)vector2_1.Y + (double)Height > (double)vector2_2.Y && (double)vector2_1.Y < (double)vector2_2.Y + (double)num6))
                             {
-                                if ((int)Main.tile[index1, index2].type == 51 && (double)Math.Abs(Velocity.X) + (double)Math.Abs(Velocity.Y) > 0.7 && Main.rand.Next(30) == 0)
+                                if ((int)Game1.tile[index1, index2].type == 51 && (double)Math.Abs(Velocity.X) + (double)Math.Abs(Velocity.Y) > 0.7 && Game1.rand.Next(30) == 0)
                                     Dust.NewDust(new Vector2((float)(index1 * 16), (float)(index2 * 16)), 16, 16, 30, 0.0f, 0.0f, 0, new Color(), 1f);
                                 return new Vector2((float)index1, (float)index2);
                             }
@@ -2170,15 +2170,15 @@ namespace GameManager
 
         public static bool SolidTiles(int startX, int endX, int startY, int endY)
         {
-            if (startX < 0 || endX >= Main.maxTilesX || (startY < 0 || endY >= Main.maxTilesY))
+            if (startX < 0 || endX >= Game1.maxTilesX || (startY < 0 || endY >= Game1.maxTilesY))
                 return true;
             for (int index1 = startX; index1 < endX + 1; ++index1)
             {
                 for (int index2 = startY; index2 < endY + 1; ++index2)
                 {
-                    if (Main.tile[index1, index2] == null)
+                    if (Game1.tile[index1, index2] == null)
                         return false;
-                    if (Main.tile[index1, index2].active() && !Main.tile[index1, index2].inActive() && (Main.tileSolid[(int)Main.tile[index1, index2].type] && !Main.tileSolidTop[(int)Main.tile[index1, index2].type]))
+                    if (Game1.tile[index1, index2].active() && !Game1.tile[index1, index2].inActive() && (Game1.tileSolid[(int)Game1.tile[index1, index2].type] && !Game1.tileSolidTop[(int)Game1.tile[index1, index2].type]))
                         return true;
                 }
             }
@@ -2196,30 +2196,30 @@ namespace GameManager
             int num3 = (int)(((double)vector2.Y + (double)height + 4.0) / 16.0);
             int num4 = height / 16 + (height % 16 == 0 ? 0 : 1);
             float num5 = (float)((num3 + num4) * 16);
-            float num6 = (float)((double)Main.bottomWorld / 16.0 - 42.0);
+            float num6 = (float)((double)Game1.bottomWorld / 16.0 - 42.0);
             for (int x = num1; x <= num2; ++x)
             {
                 for (int y = num3; y <= num3 + 1; ++y)
                 {
                     if (WorldGen.InWorld(x, y, 1))
                     {
-                        if (Main.tile[x, y] == null)
-                            Main.tile[x, y] = new Tile();
-                        if (Main.tile[x, y - 1] == null)
-                            Main.tile[x, y - 1] = new Tile();
-                        if (Main.tile[x, y].topSlope())
+                        if (Game1.tile[x, y] == null)
+                            Game1.tile[x, y] = new Tile();
+                        if (Game1.tile[x, y - 1] == null)
+                            Game1.tile[x, y - 1] = new Tile();
+                        if (Game1.tile[x, y].topSlope())
                             flag = true;
-                        if (waterWalk && (int)Main.tile[x, y].liquid > 0 && (int)Main.tile[x, y - 1].liquid == 0)
+                        if (waterWalk && (int)Game1.tile[x, y].liquid > 0 && (int)Game1.tile[x, y - 1].liquid == 0)
                         {
-                            int num7 = (int)Main.tile[x, y].liquid / 32 * 2 + 2;
+                            int num7 = (int)Game1.tile[x, y].liquid / 32 * 2 + 2;
                             int num8 = y * 16 + 16 - num7;
                             if (new Rectangle(x * 16, y * 16 - 17, 16, 16).Intersects(new Rectangle((int)position.X, (int)position.Y, width, height)) && (double)num8 < (double)num5)
                                 num5 = (float)num8;
                         }
-                        if ((double)y >= (double)num6 || Main.tile[x, y].nactive() && (Main.tileSolid[(int)Main.tile[x, y].type] || Main.tileSolidTop[(int)Main.tile[x, y].type]))
+                        if ((double)y >= (double)num6 || Game1.tile[x, y].nactive() && (Game1.tileSolid[(int)Game1.tile[x, y].type] || Game1.tileSolidTop[(int)Game1.tile[x, y].type]))
                         {
                             int num7 = y * 16;
-                            if (Main.tile[x, y].halfBrick())
+                            if (Game1.tile[x, y].halfBrick())
                                 num7 += 8;
                             if (Utils.FloatIntersect((float)(x * 16), (float)(y * 16 - 17), 16f, 16f, position.X, position.Y, (float)width, (float)height) && (double)num7 < (double)num5)
                                 num5 = (float)num7;
@@ -2253,24 +2253,24 @@ namespace GameManager
             int num2 = height / 16 + (height % 16 == 0 ? 0 : 1);
             bool flag1 = true;
             bool flag2 = true;
-            if (Main.tile[x, index1] == null)
+            if (Game1.tile[x, index1] == null)
                 return;
             for (int index2 = 1; index2 < num2 + 2; ++index2)
             {
-                if (!WorldGen.InWorld(x, index1 - index2 * gravDir, 0) || Main.tile[x, index1 - index2 * gravDir] == null)
+                if (!WorldGen.InWorld(x, index1 - index2 * gravDir, 0) || Game1.tile[x, index1 - index2 * gravDir] == null)
                     return;
             }
-            if (!WorldGen.InWorld(x - num1, index1 - num2 * gravDir, 0) || Main.tile[x - num1, index1 - num2 * gravDir] == null)
+            if (!WorldGen.InWorld(x - num1, index1 - num2 * gravDir, 0) || Game1.tile[x - num1, index1 - num2 * gravDir] == null)
                 return;
             for (int index2 = 2; index2 < num2 + 1; ++index2)
             {
-                if (!WorldGen.InWorld(x, index1 - index2 * gravDir, 0) || Main.tile[x, index1 - index2 * gravDir] == null)
+                if (!WorldGen.InWorld(x, index1 - index2 * gravDir, 0) || Game1.tile[x, index1 - index2 * gravDir] == null)
                     return;
-                Tile tile = Main.tile[x, index1 - index2 * gravDir];
-                flag1 = flag1 && (!tile.nactive() || !Main.tileSolid[(int)tile.type] || Main.tileSolidTop[(int)tile.type]);
+                Tile tile = Game1.tile[x, index1 - index2 * gravDir];
+                flag1 = flag1 && (!tile.nactive() || !Game1.tileSolid[(int)tile.type] || Game1.tileSolidTop[(int)tile.type]);
             }
-            Tile tile1 = Main.tile[x - num1, index1 - num2 * gravDir];
-            bool flag3 = flag2 && (!tile1.nactive() || !Main.tileSolid[(int)tile1.type] || Main.tileSolidTop[(int)tile1.type]);
+            Tile tile1 = Game1.tile[x - num1, index1 - num2 * gravDir];
+            bool flag3 = flag2 && (!tile1.nactive() || !Game1.tileSolid[(int)tile1.type] || Game1.tileSolidTop[(int)tile1.type]);
             bool flag4 = true;
             bool flag5 = true;
             bool flag6 = true;
@@ -2278,25 +2278,25 @@ namespace GameManager
             bool flag8;
             if (gravDir == 1)
             {
-                if (Main.tile[x, index1 - gravDir] == null || Main.tile[x, index1 - (num2 + 1) * gravDir] == null)
+                if (Game1.tile[x, index1 - gravDir] == null || Game1.tile[x, index1 - (num2 + 1) * gravDir] == null)
                     return;
-                Tile tile2 = Main.tile[x, index1 - gravDir];
-                Tile tile3 = Main.tile[x, index1 - (num2 + 1) * gravDir];
-                flag7 = flag4 && (!tile2.nactive() || !Main.tileSolid[(int)tile2.type] || Main.tileSolidTop[(int)tile2.type] || ((int)tile2.slope() == 1 && (double)position.X + (double)(width / 2) > (double)(x * 16) || (int)tile2.slope() == 2 && (double)position.X + (double)(width / 2) < (double)(x * 16 + 16)) || tile2.halfBrick() && (!tile3.nactive() || !Main.tileSolid[(int)tile3.type] || Main.tileSolidTop[(int)tile3.type]));
-                Tile tile4 = Main.tile[x, index1];
-                Tile tile5 = Main.tile[x, index1 - 1];
+                Tile tile2 = Game1.tile[x, index1 - gravDir];
+                Tile tile3 = Game1.tile[x, index1 - (num2 + 1) * gravDir];
+                flag7 = flag4 && (!tile2.nactive() || !Game1.tileSolid[(int)tile2.type] || Game1.tileSolidTop[(int)tile2.type] || ((int)tile2.slope() == 1 && (double)position.X + (double)(width / 2) > (double)(x * 16) || (int)tile2.slope() == 2 && (double)position.X + (double)(width / 2) < (double)(x * 16 + 16)) || tile2.halfBrick() && (!tile3.nactive() || !Game1.tileSolid[(int)tile3.type] || Game1.tileSolidTop[(int)tile3.type]));
+                Tile tile4 = Game1.tile[x, index1];
+                Tile tile5 = Game1.tile[x, index1 - 1];
                 if (specialChecksMode == 1)
                     flag6 = (int)tile4.type != 16 && (int)tile4.type != 18 && (int)tile4.type != 134;
-                flag8 = ((!flag5 ? (false ? 1 : 0) : (!tile4.nactive() || tile4.topSlope() && ((int)tile4.slope() != 1 || (double)position.X + (double)(width / 2) >= (double)(x * 16)) && ((int)tile4.slope() != 2 || (double)position.X + (double)(width / 2) <= (double)(x * 16 + 16)) || tile4.topSlope() && (double)position.Y + (double)height <= (double)(index1 * 16) || (!Main.tileSolid[(int)tile4.type] || Main.tileSolidTop[(int)tile4.type]) && (!holdsMatching || (!Main.tileSolidTop[(int)tile4.type] || (int)tile4.frameY != 0) && (int)tile4.type != 19 || (Main.tileSolid[(int)tile5.type] && tile5.nactive() || !flag6)) ? (!tile5.halfBrick() ? (false ? 1 : 0) : (tile5.nactive() ? 1 : 0)) : (true ? 1 : 0))) & (!Main.tileSolidTop[(int)tile4.type] ? 1 : (!Main.tileSolidTop[(int)tile5.type] ? 1 : 0))) != 0;
+                flag8 = ((!flag5 ? (false ? 1 : 0) : (!tile4.nactive() || tile4.topSlope() && ((int)tile4.slope() != 1 || (double)position.X + (double)(width / 2) >= (double)(x * 16)) && ((int)tile4.slope() != 2 || (double)position.X + (double)(width / 2) <= (double)(x * 16 + 16)) || tile4.topSlope() && (double)position.Y + (double)height <= (double)(index1 * 16) || (!Game1.tileSolid[(int)tile4.type] || Game1.tileSolidTop[(int)tile4.type]) && (!holdsMatching || (!Game1.tileSolidTop[(int)tile4.type] || (int)tile4.frameY != 0) && (int)tile4.type != 19 || (Game1.tileSolid[(int)tile5.type] && tile5.nactive() || !flag6)) ? (!tile5.halfBrick() ? (false ? 1 : 0) : (tile5.nactive() ? 1 : 0)) : (true ? 1 : 0))) & (!Game1.tileSolidTop[(int)tile4.type] ? 1 : (!Game1.tileSolidTop[(int)tile5.type] ? 1 : 0))) != 0;
             }
             else
             {
-                Tile tile2 = Main.tile[x, index1 - gravDir];
-                Tile tile3 = Main.tile[x, index1 - (num2 + 1) * gravDir];
-                flag7 = flag4 && (!tile2.nactive() || !Main.tileSolid[(int)tile2.type] || (Main.tileSolidTop[(int)tile2.type] || (int)tile2.slope() != 0) || tile2.halfBrick() && (!tile3.nactive() || !Main.tileSolid[(int)tile3.type] || Main.tileSolidTop[(int)tile3.type]));
-                Tile tile4 = Main.tile[x, index1];
-                Tile tile5 = Main.tile[x, index1 + 1];
-                flag8 = flag5 && (tile4.nactive() && (Main.tileSolid[(int)tile4.type] && !Main.tileSolidTop[(int)tile4.type] || holdsMatching && Main.tileSolidTop[(int)tile4.type] && (int)tile4.frameY == 0 && (!Main.tileSolid[(int)tile5.type] || !tile5.nactive())) || tile5.halfBrick() && tile5.nactive());
+                Tile tile2 = Game1.tile[x, index1 - gravDir];
+                Tile tile3 = Game1.tile[x, index1 - (num2 + 1) * gravDir];
+                flag7 = flag4 && (!tile2.nactive() || !Game1.tileSolid[(int)tile2.type] || (Game1.tileSolidTop[(int)tile2.type] || (int)tile2.slope() != 0) || tile2.halfBrick() && (!tile3.nactive() || !Game1.tileSolid[(int)tile3.type] || Game1.tileSolidTop[(int)tile3.type]));
+                Tile tile4 = Game1.tile[x, index1];
+                Tile tile5 = Game1.tile[x, index1 + 1];
+                flag8 = flag5 && (tile4.nactive() && (Game1.tileSolid[(int)tile4.type] && !Game1.tileSolidTop[(int)tile4.type] || holdsMatching && Game1.tileSolidTop[(int)tile4.type] && (int)tile4.frameY == 0 && (!Game1.tileSolid[(int)tile5.type] || !tile5.nactive())) || tile5.halfBrick() && tile5.nactive());
             }
             if ((double)(x * 16) >= (double)vector2.X + (double)width || (double)(x * 16 + 16) <= (double)vector2.X)
                 return;
@@ -2305,9 +2305,9 @@ namespace GameManager
                 if (!flag8 || !flag7 || (!flag1 || !flag3))
                     return;
                 float num3 = (float)(index1 * 16);
-                if (Main.tile[x, index1 - 1].halfBrick())
+                if (Game1.tile[x, index1 - 1].halfBrick())
                     num3 -= 8f;
-                else if (Main.tile[x, index1].halfBrick())
+                else if (Game1.tile[x, index1].halfBrick())
                     num3 += 8f;
                 if ((double)num3 >= (double)vector2.Y + (double)height)
                     return;
@@ -2323,7 +2323,7 @@ namespace GameManager
             }
             else
             {
-                if (!flag8 || !flag7 || (!flag1 || !flag3) || Main.tile[x, index1].bottomSlope())
+                if (!flag8 || !flag7 || (!flag1 || !flag3) || Game1.tile[x, index1].bottomSlope())
                     return;
                 float num3 = (float)(index1 * 16 + 16);
                 if ((double)num3 <= (double)vector2.Y)
@@ -2351,13 +2351,13 @@ namespace GameManager
             float num1 = position.Y % 16f;
             int index1 = (int)((double)position.X / 16.0);
             int index2 = (int)((double)position.Y / 16.0);
-            Tile tile = Main.tile[index1, index2];
+            Tile tile = Game1.tile[index1, index2];
             bool flag = false;
             for (int index3 = 2; index3 >= 0; --index3)
             {
                 if (tile.active())
                 {
-                    if (Main.tileSolid[(int)tile.type])
+                    if (Game1.tileSolid[(int)tile.type])
                     {
                         int num2 = tile.blockType();
                         if ((int)tile.type == 19)
@@ -2397,11 +2397,11 @@ namespace GameManager
                             return num2 == 3 ? -0.7853982f : 0.0f;
                         }
                     }
-                    else if (Main.tileSolidTop[(int)tile.type] && (int)tile.frameY == 0 && flag)
+                    else if (Game1.tileSolidTop[(int)tile.type] && (int)tile.frameY == 0 && flag)
                         return 0.0f;
                 }
                 ++index2;
-                tile = Main.tile[index1, index2];
+                tile = Game1.tile[index1, index2];
                 flag = true;
             }
             return 0.0f;

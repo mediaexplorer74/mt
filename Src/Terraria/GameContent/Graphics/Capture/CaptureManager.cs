@@ -30,7 +30,7 @@ namespace GameManager.Graphics.Capture
             get { return _interface.Active; }
             set
             {
-                if (Main.CaptureModeDisabled || _interface.Active == value)
+                if (Game1.CaptureModeDisabled || _interface.Active == value)
                     return;
 
                 _interface.ToggleCamera(value);
@@ -51,7 +51,7 @@ namespace GameManager.Graphics.Capture
         public CaptureManager()
         {
             _interface = new CaptureInterface();
-            _camera = new CaptureCamera(Main.instance.GraphicsDevice);
+            _camera = new CaptureCamera(Game1.instance.GraphicsDevice);
         }
 
         public void Scrolling()

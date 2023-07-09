@@ -72,7 +72,7 @@ namespace GameManager
                     case 8:
                         return "You have no idea how much Dirt Blocks sell for overseas.";
                     case 9:
-                        return "Ah, they will tell tales of " + Main.player[Main.myPlayer].name + " some day... good ones I'm sure.";
+                        return "Ah, they will tell tales of " + Game1.player[Game1.myPlayer].name + " some day... good ones I'm sure.";
                     case 10:
                         return "Check out my dirt blocks; they are extra dirty.";
                     case 11:
@@ -91,7 +91,7 @@ namespace GameManager
                     case 14:
                         return "Have you seen Chith...Shith.. Chat... The big eye?";
                     case 15:
-                        return "Hey, this house is secure, right? Right? " + Main.player[Main.myPlayer].name + "?";
+                        return "Hey, this house is secure, right? Right? " + Game1.player[Game1.myPlayer].name + "?";
                     case 16:
                         return "Not even a blood moon can stop capitalism. Let's do some business.";
                     case 17:
@@ -99,7 +99,7 @@ namespace GameManager
                     case 18:
                         return "Kosh, kapleck Mog. Oh sorry, that's klingon for 'Buy something or die.'";
                     case 19:
-                        return Main.player[Main.myPlayer].name + " is it? I've heard good things, friend!";
+                        return Game1.player[Game1.myPlayer].name + " is it? I've heard good things, friend!";
                     case 20:
                         return "I hear there's a secret treasure... oh never mind.";
                     case 21:
@@ -151,7 +151,7 @@ namespace GameManager
                     case 44:
                         return "Hold on, I've got some cartoon bandages around here somewhere.";
                     case 45:
-                        return "Walk it off, " + Main.player[Main.myPlayer].name + ", you'll be fine. Sheesh.";
+                        return "Walk it off, " + Game1.player[Game1.myPlayer].name + ", you'll be fine. Sheesh.";
                     case 46:
                         return "Does it hurt when you do that? Don't do that.";
                     case 47:
@@ -189,7 +189,7 @@ namespace GameManager
                     case 63:
                         return "What's " + str2 + "'s problem? Does he even realize we sell completely different stuff?";
                     case 64:
-                        return "Man, it's a good night not to talk to anybody, don't you think, " + Main.player[Main.myPlayer].name + "?";
+                        return "Man, it's a good night not to talk to anybody, don't you think, " + Game1.player[Game1.myPlayer].name + "?";
                     case 65:
                         return "I love nights like tonight.  There is never a shortage of things to kill!";
                     case 66:
@@ -394,7 +394,7 @@ namespace GameManager
                         return string.Concat(new string[]
 					{
 						"Hey, ",
-						Main.player[Main.myPlayer].name,
+						Game1.player[Game1.myPlayer].name,
 						", did you just come from ",
 						text4,
 						"'s? Did he say anything about me by chance?"
@@ -416,7 +416,7 @@ namespace GameManager
                     case 173:
                         return "You should stay indoors at night. It is very dangerous to be wandering around in the dark.";
                     case 174:
-                        return "Greetings, " + Main.player[Main.myPlayer].name + ". Is there something I can help you with?";
+                        return "Greetings, " + Game1.player[Game1.myPlayer].name + ". Is there something I can help you with?";
                     case 175:
                         return "I am here to give you advice on what to do next.  It is recommended that you talk with me anytime you get stuck.";
                     case 176:
@@ -426,7 +426,7 @@ namespace GameManager
                     case 178:
                         return "If you want to survive, you will need to create weapons and shelter. Start by chopping down trees and gathering wood.";
                     case 179:
-                        return "Press " + Main.cInv + " to access your crafting menu. When you have enough wood, create a workbench. This will allow you to create more complicated things, as long as you are standing close to it.";
+                        return "Press " + Game1.cInv + " to access your crafting menu. When you have enough wood, create a workbench. This will allow you to create more complicated things, as long as you are standing close to it.";
                     case 180:
                         return "You can build a shelter by placing wood or other blocks in the world. Don't forget to create and place walls.";
                     case 181:
@@ -594,7 +594,7 @@ namespace GameManager
                     case 263:
                         return text + " may help heal your body, but I can make you embody healing.";
                     case 264:
-                        return "Choose wisely, " + Main.player[Main.myPlayer].name + ", my commodities are volatile and my dark arts, mysterious.";
+                        return "Choose wisely, " + Game1.player[Game1.myPlayer].name + ", my commodities are volatile and my dark arts, mysterious.";
                     case 265:
                         return "We have to talk. It's... it's about parties.";
                     case 266:
@@ -602,7 +602,7 @@ namespace GameManager
                     case 267:
                         return "We should set up a blinkroot party, and we should also set up an after-party.";
                     case 268:
-                        return "Wow, " + Main.player[Main.myPlayer].name + ", meeting an adventurous man like you makes me want to party!";
+                        return "Wow, " + Game1.player[Game1.myPlayer].name + ", meeting an adventurous man like you makes me want to party!";
                     case 269:
                         return "Put up a disco ball and then I'll show you how to party.";
                     case 270:
@@ -618,7 +618,7 @@ namespace GameManager
                     case 275:
                         return "YAR!  Funny ye should be mentionin' parrots b'cause...um...What t'were we talkin' 'bout?";
                     case 276:
-                        return Main.player[Main.myPlayer].name + ", Ye be one o' the finest lookin' lassies this here captain's seen in many a fortnight!";
+                        return Game1.player[Game1.myPlayer].name + ", Ye be one o' the finest lookin' lassies this here captain's seen in many a fortnight!";
                     case 277:
                         return "Stay off me booty, ya scallywag!";
                     case 278:
@@ -749,13 +749,13 @@ namespace GameManager
                     case 336:
                         return "Hey! Just the sacrifi- I mean competent fishing master that I've been looking for! ";
                     case 337:
-                        return str9 + " wants YOU as the official " + Main.worldName + " errand monkey!";
+                        return str9 + " wants YOU as the official " + Game1.worldName + " errand monkey!";
                     case 338:
                         return "Whaaaat?! Can't you see I'm winding up fishing line??";
                     case 339:
                         return "I have enough fish! I don't need your help right now!";
                     case 340:
-                        return "There's no chefs in all of " + Main.worldName + ", so I have to cook all this fish myself! ";
+                        return "There's no chefs in all of " + Game1.worldName + ", so I have to cook all this fish myself! ";
                     case 341:
                         return "Hey! Watch it! I'm setting up traps for my biggest prank ever! No one will see it coming! Don't you dare tell anyone!";
                     case 342:
@@ -763,7 +763,7 @@ namespace GameManager
                     case 343:
                         return "Ever heard of a barking fish?! I haven't, I'm just wondering if you did!";
                     case 344:
-                        return Main.worldName + " is filled to the brim with the most outlandish kinds of fish!";
+                        return Game1.worldName + " is filled to the brim with the most outlandish kinds of fish!";
                     case 345:
                         return "I'm bummed out! There's probably been fish that have gone extinct before I even was born, and that's not fair!";
                     case 346:
@@ -883,7 +883,7 @@ namespace GameManager
                     case 8:
                         return "Du hast keine Ahnung, wie gut sich Dreckbloecke nach Uebersee verkaufen.";
                     case 9:
-                        return "Ach, eines Tages werden sie Geschichten ueber" + Main.player[Main.myPlayer].name + " erzaehlen ... sicher gute";
+                        return "Ach, eines Tages werden sie Geschichten ueber" + Game1.player[Game1.myPlayer].name + " erzaehlen ... sicher gute";
                     case 10:
                         return "Schau dir mal meine Schmutzbloecke an; die sind wirklich super-dreckig.";
                     case 11:
@@ -902,7 +902,7 @@ namespace GameManager
                     case 14:
                         return "Hast du Chith ... Shith.. Chat... Das grosse Auge gesehen?";
                     case 15:
-                        return "Heh, dieses Haus ist doch wohl sicher? Oder? " + Main.player[Main.myPlayer].name + "?";
+                        return "Heh, dieses Haus ist doch wohl sicher? Oder? " + Game1.player[Game1.myPlayer].name + "?";
                     case 16:
                         return "Nicht mal ein Blutmond kann den Kapitalismus stoppen. Lass uns also Geschaefte machen.";
                     case 17:
@@ -910,7 +910,7 @@ namespace GameManager
                     case 18:
                         return "Kosh, kapleck Mog. Oha, sorry. Das ist klingonisch fuer: Kauf oder stirb!";
                     case 19:
-                        return Main.player[Main.myPlayer].name + " ist es? Ich habe nur Gutes ueber dich gehoert!";
+                        return Game1.player[Game1.myPlayer].name + " ist es? Ich habe nur Gutes ueber dich gehoert!";
                     case 20:
                         return "Ich hoerte, es gibt einen geheimen Schatz ... oh, vergiss es!";
                     case 21:
@@ -962,7 +962,7 @@ namespace GameManager
                     case 44:
                         return "Halt aus. Ich hab hier irgendwo ein paar huebsch bedruckte Pflaster.";
                     case 45:
-                        return "Hoer schon auf, " + Main.player[Main.myPlayer].name + ", du ueberstehst das schon. Mist.";
+                        return "Hoer schon auf, " + Game1.player[Game1.myPlayer].name + ", du ueberstehst das schon. Mist.";
                     case 46:
                         return "Tut es weh, wenn ich das mache? Tu das nicht.";
                     case 47:
@@ -1000,7 +1000,7 @@ namespace GameManager
                     case 63:
                         return "Was ist eigentlich mit " + str2 + " los? Kriegt der mal mit, dass wir ganz andere Sachen verkaufen?";
                     case 64:
-                        return "Das ist eine gute Nacht, um mit niemandem zu sprechen, denkst du nicht, " + Main.player[Main.myPlayer].name + "?";
+                        return "Das ist eine gute Nacht, um mit niemandem zu sprechen, denkst du nicht, " + Game1.player[Game1.myPlayer].name + "?";
                     case 65:
                         return "Ich liebe Naechte wie diese. Es gibt immer genug zu toeten!";
                     case 66:
@@ -1205,7 +1205,7 @@ namespace GameManager
                         return string.Concat(new string[]
 					{
 						"Sag, ",
-						Main.player[Main.myPlayer].name,
+						Game1.player[Game1.myPlayer].name,
 						", kommst du gerade von ",
 						text4,
 						"? Hat er vielleicht etwas ueber mich gesagt?"
@@ -1227,7 +1227,7 @@ namespace GameManager
                     case 173:
                         return "Du solltest in der Nacht drinnen bleiben. Es ist sehr gefaehrlich, in der Dunkelheit umherzustreifen.";
                     case 174:
-                        return "Sei gegruesst, " + Main.player[Main.myPlayer].name + ". Gibt es etwas, das ich fuer dich tun kann?";
+                        return "Sei gegruesst, " + Game1.player[Game1.myPlayer].name + ". Gibt es etwas, das ich fuer dich tun kann?";
                     case 175:
                         return "Ich bin hier, um dir zu raten, was du als Naechstes tust. Du solltest immer zu mir kommen, wenn du feststeckst.";
                     case 176:
@@ -1405,7 +1405,7 @@ namespace GameManager
                     case 263:
                         return text + " kann helfen, Ihren Körper zu heilen, aber ich kann Sie verkörpern Heilung.";
                     case 264:
-                        return "Wählen Sie mit Bedacht, " + Main.player[Main.myPlayer].name + ", meine Rohstoffe sind volatil und meine dunklen Künste, geheimnisvoll.";
+                        return "Wählen Sie mit Bedacht, " + Game1.player[Game1.myPlayer].name + ", meine Rohstoffe sind volatil und meine dunklen Künste, geheimnisvoll.";
                     case 265:
                         return "Wir müssen reden. Es ist ... es geht um Parteien.";
                     case 266:
@@ -1413,7 +1413,7 @@ namespace GameManager
                     case 267:
                         return "Wir sollten ein blinkroot Partei, und wir sollten auch die Einrichtung eines nach der Party.";
                     case 268:
-                        return "Wow, " + Main.player[Main.myPlayer].name + ", Treffen Sie eine abenteuerliche Mann wie Sie macht mich wollen Party!";
+                        return "Wow, " + Game1.player[Game1.myPlayer].name + ", Treffen Sie eine abenteuerliche Mann wie Sie macht mich wollen Party!";
                     case 269:
                         return "Biete eine Disco-Kugel und dann werde ich Ihnen zeigen, wie man feiert.";
                     case 270:
@@ -1429,7 +1429,7 @@ namespace GameManager
                     case 275:
                         return "YAR! Lustige sollten Sie erwähnen, Papageien, weil ... ähm ... Was haben wir hier reden?";
                     case 276:
-                        return Main.player[Main.myPlayer].name + ", Sie können eine der schönsten Blick lassies diese hier Kapitän in vielen vierzehn Tagen gesehen hat sein!";
+                        return Game1.player[Game1.myPlayer].name + ", Sie können eine der schönsten Blick lassies diese hier Kapitän in vielen vierzehn Tagen gesehen hat sein!";
                     case 277:
                         return "Bleib weg von mir Beute, scallywag ye!";
                     case 278:
@@ -1473,7 +1473,7 @@ namespace GameManager
                     case 8:
                         return "Non immagini quanti blocchi di terra si vendono oltreoceano.";
                     case 9:
-                        return "Ah, racconteranno storie di " + Main.player[Main.myPlayer].name + " un giorno... belle storie ovviamente.";
+                        return "Ah, racconteranno storie di " + Game1.player[Game1.myPlayer].name + " un giorno... belle storie ovviamente.";
                     case 10:
                         return "Guarda i miei blocchi di terra: sono super terrosi.";
                     case 11:
@@ -1492,7 +1492,7 @@ namespace GameManager
                     case 14:
                         return "Hai visto Chith... Shith... Chat... Il grande occhio?";
                     case 15:
-                        return "Ehi, questa casa è sicura, no? Giusto? " + Main.player[Main.myPlayer].name + "?";
+                        return "Ehi, questa casa è sicura, no? Giusto? " + Game1.player[Game1.myPlayer].name + "?";
                     case 16:
                         return "Nemmeno una luna di sangue può arrestare il capitalismo. Facciamo un po' di affari.";
                     case 17:
@@ -1500,7 +1500,7 @@ namespace GameManager
                     case 18:
                         return "Kosh, kapleck Mog. Oh scusa, in klingon significa 'Compra qualcosa o muori.'";
                     case 19:
-                        return "Sei, " + Main.player[Main.myPlayer].name + ", vero? Ho sentito belle cose su di te!";
+                        return "Sei, " + Game1.player[Game1.myPlayer].name + ", vero? Ho sentito belle cose su di te!";
                     case 20:
                         return "Sento che c'è un tesoro segreto... non importa.";
                     case 21:
@@ -1552,7 +1552,7 @@ namespace GameManager
                     case 44:
                         return "Aspetta, ho i cerotti con i cartoni animati da qualche parte.";
                     case 45:
-                        return "Cammina, " + Main.player[Main.myPlayer].name + " starai bene. Fiuu.";
+                        return "Cammina, " + Game1.player[Game1.myPlayer].name + " starai bene. Fiuu.";
                     case 46:
                         return "Ti fa male quando lo fai? Non farlo.";
                     case 47:
@@ -1590,7 +1590,7 @@ namespace GameManager
                     case 63:
                         return "Qual è il problema di " + str2 + "? Almeno lo sa che vendiamo oggetti diversi?";
                     case 64:
-                        return "Beh, è una bella notte per non parlare con nessuno, non credi, " + Main.player[Main.myPlayer].name + "?";
+                        return "Beh, è una bella notte per non parlare con nessuno, non credi, " + Game1.player[Game1.myPlayer].name + "?";
                     case 65:
                         return "Mi piacciono le notti come questa. Non mancano mai cose da demolire!";
                     case 66:
@@ -1795,7 +1795,7 @@ namespace GameManager
                         return string.Concat(new string[]
 					{
 						"Ehi, ",
-						Main.player[Main.myPlayer].name,
+						Game1.player[Game1.myPlayer].name,
 						", sei appena stato da ",
 						text4,
 						"? Ha detto qualcosa di me, per caso?"
@@ -1817,7 +1817,7 @@ namespace GameManager
                     case 173:
                         return "Dovresti stare dentro di notte. Sai, è molto pericoloso girare al buio.";
                     case 174:
-                        return "Saluti, " + Main.player[Main.myPlayer].name + ". Come posso esserti utile?";
+                        return "Saluti, " + Game1.player[Game1.myPlayer].name + ". Come posso esserti utile?";
                     case 175:
                         return "Sono qui per darti consigli su cosa fare dopo. Ti consiglio di parlare con me ogni volta che sarai nei guai.";
                     case 176:
@@ -1995,7 +1995,7 @@ namespace GameManager
                     case 263:
                         return text + " può aiutare a guarire il corpo, ma posso farti incarnano guarigione.";
                     case 264:
-                        return "Scegli con saggezza, " + Main.player[Main.myPlayer].name + ", le mie materie prime sono volatili e la mia arte oscura, misteriosa.";
+                        return "Scegli con saggezza, " + Game1.player[Game1.myPlayer].name + ", le mie materie prime sono volatili e la mia arte oscura, misteriosa.";
                     case 265:
                         return "Dobbiamo parlare. E '... si tratta di feste.";
                     case 266:
@@ -2003,7 +2003,7 @@ namespace GameManager
                     case 267:
                         return "Dovremmo creare un gruppo di blinkroot, e dovremmo anche istituito una festa dopo.";
                     case 268:
-                        return "Wow, " + Main.player[Main.myPlayer].name + ", incontrare un uomo avventuroso come te mi fa venire voglia di festa!";
+                        return "Wow, " + Game1.player[Game1.myPlayer].name + ", incontrare un uomo avventuroso come te mi fa venire voglia di festa!";
                     case 269:
                         return "Mettere su una palla da discoteca e poi ti faccio vedere come far festa.";
                     case 270:
@@ -2019,7 +2019,7 @@ namespace GameManager
                     case 275:
                         return "YAR!  Divertente si dovrebbe essere accennando pappagalli perché ... ehm ... cosa stavamo parlando?";
                     case 276:
-                        return Main.player[Main.myPlayer].name + ", Siete di una delle più belle fanciulle che cercano questo qui capitano visto in molti una quindicina di giorni!";
+                        return Game1.player[Game1.myPlayer].name + ", Siete di una delle più belle fanciulle che cercano questo qui capitano visto in molti una quindicina di giorni!";
                     case 277:
                         return "Rimanere fuori mi bottino, si scallywag!";
                     case 278:
@@ -2063,7 +2063,7 @@ namespace GameManager
                     case 8:
                         return "Vous n'avez pas idée du nombre de blocs de terre qui sont vendus à l'étranger.";
                     case 9:
-                        return "Un jour, des légendes étonnantes circuleront sur " + Main.player[Main.myPlayer].name + ".";
+                        return "Un jour, des légendes étonnantes circuleront sur " + Game1.player[Game1.myPlayer].name + ".";
                     case 10:
                         return "Jetez un œil à mes blocs de terre, c'est de la terre de premier choix.";
                     case 11:
@@ -2082,7 +2082,7 @@ namespace GameManager
                     case 14:
                         return "Avez-vous vu Chult... Cthuch... Le truc avec le gros œil?";
                     case 15:
-                        return "Cette maison est sûre, n'est-ce pas ? Hein, " + Main.player[Main.myPlayer].name + "?";
+                        return "Cette maison est sûre, n'est-ce pas ? Hein, " + Game1.player[Game1.myPlayer].name + "?";
                     case 16:
                         return "Même la Lune de Sang ne peut arrêter le capitalisme. Alors, faisons affaires.";
                     case 17:
@@ -2090,7 +2090,7 @@ namespace GameManager
                     case 18:
                         return "Kosh, kapleck Mog. Oh désolé, ça veut dire « Achetez-moi quelque chose ou allez au diable » en klingon.";
                     case 19:
-                        return "Vous êtes " + Main.player[Main.myPlayer].name + ", n'est-ce pas ? J'ai entendu de bonnes choses à votre sujet.";
+                        return "Vous êtes " + Game1.player[Game1.myPlayer].name + ", n'est-ce pas ? J'ai entendu de bonnes choses à votre sujet.";
                     case 20:
                         return "J'ai entendu dire qu'il y avait un trésor caché... Bon, laissez tomber.";
                     case 21:
@@ -2142,7 +2142,7 @@ namespace GameManager
                     case 44:
                         return "Attendez, je dois avoir quelques pansements pour enfants quelque part.";
                     case 45:
-                        return "Allez faire quelques pas, " + Main.player[Main.myPlayer].name + ", ça devrait aller. Allez, ouste !";
+                        return "Allez faire quelques pas, " + Game1.player[Game1.myPlayer].name + ", ça devrait aller. Allez, ouste !";
                     case 46:
                         return "Ça vous fait mal quand vous faites ça ? Eh bien, ne le faites pas.";
                     case 47:
@@ -2180,7 +2180,7 @@ namespace GameManager
                     case 63:
                         return "C'est quoi le problème de " + str2 + " ? Est-ce qu'il réalise seulement que l'on vend du matériel complètement différent ?";
                     case 64:
-                        return "Eh bien, c'est la nuit idéale pour ne pas parler à n'importe qui, n'est-ce pas, " + Main.player[Main.myPlayer].name + " ?";
+                        return "Eh bien, c'est la nuit idéale pour ne pas parler à n'importe qui, n'est-ce pas, " + Game1.player[Game1.myPlayer].name + " ?";
                     case 65:
                         return "J'adore les nuits comme celle-ci, car il y a toujours des choses à tuer.";
                     case 66:
@@ -2385,7 +2385,7 @@ namespace GameManager
                         return string.Concat(new string[]
 					{
 						"Au fait, ",
-						Main.player[Main.myPlayer].name,
+						Game1.player[Game1.myPlayer].name,
 						", vous venez de voir  ",
 						text4,
 						" ? Est-ce qu'il aurait parlé de moi, par hasard ?"
@@ -2407,7 +2407,7 @@ namespace GameManager
                     case 173:
                         return "La nuit, vous devriez rester à l'intérieur. C'est très dangereux de se balader dans le noir.";
                     case 174:
-                        return "Bienvenue, " + Main.player[Main.myPlayer].name + ". Je peux faire quelque chose pour vous ?";
+                        return "Bienvenue, " + Game1.player[Game1.myPlayer].name + ". Je peux faire quelque chose pour vous ?";
                     case 175:
                         return "Je suis là pour vous conseiller et vous aider dans vos prochaines actions. Vous devriez venir me parler au moindre problème.";
                     case 176:
@@ -2585,7 +2585,7 @@ namespace GameManager
                     case 263:
                         return text + " peut aider à guérir votre corps, mais je peux vous faire incarner la guérison.";
                     case 264:
-                        return "Choisissez judicieusement, " + Main.player[Main.myPlayer].name + ", mes produits sont volatils et ma magie noire, mystérieuse.";
+                        return "Choisissez judicieusement, " + Game1.player[Game1.myPlayer].name + ", mes produits sont volatils et ma magie noire, mystérieuse.";
                     case 265:
                         return "Nous devons parler. C'est ... il s'agit de parties.";
                     case 266:
@@ -2593,7 +2593,7 @@ namespace GameManager
                     case 267:
                         return "Nous devons mettre en place une partie blinkroot, et nous devrions également mettre en place une après la fête.";
                     case 268:
-                        return "Wow, " + Main.player[Main.myPlayer].name + ", rencontrer un homme aventureux comme vous me donne envie de faire la fête!";
+                        return "Wow, " + Game1.player[Game1.myPlayer].name + ", rencontrer un homme aventureux comme vous me donne envie de faire la fête!";
                     case 269:
                         return "Mettre en place une boule disco et puis je vais vous montrer comment faire la fête.";
                     case 270:
@@ -2609,7 +2609,7 @@ namespace GameManager
                     case 275:
                         return "YAR!  C'est drôle que vous devriez être mentionnez perroquets parce que ... euh ... quoi parlions-nous sur?";
                     case 276:
-                        return Main.player[Main.myPlayer].name + ", Vous être l'une des plus belles gamines qui cherchent ce ici le capitaine a vu dans beaucoup de quinze jours!";
+                        return Game1.player[Game1.myPlayer].name + ", Vous être l'une des plus belles gamines qui cherchent ce ici le capitaine a vu dans beaucoup de quinze jours!";
                     case 277:
                         return "Restez en dehors de moi butin, vous voyou!";
                     case 278:
@@ -2653,7 +2653,7 @@ namespace GameManager
                     case 8:
                         return "Ni te imaginas lo bien que se venden los Bloques de tierra en el extranjero.";
                     case 9:
-                        return "Oh, algún día narrarán las aventuras de " + Main.player[Main.myPlayer].name + "... y seguro que acaban bien.";
+                        return "Oh, algún día narrarán las aventuras de " + Game1.player[Game1.myPlayer].name + "... y seguro que acaban bien.";
                     case 10:
                         return "Echa un vistazo a estos Bloques de tierra; tienen extra de tierra.";
                     case 11:
@@ -2672,7 +2672,7 @@ namespace GameManager
                     case 14:
                         return "¿Has visto a Chith... esto... Shith... eh... Chat...? Vamos, ¿al gran Ojo?";
                     case 15:
-                        return "Oye, esta casa es segura, ¿verdad? ¿Verdad? " + Main.player[Main.myPlayer].name + "...";
+                        return "Oye, esta casa es segura, ¿verdad? ¿Verdad? " + Game1.player[Game1.myPlayer].name + "...";
                     case 16:
                         return "Ni siquiera una luna sangrienta detendría el capitalismo. Así que vamos a hacer negocios.";
                     case 17:
@@ -2680,7 +2680,7 @@ namespace GameManager
                     case 18:
                         return "Kosh, kapleck Mog. Lo siento, hablaba en klingon... quiere decir \"Compra algo o muere\".";
                     case 19:
-                        return "¿Eres tú, " + Main.player[Main.myPlayer].name + "? ¡Me han hablado bien de ti, amigo!";
+                        return "¿Eres tú, " + Game1.player[Game1.myPlayer].name + "? ¡Me han hablado bien de ti, amigo!";
                     case 20:
                         return "Dicen que aquí hay un tesoro escondido... oh, olvídalo...";
                     case 21:
@@ -2732,7 +2732,7 @@ namespace GameManager
                     case 44:
                         return "Aguanta, por aquí tengo unas tiritas infantiles chulísimas.";
                     case 45:
-                        return "Anda ya, " + Main.player[Main.myPlayer].name + ", te pondrás bien. Serás nenaza...";
+                        return "Anda ya, " + Game1.player[Game1.myPlayer].name + ", te pondrás bien. Serás nenaza...";
                     case 46:
                         return "¿Así que te duele cuando haces eso? ... Pues no lo hagas.";
                     case 47:
@@ -2770,7 +2770,7 @@ namespace GameManager
                     case 63:
                         return "¿Qué mosca le ha picado a " + str2 + "? ¿Aún no sabe que vendemos cosas totalmente distintas?";
                     case 64:
-                        return "Oye, hace una noche magnífica para no hablar con nadie, ¿no crees, " + Main.player[Main.myPlayer].name + "?";
+                        return "Oye, hace una noche magnífica para no hablar con nadie, ¿no crees, " + Game1.player[Game1.myPlayer].name + "?";
                     case 65:
                         return "Me encantan estas noches. ¡Siempre encuentras algo que matar!";
                     case 66:
@@ -2975,7 +2975,7 @@ namespace GameManager
                         return string.Concat(new string[]
 					{
 						"Eh, ",
-						Main.player[Main.myPlayer].name,
+						Game1.player[Game1.myPlayer].name,
 						"¿acabas de llegar de la casa de ",
 						text4,
 						"? ¿Por casualidad no te hablaría de mí?"
@@ -2997,7 +2997,7 @@ namespace GameManager
                     case 173:
                         return "Deberías quedarte en casa por la noche. Es muy peligroso andar por ahí en la oscuridad.";
                     case 174:
-                        return "Saludos, " + Main.player[Main.myPlayer].name + ". ¿Te puedo ayudar en algo?";
+                        return "Saludos, " + Game1.player[Game1.myPlayer].name + ". ¿Te puedo ayudar en algo?";
                     case 175:
                         return "Estoy aquí para aconsejarte sobre lo que debes ir haciendo. Te aconsejo que hables conmigo cuando estés atascado.";
                     case 176:
@@ -3175,7 +3175,7 @@ namespace GameManager
                     case 263:
                         return text + " puede ayudar a sanar su cuerpo, pero puedo hacer que encarnan la curación.";
                     case 264:
-                        return "Elija con cuidado, " + Main.player[Main.myPlayer].name + ", mis productos son volátiles y mi arte oscuro, misterioso.";
+                        return "Elija con cuidado, " + Game1.player[Game1.myPlayer].name + ", mis productos son volátiles y mi arte oscuro, misterioso.";
                     case 265:
                         return "Tenemos que hablar. Es ... se trata de los partidos.";
                     case 266:
@@ -3183,7 +3183,7 @@ namespace GameManager
                     case 267:
                         return "Debemos crear un grupo de blinkroot, y también hay que establecer un después de la fiesta.";
                     case 268:
-                        return "Wow, " + Main.player[Main.myPlayer].name + ", encontrarse con un hombre aventurero como tú me da ganas de fiesta!";
+                        return "Wow, " + Game1.player[Game1.myPlayer].name + ", encontrarse con un hombre aventurero como tú me da ganas de fiesta!";
                     case 269:
                         return "Ponga una bola de discoteca y luego te voy a mostrar cómo divertirse.";
                     case 270:
@@ -3199,7 +3199,7 @@ namespace GameManager
                     case 275:
                         return "YAR!  Es curioso que lo mencionaremos loros porque ... um ... ¿De qué estábamos hablando?";
                     case 276:
-                        return Main.player[Main.myPlayer].name + ", Vosotros sois una de las mejores jovencitas buscan esto aquí capitán ha visto en muchas de quince días!";
+                        return Game1.player[Game1.myPlayer].name + ", Vosotros sois una de las mejores jovencitas buscan esto aquí capitán ha visto en muchas de quince días!";
                     case 277:
                         return "Manténgase fuera de mí botín, que Canalla!";
                     case 278:
@@ -30339,7 +30339,7 @@ namespace GameManager
                 {
                     text = string.Concat(new object[]
 					{
-						Main.worldName,
+						Game1.worldName,
 						" is ",
 						tGood,
 						"% hallow, ",
@@ -30353,7 +30353,7 @@ namespace GameManager
                 {
                     text = string.Concat(new object[]
 					{
-						Main.worldName,
+						Game1.worldName,
 						" is ",
 						tGood,
 						"% hallow and ",
@@ -30365,7 +30365,7 @@ namespace GameManager
                 {
                     text = string.Concat(new object[]
 					{
-						Main.worldName,
+						Game1.worldName,
 						" is ",
 						tGood,
 						"% hallow and ",
@@ -30377,7 +30377,7 @@ namespace GameManager
                 {
                     text = string.Concat(new object[]
 					{
-						Main.worldName,
+						Game1.worldName,
 						" is ",
 						tEvil,
 						"% corrupt and ",
@@ -30389,7 +30389,7 @@ namespace GameManager
                 {
                     text = string.Concat(new object[]
 					{
-						Main.worldName,
+						Game1.worldName,
 						" is ",
 						tEvil,
 						"% corrupt."
@@ -30399,7 +30399,7 @@ namespace GameManager
                 {
                     text = string.Concat(new object[]
 					{
-						Main.worldName,
+						Game1.worldName,
 						" is ",
 						tBlood,
 						"% crimson."
@@ -30409,11 +30409,11 @@ namespace GameManager
                 {
                     if (tGood <= 0)
                     {
-                        return Main.worldName + " is completely pure. You have done an amazing job!";
+                        return Game1.worldName + " is completely pure. You have done an amazing job!";
                     }
                     text = string.Concat(new object[]
 					{
-						Main.worldName,
+						Game1.worldName,
 						" is ",
 						tGood,
 						"% hallow."
@@ -30448,7 +30448,7 @@ namespace GameManager
                 {
                     text2 = string.Concat(new object[]
 					{
-						Main.worldName,
+						Game1.worldName,
 						" ist zu ",
 						WorldGen.tEvil,
 						"% verderbt."
@@ -30458,7 +30458,7 @@ namespace GameManager
                 {
                     text2 = string.Concat(new object[]
 					{
-						Main.worldName,
+						Game1.worldName,
 						" ist zu ",
 						WorldGen.tGood,
 						"% gesegnet."
@@ -30468,7 +30468,7 @@ namespace GameManager
                 {
                     text2 = string.Concat(new object[]
 					{
-						Main.worldName,
+						Game1.worldName,
 						" ist zu ",
 						WorldGen.tGood,
 						"% gesegnet und zu ",
@@ -30497,7 +30497,7 @@ namespace GameManager
                 {
                     text3 = string.Concat(new object[]
 					{
-						Main.worldName,
+						Game1.worldName,
 						" è distrutto al ",
 						WorldGen.tEvil,
 						"%."
@@ -30507,7 +30507,7 @@ namespace GameManager
                 {
                     text3 = string.Concat(new object[]
 					{
-						Main.worldName,
+						Game1.worldName,
 						" è santo al ",
 						WorldGen.tGood,
 						"%."
@@ -30517,7 +30517,7 @@ namespace GameManager
                 {
                     text3 = string.Concat(new object[]
 					{
-						Main.worldName,
+						Game1.worldName,
 						" è santo al ",
 						WorldGen.tGood,
 						"% e distrutto al ",
@@ -30546,7 +30546,7 @@ namespace GameManager
                 {
                     text4 = string.Concat(new object[]
 					{
-						Main.worldName,
+						Game1.worldName,
 						" est corrompu à ",
 						WorldGen.tEvil,
 						"%."
@@ -30556,7 +30556,7 @@ namespace GameManager
                 {
                     text4 = string.Concat(new object[]
 					{
-						Main.worldName,
+						Game1.worldName,
 						" est purifié à ",
 						WorldGen.tGood,
 						"%."
@@ -30566,7 +30566,7 @@ namespace GameManager
                 {
                     text4 = string.Concat(new object[]
 					{
-						Main.worldName,
+						Game1.worldName,
 						" est purifié à ",
 						WorldGen.tGood,
 						"% et corrompu à ",
@@ -30595,7 +30595,7 @@ namespace GameManager
                 {
                     text5 = string.Concat(new object[]
 					{
-						Main.worldName,
+						Game1.worldName,
 						" ha sido corrompido por ",
 						WorldGen.tEvil,
 						"%."
@@ -30605,7 +30605,7 @@ namespace GameManager
                 {
                     text5 = string.Concat(new object[]
 					{
-						Main.worldName,
+						Game1.worldName,
 						" ha sido bendecido por ",
 						WorldGen.tGood,
 						"%."
@@ -30615,7 +30615,7 @@ namespace GameManager
                 {
                     text5 = string.Concat(new object[]
 					{
-						Main.worldName,
+						Game1.worldName,
 						" ha sido bendecido por ",
 						WorldGen.tGood,
 						"% y corrompido por ",
@@ -30641,10 +30641,10 @@ namespace GameManager
         }
         public static string title()
         {
-            int num = Main.rand.Next(16);
+            int num = Game1.rand.Next(16);
             if (Lang.lang <= 1)
             {
-                num = Main.rand.Next(53);
+                num = Game1.rand.Next(53);
                 if (num == 0)
                 {
                     return "Terraria: Dig Peon, Dig!";
@@ -31122,7 +31122,7 @@ namespace GameManager
             string result = "";
             if (gotDye)
             {
-                switch (Main.rand.Next(3))
+                switch (Game1.rand.Next(3))
                 {
                     case 0:
                         result = "Brilliant, my dear! You have brought me an exquisite sample of the world's beautiful colors and aroma. In exchange, you may take this special bottle of dye.";
@@ -31131,13 +31131,13 @@ namespace GameManager
                         result = "You bring me a beautiful, rare flower... yes, yes? Take this bottle of special dye for your troubles, friend!";
                         break;
                     case 2:
-                        result = "Fantabulous, wonderful friend! With this delicate specimen, I may mix the most amazing dyes " + Main.worldName + " has ever seen! You may take this one right away!";
+                        result = "Fantabulous, wonderful friend! With this delicate specimen, I may mix the most amazing dyes " + Game1.worldName + " has ever seen! You may take this one right away!";
                         break;
                 }
             }
             else
             {
-                switch (Main.rand.Next(3))
+                switch (Game1.rand.Next(3))
                 {
                     case 0:
                         result = "Oh no no, this will not do.  For these money is no good, you must return to me with a rare specimen of a plant!";
@@ -31184,7 +31184,7 @@ namespace GameManager
             bool flag = false;
             if (gotFish)
             {
-                switch (Main.rand.Next(5))
+                switch (Game1.rand.Next(5))
                 {
                     case 0:
                         array2[0] = "Oh! Thanks for the fish I asked for, now scram!";
@@ -31203,9 +31203,9 @@ namespace GameManager
                         break;
                 }
             }
-            if (Main.anglerQuestFinished)
+            if (Game1.anglerQuestFinished)
             {
-                switch (Main.rand.Next(5))
+                switch (Game1.rand.Next(5))
                 {
                     case 0:
                         array[0] = "I don't have anything for you to do right now.";
@@ -31226,7 +31226,7 @@ namespace GameManager
             }
             else
             {
-                switch (Main.anglerQuestItemNetIDs[Main.anglerQuest])
+                switch (Game1.anglerQuestItemNetIDs[Game1.anglerQuest])
                 {
                     case 2450:
                         if (gotFish)
@@ -31248,7 +31248,7 @@ namespace GameManager
                         }
                         else
                         {
-                            array[num2++] = "The subterranean jungles of " + Main.worldName + " have the weirdest things!";
+                            array[num2++] = "The subterranean jungles of " + Game1.worldName + " have the weirdest things!";
                             array[num2++] = "Like, there's this fish I saw that looked just like a giant bumblebee!";
                             array[num2++] = "I'm allergic to bees, so you have to catch it for me! I bet it'd taste like a tuna and honey sandwich!";
                             flag = true;
@@ -31510,7 +31510,7 @@ namespace GameManager
                         }
                         else
                         {
-                            array[num2++] = "You ever wonder why the lakes on the surface of the snowy areas of " + Main.worldName + " never ice over? I don't.";
+                            array[num2++] = "You ever wonder why the lakes on the surface of the snowy areas of " + Game1.worldName + " never ice over? I don't.";
                             array[num2++] = "The fish, however, do! A fish made out of ice would make a great offering to the mighty and amazing " + str + "!";
                             array[num2++] = "Go, my loyal subject, and bring me this Tundra Trout with haste!";
                             flag = true;
@@ -31603,7 +31603,7 @@ namespace GameManager
                         }
                         else
                         {
-                            array[num2++] = "Ow! Don't get near me! I got stung by a Bloody Man-O-War! In case you're not smart enough to know what that is, it's the most menacing jellyfish in all of " + Main.worldName + "! Go to that rotten crimson and catch it if you dare! ";
+                            array[num2++] = "Ow! Don't get near me! I got stung by a Bloody Man-O-War! In case you're not smart enough to know what that is, it's the most menacing jellyfish in all of " + Game1.worldName + "! Go to that rotten crimson and catch it if you dare! ";
                             flag = true;
                             text = "\n(Caught in Crimson)";
                         }
@@ -31615,7 +31615,7 @@ namespace GameManager
                         }
                         else
                         {
-                            array[num2++] = "Normally I could care less if I see fishbones floating in the water underground, but this one was swimming! What, you thought that only human skeletons still flailed about in " + Main.worldName + "? Get it for me so I can stick it in someone's bed!";
+                            array[num2++] = "Normally I could care less if I see fishbones floating in the water underground, but this one was swimming! What, you thought that only human skeletons still flailed about in " + Game1.worldName + "? Get it for me so I can stick it in someone's bed!";
                             flag = true;
                             text = "\n(Caught in Underground & Caverns)";
                         }
@@ -31756,13 +31756,13 @@ namespace GameManager
             }
             if (flag)
             {
-                Main.npcChatCornerItem = Main.anglerQuestItemNetIDs[Main.anglerQuest];
+                Game1.npcChatCornerItem = Game1.anglerQuestItemNetIDs[Game1.anglerQuest];
             }
             return text2;
         }
         public static void setLang(bool english = false)
         {
-            Main.chTitle = true;
+            Game1.chTitle = true;
             if (Lang.lang <= 1 || english)
             {
                 Lang.misc[0] = "A goblin army has been defeated!";
@@ -32248,382 +32248,382 @@ namespace GameManager
                 Lang.dt[1] = "couldn't put the fire out.";
                 Lang.dt[2] = "couldn't breathe.";
                 Lang.dt[3] = "couldn't contain the watts.";
-                Main.buffName[1] = "Obsidian Skin";
-                Main.buffTip[1] = "Immune to lava";
-                Main.buffName[2] = "Regeneration";
-                Main.buffTip[2] = "Provides life regeneration";
-                Main.buffName[3] = "Swiftness";
-                Main.buffTip[3] = "25% increased movement speed";
-                Main.buffName[4] = "Gills";
-                Main.buffTip[4] = "Breathe water instead of air";
-                Main.buffName[5] = "Ironskin";
-                Main.buffTip[5] = "Increase defense by 8";
-                Main.buffName[6] = "Mana Regeneration";
-                Main.buffTip[6] = "Increased mana regeneration";
-                Main.buffName[7] = "Magic Power";
-                Main.buffTip[7] = "20% increased magic damage";
-                Main.buffName[8] = "Featherfall";
-                Main.buffTip[8] = "Press UP or DOWN to control speed of descent";
-                Main.buffName[9] = "Spelunker";
-                Main.buffTip[9] = "Shows the location of treasure and ore";
-                Main.buffName[10] = "Invisibility";
-                Main.buffTip[10] = "Grants invisibility";
-                Main.buffName[11] = "Shine";
-                Main.buffTip[11] = "Emitting light";
-                Main.buffName[12] = "Night Owl";
-                Main.buffTip[12] = "Increased night vision";
-                Main.buffName[13] = "Battle";
-                Main.buffTip[13] = "Increased enemy spawn rate";
-                Main.buffName[14] = "Thorns";
-                Main.buffTip[14] = "Attackers also take damage";
-                Main.buffName[15] = "Water Walking";
-                Main.buffTip[15] = "Press DOWN to enter water";
-                Main.buffName[16] = "Archery";
-                Main.buffTip[16] = "20% increased arrow damage and speed";
-                Main.buffName[17] = "Hunter";
-                Main.buffTip[17] = "Shows the location of enemies";
-                Main.buffName[18] = "Gravitation";
-                Main.buffTip[18] = "Press UP to reverse gravity";
-                Main.buffName[19] = "Shadow Orb";
-                Main.buffTip[19] = "A magical orb that provides light";
-                Main.buffName[20] = "Poisoned";
-                Main.buffTip[20] = "Slowly losing life";
-                Main.buffName[21] = "Potion Sickness";
-                Main.buffTip[21] = "Cannot consume anymore healing items";
-                Main.buffName[22] = "Darkness";
-                Main.buffTip[22] = "Decreased light vision";
-                Main.buffName[23] = "Cursed";
-                Main.buffTip[23] = "Cannot use any items";
-                Main.buffName[24] = "On Fire!";
-                Main.buffTip[24] = "Slowly losing life";
-                Main.buffName[25] = "Tipsy";
-                Main.buffTip[25] = "Increased melee abilities, lowered defense";
-                Main.buffName[26] = "Well Fed";
-                Main.buffTip[26] = "Minor improvements to all stats";
-                Main.buffName[27] = "Fairy";
-                Main.buffTip[27] = "A fairy is following you";
-                Main.buffName[28] = "Werewolf";
-                Main.buffTip[28] = "Physical abilities are increased";
-                Main.buffName[29] = "Clairvoyance";
-                Main.buffTip[29] = "Magic powers are increased";
-                Main.buffName[30] = "Bleeding";
-                Main.buffTip[30] = "Cannot regenerate life";
-                Main.buffName[31] = "Confused";
-                Main.buffTip[31] = "Movement is reversed";
-                Main.buffName[32] = "Slow";
-                Main.buffTip[32] = "Movement speed is reduced";
-                Main.buffName[33] = "Weak";
-                Main.buffTip[33] = "Physical abilities are decreased";
-                Main.buffName[34] = "Merfolk";
-                Main.buffTip[34] = "Can breathe and move easily underwater";
-                Main.buffName[35] = "Silenced";
-                Main.buffTip[35] = "Cannot use items that require mana";
-                Main.buffName[36] = "Broken Armor";
-                Main.buffTip[36] = "Defense is cut in half";
-                Main.buffName[37] = "Horrified";
-                Main.buffTip[37] = "You have seen something nasty, there is no escape.";
-                Main.buffName[38] = "The Tongue";
-                Main.buffTip[38] = "You are being sucked into the mouth";
-                Main.buffName[39] = "Cursed Inferno";
-                Main.buffTip[39] = "Losing life";
-                Main.buffName[40] = "Pet Bunny";
-                Main.buffTip[40] = "I think it wants your carrot";
-                Main.buffName[41] = "Baby Penguin";
-                Main.buffTip[41] = "I think it wants your fish";
-                Main.buffName[42] = "Pet Turtle";
-                Main.buffTip[42] = "Happy turtle time!";
-                Main.buffName[43] = "Paladin's Shield";
-                Main.buffTip[43] = "25% of damage taken will be redirected to another player";
-                Main.buffName[44] = "Frostburn";
-                Main.buffTip[44] = "It's either really hot or really cold. Either way it REALLY hurts";
-                Main.buffName[45] = "Baby Eater";
-                Main.buffTip[45] = "A baby Eater of Souls is following you";
-                Main.buffName[46] = "Chilled";
-                Main.buffTip[46] = "Your movement speed has been reduced";
-                Main.buffName[47] = "Frozen";
-                Main.buffTip[47] = "You can't move!";
-                Main.buffName[48] = "Honey";
-                Main.buffTip[48] = "Life regeneration is increased";
-                Main.buffName[49] = "Pygmies";
-                Main.buffTip[49] = "The pygmies will fight for you";
-                Main.buffName[50] = "Baby Skeletron Head";
-                Main.buffTip[50] = "Don't even ask...";
-                Main.buffName[51] = "Baby Hornet";
-                Main.buffTip[51] = "It thinks you are its mother";
-                Main.buffName[52] = "Tiki Spirit";
-                Main.buffTip[52] = "A friendly spirit is following you";
-                Main.buffName[53] = "Pet Lizard";
-                Main.buffTip[53] = "Chillin' like a reptilian";
-                Main.buffName[54] = "Pet Parrot";
-                Main.buffTip[54] = "Polly want's the cracker";
-                Main.buffName[55] = "Baby Truffle";
-                Main.buffTip[55] = "Isn't this just soooo cute?";
-                Main.buffName[56] = "Pet Sapling";
-                Main.buffTip[56] = "A little sapling is following you";
-                Main.buffName[57] = "Wisp";
-                Main.buffTip[57] = "A wisp is following you";
-                Main.buffName[58] = "Rapid Healing";
-                Main.buffTip[58] = "Life regeneration is greatly increased";
-                Main.buffName[59] = "Shadow Dodge";
-                Main.buffTip[59] = "You will dodge the next attack";
-                Main.buffName[60] = "Leaf Crystal";
-                Main.buffTip[60] = "Shoots crystal leaves at nearby enemies";
-                Main.buffName[61] = "Baby Dinosaur";
-                Main.buffTip[61] = "A baby dinosaur is following you";
-                Main.buffName[62] = "Ice Barrier";
-                Main.buffTip[62] = "Damage taken is reduced by 25%";
-                Main.buffName[63] = "Panic!";
-                Main.buffTip[63] = "Movement speed is increased";
-                Main.buffName[64] = "Baby Slime";
-                Main.buffTip[64] = "The baby slime will fight for you";
-                Main.buffName[65] = "Eyeball Spring";
-                Main.buffTip[65] = "An eyeball spring is following you";
-                Main.buffName[66] = "Baby Snowman";
-                Main.buffTip[66] = "A baby snowman is following you";
-                Main.buffName[67] = "Burning";
-                Main.buffTip[67] = "Losing life and slowed movement";
-                Main.buffName[68] = "Suffocation";
-                Main.buffTip[68] = "Losing life";
-                Main.buffName[69] = "Ichor";
-                Main.buffTip[69] = "Reduced defense";
-                Main.buffName[70] = "Venom";
-                Main.buffTip[70] = "Losing life";
-                Main.buffName[72] = "Midas";
-                Main.buffTip[72] = "Drop more money on death";
-                Main.buffName[80] = "Blackout";
-                Main.buffTip[80] = "Light vision severely reduced";
-                Main.buffName[81] = "Pet Spider";
-                Main.buffTip[81] = "A spider is following you";
-                Main.buffName[82] = "Squashling";
-                Main.buffTip[82] = "A squashling is following you";
-                Main.buffName[83] = "Ravens";
-                Main.buffTip[83] = "The ravens will attack your enemies";
-                Main.buffName[84] = "Black Cat";
-                Main.buffTip[84] = "A black kitty is following you";
-                Main.buffName[85] = "Cursed Sapling";
-                Main.buffTip[85] = "A cursed sapling is following you";
-                Main.buffName[86] = "Water Candle";
-                Main.buffTip[86] = "Increased monster spawn rate";
-                Main.buffName[157] = "Peace Candle";
-                Main.buffTip[157] = "Decreased monster spawn rate";
-                Main.buffName[87] = "Cozy Fire";
-                Main.buffTip[87] = "Life regen is slightly increased";
-                Main.buffName[88] = "Chaos State";
-                Main.buffTip[88] = "Using the Rod of Discord will take life";
-                Main.buffName[89] = "Heart Lamp";
-                Main.buffTip[89] = "Life regen is increased";
-                Main.buffName[90] = "Rudolph";
-                Main.buffTip[90] = "Riding the red nosed reindeer";
-                Main.buffName[91] = "Puppy";
-                Main.buffTip[91] = "A puppy is following you";
-                Main.buffName[92] = "Baby Grinch";
-                Main.buffTip[92] = "A baby grinch is following you";
-                Main.buffName[93] = "Ammo Box";
-                Main.buffTip[93] = "20% chance to not consume ammo";
-                Main.buffName[94] = "Mana Sickness";
-                Main.buffTip[94] = "Magic damage reduced by ";
-                Main.buffName[95] = "Beetle Endurance";
-                Main.buffTip[95] = "Damage taken reduced by 15%";
-                Main.buffName[96] = "Beetle Endurance";
-                Main.buffTip[96] = "Damage taken reduced by 30%";
-                Main.buffName[97] = "Beetle Endurance";
-                Main.buffTip[97] = "Damage taken reduced by 45%";
-                Main.buffName[98] = "Beetle Might";
-                Main.buffTip[98] = "Melee damage and speed increase by 10%";
-                Main.buffName[99] = "Beetle Might";
-                Main.buffTip[99] = "Melee damage and speed increase by 20%";
-                Main.buffName[100] = "Beetle Might";
-                Main.buffTip[100] = "Melee damage and speed increase by 30%";
-                Main.buffName[101] = "Fairy";
-                Main.buffTip[101] = "A fairy is following you";
-                Main.buffName[102] = "Fairy";
-                Main.buffTip[102] = "A fairy is following you";
-                Main.buffName[103] = "Wet";
-                Main.buffTip[103] = "You are dripping water";
-                Main.buffName[104] = "Mining";
-                Main.buffTip[104] = "25% increased mining speed";
-                Main.buffName[105] = "Heartreach";
-                Main.buffTip[105] = "Increased heart pickup range";
-                Main.buffName[106] = "Calm";
-                Main.buffTip[106] = "Reduced enemy aggression";
-                Main.buffName[107] = "Builder";
-                Main.buffTip[107] = "Increased placement speed and range";
-                Main.buffName[108] = "Titan";
-                Main.buffTip[108] = "Increased knockback";
-                Main.buffName[109] = "Flipper";
-                Main.buffTip[109] = "Move like normal in water";
-                Main.buffName[110] = "Summoning";
-                Main.buffTip[110] = "Increased max number of minions";
-                Main.buffName[111] = "Dangersense";
-                Main.buffTip[111] = "You can see nearby hazards";
-                Main.buffName[112] = "Ammo Reservation";
-                Main.buffTip[112] = "20% chance to not consume ammo";
-                Main.buffName[113] = "Lifeforce";
-                Main.buffTip[113] = "20% increased max life";
-                Main.buffName[114] = "Endurance";
-                Main.buffTip[114] = "10% reduced damage";
-                Main.buffName[115] = "Rage";
-                Main.buffTip[115] = "10% increased critical chance";
-                Main.buffName[116] = "Inferno";
-                Main.buffTip[116] = "Nearby enemies are ignited";
-                Main.buffName[117] = "Wrath";
-                Main.buffTip[117] = "10% increased damage";
-                Main.buffName[118] = "Minecart";
-                Main.buffTip[118] = "Riding in a minecart";
-                Main.buffName[138] = "Minecart";
-                Main.buffTip[138] = "Riding in a minecart";
-                Main.buffName[119] = "Lovestruck";
-                Main.buffTip[119] = "You are in love!";
-                Main.buffName[120] = "Stinky";
-                Main.buffTip[120] = "You smell terrible";
-                Main.buffName[121] = "Fishing";
-                Main.buffTip[121] = "Increased fishing level";
-                Main.buffName[122] = "Sonar";
-                Main.buffTip[122] = "You can see what's biting your hook";
-                Main.buffName[123] = "Crate";
-                Main.buffTip[123] = "Greater chance of fishing up a crate";
-                Main.buffName[124] = "Warmth";
-                Main.buffTip[124] = "Reduced damage from cold sources";
-                Main.buffName[125] = "Hornet";
-                Main.buffTip[125] = "The hornet will fight for you";
-                Main.buffName[126] = "Imp";
-                Main.buffTip[126] = "The imp will fight for you";
-                Main.buffName[127] = "Zephyr Fish";
-                Main.buffTip[127] = "It likes swimming around you";
-                Main.buffName[128] = "Bunny Mount";
-                Main.buffTip[128] = "You are craving carrots";
-                Main.buffName[129] = "Pigron Mount";
-                Main.buffTip[129] = "Now you see me....";
-                Main.buffName[130] = "Slime Mount";
-                Main.buffTip[130] = "BOOOIIINNNG!";
-                Main.buffName[131] = "Turtle Mount";
-                Main.buffTip[131] = "Slow if by land, zoom if by sea";
-                Main.buffName[132] = "Bee Mount";
-                Main.buffTip[132] = "BzzzBzzBZZZZBzzz";
-                Main.buffName[133] = "Spider";
-                Main.buffTip[133] = "The spider will fight for you";
-                Main.buffName[134] = "Twins";
-                Main.buffTip[134] = "The twins will fight for you";
-                Main.buffName[135] = "Pirate";
-                Main.buffTip[135] = "The pirate will fight for you";
-                Main.buffName[136] = "Mini Minotaur";
-                Main.buffTip[136] = "How do you defeat a mini Minotaur?";
-                Main.buffName[137] = "Slime";
-                Main.buffTip[137] = "You are slimy and sticky";
-                Main.buffName[139] = "Sharknado";
-                Main.buffTip[139] = "The sharknado will fight for you";
-                Main.buffName[140] = "UFO";
-                Main.buffTip[140] = "The UFO will fight for you";
-                Main.buffName[141] = "UFO Mount";
-                Main.buffTip[141] = "It's a good thing you had a MAC";
-                Main.buffName[142] = "Drill Mount";
-                Main.buffTip[142] = "Riding in a flying drill";
-                Main.buffName[143] = "Scutlix Mount";
-                Main.buffTip[143] = "Pew Pew";
-                Main.buffName[144] = "Electrified";
-                Main.buffTip[144] = "You cannot move";
-                Main.buffName[145] = "Moon Bite";
-                Main.buffTip[145] = "You are unable to absorb healing effects";
-                Main.buffName[146] = "Happy!";
-                Main.buffTip[146] = "Movement speed increased and monster spawns reduced";
-                Main.buffName[147] = "Banner";
-                Main.buffTip[147] = "Increased damage and defense from the following:";
-                Main.buffName[148] = "Feral Bite";
-                Main.buffTip[148] = "Increased damage, Decreased life regen, Causes status effects";
-                Main.buffName[149] = "Webbed";
-                Main.buffTip[149] = "You are stuck";
-                Main.buffName[150] = "Bewitched";
-                Main.buffTip[150] = "Increased max number of minions";
-                Main.buffName[151] = "Life Drain";
-                Main.buffTip[151] = "Increased life regeneration";
-                Main.buffName[152] = "Magic Lantern";
-                Main.buffTip[152] = "An enchanted lantern is lighting your way";
-                Main.buffName[153] = "Shadowflame";
-                Main.buffTip[153] = "Losing life";
-                Main.buffName[155] = "Crimson Heart";
-                Main.buffTip[155] = "A magical heart that provides light";
-                Main.buffName[154] = "Baby Face Monster";
-                Main.buffTip[154] = "A baby face monster is following you";
-                Main.buffName[169] = "Penetrated";
-                Main.buffTip[169] = "Bleeding Out";
-                Main.buffName[182] = "Stardust Cell";
-                Main.buffTip[182] = "The stardust cell will fight for you";
-                Main.buffName[183] = "Celled";
-                Main.buffTip[183] = "being eaten by cells";
-                Main.buffName[186] = "Dryad's Bane";
-                Main.buffTip[186] = "The power of nature compells you";
-                Main.buffName[187] = "Stardust Guardian";
-                Main.buffTip[187] = "The stardust guardian will protect you";
-                Main.buffName[188] = "Stardust Dragon";
-                Main.buffTip[188] = "The stardust dragon will protect you";
-                Main.buffName[189] = "Daybroken";
-                Main.buffTip[189] = "Incenerated by solar rays";
-                Main.buffName[190] = "Suspicious Looking Eye";
-                Main.buffTip[190] = "A suspicious looking eye that provides light";
-                Main.buffName[156] = "Stoned";
-                Main.buffTip[156] = "You are completely petrified!";
-                Main.buffName[158] = "Star in a Bottle";
-                Main.buffTip[158] = "Increased mana regeneration";
-                Main.buffName[159] = "Sharpened";
-                Main.buffTip[159] = "Melee weapons have armor penetration";
-                Main.buffName[160] = "Dazed";
-                Main.buffTip[160] = "Movement is greatly slowed";
-                Main.buffName[161] = "Deadly Sphere";
-                Main.buffTip[161] = "The Deadly Sphere will fight for you";
-                Main.buffName[163] = "Obstructed";
-                Main.buffTip[163] = "You can't see!";
-                Main.buffName[164] = "Distorted";
-                Main.buffTip[164] = "Gravity around you is distorted";
-                Main.buffName[165] = "Dryad's Blessing";
-                Main.buffTip[165] = "The power of nature protects you";
-                Main.buffName[166] = "Minecart";
-                Main.buffTip[166] = "Riding in a minecart";
-                Main.buffName[167] = "Minecart";
-                Main.buffTip[167] = "Riding in a minecart";
-                Main.buffName[185] = "Minecart";
-                Main.buffTip[185] = "Riding in a minecart";
-                Main.buffName[184] = "Minecart";
-                Main.buffTip[184] = "Riding in a minecart";
-                Main.buffName[170] = "Solar Blaze";
-                Main.buffTip[170] = "Damage taken reduced by 30%, repel enemies when taking damage";
-                Main.buffName[171] = "Solar Blaze";
-                Main.buffTip[171] = "Damage taken reduced by 30%, repel enemies when taking damage";
-                Main.buffName[172] = "Solar Blaze";
-                Main.buffTip[172] = "Damage taken reduced by 30%, repel enemies when taking damage";
-                Main.buffName[179] = "Damage Nebula";
-                Main.buffTip[179] = "15% increased damage";
-                Main.buffName[180] = "Damage Nebula";
-                Main.buffTip[180] = "30% increased damage";
-                Main.buffName[181] = "Damage Nebula";
-                Main.buffTip[181] = "45% increased damage";
-                Main.buffName[173] = "Life Nebula";
-                Main.buffTip[173] = "Increased life regeneration";
-                Main.buffName[174] = "Life Nebula";
-                Main.buffTip[174] = "Increased life regeneration";
-                Main.buffName[175] = "Life Nebula";
-                Main.buffTip[175] = "Increased life regeneration";
-                Main.buffName[176] = "Mana Nebula";
-                Main.buffTip[176] = "Increased mana regeneration";
-                Main.buffName[177] = "Mana Nebula";
-                Main.buffTip[177] = "Increased mana regeneration";
-                Main.buffName[178] = "Mana Nebula";
-                Main.buffTip[178] = "Increased mana regeneration";
-                Main.buffName[71] = "Weapon Imbue: Venom";
-                Main.buffTip[71] = "Melee attacks inflict venom on your targets";
-                Main.buffName[73] = "Weapon Imbue: Cursed Flames";
-                Main.buffTip[73] = "Melee attacks inflict enemies with cursed flames";
-                Main.buffName[74] = "Weapon Imbue: Fire";
-                Main.buffTip[74] = "Melee attacks set enemies on fire";
-                Main.buffName[75] = "Weapon Imbue: Gold";
-                Main.buffTip[75] = "Melee attacks make enemies drop more gold";
-                Main.buffName[76] = "Weapon Imbue: Ichor";
-                Main.buffTip[76] = "Melee attacks decrease enemies defense";
-                Main.buffName[77] = "Weapon Imbue: Nanites";
-                Main.buffTip[77] = "Melee attacks confuse enemies";
-                Main.buffName[78] = "Weapon Imbue: Confetti";
-                Main.buffTip[78] = "Melee attacks cause confetti to appear";
-                Main.buffName[79] = "Weapon Imbue: Poison";
-                Main.buffTip[79] = "Melee attacks poison enemies";
+                Game1.buffName[1] = "Obsidian Skin";
+                Game1.buffTip[1] = "Immune to lava";
+                Game1.buffName[2] = "Regeneration";
+                Game1.buffTip[2] = "Provides life regeneration";
+                Game1.buffName[3] = "Swiftness";
+                Game1.buffTip[3] = "25% increased movement speed";
+                Game1.buffName[4] = "Gills";
+                Game1.buffTip[4] = "Breathe water instead of air";
+                Game1.buffName[5] = "Ironskin";
+                Game1.buffTip[5] = "Increase defense by 8";
+                Game1.buffName[6] = "Mana Regeneration";
+                Game1.buffTip[6] = "Increased mana regeneration";
+                Game1.buffName[7] = "Magic Power";
+                Game1.buffTip[7] = "20% increased magic damage";
+                Game1.buffName[8] = "Featherfall";
+                Game1.buffTip[8] = "Press UP or DOWN to control speed of descent";
+                Game1.buffName[9] = "Spelunker";
+                Game1.buffTip[9] = "Shows the location of treasure and ore";
+                Game1.buffName[10] = "Invisibility";
+                Game1.buffTip[10] = "Grants invisibility";
+                Game1.buffName[11] = "Shine";
+                Game1.buffTip[11] = "Emitting light";
+                Game1.buffName[12] = "Night Owl";
+                Game1.buffTip[12] = "Increased night vision";
+                Game1.buffName[13] = "Battle";
+                Game1.buffTip[13] = "Increased enemy spawn rate";
+                Game1.buffName[14] = "Thorns";
+                Game1.buffTip[14] = "Attackers also take damage";
+                Game1.buffName[15] = "Water Walking";
+                Game1.buffTip[15] = "Press DOWN to enter water";
+                Game1.buffName[16] = "Archery";
+                Game1.buffTip[16] = "20% increased arrow damage and speed";
+                Game1.buffName[17] = "Hunter";
+                Game1.buffTip[17] = "Shows the location of enemies";
+                Game1.buffName[18] = "Gravitation";
+                Game1.buffTip[18] = "Press UP to reverse gravity";
+                Game1.buffName[19] = "Shadow Orb";
+                Game1.buffTip[19] = "A magical orb that provides light";
+                Game1.buffName[20] = "Poisoned";
+                Game1.buffTip[20] = "Slowly losing life";
+                Game1.buffName[21] = "Potion Sickness";
+                Game1.buffTip[21] = "Cannot consume anymore healing items";
+                Game1.buffName[22] = "Darkness";
+                Game1.buffTip[22] = "Decreased light vision";
+                Game1.buffName[23] = "Cursed";
+                Game1.buffTip[23] = "Cannot use any items";
+                Game1.buffName[24] = "On Fire!";
+                Game1.buffTip[24] = "Slowly losing life";
+                Game1.buffName[25] = "Tipsy";
+                Game1.buffTip[25] = "Increased melee abilities, lowered defense";
+                Game1.buffName[26] = "Well Fed";
+                Game1.buffTip[26] = "Minor improvements to all stats";
+                Game1.buffName[27] = "Fairy";
+                Game1.buffTip[27] = "A fairy is following you";
+                Game1.buffName[28] = "Werewolf";
+                Game1.buffTip[28] = "Physical abilities are increased";
+                Game1.buffName[29] = "Clairvoyance";
+                Game1.buffTip[29] = "Magic powers are increased";
+                Game1.buffName[30] = "Bleeding";
+                Game1.buffTip[30] = "Cannot regenerate life";
+                Game1.buffName[31] = "Confused";
+                Game1.buffTip[31] = "Movement is reversed";
+                Game1.buffName[32] = "Slow";
+                Game1.buffTip[32] = "Movement speed is reduced";
+                Game1.buffName[33] = "Weak";
+                Game1.buffTip[33] = "Physical abilities are decreased";
+                Game1.buffName[34] = "Merfolk";
+                Game1.buffTip[34] = "Can breathe and move easily underwater";
+                Game1.buffName[35] = "Silenced";
+                Game1.buffTip[35] = "Cannot use items that require mana";
+                Game1.buffName[36] = "Broken Armor";
+                Game1.buffTip[36] = "Defense is cut in half";
+                Game1.buffName[37] = "Horrified";
+                Game1.buffTip[37] = "You have seen something nasty, there is no escape.";
+                Game1.buffName[38] = "The Tongue";
+                Game1.buffTip[38] = "You are being sucked into the mouth";
+                Game1.buffName[39] = "Cursed Inferno";
+                Game1.buffTip[39] = "Losing life";
+                Game1.buffName[40] = "Pet Bunny";
+                Game1.buffTip[40] = "I think it wants your carrot";
+                Game1.buffName[41] = "Baby Penguin";
+                Game1.buffTip[41] = "I think it wants your fish";
+                Game1.buffName[42] = "Pet Turtle";
+                Game1.buffTip[42] = "Happy turtle time!";
+                Game1.buffName[43] = "Paladin's Shield";
+                Game1.buffTip[43] = "25% of damage taken will be redirected to another player";
+                Game1.buffName[44] = "Frostburn";
+                Game1.buffTip[44] = "It's either really hot or really cold. Either way it REALLY hurts";
+                Game1.buffName[45] = "Baby Eater";
+                Game1.buffTip[45] = "A baby Eater of Souls is following you";
+                Game1.buffName[46] = "Chilled";
+                Game1.buffTip[46] = "Your movement speed has been reduced";
+                Game1.buffName[47] = "Frozen";
+                Game1.buffTip[47] = "You can't move!";
+                Game1.buffName[48] = "Honey";
+                Game1.buffTip[48] = "Life regeneration is increased";
+                Game1.buffName[49] = "Pygmies";
+                Game1.buffTip[49] = "The pygmies will fight for you";
+                Game1.buffName[50] = "Baby Skeletron Head";
+                Game1.buffTip[50] = "Don't even ask...";
+                Game1.buffName[51] = "Baby Hornet";
+                Game1.buffTip[51] = "It thinks you are its mother";
+                Game1.buffName[52] = "Tiki Spirit";
+                Game1.buffTip[52] = "A friendly spirit is following you";
+                Game1.buffName[53] = "Pet Lizard";
+                Game1.buffTip[53] = "Chillin' like a reptilian";
+                Game1.buffName[54] = "Pet Parrot";
+                Game1.buffTip[54] = "Polly want's the cracker";
+                Game1.buffName[55] = "Baby Truffle";
+                Game1.buffTip[55] = "Isn't this just soooo cute?";
+                Game1.buffName[56] = "Pet Sapling";
+                Game1.buffTip[56] = "A little sapling is following you";
+                Game1.buffName[57] = "Wisp";
+                Game1.buffTip[57] = "A wisp is following you";
+                Game1.buffName[58] = "Rapid Healing";
+                Game1.buffTip[58] = "Life regeneration is greatly increased";
+                Game1.buffName[59] = "Shadow Dodge";
+                Game1.buffTip[59] = "You will dodge the next attack";
+                Game1.buffName[60] = "Leaf Crystal";
+                Game1.buffTip[60] = "Shoots crystal leaves at nearby enemies";
+                Game1.buffName[61] = "Baby Dinosaur";
+                Game1.buffTip[61] = "A baby dinosaur is following you";
+                Game1.buffName[62] = "Ice Barrier";
+                Game1.buffTip[62] = "Damage taken is reduced by 25%";
+                Game1.buffName[63] = "Panic!";
+                Game1.buffTip[63] = "Movement speed is increased";
+                Game1.buffName[64] = "Baby Slime";
+                Game1.buffTip[64] = "The baby slime will fight for you";
+                Game1.buffName[65] = "Eyeball Spring";
+                Game1.buffTip[65] = "An eyeball spring is following you";
+                Game1.buffName[66] = "Baby Snowman";
+                Game1.buffTip[66] = "A baby snowman is following you";
+                Game1.buffName[67] = "Burning";
+                Game1.buffTip[67] = "Losing life and slowed movement";
+                Game1.buffName[68] = "Suffocation";
+                Game1.buffTip[68] = "Losing life";
+                Game1.buffName[69] = "Ichor";
+                Game1.buffTip[69] = "Reduced defense";
+                Game1.buffName[70] = "Venom";
+                Game1.buffTip[70] = "Losing life";
+                Game1.buffName[72] = "Midas";
+                Game1.buffTip[72] = "Drop more money on death";
+                Game1.buffName[80] = "Blackout";
+                Game1.buffTip[80] = "Light vision severely reduced";
+                Game1.buffName[81] = "Pet Spider";
+                Game1.buffTip[81] = "A spider is following you";
+                Game1.buffName[82] = "Squashling";
+                Game1.buffTip[82] = "A squashling is following you";
+                Game1.buffName[83] = "Ravens";
+                Game1.buffTip[83] = "The ravens will attack your enemies";
+                Game1.buffName[84] = "Black Cat";
+                Game1.buffTip[84] = "A black kitty is following you";
+                Game1.buffName[85] = "Cursed Sapling";
+                Game1.buffTip[85] = "A cursed sapling is following you";
+                Game1.buffName[86] = "Water Candle";
+                Game1.buffTip[86] = "Increased monster spawn rate";
+                Game1.buffName[157] = "Peace Candle";
+                Game1.buffTip[157] = "Decreased monster spawn rate";
+                Game1.buffName[87] = "Cozy Fire";
+                Game1.buffTip[87] = "Life regen is slightly increased";
+                Game1.buffName[88] = "Chaos State";
+                Game1.buffTip[88] = "Using the Rod of Discord will take life";
+                Game1.buffName[89] = "Heart Lamp";
+                Game1.buffTip[89] = "Life regen is increased";
+                Game1.buffName[90] = "Rudolph";
+                Game1.buffTip[90] = "Riding the red nosed reindeer";
+                Game1.buffName[91] = "Puppy";
+                Game1.buffTip[91] = "A puppy is following you";
+                Game1.buffName[92] = "Baby Grinch";
+                Game1.buffTip[92] = "A baby grinch is following you";
+                Game1.buffName[93] = "Ammo Box";
+                Game1.buffTip[93] = "20% chance to not consume ammo";
+                Game1.buffName[94] = "Mana Sickness";
+                Game1.buffTip[94] = "Magic damage reduced by ";
+                Game1.buffName[95] = "Beetle Endurance";
+                Game1.buffTip[95] = "Damage taken reduced by 15%";
+                Game1.buffName[96] = "Beetle Endurance";
+                Game1.buffTip[96] = "Damage taken reduced by 30%";
+                Game1.buffName[97] = "Beetle Endurance";
+                Game1.buffTip[97] = "Damage taken reduced by 45%";
+                Game1.buffName[98] = "Beetle Might";
+                Game1.buffTip[98] = "Melee damage and speed increase by 10%";
+                Game1.buffName[99] = "Beetle Might";
+                Game1.buffTip[99] = "Melee damage and speed increase by 20%";
+                Game1.buffName[100] = "Beetle Might";
+                Game1.buffTip[100] = "Melee damage and speed increase by 30%";
+                Game1.buffName[101] = "Fairy";
+                Game1.buffTip[101] = "A fairy is following you";
+                Game1.buffName[102] = "Fairy";
+                Game1.buffTip[102] = "A fairy is following you";
+                Game1.buffName[103] = "Wet";
+                Game1.buffTip[103] = "You are dripping water";
+                Game1.buffName[104] = "Mining";
+                Game1.buffTip[104] = "25% increased mining speed";
+                Game1.buffName[105] = "Heartreach";
+                Game1.buffTip[105] = "Increased heart pickup range";
+                Game1.buffName[106] = "Calm";
+                Game1.buffTip[106] = "Reduced enemy aggression";
+                Game1.buffName[107] = "Builder";
+                Game1.buffTip[107] = "Increased placement speed and range";
+                Game1.buffName[108] = "Titan";
+                Game1.buffTip[108] = "Increased knockback";
+                Game1.buffName[109] = "Flipper";
+                Game1.buffTip[109] = "Move like normal in water";
+                Game1.buffName[110] = "Summoning";
+                Game1.buffTip[110] = "Increased max number of minions";
+                Game1.buffName[111] = "Dangersense";
+                Game1.buffTip[111] = "You can see nearby hazards";
+                Game1.buffName[112] = "Ammo Reservation";
+                Game1.buffTip[112] = "20% chance to not consume ammo";
+                Game1.buffName[113] = "Lifeforce";
+                Game1.buffTip[113] = "20% increased max life";
+                Game1.buffName[114] = "Endurance";
+                Game1.buffTip[114] = "10% reduced damage";
+                Game1.buffName[115] = "Rage";
+                Game1.buffTip[115] = "10% increased critical chance";
+                Game1.buffName[116] = "Inferno";
+                Game1.buffTip[116] = "Nearby enemies are ignited";
+                Game1.buffName[117] = "Wrath";
+                Game1.buffTip[117] = "10% increased damage";
+                Game1.buffName[118] = "Minecart";
+                Game1.buffTip[118] = "Riding in a minecart";
+                Game1.buffName[138] = "Minecart";
+                Game1.buffTip[138] = "Riding in a minecart";
+                Game1.buffName[119] = "Lovestruck";
+                Game1.buffTip[119] = "You are in love!";
+                Game1.buffName[120] = "Stinky";
+                Game1.buffTip[120] = "You smell terrible";
+                Game1.buffName[121] = "Fishing";
+                Game1.buffTip[121] = "Increased fishing level";
+                Game1.buffName[122] = "Sonar";
+                Game1.buffTip[122] = "You can see what's biting your hook";
+                Game1.buffName[123] = "Crate";
+                Game1.buffTip[123] = "Greater chance of fishing up a crate";
+                Game1.buffName[124] = "Warmth";
+                Game1.buffTip[124] = "Reduced damage from cold sources";
+                Game1.buffName[125] = "Hornet";
+                Game1.buffTip[125] = "The hornet will fight for you";
+                Game1.buffName[126] = "Imp";
+                Game1.buffTip[126] = "The imp will fight for you";
+                Game1.buffName[127] = "Zephyr Fish";
+                Game1.buffTip[127] = "It likes swimming around you";
+                Game1.buffName[128] = "Bunny Mount";
+                Game1.buffTip[128] = "You are craving carrots";
+                Game1.buffName[129] = "Pigron Mount";
+                Game1.buffTip[129] = "Now you see me....";
+                Game1.buffName[130] = "Slime Mount";
+                Game1.buffTip[130] = "BOOOIIINNNG!";
+                Game1.buffName[131] = "Turtle Mount";
+                Game1.buffTip[131] = "Slow if by land, zoom if by sea";
+                Game1.buffName[132] = "Bee Mount";
+                Game1.buffTip[132] = "BzzzBzzBZZZZBzzz";
+                Game1.buffName[133] = "Spider";
+                Game1.buffTip[133] = "The spider will fight for you";
+                Game1.buffName[134] = "Twins";
+                Game1.buffTip[134] = "The twins will fight for you";
+                Game1.buffName[135] = "Pirate";
+                Game1.buffTip[135] = "The pirate will fight for you";
+                Game1.buffName[136] = "Mini Minotaur";
+                Game1.buffTip[136] = "How do you defeat a mini Minotaur?";
+                Game1.buffName[137] = "Slime";
+                Game1.buffTip[137] = "You are slimy and sticky";
+                Game1.buffName[139] = "Sharknado";
+                Game1.buffTip[139] = "The sharknado will fight for you";
+                Game1.buffName[140] = "UFO";
+                Game1.buffTip[140] = "The UFO will fight for you";
+                Game1.buffName[141] = "UFO Mount";
+                Game1.buffTip[141] = "It's a good thing you had a MAC";
+                Game1.buffName[142] = "Drill Mount";
+                Game1.buffTip[142] = "Riding in a flying drill";
+                Game1.buffName[143] = "Scutlix Mount";
+                Game1.buffTip[143] = "Pew Pew";
+                Game1.buffName[144] = "Electrified";
+                Game1.buffTip[144] = "You cannot move";
+                Game1.buffName[145] = "Moon Bite";
+                Game1.buffTip[145] = "You are unable to absorb healing effects";
+                Game1.buffName[146] = "Happy!";
+                Game1.buffTip[146] = "Movement speed increased and monster spawns reduced";
+                Game1.buffName[147] = "Banner";
+                Game1.buffTip[147] = "Increased damage and defense from the following:";
+                Game1.buffName[148] = "Feral Bite";
+                Game1.buffTip[148] = "Increased damage, Decreased life regen, Causes status effects";
+                Game1.buffName[149] = "Webbed";
+                Game1.buffTip[149] = "You are stuck";
+                Game1.buffName[150] = "Bewitched";
+                Game1.buffTip[150] = "Increased max number of minions";
+                Game1.buffName[151] = "Life Drain";
+                Game1.buffTip[151] = "Increased life regeneration";
+                Game1.buffName[152] = "Magic Lantern";
+                Game1.buffTip[152] = "An enchanted lantern is lighting your way";
+                Game1.buffName[153] = "Shadowflame";
+                Game1.buffTip[153] = "Losing life";
+                Game1.buffName[155] = "Crimson Heart";
+                Game1.buffTip[155] = "A magical heart that provides light";
+                Game1.buffName[154] = "Baby Face Monster";
+                Game1.buffTip[154] = "A baby face monster is following you";
+                Game1.buffName[169] = "Penetrated";
+                Game1.buffTip[169] = "Bleeding Out";
+                Game1.buffName[182] = "Stardust Cell";
+                Game1.buffTip[182] = "The stardust cell will fight for you";
+                Game1.buffName[183] = "Celled";
+                Game1.buffTip[183] = "being eaten by cells";
+                Game1.buffName[186] = "Dryad's Bane";
+                Game1.buffTip[186] = "The power of nature compells you";
+                Game1.buffName[187] = "Stardust Guardian";
+                Game1.buffTip[187] = "The stardust guardian will protect you";
+                Game1.buffName[188] = "Stardust Dragon";
+                Game1.buffTip[188] = "The stardust dragon will protect you";
+                Game1.buffName[189] = "Daybroken";
+                Game1.buffTip[189] = "Incenerated by solar rays";
+                Game1.buffName[190] = "Suspicious Looking Eye";
+                Game1.buffTip[190] = "A suspicious looking eye that provides light";
+                Game1.buffName[156] = "Stoned";
+                Game1.buffTip[156] = "You are completely petrified!";
+                Game1.buffName[158] = "Star in a Bottle";
+                Game1.buffTip[158] = "Increased mana regeneration";
+                Game1.buffName[159] = "Sharpened";
+                Game1.buffTip[159] = "Melee weapons have armor penetration";
+                Game1.buffName[160] = "Dazed";
+                Game1.buffTip[160] = "Movement is greatly slowed";
+                Game1.buffName[161] = "Deadly Sphere";
+                Game1.buffTip[161] = "The Deadly Sphere will fight for you";
+                Game1.buffName[163] = "Obstructed";
+                Game1.buffTip[163] = "You can't see!";
+                Game1.buffName[164] = "Distorted";
+                Game1.buffTip[164] = "Gravity around you is distorted";
+                Game1.buffName[165] = "Dryad's Blessing";
+                Game1.buffTip[165] = "The power of nature protects you";
+                Game1.buffName[166] = "Minecart";
+                Game1.buffTip[166] = "Riding in a minecart";
+                Game1.buffName[167] = "Minecart";
+                Game1.buffTip[167] = "Riding in a minecart";
+                Game1.buffName[185] = "Minecart";
+                Game1.buffTip[185] = "Riding in a minecart";
+                Game1.buffName[184] = "Minecart";
+                Game1.buffTip[184] = "Riding in a minecart";
+                Game1.buffName[170] = "Solar Blaze";
+                Game1.buffTip[170] = "Damage taken reduced by 30%, repel enemies when taking damage";
+                Game1.buffName[171] = "Solar Blaze";
+                Game1.buffTip[171] = "Damage taken reduced by 30%, repel enemies when taking damage";
+                Game1.buffName[172] = "Solar Blaze";
+                Game1.buffTip[172] = "Damage taken reduced by 30%, repel enemies when taking damage";
+                Game1.buffName[179] = "Damage Nebula";
+                Game1.buffTip[179] = "15% increased damage";
+                Game1.buffName[180] = "Damage Nebula";
+                Game1.buffTip[180] = "30% increased damage";
+                Game1.buffName[181] = "Damage Nebula";
+                Game1.buffTip[181] = "45% increased damage";
+                Game1.buffName[173] = "Life Nebula";
+                Game1.buffTip[173] = "Increased life regeneration";
+                Game1.buffName[174] = "Life Nebula";
+                Game1.buffTip[174] = "Increased life regeneration";
+                Game1.buffName[175] = "Life Nebula";
+                Game1.buffTip[175] = "Increased life regeneration";
+                Game1.buffName[176] = "Mana Nebula";
+                Game1.buffTip[176] = "Increased mana regeneration";
+                Game1.buffName[177] = "Mana Nebula";
+                Game1.buffTip[177] = "Increased mana regeneration";
+                Game1.buffName[178] = "Mana Nebula";
+                Game1.buffTip[178] = "Increased mana regeneration";
+                Game1.buffName[71] = "Weapon Imbue: Venom";
+                Game1.buffTip[71] = "Melee attacks inflict venom on your targets";
+                Game1.buffName[73] = "Weapon Imbue: Cursed Flames";
+                Game1.buffTip[73] = "Melee attacks inflict enemies with cursed flames";
+                Game1.buffName[74] = "Weapon Imbue: Fire";
+                Game1.buffTip[74] = "Melee attacks set enemies on fire";
+                Game1.buffName[75] = "Weapon Imbue: Gold";
+                Game1.buffTip[75] = "Melee attacks make enemies drop more gold";
+                Game1.buffName[76] = "Weapon Imbue: Ichor";
+                Game1.buffTip[76] = "Melee attacks decrease enemies defense";
+                Game1.buffName[77] = "Weapon Imbue: Nanites";
+                Game1.buffTip[77] = "Melee attacks confuse enemies";
+                Game1.buffName[78] = "Weapon Imbue: Confetti";
+                Game1.buffTip[78] = "Melee attacks cause confetti to appear";
+                Game1.buffName[79] = "Weapon Imbue: Poison";
+                Game1.buffTip[79] = "Melee attacks poison enemies";
                 if (Lang.mapLegend == null)
                 {
                     Lang.mapLegend = new string[MapHelper.LookupCount()];
@@ -32649,7 +32649,7 @@ namespace GameManager
                 Lang.mapLegend[MapHelper.TileToLookup(22, 0)] = "Demonite";
                 Lang.mapLegend[MapHelper.TileToLookup(26, 0)] = "Demon Altar";
                 Lang.mapLegend[MapHelper.TileToLookup(26, 1)] = "Crimson Altar";
-                Lang.mapLegend[MapHelper.TileToLookup(27, 0)] = Main.itemName[63];
+                Lang.mapLegend[MapHelper.TileToLookup(27, 0)] = Game1.itemName[63];
                 Lang.mapLegend[MapHelper.TileToLookup(407, 0)] = "Fossil";
                 Lang.mapLegend[MapHelper.TileToLookup(412, 0)] = "Ancient Manipulator";
                 for (int i = 0; i < 9; i++)
@@ -32657,7 +32657,7 @@ namespace GameManager
                     Lang.mapLegend[MapHelper.TileToLookup(28, i)] = "Pot";
                 }
                 Lang.mapLegend[MapHelper.TileToLookup(37, 0)] = "Meteorite";
-                Lang.mapLegend[MapHelper.TileToLookup(29, 0)] = Main.itemName[87];
+                Lang.mapLegend[MapHelper.TileToLookup(29, 0)] = Game1.itemName[87];
                 Lang.mapLegend[MapHelper.TileToLookup(31, 0)] = "Shadow Orb";
                 Lang.mapLegend[MapHelper.TileToLookup(31, 1)] = "Crimson Heart";
                 Lang.mapLegend[MapHelper.TileToLookup(32, 0)] = "Thorns";
@@ -32667,7 +32667,7 @@ namespace GameManager
                 Lang.mapLegend[MapHelper.TileToLookup(36, 0)] = "Present";
                 Lang.mapLegend[MapHelper.TileToLookup(42, 0)] = "Lantern";
                 Lang.mapLegend[MapHelper.TileToLookup(48, 0)] = "Spike";
-                Lang.mapLegend[MapHelper.TileToLookup(49, 0)] = Main.itemName[148];
+                Lang.mapLegend[MapHelper.TileToLookup(49, 0)] = Game1.itemName[148];
                 Lang.mapLegend[MapHelper.TileToLookup(50, 0)] = "Book";
                 Lang.mapLegend[MapHelper.TileToLookup(51, 0)] = "Web";
                 Lang.mapLegend[MapHelper.TileToLookup(55, 0)] = "Sign";
@@ -32684,27 +32684,27 @@ namespace GameManager
                 Lang.mapLegend[MapHelper.TileToLookup(79, 0)] = "Bed";
                 Lang.mapLegend[MapHelper.TileToLookup(80, 0)] = "Cactus";
                 Lang.mapLegend[MapHelper.TileToLookup(81, 0)] = "Coral";
-                Lang.mapLegend[MapHelper.TileToLookup(82, 0)] = Main.itemName[313];
-                Lang.mapLegend[MapHelper.TileToLookup(82, 1)] = Main.itemName[314];
-                Lang.mapLegend[MapHelper.TileToLookup(82, 2)] = Main.itemName[315];
-                Lang.mapLegend[MapHelper.TileToLookup(82, 3)] = Main.itemName[316];
-                Lang.mapLegend[MapHelper.TileToLookup(82, 4)] = Main.itemName[317];
-                Lang.mapLegend[MapHelper.TileToLookup(82, 5)] = Main.itemName[318];
-                Lang.mapLegend[MapHelper.TileToLookup(82, 6)] = Main.itemName[2358];
-                Lang.mapLegend[MapHelper.TileToLookup(83, 0)] = Main.itemName[313];
-                Lang.mapLegend[MapHelper.TileToLookup(83, 1)] = Main.itemName[314];
-                Lang.mapLegend[MapHelper.TileToLookup(83, 2)] = Main.itemName[315];
-                Lang.mapLegend[MapHelper.TileToLookup(83, 3)] = Main.itemName[316];
-                Lang.mapLegend[MapHelper.TileToLookup(83, 4)] = Main.itemName[317];
-                Lang.mapLegend[MapHelper.TileToLookup(83, 5)] = Main.itemName[318];
-                Lang.mapLegend[MapHelper.TileToLookup(83, 6)] = Main.itemName[2358];
-                Lang.mapLegend[MapHelper.TileToLookup(84, 0)] = Main.itemName[313];
-                Lang.mapLegend[MapHelper.TileToLookup(84, 1)] = Main.itemName[314];
-                Lang.mapLegend[MapHelper.TileToLookup(84, 2)] = Main.itemName[315];
-                Lang.mapLegend[MapHelper.TileToLookup(84, 3)] = Main.itemName[316];
-                Lang.mapLegend[MapHelper.TileToLookup(84, 4)] = Main.itemName[317];
-                Lang.mapLegend[MapHelper.TileToLookup(84, 5)] = Main.itemName[318];
-                Lang.mapLegend[MapHelper.TileToLookup(84, 6)] = Main.itemName[2358];
+                Lang.mapLegend[MapHelper.TileToLookup(82, 0)] = Game1.itemName[313];
+                Lang.mapLegend[MapHelper.TileToLookup(82, 1)] = Game1.itemName[314];
+                Lang.mapLegend[MapHelper.TileToLookup(82, 2)] = Game1.itemName[315];
+                Lang.mapLegend[MapHelper.TileToLookup(82, 3)] = Game1.itemName[316];
+                Lang.mapLegend[MapHelper.TileToLookup(82, 4)] = Game1.itemName[317];
+                Lang.mapLegend[MapHelper.TileToLookup(82, 5)] = Game1.itemName[318];
+                Lang.mapLegend[MapHelper.TileToLookup(82, 6)] = Game1.itemName[2358];
+                Lang.mapLegend[MapHelper.TileToLookup(83, 0)] = Game1.itemName[313];
+                Lang.mapLegend[MapHelper.TileToLookup(83, 1)] = Game1.itemName[314];
+                Lang.mapLegend[MapHelper.TileToLookup(83, 2)] = Game1.itemName[315];
+                Lang.mapLegend[MapHelper.TileToLookup(83, 3)] = Game1.itemName[316];
+                Lang.mapLegend[MapHelper.TileToLookup(83, 4)] = Game1.itemName[317];
+                Lang.mapLegend[MapHelper.TileToLookup(83, 5)] = Game1.itemName[318];
+                Lang.mapLegend[MapHelper.TileToLookup(83, 6)] = Game1.itemName[2358];
+                Lang.mapLegend[MapHelper.TileToLookup(84, 0)] = Game1.itemName[313];
+                Lang.mapLegend[MapHelper.TileToLookup(84, 1)] = Game1.itemName[314];
+                Lang.mapLegend[MapHelper.TileToLookup(84, 2)] = Game1.itemName[315];
+                Lang.mapLegend[MapHelper.TileToLookup(84, 3)] = Game1.itemName[316];
+                Lang.mapLegend[MapHelper.TileToLookup(84, 4)] = Game1.itemName[317];
+                Lang.mapLegend[MapHelper.TileToLookup(84, 5)] = Game1.itemName[318];
+                Lang.mapLegend[MapHelper.TileToLookup(84, 6)] = Game1.itemName[2358];
                 Lang.mapLegend[MapHelper.TileToLookup(85, 0)] = "Tombstone";
                 Lang.mapLegend[MapHelper.TileToLookup(86, 0)] = "Loom";
                 Lang.mapLegend[MapHelper.TileToLookup(87, 0)] = "Piano";
@@ -32757,13 +32757,13 @@ namespace GameManager
                 Lang.mapLegend[MapHelper.TileToLookup(172, 0)] = "Sink";
                 Lang.mapLegend[MapHelper.TileToLookup(173, 0)] = "Candelabra";
                 Lang.mapLegend[MapHelper.TileToLookup(174, 0)] = "Platinum Candle";
-                Lang.mapLegend[MapHelper.TileToLookup(178, 0)] = Main.itemName[181];
-                Lang.mapLegend[MapHelper.TileToLookup(178, 1)] = Main.itemName[180];
-                Lang.mapLegend[MapHelper.TileToLookup(178, 2)] = Main.itemName[177];
-                Lang.mapLegend[MapHelper.TileToLookup(178, 3)] = Main.itemName[179];
-                Lang.mapLegend[MapHelper.TileToLookup(178, 4)] = Main.itemName[178];
-                Lang.mapLegend[MapHelper.TileToLookup(178, 5)] = Main.itemName[182];
-                Lang.mapLegend[MapHelper.TileToLookup(178, 6)] = Main.itemName[999];
+                Lang.mapLegend[MapHelper.TileToLookup(178, 0)] = Game1.itemName[181];
+                Lang.mapLegend[MapHelper.TileToLookup(178, 1)] = Game1.itemName[180];
+                Lang.mapLegend[MapHelper.TileToLookup(178, 2)] = Game1.itemName[177];
+                Lang.mapLegend[MapHelper.TileToLookup(178, 3)] = Game1.itemName[179];
+                Lang.mapLegend[MapHelper.TileToLookup(178, 4)] = Game1.itemName[178];
+                Lang.mapLegend[MapHelper.TileToLookup(178, 5)] = Game1.itemName[182];
+                Lang.mapLegend[MapHelper.TileToLookup(178, 6)] = Game1.itemName[999];
                 Lang.mapLegend[MapHelper.TileToLookup(191, 0)] = "Living Wood";
                 Lang.mapLegend[MapHelper.TileToLookup(204, 0)] = "Crimtane";
                 Lang.mapLegend[MapHelper.TileToLookup(207, 0)] = "Water Fountain";
@@ -32781,18 +32781,18 @@ namespace GameManager
                 Lang.mapLegend[MapHelper.TileToLookup(221, 0)] = "Palladium";
                 Lang.mapLegend[MapHelper.TileToLookup(222, 0)] = "Orichalcum";
                 Lang.mapLegend[MapHelper.TileToLookup(223, 0)] = "Titanium";
-                Lang.mapLegend[MapHelper.TileToLookup(227, 0)] = Main.itemName[1107];
-                Lang.mapLegend[MapHelper.TileToLookup(227, 1)] = Main.itemName[1108];
-                Lang.mapLegend[MapHelper.TileToLookup(227, 2)] = Main.itemName[1109];
-                Lang.mapLegend[MapHelper.TileToLookup(227, 3)] = Main.itemName[1110];
-                Lang.mapLegend[MapHelper.TileToLookup(227, 4)] = Main.itemName[1111];
-                Lang.mapLegend[MapHelper.TileToLookup(227, 5)] = Main.itemName[1112];
-                Lang.mapLegend[MapHelper.TileToLookup(227, 6)] = Main.itemName[1113];
-                Lang.mapLegend[MapHelper.TileToLookup(227, 7)] = Main.itemName[1114];
-                Lang.mapLegend[MapHelper.TileToLookup(227, 8)] = Main.itemName[3385];
-                Lang.mapLegend[MapHelper.TileToLookup(227, 9)] = Main.itemName[3386];
-                Lang.mapLegend[MapHelper.TileToLookup(227, 10)] = Main.itemName[3387];
-                Lang.mapLegend[MapHelper.TileToLookup(227, 11)] = Main.itemName[3388];
+                Lang.mapLegend[MapHelper.TileToLookup(227, 0)] = Game1.itemName[1107];
+                Lang.mapLegend[MapHelper.TileToLookup(227, 1)] = Game1.itemName[1108];
+                Lang.mapLegend[MapHelper.TileToLookup(227, 2)] = Game1.itemName[1109];
+                Lang.mapLegend[MapHelper.TileToLookup(227, 3)] = Game1.itemName[1110];
+                Lang.mapLegend[MapHelper.TileToLookup(227, 4)] = Game1.itemName[1111];
+                Lang.mapLegend[MapHelper.TileToLookup(227, 5)] = Game1.itemName[1112];
+                Lang.mapLegend[MapHelper.TileToLookup(227, 6)] = Game1.itemName[1113];
+                Lang.mapLegend[MapHelper.TileToLookup(227, 7)] = Game1.itemName[1114];
+                Lang.mapLegend[MapHelper.TileToLookup(227, 8)] = Game1.itemName[3385];
+                Lang.mapLegend[MapHelper.TileToLookup(227, 9)] = Game1.itemName[3386];
+                Lang.mapLegend[MapHelper.TileToLookup(227, 10)] = Game1.itemName[3387];
+                Lang.mapLegend[MapHelper.TileToLookup(227, 11)] = Game1.itemName[3388];
                 Lang.mapLegend[MapHelper.TileToLookup(228, 0)] = "Dye Vat";
                 Lang.mapLegend[MapHelper.TileToLookup(231, 0)] = "Larva";
                 Lang.mapLegend[MapHelper.TileToLookup(232, 0)] = "Wooden Spike";
@@ -32802,10 +32802,10 @@ namespace GameManager
                 Lang.mapLegend[MapHelper.TileToLookup(238, 0)] = "Plantera's Bulb";
                 Lang.mapLegend[MapHelper.TileToLookup(239, 0)] = "Metal Bar";
                 Lang.mapLegend[MapHelper.TileToLookup(240, 0)] = "Trophy";
-                Lang.mapLegend[MapHelper.TileToLookup(240, 2)] = Main.npcName[21];
+                Lang.mapLegend[MapHelper.TileToLookup(240, 2)] = Game1.npcName[21];
                 Lang.mapLegend[MapHelper.TileToLookup(240, 3)] = "Item Rack";
-                Lang.mapLegend[MapHelper.TileToLookup(240, 4)] = Main.itemName[2442];
-                Lang.mapLegend[MapHelper.TileToLookup(241, 0)] = Main.itemName[1417];
+                Lang.mapLegend[MapHelper.TileToLookup(240, 4)] = Game1.itemName[2442];
+                Lang.mapLegend[MapHelper.TileToLookup(241, 0)] = Game1.itemName[1417];
                 Lang.mapLegend[MapHelper.TileToLookup(242, 0)] = "Painting";
                 Lang.mapLegend[MapHelper.TileToLookup(242, 1)] = "Animal Skin";
                 Lang.mapLegend[MapHelper.TileToLookup(243, 0)] = "Imbuing Station";
@@ -32870,7 +32870,7 @@ namespace GameManager
                 Lang.mapLegend[MapHelper.TileToLookup(374, 0)] = "Dripping Lava";
                 Lang.mapLegend[MapHelper.TileToLookup(375, 0)] = "Dripping Honey";
                 Lang.mapLegend[MapHelper.TileToLookup(377, 0)] = "Sharpening Station";
-                Lang.mapLegend[MapHelper.TileToLookup(372, 0)] = Main.itemName[3117];
+                Lang.mapLegend[MapHelper.TileToLookup(372, 0)] = Game1.itemName[3117];
                 for (int j = 0; j < Lang.mapLegend.Length; j++)
                 {
                     if (Lang.mapLegend[j] == null)
@@ -33323,166 +33323,166 @@ namespace GameManager
                 Lang.the = "der ";
                 Lang.dt[0] = "konnte das Antidot nicht finden";
                 Lang.dt[1] = "konnte das Feuer nicht loeschen";
-                Main.buffName[1] = "Obsidianhaut";
-                Main.buffTip[1] = "Immun gegen Lava";
-                Main.buffName[2] = "Wiederbelebung";
-                Main.buffTip[2] = "Belebt wieder";
-                Main.buffName[3] = "Wendigkeit";
-                Main.buffTip[3] = "Erhoeht Bewegungstempo um 25%";
-                Main.buffName[4] = "Kiemen";
-                Main.buffTip[4] = "Wasser statt Luft atmen";
-                Main.buffName[5] = "Eisenhaut";
-                Main.buffTip[5] = "Erhoeht die Abwehr um 8";
-                Main.buffName[6] = "Mana-Wiederherstellung";
-                Main.buffTip[6] = "Erhoehte Mana-Wiederherstellung";
-                Main.buffName[7] = "Magiekraft";
-                Main.buffTip[7] = "Erhoeht magischen Schaden um 20%";
-                Main.buffName[8] = "Federsturz";
-                Main.buffTip[8] = "Zur Kontrolle der Sinkgeschwindigkeit UP oder DOWN druecken ";
-                Main.buffName[9] = "Hoehlenforscher";
-                Main.buffTip[9] = "Zeigt den Fundort von Schatz und Erz";
-                Main.buffName[10] = "Unsichtbarkeit";
-                Main.buffTip[10] = "Macht unsichtbar";
-                Main.buffName[11] = "Glanz";
-                Main.buffTip[11] = "Strahlt Licht aus";
-                Main.buffName[12] = "Nachteule";
-                Main.buffTip[12] = "Erhoehte Nachtsicht";
-                Main.buffName[13] = "Kampf";
-                Main.buffTip[13] = "Erhoehte Feind-Spawnrate";
-                Main.buffName[14] = "Dornen";
-                Main.buffTip[14] = "Auch die Angreifer erleiden Schaden";
-                Main.buffName[15] = "Wasserlaufen";
-                Main.buffTip[15] = "DOWN druecken, um aufs Wasser zu gehen";
-                Main.buffName[16] = "Bogenschiessen";
-                Main.buffTip[16] = "Um 20% erhoehter Pfeilschaden und -tempo";
-                Main.buffName[17] = "Jaeger";
-                Main.buffTip[17] = "Zeigt die Position von Feinden";
-                Main.buffName[18] = "Gravitation";
-                Main.buffTip[18] = "Zum Umkehren der Schwerkraft UP oder DOWN druecken";
-                Main.buffName[19] = "Lichtkugel";
-                Main.buffTip[19] = "Eine magische Kugel, die Licht verstroemt";
-                Main.buffName[20] = "Vergiftet";
-                Main.buffTip[20] = "Langsam entweicht das Leben";
-                Main.buffName[21] = "Krankheitstrank";
-                Main.buffTip[21] = "Kann keine Heil-Items mehr verbrauchen";
-                Main.buffName[22] = "Dunkelheit";
-                Main.buffTip[22] = "Schlechtere Sicht durch weniger Licht";
-                Main.buffName[23] = "Verflucht";
-                Main.buffTip[23] = "Kann keine Items verwenden";
-                Main.buffName[24] = "Flammenmeer!";
-                Main.buffTip[24] = "Langsam entweicht das Leben";
-                Main.buffName[25] = "Beschwipst";
-                Main.buffTip[25] = "Erhoehte Nahkampffaehigkeiten, verminderte Abwehr";
-                Main.buffName[26] = "Kleine Staerkung";
-                Main.buffTip[26] = "Geringe Anhebung aller Werte";
-                Main.buffName[27] = "Fee";
-                Main.buffTip[27] = "Eine Fee folgt dir";
-                Main.buffName[28] = "Werwolf";
-                Main.buffTip[28] = "Koerperliche Faehigkeiten sind gestiegen";
-                Main.buffName[29] = "Hellsehen";
-                Main.buffTip[29] = "Magiekraefte werden erhoeht";
-                Main.buffName[30] = "Blutung";
-                Main.buffTip[30] = "Kann nicht wiederbeleben";
-                Main.buffName[31] = "Verwirrt";
-                Main.buffTip[31] = "Bewegung wird umgekehrt";
-                Main.buffName[32] = "Langsam";
-                Main.buffTip[32] = "Bewegungen werden verlangsamt";
-                Main.buffName[33] = "Schwach";
-                Main.buffTip[33] = "Koerperliche Faehigkeiten sind gesunken";
-                Main.buffName[34] = "Meermenschen";
-                Main.buffTip[34] = "Kann atmen und  sich leicht unter Wasser bewegen";
-                Main.buffName[35] = "Schweigen";
-                Main.buffTip[35] = "Nicht verwenden können Gegenstände, die Mana benötigen";
-                Main.buffName[36] = "Kaputte Ruestung";
-                Main.buffTip[36] = "Die Abwehr ist halbiert worden";
-                Main.buffName[37] = "Entsetzt";
-                Main.buffTip[37] = "Du hast etwas Ekliges gesehen, es gibt kein Entrinnen.";
-                Main.buffName[38] = "Die Zunge";
-                Main.buffTip[38] = "Du wirst ins Maul eingesaugt";
-                Main.buffName[39] = "Verfluchtes Inferno";
-                Main.buffTip[39] = "Das Leben entweicht";
-                Main.buffName[40] = "Haustierhäschen";
-                Main.buffTip[40] = "Ich denke, sie will deine Karotte";
-                Main.buffName[41] = "Baby-Pinguin";
-                Main.buffTip[41] = "Ich denke, sie will Ihre Fische";
-                Main.buffName[42] = "Haustier Schildkröte";
-                Main.buffTip[42] = "Glückliche Schildkröte Zeit!";
-                Main.buffName[43] = "Paladin Schild";
-                Main.buffTip[43] = "25% der Schäden getroffen werden, um einen anderen Spieler umgeleitet werden";
-                Main.buffName[44] = "Frost brennen";
-                Main.buffTip[44] = "Es ist entweder sehr heiß oder sehr kalt. So oder so ist es wirklich weh tut";
-                Main.buffName[45] = "Baby Esser";
-                Main.buffTip[45] = "Ein Baby-Eater of Souls wird Ihnen folgen";
-                Main.buffName[46] = "Gekühlt";
-                Main.buffTip[46] = "Ihre Bewegungsgeschwindigkeit verringert wurde";
-                Main.buffName[47] = "eingefroren";
-                Main.buffTip[47] = "Sie können sich nicht bewegen!";
-                Main.buffName[48] = "Liebling";
-                Main.buffTip[48] = "Leben Regeneration erhöht";
-                Main.buffName[49] = "Pygmäen";
-                Main.buffTip[49] = "Die Pygmäen wird für euch streiten";
-                Main.buffName[50] = "Baby-Skeletron Kopf";
-                Main.buffTip[50] = "Noch nicht einmal fragen ...";
-                Main.buffName[51] = "Baby-Hornet";
-                Main.buffTip[51] = "Es denkt, du bist seine Mutter";
-                Main.buffName[52] = "Tiki Geist";
-                Main.buffTip[52] = "Ein freundlicher Geist verfolgt dich";
-                Main.buffName[53] = "Haustier Eidechse";
-                Main.buffTip[53] = "Chillin 'wie ein Reptil";
-                Main.buffName[54] = "Papagei";
-                Main.buffTip[54] = "Polly Mangel ist der Cracker";
-                Main.buffName[55] = "Baby Trüffel";
-                Main.buffTip[55] = "Ist das nicht gerade soooo süß?";
-                Main.buffName[56] = "Bäumchen";
-                Main.buffTip[56] = "Ein kleines Bäumchen Ihnen folgt";
-                Main.buffName[57] = "Irrlicht";
-                Main.buffTip[57] = "Ein Hauch Ihnen folgt";
-                Main.buffName[58] = "Schnelle Heilung";
-                Main.buffTip[58] = "Leben Regeneration stark erhöht";
-                Main.buffName[59] = "Schatten Ausweichen";
-                Main.buffTip[59] = "Sie werden den nächsten Angriff ausweichen";
-                Main.buffName[60] = "Blatt Kristall";
-                Main.buffTip[60] = "Shoots Kristall fährt um Feinde in der Nähe";
-                Main.buffName[61] = "Baby-Dinosaurier";
-                Main.buffTip[61] = "Ein Baby-Dinosaurier Ihnen folgt";
-                Main.buffName[62] = "Eisbarriere";
-                Main.buffTip[62] = "Verteidigung ist um 30 erhöht";
-                Main.buffName[63] = "Panik!";
-                Main.buffTip[63] = "Die Bewegungsgeschwindigkeit wird erhöht";
-                Main.buffName[64] = "Baby Schleim";
-                Main.buffTip[64] = "Das Baby Schleim wird für euch streiten";
-                Main.buffName[65] = "Augapfel Frühling";
-                Main.buffTip[65] = "Ein Augapfel Frühjahr Ihnen folgt";
-                Main.buffName[66] = "Baby-Schneemann";
-                Main.buffTip[66] = "Ein Baby-Schneemann Ihnen folgt";
-                Main.buffName[67] = "Brennen";
-                Main.buffTip[67] = "Losing Leben und verlangsamte Bewegung";
-                Main.buffName[68] = "Erstickung";
-                Main.buffTip[68] = "Losing Leben";
-                Main.buffName[69] = "Ichor";
-                Main.buffTip[69] = "Statt Verteidigung";
-                Main.buffName[70] = "Gift 2";
-                Main.buffTip[70] = "Losing Leben";
-                Main.buffName[72] = "Midas";
-                Main.buffTip[72] = "Lassen Sie mehr Geld auf den Tod";
-                Main.buffName[80] = "Blackout";
-                Main.buffTip[80] = "Licht Vision stark reduziert";
-                Main.buffName[71] = "Waffe verleihen: Gift 2";
-                Main.buffTip[71] = "Nahkampfangriffe verursachen Gift auf Ihre Ziele";
-                Main.buffName[73] = "Waffe verleihen: verflucht Flammen";
-                Main.buffTip[73] = "Nahkampfangriffe verursachen Feinde verflucht mit Flammen";
-                Main.buffName[74] = "Waffe verleihen: Feuer";
-                Main.buffTip[74] = "Nahkampfangriffe gesetzt Feinde";
-                Main.buffName[75] = "Waffe verleihen: Gold";
-                Main.buffTip[75] = "Nahkampfangriffe Feinde machen fallen mehr Gold";
-                Main.buffName[76] = "Waffe verleihen: Ichor";
-                Main.buffTip[76] = "Nahkampfangriffe verringern Feinde Verteidigung";
-                Main.buffName[77] = "Waffe verleihen: Nanites";
-                Main.buffTip[77] = "Nahkampfangriffe verwirren Feinde";
-                Main.buffName[78] = "Waffe verleihen: Konfetti";
-                Main.buffTip[78] = "Nahkampfangriffe verursachen Konfetti zu erscheinen";
-                Main.buffName[79] = "Waffe verleihen: Gift";
-                Main.buffTip[79] = "Nahkampfangriffe Gift Feinde";
+                Game1.buffName[1] = "Obsidianhaut";
+                Game1.buffTip[1] = "Immun gegen Lava";
+                Game1.buffName[2] = "Wiederbelebung";
+                Game1.buffTip[2] = "Belebt wieder";
+                Game1.buffName[3] = "Wendigkeit";
+                Game1.buffTip[3] = "Erhoeht Bewegungstempo um 25%";
+                Game1.buffName[4] = "Kiemen";
+                Game1.buffTip[4] = "Wasser statt Luft atmen";
+                Game1.buffName[5] = "Eisenhaut";
+                Game1.buffTip[5] = "Erhoeht die Abwehr um 8";
+                Game1.buffName[6] = "Mana-Wiederherstellung";
+                Game1.buffTip[6] = "Erhoehte Mana-Wiederherstellung";
+                Game1.buffName[7] = "Magiekraft";
+                Game1.buffTip[7] = "Erhoeht magischen Schaden um 20%";
+                Game1.buffName[8] = "Federsturz";
+                Game1.buffTip[8] = "Zur Kontrolle der Sinkgeschwindigkeit UP oder DOWN druecken ";
+                Game1.buffName[9] = "Hoehlenforscher";
+                Game1.buffTip[9] = "Zeigt den Fundort von Schatz und Erz";
+                Game1.buffName[10] = "Unsichtbarkeit";
+                Game1.buffTip[10] = "Macht unsichtbar";
+                Game1.buffName[11] = "Glanz";
+                Game1.buffTip[11] = "Strahlt Licht aus";
+                Game1.buffName[12] = "Nachteule";
+                Game1.buffTip[12] = "Erhoehte Nachtsicht";
+                Game1.buffName[13] = "Kampf";
+                Game1.buffTip[13] = "Erhoehte Feind-Spawnrate";
+                Game1.buffName[14] = "Dornen";
+                Game1.buffTip[14] = "Auch die Angreifer erleiden Schaden";
+                Game1.buffName[15] = "Wasserlaufen";
+                Game1.buffTip[15] = "DOWN druecken, um aufs Wasser zu gehen";
+                Game1.buffName[16] = "Bogenschiessen";
+                Game1.buffTip[16] = "Um 20% erhoehter Pfeilschaden und -tempo";
+                Game1.buffName[17] = "Jaeger";
+                Game1.buffTip[17] = "Zeigt die Position von Feinden";
+                Game1.buffName[18] = "Gravitation";
+                Game1.buffTip[18] = "Zum Umkehren der Schwerkraft UP oder DOWN druecken";
+                Game1.buffName[19] = "Lichtkugel";
+                Game1.buffTip[19] = "Eine magische Kugel, die Licht verstroemt";
+                Game1.buffName[20] = "Vergiftet";
+                Game1.buffTip[20] = "Langsam entweicht das Leben";
+                Game1.buffName[21] = "Krankheitstrank";
+                Game1.buffTip[21] = "Kann keine Heil-Items mehr verbrauchen";
+                Game1.buffName[22] = "Dunkelheit";
+                Game1.buffTip[22] = "Schlechtere Sicht durch weniger Licht";
+                Game1.buffName[23] = "Verflucht";
+                Game1.buffTip[23] = "Kann keine Items verwenden";
+                Game1.buffName[24] = "Flammenmeer!";
+                Game1.buffTip[24] = "Langsam entweicht das Leben";
+                Game1.buffName[25] = "Beschwipst";
+                Game1.buffTip[25] = "Erhoehte Nahkampffaehigkeiten, verminderte Abwehr";
+                Game1.buffName[26] = "Kleine Staerkung";
+                Game1.buffTip[26] = "Geringe Anhebung aller Werte";
+                Game1.buffName[27] = "Fee";
+                Game1.buffTip[27] = "Eine Fee folgt dir";
+                Game1.buffName[28] = "Werwolf";
+                Game1.buffTip[28] = "Koerperliche Faehigkeiten sind gestiegen";
+                Game1.buffName[29] = "Hellsehen";
+                Game1.buffTip[29] = "Magiekraefte werden erhoeht";
+                Game1.buffName[30] = "Blutung";
+                Game1.buffTip[30] = "Kann nicht wiederbeleben";
+                Game1.buffName[31] = "Verwirrt";
+                Game1.buffTip[31] = "Bewegung wird umgekehrt";
+                Game1.buffName[32] = "Langsam";
+                Game1.buffTip[32] = "Bewegungen werden verlangsamt";
+                Game1.buffName[33] = "Schwach";
+                Game1.buffTip[33] = "Koerperliche Faehigkeiten sind gesunken";
+                Game1.buffName[34] = "Meermenschen";
+                Game1.buffTip[34] = "Kann atmen und  sich leicht unter Wasser bewegen";
+                Game1.buffName[35] = "Schweigen";
+                Game1.buffTip[35] = "Nicht verwenden können Gegenstände, die Mana benötigen";
+                Game1.buffName[36] = "Kaputte Ruestung";
+                Game1.buffTip[36] = "Die Abwehr ist halbiert worden";
+                Game1.buffName[37] = "Entsetzt";
+                Game1.buffTip[37] = "Du hast etwas Ekliges gesehen, es gibt kein Entrinnen.";
+                Game1.buffName[38] = "Die Zunge";
+                Game1.buffTip[38] = "Du wirst ins Maul eingesaugt";
+                Game1.buffName[39] = "Verfluchtes Inferno";
+                Game1.buffTip[39] = "Das Leben entweicht";
+                Game1.buffName[40] = "Haustierhäschen";
+                Game1.buffTip[40] = "Ich denke, sie will deine Karotte";
+                Game1.buffName[41] = "Baby-Pinguin";
+                Game1.buffTip[41] = "Ich denke, sie will Ihre Fische";
+                Game1.buffName[42] = "Haustier Schildkröte";
+                Game1.buffTip[42] = "Glückliche Schildkröte Zeit!";
+                Game1.buffName[43] = "Paladin Schild";
+                Game1.buffTip[43] = "25% der Schäden getroffen werden, um einen anderen Spieler umgeleitet werden";
+                Game1.buffName[44] = "Frost brennen";
+                Game1.buffTip[44] = "Es ist entweder sehr heiß oder sehr kalt. So oder so ist es wirklich weh tut";
+                Game1.buffName[45] = "Baby Esser";
+                Game1.buffTip[45] = "Ein Baby-Eater of Souls wird Ihnen folgen";
+                Game1.buffName[46] = "Gekühlt";
+                Game1.buffTip[46] = "Ihre Bewegungsgeschwindigkeit verringert wurde";
+                Game1.buffName[47] = "eingefroren";
+                Game1.buffTip[47] = "Sie können sich nicht bewegen!";
+                Game1.buffName[48] = "Liebling";
+                Game1.buffTip[48] = "Leben Regeneration erhöht";
+                Game1.buffName[49] = "Pygmäen";
+                Game1.buffTip[49] = "Die Pygmäen wird für euch streiten";
+                Game1.buffName[50] = "Baby-Skeletron Kopf";
+                Game1.buffTip[50] = "Noch nicht einmal fragen ...";
+                Game1.buffName[51] = "Baby-Hornet";
+                Game1.buffTip[51] = "Es denkt, du bist seine Mutter";
+                Game1.buffName[52] = "Tiki Geist";
+                Game1.buffTip[52] = "Ein freundlicher Geist verfolgt dich";
+                Game1.buffName[53] = "Haustier Eidechse";
+                Game1.buffTip[53] = "Chillin 'wie ein Reptil";
+                Game1.buffName[54] = "Papagei";
+                Game1.buffTip[54] = "Polly Mangel ist der Cracker";
+                Game1.buffName[55] = "Baby Trüffel";
+                Game1.buffTip[55] = "Ist das nicht gerade soooo süß?";
+                Game1.buffName[56] = "Bäumchen";
+                Game1.buffTip[56] = "Ein kleines Bäumchen Ihnen folgt";
+                Game1.buffName[57] = "Irrlicht";
+                Game1.buffTip[57] = "Ein Hauch Ihnen folgt";
+                Game1.buffName[58] = "Schnelle Heilung";
+                Game1.buffTip[58] = "Leben Regeneration stark erhöht";
+                Game1.buffName[59] = "Schatten Ausweichen";
+                Game1.buffTip[59] = "Sie werden den nächsten Angriff ausweichen";
+                Game1.buffName[60] = "Blatt Kristall";
+                Game1.buffTip[60] = "Shoots Kristall fährt um Feinde in der Nähe";
+                Game1.buffName[61] = "Baby-Dinosaurier";
+                Game1.buffTip[61] = "Ein Baby-Dinosaurier Ihnen folgt";
+                Game1.buffName[62] = "Eisbarriere";
+                Game1.buffTip[62] = "Verteidigung ist um 30 erhöht";
+                Game1.buffName[63] = "Panik!";
+                Game1.buffTip[63] = "Die Bewegungsgeschwindigkeit wird erhöht";
+                Game1.buffName[64] = "Baby Schleim";
+                Game1.buffTip[64] = "Das Baby Schleim wird für euch streiten";
+                Game1.buffName[65] = "Augapfel Frühling";
+                Game1.buffTip[65] = "Ein Augapfel Frühjahr Ihnen folgt";
+                Game1.buffName[66] = "Baby-Schneemann";
+                Game1.buffTip[66] = "Ein Baby-Schneemann Ihnen folgt";
+                Game1.buffName[67] = "Brennen";
+                Game1.buffTip[67] = "Losing Leben und verlangsamte Bewegung";
+                Game1.buffName[68] = "Erstickung";
+                Game1.buffTip[68] = "Losing Leben";
+                Game1.buffName[69] = "Ichor";
+                Game1.buffTip[69] = "Statt Verteidigung";
+                Game1.buffName[70] = "Gift 2";
+                Game1.buffTip[70] = "Losing Leben";
+                Game1.buffName[72] = "Midas";
+                Game1.buffTip[72] = "Lassen Sie mehr Geld auf den Tod";
+                Game1.buffName[80] = "Blackout";
+                Game1.buffTip[80] = "Licht Vision stark reduziert";
+                Game1.buffName[71] = "Waffe verleihen: Gift 2";
+                Game1.buffTip[71] = "Nahkampfangriffe verursachen Gift auf Ihre Ziele";
+                Game1.buffName[73] = "Waffe verleihen: verflucht Flammen";
+                Game1.buffTip[73] = "Nahkampfangriffe verursachen Feinde verflucht mit Flammen";
+                Game1.buffName[74] = "Waffe verleihen: Feuer";
+                Game1.buffTip[74] = "Nahkampfangriffe gesetzt Feinde";
+                Game1.buffName[75] = "Waffe verleihen: Gold";
+                Game1.buffTip[75] = "Nahkampfangriffe Feinde machen fallen mehr Gold";
+                Game1.buffName[76] = "Waffe verleihen: Ichor";
+                Game1.buffTip[76] = "Nahkampfangriffe verringern Feinde Verteidigung";
+                Game1.buffName[77] = "Waffe verleihen: Nanites";
+                Game1.buffTip[77] = "Nahkampfangriffe verwirren Feinde";
+                Game1.buffName[78] = "Waffe verleihen: Konfetti";
+                Game1.buffTip[78] = "Nahkampfangriffe verursachen Konfetti zu erscheinen";
+                Game1.buffName[79] = "Waffe verleihen: Gift";
+                Game1.buffTip[79] = "Nahkampfangriffe Gift Feinde";
                 Lang.mapLegend[MapHelper.TileToLookup(13, 0)] = "Flasche";
                 Lang.mapLegend[MapHelper.TileToLookup(14, 0)] = "Tabelle";
                 Lang.mapLegend[MapHelper.TileToLookup(15, 0)] = "Stuhl";
@@ -33864,166 +33864,166 @@ namespace GameManager
                 Lang.the = "la ";
                 Lang.dt[0] = "non ha trovato l'antidoto";
                 Lang.dt[1] = "non ha spento il fuoco";
-                Main.buffName[1] = "Pelle ossidiana";
-                Main.buffTip[1] = "Immune alla lava";
-                Main.buffName[2] = "Rigenerazione";
-                Main.buffTip[2] = "Rigenera la vita";
-                Main.buffName[3] = "Velocità";
-                Main.buffTip[3] = "Velocità di movimento aumentata del 25%";
-                Main.buffName[4] = "Branchie";
-                Main.buffTip[4] = "Respira acqua invece di aria";
-                Main.buffName[5] = "Pelle di ferro";
-                Main.buffTip[5] = "Aumenta la difesa di 8";
-                Main.buffName[6] = "Rigenerazione mana";
-                Main.buffTip[6] = "Aumenta la rigenerazione del mana";
-                Main.buffName[7] = "Potere magico";
-                Main.buffTip[7] = "Danno magico aumentato del 20%";
-                Main.buffName[8] = "Cascata di piume";
-                Main.buffTip[8] = "Premi UP o DOWN per controllare la velocità di discesa";
-                Main.buffName[9] = "Speleologo";
-                Main.buffTip[9] = "Mostra l'ubicazione di tesori e minerale";
-                Main.buffName[10] = "Invisibilità";
-                Main.buffTip[10] = "Rende invisibili";
-                Main.buffName[11] = "Brillantezza";
-                Main.buffTip[11] = "Emette luce";
-                Main.buffName[12] = "Civetta notturna";
-                Main.buffTip[12] = "Visione notturna aumentata";
-                Main.buffName[13] = "Battaglia";
-                Main.buffTip[13] = "Ritmo generazione nemici aumentato";
-                Main.buffName[14] = "Spine";
-                Main.buffTip[14] = "Anche gli aggressori subiscono danni";
-                Main.buffName[15] = "Camminata nell'acqua";
-                Main.buffTip[15] = "Premi DOWN per entrare nell'acqua";
-                Main.buffName[16] = "Arco";
-                Main.buffTip[16] = "Danno e velocià freccia aumentati del 20%";
-                Main.buffName[17] = "Cacciatore";
-                Main.buffTip[17] = "Mostra la posizione dei nemici";
-                Main.buffName[18] = "Gravità";
-                Main.buffTip[18] = "Premi UP o DOWN per invertire la gravità";
-                Main.buffName[19] = "Orbita di luce";
-                Main.buffTip[19] = "Sfera magica che fornisce luce";
-                Main.buffName[20] = "Avvelenato";
-                Main.buffTip[20] = "Perdi lentamente la vita";
-                Main.buffName[21] = "Malattia pozione";
-                Main.buffTip[21] = "Non si possono più consumare oggetti curativi";
-                Main.buffName[22] = "Oscurità";
-                Main.buffTip[22] = "Diminuita visione della luce";
-                Main.buffName[23] = "Maledetto";
-                Main.buffTip[23] = "Non si possono più utilizzare oggetti";
-                Main.buffName[24] = "A fuoco!";
-                Main.buffTip[24] = "Perdi lentamente la vita";
-                Main.buffName[25] = "Brillo";
-                Main.buffTip[25] = "Abilità corpo a corpo aumentata, difesa abbassata";
-                Main.buffName[26] = "Ben nutrito";
-                Main.buffTip[26] = "Migliorie minori a tutti i parametri";
-                Main.buffName[27] = "Fata";
-                Main.buffTip[27] = "Una fata ti sta seguendo";
-                Main.buffName[28] = "Lupo mannaro";
-                Main.buffTip[28] = "Abilità fisiche aumentate";
-                Main.buffName[29] = "Chiaroveggenza";
-                Main.buffTip[29] = "Poteri magici aumentati";
-                Main.buffName[30] = "Emorragia";
-                Main.buffTip[30] = "Impossibile rigenerare vita";
-                Main.buffName[31] = "Confuso";
-                Main.buffTip[31] = "Movimento invertito";
-                Main.buffName[32] = "Lento";
-                Main.buffTip[32] = "Ridotta velocità movimento";
-                Main.buffName[33] = "Debole";
-                Main.buffTip[33] = "Abilità fisiche diminuite";
-                Main.buffName[34] = "Tritone";
-                Main.buffTip[34] = "Può respirare e muoversi facilmente sott'acqua";
-                Main.buffName[35] = "Tacere";
-                Main.buffTip[35] = "Non possono utilizzare gli elementi che richiedono mana";
-                Main.buffName[36] = "Armatura rotta";
-                Main.buffTip[36] = "La difesa è dimezzata";
-                Main.buffName[37] = "Inorridito";
-                Main.buffTip[37] = "Hai visto qualcosa di orribile, non c'è via di scampo.";
-                Main.buffName[38] = "La Lingua";
-                Main.buffTip[38] = "Sei stato succhiato nella bocca";
-                Main.buffName[39] = "Inferno maledetto";
-                Main.buffTip[39] = "Perdi la vita";
-                Main.buffName[40] = "Animale coniglio";
-                Main.buffTip[40] = "Penso che vuole la tua carota";
-                Main.buffName[41] = "baby pinguino";
-                Main.buffTip[41] = "Penso che vuole il vostro pesce";
-                Main.buffName[42] = "tartaruga";
-                Main.buffTip[42] = "Tempo tartaruga felice!";
-                Main.buffName[43] = "Scudo Paladino";
-                Main.buffTip[43] = "Il 25% dei danni subiti sarà reindirizzato ad un altro giocatore";
-                Main.buffName[44] = "gelo ustione";
-                Main.buffTip[44] = "E 'sia davvero caldo o molto freddo. In entrambi i casi fa davvero male";
-                Main.buffName[45] = "bambino Eater";
-                Main.buffTip[45] = "Un bambino Eater of Souls ti sta seguendo";
-                Main.buffName[46] = "refrigerate";
-                Main.buffTip[46] = "La velocità di movimento è stato ridotto";
-                Main.buffName[47] = "congelato";
-                Main.buffTip[47] = "Non è possibile spostare!";
-                Main.buffName[48] = "dolcezza";
-                Main.buffTip[48] = "La vita di rigenerazione viene aumentata";
-                Main.buffName[49] = "pigmei";
-                Main.buffTip[49] = "I pigmei combatteranno per voi";
-                Main.buffName[50] = "Bambino Skeletron Capo";
-                Main.buffTip[50] = "Non hanno nemmeno chiedere ...";
-                Main.buffName[51] = "bambino Hornet";
-                Main.buffTip[51] = "Si pensa che tu sia sua madre";
-                Main.buffName[52] = "Tiki Spirito";
-                Main.buffTip[52] = "Uno spirito amichevole ti sta seguendo";
-                Main.buffName[53] = "lucertola";
-                Main.buffTip[53] = "Chillin 'come un rettile";
-                Main.buffName[54] = "Pet Parrot";
-                Main.buffTip[54] = "Polly want è il cracker";
-                Main.buffName[55] = "tartufo bambino";
-                Main.buffTip[55] = "Non è questo solo soooo cute?";
-                Main.buffName[56] = "Pet Alberello";
-                Main.buffTip[56] = "Un piccolo alberello ti sta seguendo";
-                Main.buffName[57] = "Wisp";
-                Main.buffTip[57] = "Un filo ti sta seguendo";
-                Main.buffName[58] = "rapida guarigione";
-                Main.buffTip[58] = "Vita rigenerazione è notevolmente aumentato";
-                Main.buffName[59] = "ombra Dodge";
-                Main.buffTip[59] = "Potrai schivare il prossimo attacco";
-                Main.buffName[60] = "foglia di cristallo";
-                Main.buffTip[60] = "Lascia cristallo spara a nemici nelle vicinanze";
-                Main.buffName[61] = "cucciolo di dinosauro";
-                Main.buffTip[61] = "Un dinosauro bambino ti sta seguendo";
-                Main.buffName[62] = "Barriera di Ghiaccio";
-                Main.buffTip[62] = "La difesa è aumentata del 30";
-                Main.buffName[63] = "panico!";
-                Main.buffTip[63] = "Velocità di movimento è aumentata";
-                Main.buffName[64] = "bambino Slime";
-                Main.buffTip[64] = "Il bambino melma combatterà per voi";
-                Main.buffName[65] = "Eyeball Primavera";
-                Main.buffTip[65] = "Una molla bulbo oculare ti sta seguendo";
-                Main.buffName[66] = "bambino Snowman";
-                Main.buffTip[66] = "Un pupazzo di neve bambino ti sta seguendo";
-                Main.buffName[67] = "Masterizzazione";
-                Main.buffTip[67] = "Perdere la vita e rallentato il movimento";
-                Main.buffName[68] = "soffocamento";
-                Main.buffTip[68] = "perdere la vita";
-                Main.buffName[69] = "Ichor";
-                Main.buffTip[69] = "difesa ridotto";
-                Main.buffName[70] = "Venom";
-                Main.buffTip[70] = "perdere la vita";
-                Main.buffName[72] = "Midas";
-                Main.buffTip[72] = "Goccia più soldi sulla morte";
-                Main.buffName[80] = "Blackout";
-                Main.buffTip[80] = "Vision Light notevolmente ridotta";
-                Main.buffName[71] = "Arma Imbue: veleno";
-                Main.buffTip[71] = "Attacchi in mischia infliggono veleno sui tuoi obiettivi";
-                Main.buffName[73] = "Arma Imbue: Fiamme Cursed";
-                Main.buffTip[73] = "Attacchi in mischia infliggono nemici con fiamme maledette";
-                Main.buffName[74] = "Arma Imbue: Fuoco";
-                Main.buffTip[74] = "Attacchi corpo a corpo impostati nemici in fiamme";
-                Main.buffName[75] = "Arma Imbue: Gold";
-                Main.buffTip[75] = "Attacchi corpo a corpo i nemici fanno cadere più oro";
-                Main.buffName[76] = "Arma Imbue: Ichor";
-                Main.buffTip[76] = "Attacchi corpo a corpo diminuiscono nemici difesa";
-                Main.buffName[77] = "Arma Imbue: Nanites";
-                Main.buffTip[77] = "Attacchi corpo a corpo confondono i nemici";
-                Main.buffName[78] = "Arma Imbue: Confetti";
-                Main.buffTip[78] = "Attacchi corpo a corpo causano a comparire coriandoli";
-                Main.buffName[79] = "Arma Imbue: Poison";
-                Main.buffTip[79] = "Mischia attacca nemici veleno";
+                Game1.buffName[1] = "Pelle ossidiana";
+                Game1.buffTip[1] = "Immune alla lava";
+                Game1.buffName[2] = "Rigenerazione";
+                Game1.buffTip[2] = "Rigenera la vita";
+                Game1.buffName[3] = "Velocità";
+                Game1.buffTip[3] = "Velocità di movimento aumentata del 25%";
+                Game1.buffName[4] = "Branchie";
+                Game1.buffTip[4] = "Respira acqua invece di aria";
+                Game1.buffName[5] = "Pelle di ferro";
+                Game1.buffTip[5] = "Aumenta la difesa di 8";
+                Game1.buffName[6] = "Rigenerazione mana";
+                Game1.buffTip[6] = "Aumenta la rigenerazione del mana";
+                Game1.buffName[7] = "Potere magico";
+                Game1.buffTip[7] = "Danno magico aumentato del 20%";
+                Game1.buffName[8] = "Cascata di piume";
+                Game1.buffTip[8] = "Premi UP o DOWN per controllare la velocità di discesa";
+                Game1.buffName[9] = "Speleologo";
+                Game1.buffTip[9] = "Mostra l'ubicazione di tesori e minerale";
+                Game1.buffName[10] = "Invisibilità";
+                Game1.buffTip[10] = "Rende invisibili";
+                Game1.buffName[11] = "Brillantezza";
+                Game1.buffTip[11] = "Emette luce";
+                Game1.buffName[12] = "Civetta notturna";
+                Game1.buffTip[12] = "Visione notturna aumentata";
+                Game1.buffName[13] = "Battaglia";
+                Game1.buffTip[13] = "Ritmo generazione nemici aumentato";
+                Game1.buffName[14] = "Spine";
+                Game1.buffTip[14] = "Anche gli aggressori subiscono danni";
+                Game1.buffName[15] = "Camminata nell'acqua";
+                Game1.buffTip[15] = "Premi DOWN per entrare nell'acqua";
+                Game1.buffName[16] = "Arco";
+                Game1.buffTip[16] = "Danno e velocià freccia aumentati del 20%";
+                Game1.buffName[17] = "Cacciatore";
+                Game1.buffTip[17] = "Mostra la posizione dei nemici";
+                Game1.buffName[18] = "Gravità";
+                Game1.buffTip[18] = "Premi UP o DOWN per invertire la gravità";
+                Game1.buffName[19] = "Orbita di luce";
+                Game1.buffTip[19] = "Sfera magica che fornisce luce";
+                Game1.buffName[20] = "Avvelenato";
+                Game1.buffTip[20] = "Perdi lentamente la vita";
+                Game1.buffName[21] = "Malattia pozione";
+                Game1.buffTip[21] = "Non si possono più consumare oggetti curativi";
+                Game1.buffName[22] = "Oscurità";
+                Game1.buffTip[22] = "Diminuita visione della luce";
+                Game1.buffName[23] = "Maledetto";
+                Game1.buffTip[23] = "Non si possono più utilizzare oggetti";
+                Game1.buffName[24] = "A fuoco!";
+                Game1.buffTip[24] = "Perdi lentamente la vita";
+                Game1.buffName[25] = "Brillo";
+                Game1.buffTip[25] = "Abilità corpo a corpo aumentata, difesa abbassata";
+                Game1.buffName[26] = "Ben nutrito";
+                Game1.buffTip[26] = "Migliorie minori a tutti i parametri";
+                Game1.buffName[27] = "Fata";
+                Game1.buffTip[27] = "Una fata ti sta seguendo";
+                Game1.buffName[28] = "Lupo mannaro";
+                Game1.buffTip[28] = "Abilità fisiche aumentate";
+                Game1.buffName[29] = "Chiaroveggenza";
+                Game1.buffTip[29] = "Poteri magici aumentati";
+                Game1.buffName[30] = "Emorragia";
+                Game1.buffTip[30] = "Impossibile rigenerare vita";
+                Game1.buffName[31] = "Confuso";
+                Game1.buffTip[31] = "Movimento invertito";
+                Game1.buffName[32] = "Lento";
+                Game1.buffTip[32] = "Ridotta velocità movimento";
+                Game1.buffName[33] = "Debole";
+                Game1.buffTip[33] = "Abilità fisiche diminuite";
+                Game1.buffName[34] = "Tritone";
+                Game1.buffTip[34] = "Può respirare e muoversi facilmente sott'acqua";
+                Game1.buffName[35] = "Tacere";
+                Game1.buffTip[35] = "Non possono utilizzare gli elementi che richiedono mana";
+                Game1.buffName[36] = "Armatura rotta";
+                Game1.buffTip[36] = "La difesa è dimezzata";
+                Game1.buffName[37] = "Inorridito";
+                Game1.buffTip[37] = "Hai visto qualcosa di orribile, non c'è via di scampo.";
+                Game1.buffName[38] = "La Lingua";
+                Game1.buffTip[38] = "Sei stato succhiato nella bocca";
+                Game1.buffName[39] = "Inferno maledetto";
+                Game1.buffTip[39] = "Perdi la vita";
+                Game1.buffName[40] = "Animale coniglio";
+                Game1.buffTip[40] = "Penso che vuole la tua carota";
+                Game1.buffName[41] = "baby pinguino";
+                Game1.buffTip[41] = "Penso che vuole il vostro pesce";
+                Game1.buffName[42] = "tartaruga";
+                Game1.buffTip[42] = "Tempo tartaruga felice!";
+                Game1.buffName[43] = "Scudo Paladino";
+                Game1.buffTip[43] = "Il 25% dei danni subiti sarà reindirizzato ad un altro giocatore";
+                Game1.buffName[44] = "gelo ustione";
+                Game1.buffTip[44] = "E 'sia davvero caldo o molto freddo. In entrambi i casi fa davvero male";
+                Game1.buffName[45] = "bambino Eater";
+                Game1.buffTip[45] = "Un bambino Eater of Souls ti sta seguendo";
+                Game1.buffName[46] = "refrigerate";
+                Game1.buffTip[46] = "La velocità di movimento è stato ridotto";
+                Game1.buffName[47] = "congelato";
+                Game1.buffTip[47] = "Non è possibile spostare!";
+                Game1.buffName[48] = "dolcezza";
+                Game1.buffTip[48] = "La vita di rigenerazione viene aumentata";
+                Game1.buffName[49] = "pigmei";
+                Game1.buffTip[49] = "I pigmei combatteranno per voi";
+                Game1.buffName[50] = "Bambino Skeletron Capo";
+                Game1.buffTip[50] = "Non hanno nemmeno chiedere ...";
+                Game1.buffName[51] = "bambino Hornet";
+                Game1.buffTip[51] = "Si pensa che tu sia sua madre";
+                Game1.buffName[52] = "Tiki Spirito";
+                Game1.buffTip[52] = "Uno spirito amichevole ti sta seguendo";
+                Game1.buffName[53] = "lucertola";
+                Game1.buffTip[53] = "Chillin 'come un rettile";
+                Game1.buffName[54] = "Pet Parrot";
+                Game1.buffTip[54] = "Polly want è il cracker";
+                Game1.buffName[55] = "tartufo bambino";
+                Game1.buffTip[55] = "Non è questo solo soooo cute?";
+                Game1.buffName[56] = "Pet Alberello";
+                Game1.buffTip[56] = "Un piccolo alberello ti sta seguendo";
+                Game1.buffName[57] = "Wisp";
+                Game1.buffTip[57] = "Un filo ti sta seguendo";
+                Game1.buffName[58] = "rapida guarigione";
+                Game1.buffTip[58] = "Vita rigenerazione è notevolmente aumentato";
+                Game1.buffName[59] = "ombra Dodge";
+                Game1.buffTip[59] = "Potrai schivare il prossimo attacco";
+                Game1.buffName[60] = "foglia di cristallo";
+                Game1.buffTip[60] = "Lascia cristallo spara a nemici nelle vicinanze";
+                Game1.buffName[61] = "cucciolo di dinosauro";
+                Game1.buffTip[61] = "Un dinosauro bambino ti sta seguendo";
+                Game1.buffName[62] = "Barriera di Ghiaccio";
+                Game1.buffTip[62] = "La difesa è aumentata del 30";
+                Game1.buffName[63] = "panico!";
+                Game1.buffTip[63] = "Velocità di movimento è aumentata";
+                Game1.buffName[64] = "bambino Slime";
+                Game1.buffTip[64] = "Il bambino melma combatterà per voi";
+                Game1.buffName[65] = "Eyeball Primavera";
+                Game1.buffTip[65] = "Una molla bulbo oculare ti sta seguendo";
+                Game1.buffName[66] = "bambino Snowman";
+                Game1.buffTip[66] = "Un pupazzo di neve bambino ti sta seguendo";
+                Game1.buffName[67] = "Masterizzazione";
+                Game1.buffTip[67] = "Perdere la vita e rallentato il movimento";
+                Game1.buffName[68] = "soffocamento";
+                Game1.buffTip[68] = "perdere la vita";
+                Game1.buffName[69] = "Ichor";
+                Game1.buffTip[69] = "difesa ridotto";
+                Game1.buffName[70] = "Venom";
+                Game1.buffTip[70] = "perdere la vita";
+                Game1.buffName[72] = "Midas";
+                Game1.buffTip[72] = "Goccia più soldi sulla morte";
+                Game1.buffName[80] = "Blackout";
+                Game1.buffTip[80] = "Vision Light notevolmente ridotta";
+                Game1.buffName[71] = "Arma Imbue: veleno";
+                Game1.buffTip[71] = "Attacchi in mischia infliggono veleno sui tuoi obiettivi";
+                Game1.buffName[73] = "Arma Imbue: Fiamme Cursed";
+                Game1.buffTip[73] = "Attacchi in mischia infliggono nemici con fiamme maledette";
+                Game1.buffName[74] = "Arma Imbue: Fuoco";
+                Game1.buffTip[74] = "Attacchi corpo a corpo impostati nemici in fiamme";
+                Game1.buffName[75] = "Arma Imbue: Gold";
+                Game1.buffTip[75] = "Attacchi corpo a corpo i nemici fanno cadere più oro";
+                Game1.buffName[76] = "Arma Imbue: Ichor";
+                Game1.buffTip[76] = "Attacchi corpo a corpo diminuiscono nemici difesa";
+                Game1.buffName[77] = "Arma Imbue: Nanites";
+                Game1.buffTip[77] = "Attacchi corpo a corpo confondono i nemici";
+                Game1.buffName[78] = "Arma Imbue: Confetti";
+                Game1.buffTip[78] = "Attacchi corpo a corpo causano a comparire coriandoli";
+                Game1.buffName[79] = "Arma Imbue: Poison";
+                Game1.buffTip[79] = "Mischia attacca nemici veleno";
                 Lang.mapLegend[MapHelper.TileToLookup(13, 0)] = "Bottiglia";
                 Lang.mapLegend[MapHelper.TileToLookup(14, 0)] = "Tavolo";
                 Lang.mapLegend[MapHelper.TileToLookup(15, 0)] = "Sedia";
@@ -34405,166 +34405,166 @@ namespace GameManager
                 Lang.the = "le ";
                 Lang.dt[0] = "n'a pas trouvé l'antidote";
                 Lang.dt[1] = "n'a pas réussi à éteindre l'incendie";
-                Main.buffName[1] = "Peau d'obsidienne";
-                Main.buffTip[1] = "Immunise contre la lave";
-                Main.buffName[2] = "Régénération";
-                Main.buffTip[2] = "Régénère la vie";
-                Main.buffName[3] = "Rapidité";
-                Main.buffTip[3] = "Augmente la vitesse de déplacement de 25 %";
-                Main.buffName[4] = "Branchies";
-                Main.buffTip[4] = "Permet de respirer sous l'eau comme dans l'air";
-                Main.buffName[5] = "Peau de fer";
-                Main.buffTip[5] = "Augmente la défense de 8";
-                Main.buffName[6] = "Régénération de mana";
-                Main.buffTip[6] = "Augmente la régénération de mana";
-                Main.buffName[7] = "Pouvoir magique";
-                Main.buffTip[7] = "Augmente les dégâts de magie de 20 %";
-                Main.buffName[8] = "Poids plume";
-                Main.buffTip[8] = "Appuyer sur Bas ou Haut pour contrôler la vitesse de descente";
-                Main.buffName[9] = "Spéléologue";
-                Main.buffTip[9] = "Indique l'emplacement des trésors et du minerai";
-                Main.buffName[10] = "Invisibilité";
-                Main.buffTip[10] = "Procure l'invisibilité";
-                Main.buffName[11] = "Brillance";
-                Main.buffTip[11] = "Emet une aura de lumière";
-                Main.buffName[12] = "Vision nocturne";
-                Main.buffTip[12] = "Améliore la vision de nuit";
-                Main.buffName[13] = "Bataille";
-                Main.buffTip[13] = "Augmente la vitesse d'apparition des ennemis";
-                Main.buffName[14] = "Épines";
-                Main.buffTip[14] = "Les attaquants subissent aussi des dégâts";
-                Main.buffName[15] = "Marche sur l'eau";
-                Main.buffTip[15] = "Appuyer sur Bas pour entrer dans l'eau";
-                Main.buffName[16] = "Tir à l'arc";
-                Main.buffTip[16] = "La vitesse et les dégâts des flèches augmentent de 20 %";
-                Main.buffName[17] = "Chasseur";
-                Main.buffTip[17] = "Indique l'emplacement des ennemis";
-                Main.buffName[18] = "Gravitation";
-                Main.buffTip[18] = "Appuyer sur Haut ou Bas pour inverser la gravité";
-                Main.buffName[19] = "Orbe de lumière";
-                Main.buffTip[19] = "Un orbe magique qui émet de la lumière";
-                Main.buffName[20] = "Empoisonnement";
-                Main.buffTip[20] = "Perte lente de vie";
-                Main.buffName[21] = "Nausée des potions";
-                Main.buffTip[21] = "Ne peut plus consommer de potions de soin";
-                Main.buffName[22] = "Obscurité";
-                Main.buffTip[22] = "Diminue la vision de nuit";
-                Main.buffName[23] = "Malédiction";
-                Main.buffTip[23] = "Ne peut utiliser aucun objet";
-                Main.buffName[24] = "En feu !";
-                Main.buffTip[24] = "Perte lente de vie";
-                Main.buffName[25] = "Ivresse";
-                Main.buffTip[25] = "Augmente les aptitudes de mêlée, diminue la défense";
-                Main.buffName[26] = "Bien nourri";
-                Main.buffTip[26] = "Amélioration mineure de toutes les stats.";
-                Main.buffName[27] = "Fée";
-                Main.buffTip[27] = "Une fée vous suit";
-                Main.buffName[28] = "Loup-garou";
-                Main.buffTip[28] = "Les aptitudes physiques sont augmentées";
-                Main.buffName[29] = "Clairvoyance";
-                Main.buffTip[29] = "Les pouvoirs magiques sont augmentés";
-                Main.buffName[30] = "Saignement";
-                Main.buffTip[30] = "Ne peut régénérer la vie";
-                Main.buffName[31] = "Confusion";
-                Main.buffTip[31] = "Les mouvements sont inversés";
-                Main.buffName[32] = "Ralentissement";
-                Main.buffTip[32] = "La vitesse de déplacement est réduite";
-                Main.buffName[33] = "Faiblesse";
-                Main.buffTip[33] = "Les aptitudes physiques sont diminuées";
-                Main.buffName[34] = "Peuple des mers";
-                Main.buffTip[34] = "Peut respirer et se déplacer sous l'eau facilement";
-                Main.buffName[35] = "Silencieux";
-                Main.buffTip[35] = "Ne peut pas utiliser des éléments qui nécessitent de mana";
-                Main.buffName[36] = "Armure brisée";
-                Main.buffTip[36] = "La défense est réduite de moitié";
-                Main.buffName[37] = "Peur panique";
-                Main.buffTip[37] = "Vous avez vu quelque chose de terrible et vous ne pouvez vous échapper.";
-                Main.buffName[38] = "La langue";
-                Main.buffTip[38] = "Vous vous êtes fait aspirer dans la bouche";
-                Main.buffName[39] = "Brasier maudit";
-                Main.buffTip[39] = "Perte de vie";
-                Main.buffName[40] = "Animal lapin";
-                Main.buffTip[40] = "Je pense qu'il veut votre carotte";
-                Main.buffName[41] = "bébé pingouin";
-                Main.buffTip[41] = "Je pense qu'il veut votre poisson";
-                Main.buffName[42] = "Animaux tortue";
-                Main.buffTip[42] = "Temps de tortue heureuse!";
-                Main.buffName[43] = "Bouclier de Paladin";
-                Main.buffTip[43] = "25% des dégâts subis sera redirigé vers un autre joueur";
-                Main.buffName[44] = "gel brûlure";
-                Main.buffTip[44] = "C'est soit très chaud ou très froid. De toute façon ça fait vraiment mal";
-                Main.buffName[45] = "Bébé Eater";
-                Main.buffTip[45] = "Un bébé Eater of Souls vous suit";
-                Main.buffName[46] = "réfrigéré";
-                Main.buffTip[46] = "Votre vitesse de déplacement a été réduite";
-                Main.buffName[47] = "congelé";
-                Main.buffTip[47] = "Vous ne pouvez pas déplacer!";
-                Main.buffName[48] = "chérie";
-                Main.buffTip[48] = "Régénération de vie est augmentée";
-                Main.buffName[49] = "Pygmées";
-                Main.buffTip[49] = "Les pygmées se battront pour vous";
-                Main.buffName[50] = "Bébé Skeletron Head";
-                Main.buffTip[50] = "Ne demandent même pas ...";
-                Main.buffName[51] = "Bébé Hornet";
-                Main.buffTip[51] = "Il pense que vous êtes sa mère";
-                Main.buffName[52] = "tiki esprit";
-                Main.buffTip[52] = "Un esprit convivial vous suit";
-                Main.buffName[53] = "lézard de compagnie";
-                Main.buffTip[53] = "Chillin 'comme un reptile";
-                Main.buffName[54] = "perroquet";
-                Main.buffTip[54] = "Polly veulent du pirate";
-                Main.buffName[55] = "Bébé Truffe";
-                Main.buffTip[55] = "N'est-ce pas juste si mignon?";
-                Main.buffName[56] = "Pet Arbrisseau";
-                Main.buffTip[56] = "Un petit arbre vous suit";
-                Main.buffName[57] = "Wisp";
-                Main.buffTip[57] = "Un brin vous suit";
-                Main.buffName[58] = "guérison rapide";
-                Main.buffTip[58] = "Régénération de vie est considérablement augmentée";
-                Main.buffName[59] = "Dodge Shadow";
-                Main.buffTip[59] = "Vous pourrez esquiver la prochaine attaque";
-                Main.buffName[60] = "cristal Feuille";
-                Main.buffTip[60] = "Cristal Lance laisse les ennemis proches";
-                Main.buffName[61] = "bébé dinosaure";
-                Main.buffTip[61] = "Un dinosaure de bébé vous suit";
-                Main.buffName[62] = "Barrière de glace";
-                Main.buffTip[62] = "La défense est augmentée de 30";
-                Main.buffName[63] = "Panic!";
-                Main.buffTip[63] = "La vitesse de déplacement est augmentée";
-                Main.buffName[64] = "Bébé Slime";
-                Main.buffTip[64] = "Le bébé bave combattra pour vous";
-                Main.buffName[65] = "Printemps de globe oculaire";
-                Main.buffTip[65] = "Un ressort d'œil vous suit";
-                Main.buffName[66] = "Bébé de bonhomme de neige";
-                Main.buffTip[66] = "Un bonhomme de neige de bébé vous suit";
-                Main.buffName[67] = "brûler";
-                Main.buffTip[67] = "Perdre la vie et ralenti le mouvement";
-                Main.buffName[68] = "étouffement";
-                Main.buffTip[68] = "perdre la vie";
-                Main.buffName[69] = "Ichor";
-                Main.buffTip[69] = "défense réduite";
-                Main.buffName[70] = "Venom";
-                Main.buffTip[70] = "perdre la vie";
-                Main.buffName[72] = "Midas";
-                Main.buffTip[72] = "Déposer plus d'argent sur la mort";
-                Main.buffName[80] = "Blackout";
-                Main.buffTip[80] = "Vision lumière fortement réduite";
-                Main.buffName[71] = "Weapon Imbue: Venom";
-                Main.buffTip[71] = "Les attaques de mêlée infligent venin sur vos cibles";
-                Main.buffName[73] = "Arme Imbue: Venom";
-                Main.buffTip[73] = "Les attaques de mêlée infligent des ennemis avec des flammes maudits";
-                Main.buffName[74] = "Arme Imbue: Fire";
-                Main.buffTip[74] = "Les attaques de mêlée des ennemis mis le feu";
-                Main.buffName[75] = "Arme Imbue: Gold";
-                Main.buffTip[75] = "Les attaques de mêlée rendent ennemis laissent tomber plus d'or";
-                Main.buffName[76] = "Arme Imbue: Ichor";
-                Main.buffTip[76] = "Les attaques de mêlée réduire la défense des ennemis";
-                Main.buffName[77] = "Arme Imbue: Nanites";
-                Main.buffTip[77] = "Les attaques de mêlée confondent ennemis";
-                Main.buffName[78] = "Arme Imbue: Confetti";
-                Main.buffTip[78] = "Les attaques de mêlée causent des confettis à comparaître";
-                Main.buffName[79] = "Arme Imbue: Poison";
-                Main.buffTip[79] = "Attaques de mêlée des ennemis de poison";
+                Game1.buffName[1] = "Peau d'obsidienne";
+                Game1.buffTip[1] = "Immunise contre la lave";
+                Game1.buffName[2] = "Régénération";
+                Game1.buffTip[2] = "Régénère la vie";
+                Game1.buffName[3] = "Rapidité";
+                Game1.buffTip[3] = "Augmente la vitesse de déplacement de 25 %";
+                Game1.buffName[4] = "Branchies";
+                Game1.buffTip[4] = "Permet de respirer sous l'eau comme dans l'air";
+                Game1.buffName[5] = "Peau de fer";
+                Game1.buffTip[5] = "Augmente la défense de 8";
+                Game1.buffName[6] = "Régénération de mana";
+                Game1.buffTip[6] = "Augmente la régénération de mana";
+                Game1.buffName[7] = "Pouvoir magique";
+                Game1.buffTip[7] = "Augmente les dégâts de magie de 20 %";
+                Game1.buffName[8] = "Poids plume";
+                Game1.buffTip[8] = "Appuyer sur Bas ou Haut pour contrôler la vitesse de descente";
+                Game1.buffName[9] = "Spéléologue";
+                Game1.buffTip[9] = "Indique l'emplacement des trésors et du minerai";
+                Game1.buffName[10] = "Invisibilité";
+                Game1.buffTip[10] = "Procure l'invisibilité";
+                Game1.buffName[11] = "Brillance";
+                Game1.buffTip[11] = "Emet une aura de lumière";
+                Game1.buffName[12] = "Vision nocturne";
+                Game1.buffTip[12] = "Améliore la vision de nuit";
+                Game1.buffName[13] = "Bataille";
+                Game1.buffTip[13] = "Augmente la vitesse d'apparition des ennemis";
+                Game1.buffName[14] = "Épines";
+                Game1.buffTip[14] = "Les attaquants subissent aussi des dégâts";
+                Game1.buffName[15] = "Marche sur l'eau";
+                Game1.buffTip[15] = "Appuyer sur Bas pour entrer dans l'eau";
+                Game1.buffName[16] = "Tir à l'arc";
+                Game1.buffTip[16] = "La vitesse et les dégâts des flèches augmentent de 20 %";
+                Game1.buffName[17] = "Chasseur";
+                Game1.buffTip[17] = "Indique l'emplacement des ennemis";
+                Game1.buffName[18] = "Gravitation";
+                Game1.buffTip[18] = "Appuyer sur Haut ou Bas pour inverser la gravité";
+                Game1.buffName[19] = "Orbe de lumière";
+                Game1.buffTip[19] = "Un orbe magique qui émet de la lumière";
+                Game1.buffName[20] = "Empoisonnement";
+                Game1.buffTip[20] = "Perte lente de vie";
+                Game1.buffName[21] = "Nausée des potions";
+                Game1.buffTip[21] = "Ne peut plus consommer de potions de soin";
+                Game1.buffName[22] = "Obscurité";
+                Game1.buffTip[22] = "Diminue la vision de nuit";
+                Game1.buffName[23] = "Malédiction";
+                Game1.buffTip[23] = "Ne peut utiliser aucun objet";
+                Game1.buffName[24] = "En feu !";
+                Game1.buffTip[24] = "Perte lente de vie";
+                Game1.buffName[25] = "Ivresse";
+                Game1.buffTip[25] = "Augmente les aptitudes de mêlée, diminue la défense";
+                Game1.buffName[26] = "Bien nourri";
+                Game1.buffTip[26] = "Amélioration mineure de toutes les stats.";
+                Game1.buffName[27] = "Fée";
+                Game1.buffTip[27] = "Une fée vous suit";
+                Game1.buffName[28] = "Loup-garou";
+                Game1.buffTip[28] = "Les aptitudes physiques sont augmentées";
+                Game1.buffName[29] = "Clairvoyance";
+                Game1.buffTip[29] = "Les pouvoirs magiques sont augmentés";
+                Game1.buffName[30] = "Saignement";
+                Game1.buffTip[30] = "Ne peut régénérer la vie";
+                Game1.buffName[31] = "Confusion";
+                Game1.buffTip[31] = "Les mouvements sont inversés";
+                Game1.buffName[32] = "Ralentissement";
+                Game1.buffTip[32] = "La vitesse de déplacement est réduite";
+                Game1.buffName[33] = "Faiblesse";
+                Game1.buffTip[33] = "Les aptitudes physiques sont diminuées";
+                Game1.buffName[34] = "Peuple des mers";
+                Game1.buffTip[34] = "Peut respirer et se déplacer sous l'eau facilement";
+                Game1.buffName[35] = "Silencieux";
+                Game1.buffTip[35] = "Ne peut pas utiliser des éléments qui nécessitent de mana";
+                Game1.buffName[36] = "Armure brisée";
+                Game1.buffTip[36] = "La défense est réduite de moitié";
+                Game1.buffName[37] = "Peur panique";
+                Game1.buffTip[37] = "Vous avez vu quelque chose de terrible et vous ne pouvez vous échapper.";
+                Game1.buffName[38] = "La langue";
+                Game1.buffTip[38] = "Vous vous êtes fait aspirer dans la bouche";
+                Game1.buffName[39] = "Brasier maudit";
+                Game1.buffTip[39] = "Perte de vie";
+                Game1.buffName[40] = "Animal lapin";
+                Game1.buffTip[40] = "Je pense qu'il veut votre carotte";
+                Game1.buffName[41] = "bébé pingouin";
+                Game1.buffTip[41] = "Je pense qu'il veut votre poisson";
+                Game1.buffName[42] = "Animaux tortue";
+                Game1.buffTip[42] = "Temps de tortue heureuse!";
+                Game1.buffName[43] = "Bouclier de Paladin";
+                Game1.buffTip[43] = "25% des dégâts subis sera redirigé vers un autre joueur";
+                Game1.buffName[44] = "gel brûlure";
+                Game1.buffTip[44] = "C'est soit très chaud ou très froid. De toute façon ça fait vraiment mal";
+                Game1.buffName[45] = "Bébé Eater";
+                Game1.buffTip[45] = "Un bébé Eater of Souls vous suit";
+                Game1.buffName[46] = "réfrigéré";
+                Game1.buffTip[46] = "Votre vitesse de déplacement a été réduite";
+                Game1.buffName[47] = "congelé";
+                Game1.buffTip[47] = "Vous ne pouvez pas déplacer!";
+                Game1.buffName[48] = "chérie";
+                Game1.buffTip[48] = "Régénération de vie est augmentée";
+                Game1.buffName[49] = "Pygmées";
+                Game1.buffTip[49] = "Les pygmées se battront pour vous";
+                Game1.buffName[50] = "Bébé Skeletron Head";
+                Game1.buffTip[50] = "Ne demandent même pas ...";
+                Game1.buffName[51] = "Bébé Hornet";
+                Game1.buffTip[51] = "Il pense que vous êtes sa mère";
+                Game1.buffName[52] = "tiki esprit";
+                Game1.buffTip[52] = "Un esprit convivial vous suit";
+                Game1.buffName[53] = "lézard de compagnie";
+                Game1.buffTip[53] = "Chillin 'comme un reptile";
+                Game1.buffName[54] = "perroquet";
+                Game1.buffTip[54] = "Polly veulent du pirate";
+                Game1.buffName[55] = "Bébé Truffe";
+                Game1.buffTip[55] = "N'est-ce pas juste si mignon?";
+                Game1.buffName[56] = "Pet Arbrisseau";
+                Game1.buffTip[56] = "Un petit arbre vous suit";
+                Game1.buffName[57] = "Wisp";
+                Game1.buffTip[57] = "Un brin vous suit";
+                Game1.buffName[58] = "guérison rapide";
+                Game1.buffTip[58] = "Régénération de vie est considérablement augmentée";
+                Game1.buffName[59] = "Dodge Shadow";
+                Game1.buffTip[59] = "Vous pourrez esquiver la prochaine attaque";
+                Game1.buffName[60] = "cristal Feuille";
+                Game1.buffTip[60] = "Cristal Lance laisse les ennemis proches";
+                Game1.buffName[61] = "bébé dinosaure";
+                Game1.buffTip[61] = "Un dinosaure de bébé vous suit";
+                Game1.buffName[62] = "Barrière de glace";
+                Game1.buffTip[62] = "La défense est augmentée de 30";
+                Game1.buffName[63] = "Panic!";
+                Game1.buffTip[63] = "La vitesse de déplacement est augmentée";
+                Game1.buffName[64] = "Bébé Slime";
+                Game1.buffTip[64] = "Le bébé bave combattra pour vous";
+                Game1.buffName[65] = "Printemps de globe oculaire";
+                Game1.buffTip[65] = "Un ressort d'œil vous suit";
+                Game1.buffName[66] = "Bébé de bonhomme de neige";
+                Game1.buffTip[66] = "Un bonhomme de neige de bébé vous suit";
+                Game1.buffName[67] = "brûler";
+                Game1.buffTip[67] = "Perdre la vie et ralenti le mouvement";
+                Game1.buffName[68] = "étouffement";
+                Game1.buffTip[68] = "perdre la vie";
+                Game1.buffName[69] = "Ichor";
+                Game1.buffTip[69] = "défense réduite";
+                Game1.buffName[70] = "Venom";
+                Game1.buffTip[70] = "perdre la vie";
+                Game1.buffName[72] = "Midas";
+                Game1.buffTip[72] = "Déposer plus d'argent sur la mort";
+                Game1.buffName[80] = "Blackout";
+                Game1.buffTip[80] = "Vision lumière fortement réduite";
+                Game1.buffName[71] = "Weapon Imbue: Venom";
+                Game1.buffTip[71] = "Les attaques de mêlée infligent venin sur vos cibles";
+                Game1.buffName[73] = "Arme Imbue: Venom";
+                Game1.buffTip[73] = "Les attaques de mêlée infligent des ennemis avec des flammes maudits";
+                Game1.buffName[74] = "Arme Imbue: Fire";
+                Game1.buffTip[74] = "Les attaques de mêlée des ennemis mis le feu";
+                Game1.buffName[75] = "Arme Imbue: Gold";
+                Game1.buffTip[75] = "Les attaques de mêlée rendent ennemis laissent tomber plus d'or";
+                Game1.buffName[76] = "Arme Imbue: Ichor";
+                Game1.buffTip[76] = "Les attaques de mêlée réduire la défense des ennemis";
+                Game1.buffName[77] = "Arme Imbue: Nanites";
+                Game1.buffTip[77] = "Les attaques de mêlée confondent ennemis";
+                Game1.buffName[78] = "Arme Imbue: Confetti";
+                Game1.buffTip[78] = "Les attaques de mêlée causent des confettis à comparaître";
+                Game1.buffName[79] = "Arme Imbue: Poison";
+                Game1.buffTip[79] = "Attaques de mêlée des ennemis de poison";
                 Lang.mapLegend[MapHelper.TileToLookup(13, 0)] = "Bouteille";
                 Lang.mapLegend[MapHelper.TileToLookup(14, 0)] = "Table";
                 Lang.mapLegend[MapHelper.TileToLookup(15, 0)] = "Président";
@@ -34946,166 +34946,166 @@ namespace GameManager
                 Lang.the = "el ";
                 Lang.dt[0] = "no logró encontrar el antídoto";
                 Lang.dt[1] = "no pudo extinguir el fuego";
-                Main.buffName[1] = "Piel obsidiana";
-                Main.buffTip[1] = "Inmune a la lava";
-                Main.buffName[2] = "Regeneración";
-                Main.buffTip[2] = "Regenera la vida";
-                Main.buffName[3] = "Rapidez";
-                Main.buffTip[3] = "Aumenta en un 25% la velocidad de movimiento";
-                Main.buffName[4] = "Agallas";
-                Main.buffTip[4] = "Permite respirar agua en lugar de aire";
-                Main.buffName[5] = "Piel de hierro";
-                Main.buffTip[5] = "Aumenta la defensa en 8";
-                Main.buffName[6] = "Regeneración de maná";
-                Main.buffTip[6] = "Aumenta la regeneración de maná";
-                Main.buffName[7] = "Poder mágico";
-                Main.buffTip[7] = "Aumenta el daño mágico en un 20%";
-                Main.buffName[8] = "Caída de pluma";
-                Main.buffTip[8] = "Pulsa ARRIBA o ABAJO para controlar la velocidad de descenso";
-                Main.buffName[9] = "Espeleólogo";
-                Main.buffTip[9] = "Muestra la ubicación de tesoros y minerales";
-                Main.buffName[10] = "Invisibilidad";
-                Main.buffTip[10] = "Proporciona invisibilidad";
-                Main.buffName[11] = "Brillo";
-                Main.buffTip[11] = "Emite luz";
-                Main.buffName[12] = "Noctámbulo";
-                Main.buffTip[12] = "Aumenta la visión nocturna";
-                Main.buffName[13] = "Batalla";
-                Main.buffTip[13] = "Aumenta el porcentaje de regeneración del enemigo";
-                Main.buffName[14] = "Espinas";
-                Main.buffTip[14] = "Los atacantes también sufren daños";
-                Main.buffName[15] = "Caminando sobre el agua";
-                Main.buffTip[15] = "Pulsa ABAJO para sumergirte";
-                Main.buffName[16] = "Tiro con arco";
-                Main.buffTip[16] = "Aumenta en un 20% la velocidad y el daño de las flechas";
-                Main.buffName[17] = "Cazador";
-                Main.buffTip[17] = "Muestra la ubicación de los enemigos";
-                Main.buffName[18] = "Gravedad";
-                Main.buffTip[18] = "Pulsa ARRIBA o ABAJO para invertir la gravedad";
-                Main.buffName[19] = "Orbe de Luz";
-                Main.buffTip[19] = "Orbe mágico que proporciona luz";
-                Main.buffName[20] = "Veneno";
-                Main.buffTip[20] = "Pérdida de vida lentamente";
-                Main.buffName[21] = "Poción de náuseas";
-                Main.buffTip[21] = "Deja de consumir remedios curativos";
-                Main.buffName[22] = "Oscuridad";
-                Main.buffTip[22] = "Disminuye la claridad";
-                Main.buffName[23] = "Maldición";
-                Main.buffTip[23] = "No se puede usar ningún objeto";
-                Main.buffName[24] = "Llamas";
-                Main.buffTip[24] = "Pérdida de vida lentamente";
-                Main.buffName[25] = "Beodo";
-                Main.buffTip[25] = "Mejora el cuerpo a cuerpo pero ralentiza la defensa";
-                Main.buffName[26] = "Bien alimentado";
-                Main.buffTip[26] = "Pequeñas mejoras de todas las estadísticas";
-                Main.buffName[27] = "Hada";
-                Main.buffTip[27] = "Un hada te acompaña";
-                Main.buffName[28] = "Hombre lobo";
-                Main.buffTip[28] = "Aumenta la capacidad física";
-                Main.buffName[29] = "Clarividencia";
-                Main.buffTip[29] = "Aumenta los poderes mágicos";
-                Main.buffName[30] = "Ensangrentado";
-                Main.buffTip[30] = "No se puede recuperar vida";
-                Main.buffName[31] = "Confundido";
-                Main.buffTip[31] = "Se invierte el movimiento";
-                Main.buffName[32] = "Lento";
-                Main.buffTip[32] = "Disminuye la velocidad de movimiento";
-                Main.buffName[33] = "Débil";
-                Main.buffTip[33] = "Disminuye la capacidad física";
-                Main.buffName[34] = "Tritón";
-                Main.buffTip[34] = "Respira y se mueve bajo el agua con facilidad";
-                Main.buffName[35] = "Silenciado";
-                Main.buffTip[35] = "No puede utilizar los artículos que requieren maná";
-                Main.buffName[36] = "Armadura rota";
-                Main.buffTip[36] = "La defensa disminuye hasta la mitad";
-                Main.buffName[37] = "Aterrado";
-                Main.buffTip[37] = "Has visto algo horrible, no hay escapatoria";
-                Main.buffName[38] = "La Lengua";
-                Main.buffTip[38] = "Te succiona";
-                Main.buffName[39] = "El Averno";
-                Main.buffTip[39] = "Pérdida de la vida";
-                Main.buffName[40] = "Mascota conejo";
-                Main.buffTip[40] = "Creo que quiere su zanahoria";
-                Main.buffName[41] = "pingüino del bebé";
-                Main.buffTip[41] = "Creo que quiere que sus peces";
-                Main.buffName[42] = "tortuga";
-                Main.buffTip[42] = "Tiempo feliz tortuga!";
-                Main.buffName[43] = "el escudo de paladin";
-                Main.buffTip[43] = "25% de daño recibido será redirigido a otro jugador";
-                Main.buffName[44] = "quemadura de Escarcha";
-                Main.buffTip[44] = "Es o muy caliente o muy fría. De cualquier manera me duele mucho";
-                Main.buffName[45] = "comedor de bebé";
-                Main.buffTip[45] = "A Eater bebé de las almas te está siguiendo";
-                Main.buffName[46] = "enfriado";
-                Main.buffTip[46] = "Su velocidad de movimiento se ha reducido";
-                Main.buffName[47] = "Congelado";
-                Main.buffTip[47] = "No se puede mover!";
-                Main.buffName[48] = "miel";
-                Main.buffTip[48] = "La regeneración de la vida se incrementa";
-                Main.buffName[49] = "pigmeos";
-                Main.buffTip[49] = "Los pigmeos lucharán para usted";
-                Main.buffName[50] = "Bebé Skeletron cabeza";
-                Main.buffTip[50] = "Ni siquiera preguntar ...";
-                Main.buffName[51] = "Bebé Hornet";
-                Main.buffTip[51] = "Se cree que eres su madre";
-                Main.buffName[52] = "tiki espíritu";
-                Main.buffTip[52] = "Un espíritu amistoso que está siguiendo";
-                Main.buffName[53] = "lagartija";
-                Main.buffTip[53] = "Tiempo libre como un reptil";
-                Main.buffName[54] = "loro";
-                Main.buffTip[54] = "Polly quiere es el cracker";
-                Main.buffName[55] = "Bebé Trufa";
-                Main.buffTip[55] = "No es esto apenas soooo cute";
-                Main.buffName[56] = "mascota retoño";
-                Main.buffTip[56] = "Un arbolito que está siguiendo";
-                Main.buffName[57] = "manojito";
-                Main.buffTip[57] = "Un mechón te está siguiendo";
-                Main.buffName[58] = "La curación rápida";
-                Main.buffTip[58] = "La regeneración de la vida es mucho mayor";
-                Main.buffName[59] = "Sombra de Dodge";
-                Main.buffTip[59] = "Va a esquivar el próximo ataque";
-                Main.buffName[60] = "cristal de la hoja";
-                Main.buffTip[60] = "Cristal Shoots sale a los enemigos cercanos";
-                Main.buffName[61] = "dinosaurio del bebé";
-                Main.buffTip[61] = "Un dinosaurio bebé te está siguiendo";
-                Main.buffName[62] = "Barrera de hielo";
-                Main.buffTip[62] = "Defensa se ​​incrementa en un 30";
-                Main.buffName[63] = "pánico";
-                Main.buffTip[63] = "La velocidad de movimiento se incrementa";
-                Main.buffName[64] = "bebé baba";
-                Main.buffTip[64] = "La baba del bebé peleará por vosotros";
-                Main.buffName[65] = "Eyeball primavera";
-                Main.buffTip[65] = "Un muelle ojo te está siguiendo";
-                Main.buffName[66] = "Muñeco de nieve del bebé";
-                Main.buffTip[66] = "Un muñeco de nieve del bebé te está siguiendo";
-                Main.buffName[67] = "ardor";
-                Main.buffTip[67] = "La pérdida de la vida y la lentitud de movimientos";
-                Main.buffName[68] = "asfixia";
-                Main.buffTip[68] = "La pérdida de la vida";
-                Main.buffName[69] = "hondura";
-                Main.buffTip[69] = "defensa reducida";
-                Main.buffName[70] = "veneno";
-                Main.buffTip[70] = "La pérdida de la vida";
-                Main.buffName[72] = "Midas";
-                Main.buffTip[72] = "Soltar más dinero en la muerte";
-                Main.buffName[80] = "apagón";
-                Main.buffTip[80] = "La visión de luz muy reducida";
-                Main.buffName[71] = "imbuir armas: veneno";
-                Main.buffTip[71] = "Ataques cuerpo a cuerpo infligen veneno en sus objetivos";
-                Main.buffName[73] = "imbuir armas: Llamas Maldito";
-                Main.buffTip[73] = "Ataques cuerpo a cuerpo infligen los enemigos con llamas malditos";
-                Main.buffName[74] = "imbuir armas: fuego";
-                Main.buffTip[74] = "Ataques cuerpo a cuerpo establecen enemigos en llamas";
-                Main.buffName[75] = "imbuir armas: oro";
-                Main.buffTip[75] = "Ataques cuerpo a cuerpo hacen enemigos caen más oro";
-                Main.buffName[76] = "imbuir armas: hondura";
-                Main.buffTip[76] = "Ataques cuerpo a cuerpo disminuyen defensa enemigos";
-                Main.buffName[77] = "imbuir armas: Nanites";
-                Main.buffTip[77] = "Ataques cuerpo a cuerpo confunde enemigos";
-                Main.buffName[78] = "imbuir armas: confeti";
-                Main.buffTip[78] = "Ataques cuerpo a cuerpo infligen confetti que aparezca";
-                Main.buffName[79] = "imbuir armas: tóxico";
-                Main.buffTip[79] = "Cuerpo a cuerpo ataca a los enemigos de veneno";
+                Game1.buffName[1] = "Piel obsidiana";
+                Game1.buffTip[1] = "Inmune a la lava";
+                Game1.buffName[2] = "Regeneración";
+                Game1.buffTip[2] = "Regenera la vida";
+                Game1.buffName[3] = "Rapidez";
+                Game1.buffTip[3] = "Aumenta en un 25% la velocidad de movimiento";
+                Game1.buffName[4] = "Agallas";
+                Game1.buffTip[4] = "Permite respirar agua en lugar de aire";
+                Game1.buffName[5] = "Piel de hierro";
+                Game1.buffTip[5] = "Aumenta la defensa en 8";
+                Game1.buffName[6] = "Regeneración de maná";
+                Game1.buffTip[6] = "Aumenta la regeneración de maná";
+                Game1.buffName[7] = "Poder mágico";
+                Game1.buffTip[7] = "Aumenta el daño mágico en un 20%";
+                Game1.buffName[8] = "Caída de pluma";
+                Game1.buffTip[8] = "Pulsa ARRIBA o ABAJO para controlar la velocidad de descenso";
+                Game1.buffName[9] = "Espeleólogo";
+                Game1.buffTip[9] = "Muestra la ubicación de tesoros y minerales";
+                Game1.buffName[10] = "Invisibilidad";
+                Game1.buffTip[10] = "Proporciona invisibilidad";
+                Game1.buffName[11] = "Brillo";
+                Game1.buffTip[11] = "Emite luz";
+                Game1.buffName[12] = "Noctámbulo";
+                Game1.buffTip[12] = "Aumenta la visión nocturna";
+                Game1.buffName[13] = "Batalla";
+                Game1.buffTip[13] = "Aumenta el porcentaje de regeneración del enemigo";
+                Game1.buffName[14] = "Espinas";
+                Game1.buffTip[14] = "Los atacantes también sufren daños";
+                Game1.buffName[15] = "Caminando sobre el agua";
+                Game1.buffTip[15] = "Pulsa ABAJO para sumergirte";
+                Game1.buffName[16] = "Tiro con arco";
+                Game1.buffTip[16] = "Aumenta en un 20% la velocidad y el daño de las flechas";
+                Game1.buffName[17] = "Cazador";
+                Game1.buffTip[17] = "Muestra la ubicación de los enemigos";
+                Game1.buffName[18] = "Gravedad";
+                Game1.buffTip[18] = "Pulsa ARRIBA o ABAJO para invertir la gravedad";
+                Game1.buffName[19] = "Orbe de Luz";
+                Game1.buffTip[19] = "Orbe mágico que proporciona luz";
+                Game1.buffName[20] = "Veneno";
+                Game1.buffTip[20] = "Pérdida de vida lentamente";
+                Game1.buffName[21] = "Poción de náuseas";
+                Game1.buffTip[21] = "Deja de consumir remedios curativos";
+                Game1.buffName[22] = "Oscuridad";
+                Game1.buffTip[22] = "Disminuye la claridad";
+                Game1.buffName[23] = "Maldición";
+                Game1.buffTip[23] = "No se puede usar ningún objeto";
+                Game1.buffName[24] = "Llamas";
+                Game1.buffTip[24] = "Pérdida de vida lentamente";
+                Game1.buffName[25] = "Beodo";
+                Game1.buffTip[25] = "Mejora el cuerpo a cuerpo pero ralentiza la defensa";
+                Game1.buffName[26] = "Bien alimentado";
+                Game1.buffTip[26] = "Pequeñas mejoras de todas las estadísticas";
+                Game1.buffName[27] = "Hada";
+                Game1.buffTip[27] = "Un hada te acompaña";
+                Game1.buffName[28] = "Hombre lobo";
+                Game1.buffTip[28] = "Aumenta la capacidad física";
+                Game1.buffName[29] = "Clarividencia";
+                Game1.buffTip[29] = "Aumenta los poderes mágicos";
+                Game1.buffName[30] = "Ensangrentado";
+                Game1.buffTip[30] = "No se puede recuperar vida";
+                Game1.buffName[31] = "Confundido";
+                Game1.buffTip[31] = "Se invierte el movimiento";
+                Game1.buffName[32] = "Lento";
+                Game1.buffTip[32] = "Disminuye la velocidad de movimiento";
+                Game1.buffName[33] = "Débil";
+                Game1.buffTip[33] = "Disminuye la capacidad física";
+                Game1.buffName[34] = "Tritón";
+                Game1.buffTip[34] = "Respira y se mueve bajo el agua con facilidad";
+                Game1.buffName[35] = "Silenciado";
+                Game1.buffTip[35] = "No puede utilizar los artículos que requieren maná";
+                Game1.buffName[36] = "Armadura rota";
+                Game1.buffTip[36] = "La defensa disminuye hasta la mitad";
+                Game1.buffName[37] = "Aterrado";
+                Game1.buffTip[37] = "Has visto algo horrible, no hay escapatoria";
+                Game1.buffName[38] = "La Lengua";
+                Game1.buffTip[38] = "Te succiona";
+                Game1.buffName[39] = "El Averno";
+                Game1.buffTip[39] = "Pérdida de la vida";
+                Game1.buffName[40] = "Mascota conejo";
+                Game1.buffTip[40] = "Creo que quiere su zanahoria";
+                Game1.buffName[41] = "pingüino del bebé";
+                Game1.buffTip[41] = "Creo que quiere que sus peces";
+                Game1.buffName[42] = "tortuga";
+                Game1.buffTip[42] = "Tiempo feliz tortuga!";
+                Game1.buffName[43] = "el escudo de paladin";
+                Game1.buffTip[43] = "25% de daño recibido será redirigido a otro jugador";
+                Game1.buffName[44] = "quemadura de Escarcha";
+                Game1.buffTip[44] = "Es o muy caliente o muy fría. De cualquier manera me duele mucho";
+                Game1.buffName[45] = "comedor de bebé";
+                Game1.buffTip[45] = "A Eater bebé de las almas te está siguiendo";
+                Game1.buffName[46] = "enfriado";
+                Game1.buffTip[46] = "Su velocidad de movimiento se ha reducido";
+                Game1.buffName[47] = "Congelado";
+                Game1.buffTip[47] = "No se puede mover!";
+                Game1.buffName[48] = "miel";
+                Game1.buffTip[48] = "La regeneración de la vida se incrementa";
+                Game1.buffName[49] = "pigmeos";
+                Game1.buffTip[49] = "Los pigmeos lucharán para usted";
+                Game1.buffName[50] = "Bebé Skeletron cabeza";
+                Game1.buffTip[50] = "Ni siquiera preguntar ...";
+                Game1.buffName[51] = "Bebé Hornet";
+                Game1.buffTip[51] = "Se cree que eres su madre";
+                Game1.buffName[52] = "tiki espíritu";
+                Game1.buffTip[52] = "Un espíritu amistoso que está siguiendo";
+                Game1.buffName[53] = "lagartija";
+                Game1.buffTip[53] = "Tiempo libre como un reptil";
+                Game1.buffName[54] = "loro";
+                Game1.buffTip[54] = "Polly quiere es el cracker";
+                Game1.buffName[55] = "Bebé Trufa";
+                Game1.buffTip[55] = "No es esto apenas soooo cute";
+                Game1.buffName[56] = "mascota retoño";
+                Game1.buffTip[56] = "Un arbolito que está siguiendo";
+                Game1.buffName[57] = "manojito";
+                Game1.buffTip[57] = "Un mechón te está siguiendo";
+                Game1.buffName[58] = "La curación rápida";
+                Game1.buffTip[58] = "La regeneración de la vida es mucho mayor";
+                Game1.buffName[59] = "Sombra de Dodge";
+                Game1.buffTip[59] = "Va a esquivar el próximo ataque";
+                Game1.buffName[60] = "cristal de la hoja";
+                Game1.buffTip[60] = "Cristal Shoots sale a los enemigos cercanos";
+                Game1.buffName[61] = "dinosaurio del bebé";
+                Game1.buffTip[61] = "Un dinosaurio bebé te está siguiendo";
+                Game1.buffName[62] = "Barrera de hielo";
+                Game1.buffTip[62] = "Defensa se ​​incrementa en un 30";
+                Game1.buffName[63] = "pánico";
+                Game1.buffTip[63] = "La velocidad de movimiento se incrementa";
+                Game1.buffName[64] = "bebé baba";
+                Game1.buffTip[64] = "La baba del bebé peleará por vosotros";
+                Game1.buffName[65] = "Eyeball primavera";
+                Game1.buffTip[65] = "Un muelle ojo te está siguiendo";
+                Game1.buffName[66] = "Muñeco de nieve del bebé";
+                Game1.buffTip[66] = "Un muñeco de nieve del bebé te está siguiendo";
+                Game1.buffName[67] = "ardor";
+                Game1.buffTip[67] = "La pérdida de la vida y la lentitud de movimientos";
+                Game1.buffName[68] = "asfixia";
+                Game1.buffTip[68] = "La pérdida de la vida";
+                Game1.buffName[69] = "hondura";
+                Game1.buffTip[69] = "defensa reducida";
+                Game1.buffName[70] = "veneno";
+                Game1.buffTip[70] = "La pérdida de la vida";
+                Game1.buffName[72] = "Midas";
+                Game1.buffTip[72] = "Soltar más dinero en la muerte";
+                Game1.buffName[80] = "apagón";
+                Game1.buffTip[80] = "La visión de luz muy reducida";
+                Game1.buffName[71] = "imbuir armas: veneno";
+                Game1.buffTip[71] = "Ataques cuerpo a cuerpo infligen veneno en sus objetivos";
+                Game1.buffName[73] = "imbuir armas: Llamas Maldito";
+                Game1.buffTip[73] = "Ataques cuerpo a cuerpo infligen los enemigos con llamas malditos";
+                Game1.buffName[74] = "imbuir armas: fuego";
+                Game1.buffTip[74] = "Ataques cuerpo a cuerpo establecen enemigos en llamas";
+                Game1.buffName[75] = "imbuir armas: oro";
+                Game1.buffTip[75] = "Ataques cuerpo a cuerpo hacen enemigos caen más oro";
+                Game1.buffName[76] = "imbuir armas: hondura";
+                Game1.buffTip[76] = "Ataques cuerpo a cuerpo disminuyen defensa enemigos";
+                Game1.buffName[77] = "imbuir armas: Nanites";
+                Game1.buffTip[77] = "Ataques cuerpo a cuerpo confunde enemigos";
+                Game1.buffName[78] = "imbuir armas: confeti";
+                Game1.buffTip[78] = "Ataques cuerpo a cuerpo infligen confetti que aparezca";
+                Game1.buffName[79] = "imbuir armas: tóxico";
+                Game1.buffTip[79] = "Cuerpo a cuerpo ataca a los enemigos de veneno";
                 Lang.mapLegend[MapHelper.TileToLookup(13, 0)] = "Botella";
                 Lang.mapLegend[MapHelper.TileToLookup(14, 0)] = "Mesa";
                 Lang.mapLegend[MapHelper.TileToLookup(15, 0)] = "Silla";
@@ -35132,16 +35132,16 @@ namespace GameManager
                     Lang.prefix[k] = string.Empty;
                 }
             }
-            for (int l = 0; l < Main.recipe.Length; l++)
+            for (int l = 0; l < Game1.recipe.Length; l++)
             {
-                if (Main.recipe[l].createItem.name != null && Main.recipe[l].createItem.name != "" && Main.recipe[l].createItem.netID != 0)
+                if (Game1.recipe[l].createItem.name != null && Game1.recipe[l].createItem.name != "" && Game1.recipe[l].createItem.netID != 0)
                 {
-                    Main.recipe[l].createItem.name = Lang.itemName(Main.recipe[l].createItem.netID, false);
-                    Main.recipe[l].createItem.CheckTip();
-                    for (int m = 0; m < Main.recipe[m].requiredItem.Length; m++)
+                    Game1.recipe[l].createItem.name = Lang.itemName(Game1.recipe[l].createItem.netID, false);
+                    Game1.recipe[l].createItem.CheckTip();
+                    for (int m = 0; m < Game1.recipe[m].requiredItem.Length; m++)
                     {
-                        Main.recipe[l].requiredItem[m].name = Lang.itemName(Main.recipe[l].requiredItem[m].netID, false);
-                        Main.recipe[l].requiredItem[m].CheckTip();
+                        Game1.recipe[l].requiredItem[m].name = Lang.itemName(Game1.recipe[l].requiredItem[m].netID, false);
+                        Game1.recipe[l].requiredItem[m].CheckTip();
                     }
                 }
             }
@@ -35151,7 +35151,7 @@ namespace GameManager
             if (Lang.lang <= 1)
             {
                 string result = "";
-                int num = Main.rand.Next(26);
+                int num = Game1.rand.Next(26);
                 string text = "";
                 if (num == 0)
                 {
@@ -35227,7 +35227,7 @@ namespace GameManager
                 }
                 else if (num == 18)
                 {
-                    text = " was removed from " + Main.worldName;
+                    text = " was removed from " + Game1.worldName;
                 }
                 else if (num == 19)
                 {
@@ -35259,15 +35259,15 @@ namespace GameManager
                 }
                 if (plr >= 0 && plr < 255)
                 {
-                    if (proj >= 0 && Main.projectile[proj].name != "")
+                    if (proj >= 0 && Game1.projectile[proj].name != "")
                     {
                         result = string.Concat(new string[]
 						{
 							text,
 							" by ",
-							Main.player[plr].name,
+							Game1.player[plr].name,
 							"'s ",
-							Main.projectile[proj].name,
+							Game1.projectile[proj].name,
 							"."
 						});
                     }
@@ -35277,26 +35277,26 @@ namespace GameManager
 						{
 							text,
 							" by ",
-							Main.player[plr].name,
+							Game1.player[plr].name,
 							"'s ",
-							Main.player[plr].inventory[Main.player[plr].selectedItem].name,
+							Game1.player[plr].inventory[Game1.player[plr].selectedItem].name,
 							"."
 						});
                     }
                 }
-                else if (npc >= 0 && Main.npc[npc].displayName != "")
+                else if (npc >= 0 && Game1.npc[npc].displayName != "")
                 {
-                    result = text + " by " + Main.npc[npc].displayName + ".";
+                    result = text + " by " + Game1.npc[npc].displayName + ".";
                 }
-                else if (proj >= 0 && Main.projectile[proj].name != "")
+                else if (proj >= 0 && Game1.projectile[proj].name != "")
                 {
-                    result = text + " by " + Main.projectile[proj].name + ".";
+                    result = text + " by " + Game1.projectile[proj].name + ".";
                 }
                 else if (other >= 0)
                 {
                     if (other == 0)
                     {
-                        if (Main.rand.Next(2) == 0)
+                        if (Game1.rand.Next(2) == 0)
                         {
                             result = " fell to their death.";
                         }
@@ -35307,7 +35307,7 @@ namespace GameManager
                     }
                     else if (other == 1)
                     {
-                        int num2 = Main.rand.Next(4);
+                        int num2 = Game1.rand.Next(4);
                         if (num2 == 0)
                         {
                             result = " forgot to breathe.";
@@ -35327,7 +35327,7 @@ namespace GameManager
                     }
                     else if (other == 2)
                     {
-                        int num3 = Main.rand.Next(4);
+                        int num3 = Game1.rand.Next(4);
                         if (num3 == 0)
                         {
                             result = " got melted.";
@@ -35355,7 +35355,7 @@ namespace GameManager
                     }
                     else if (other == 5)
                     {
-                        int num4 = Main.rand.Next(4);
+                        int num4 = Game1.rand.Next(4);
                         if (num4 == 0)
                         {
                             result = " shattered into pieces";
@@ -35379,7 +35379,7 @@ namespace GameManager
             if (Lang.lang == 2)
             {
                 string result2 = "";
-                int num5 = Main.rand.Next(15);
+                int num5 = Game1.rand.Next(15);
                 string str;
                 if (num5 == 0)
                 {
@@ -35441,7 +35441,7 @@ namespace GameManager
                 {
                     str = " liess sich den Kopf wegreissen";
                 }
-                if ((plr >= 0 && plr < 255) || (npc >= 0 && Main.npc[npc].displayName != "") || (proj >= 0 && Main.projectile[proj].name != ""))
+                if ((plr >= 0 && plr < 255) || (npc >= 0 && Game1.npc[npc].displayName != "") || (proj >= 0 && Game1.projectile[proj].name != ""))
                 {
                     result2 = str + ".";
                 }
@@ -35449,7 +35449,7 @@ namespace GameManager
                 {
                     if (other == 0)
                     {
-                        if (Main.rand.Next(2) == 0)
+                        if (Game1.rand.Next(2) == 0)
                         {
                             result2 = " stuerzte in den Tod.";
                         }
@@ -35460,7 +35460,7 @@ namespace GameManager
                     }
                     else if (other == 1)
                     {
-                        int num6 = Main.rand.Next(4);
+                        int num6 = Game1.rand.Next(4);
                         if (num6 == 0)
                         {
                             result2 = " hat vergessen zu atmen.";
@@ -35480,7 +35480,7 @@ namespace GameManager
                     }
                     else if (other == 2)
                     {
-                        int num7 = Main.rand.Next(4);
+                        int num7 = Game1.rand.Next(4);
                         if (num7 == 0)
                         {
                             result2 = " ist geschmolzen.";
@@ -35508,7 +35508,7 @@ namespace GameManager
             if (Lang.lang == 3)
             {
                 string result3 = "";
-                int num8 = Main.rand.Next(13);
+                int num8 = Game1.rand.Next(13);
                 string str2;
                 if (num8 == 0)
                 {
@@ -35562,7 +35562,7 @@ namespace GameManager
                 {
                     str2 = " è stato tagliato a metà";
                 }
-                if ((plr >= 0 && plr < 255) || (npc >= 0 && Main.npc[npc].displayName != "") || (proj >= 0 && Main.projectile[proj].name != ""))
+                if ((plr >= 0 && plr < 255) || (npc >= 0 && Game1.npc[npc].displayName != "") || (proj >= 0 && Game1.projectile[proj].name != ""))
                 {
                     result3 = str2 + ".";
                 }
@@ -35570,7 +35570,7 @@ namespace GameManager
                 {
                     if (other == 0)
                     {
-                        if (Main.rand.Next(2) == 0)
+                        if (Game1.rand.Next(2) == 0)
                         {
                             result3 = " sente la sua morte.";
                         }
@@ -35581,7 +35581,7 @@ namespace GameManager
                     }
                     else if (other == 1)
                     {
-                        int num9 = Main.rand.Next(4);
+                        int num9 = Game1.rand.Next(4);
                         if (num9 == 0)
                         {
                             result3 = " ha dimenticato di respirare.";
@@ -35601,7 +35601,7 @@ namespace GameManager
                     }
                     else if (other == 2)
                     {
-                        int num10 = Main.rand.Next(4);
+                        int num10 = Game1.rand.Next(4);
                         if (num10 == 0)
                         {
                             result3 = " si è sciolto.";
@@ -35629,7 +35629,7 @@ namespace GameManager
             if (Lang.lang == 4)
             {
                 string result4 = "";
-                int num11 = Main.rand.Next(14);
+                int num11 = Game1.rand.Next(14);
                 string str3;
                 if (num11 == 0)
                 {
@@ -35687,7 +35687,7 @@ namespace GameManager
                 {
                     str3 = " a perdu la tête";
                 }
-                if ((plr >= 0 && plr < 255) || (npc >= 0 && Main.npc[npc].displayName != "") || (proj >= 0 && Main.projectile[proj].name != ""))
+                if ((plr >= 0 && plr < 255) || (npc >= 0 && Game1.npc[npc].displayName != "") || (proj >= 0 && Game1.projectile[proj].name != ""))
                 {
                     result4 = str3 + ".";
                 }
@@ -35695,7 +35695,7 @@ namespace GameManager
                 {
                     if (other == 0)
                     {
-                        if (Main.rand.Next(2) == 0)
+                        if (Game1.rand.Next(2) == 0)
                         {
                             result4 = " a cassé sa pipe.";
                         }
@@ -35706,7 +35706,7 @@ namespace GameManager
                     }
                     else if (other == 1)
                     {
-                        int num12 = Main.rand.Next(4);
+                        int num12 = Game1.rand.Next(4);
                         if (num12 == 0)
                         {
                             result4 = " a cessé de respirer.";
@@ -35726,7 +35726,7 @@ namespace GameManager
                     }
                     else if (other == 2)
                     {
-                        int num13 = Main.rand.Next(4);
+                        int num13 = Game1.rand.Next(4);
                         if (num13 == 0)
                         {
                             result4 = " a fondu.";
@@ -35755,7 +35755,7 @@ namespace GameManager
             {
                 string result5 = "";
                 string str4 = " fue asesinado";
-                if ((plr >= 0 && plr < 255) || (npc >= 0 && Main.npc[npc].displayName != "") || (proj >= 0 && Main.projectile[proj].name != ""))
+                if ((plr >= 0 && plr < 255) || (npc >= 0 && Game1.npc[npc].displayName != "") || (proj >= 0 && Game1.projectile[proj].name != ""))
                 {
                     result5 = str4 + ".";
                 }
@@ -35763,7 +35763,7 @@ namespace GameManager
                 {
                     if (other == 0)
                     {
-                        if (Main.rand.Next(2) == 0)
+                        if (Game1.rand.Next(2) == 0)
                         {
                             result5 = " le ha llegado la hora.";
                         }
@@ -35774,7 +35774,7 @@ namespace GameManager
                     }
                     else if (other == 1)
                     {
-                        int num14 = Main.rand.Next(4);
+                        int num14 = Game1.rand.Next(4);
                         if (num14 == 0)
                         {
                             result5 = " se olvidó de respirar.";
@@ -35794,7 +35794,7 @@ namespace GameManager
                     }
                     else if (other == 2)
                     {
-                        int num15 = Main.rand.Next(4);
+                        int num15 = Game1.rand.Next(4);
                         if (num15 == 0)
                         {
                             result5 = " se ha calcinado.";

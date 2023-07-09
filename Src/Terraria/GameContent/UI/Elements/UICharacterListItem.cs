@@ -126,13 +126,13 @@ namespace GameManager.GameContent.UI.Elements
 
         private void DeleteButtonClick(UIMouseEvent evt, UIElement listeningElement)
         {
-            for (int index = 0; index < Main.PlayerList.Count; ++index)
+            for (int index = 0; index < Game1.PlayerList.Count; ++index)
             {
-                if (Main.PlayerList[index] == playerFileData)
+                if (Game1.PlayerList[index] == playerFileData)
                 {
-                    Main.PlaySound(10, -1, -1, 1);
-                    Main.selectedPlayer = index;
-                    Main.menuMode = 5;
+                    Game1.PlaySound(10, -1, -1, 1);
+                    Game1.selectedPlayer = index;
+                    Game1.menuMode = 5;
                     break;
                 }
             }
@@ -143,7 +143,7 @@ namespace GameManager.GameContent.UI.Elements
             if (listeningElement != evt.Target || playerFileData.Player.loadStatus != 0)
                 return;
 
-            Main.SelectPlayer(playerFileData);
+            Game1.SelectPlayer(playerFileData);
         }
 
         private void FavoriteButtonClick(UIMouseEvent evt, UIElement listeningElement)
@@ -215,12 +215,12 @@ namespace GameManager.GameContent.UI.Elements
             float width1 = 200f;
             Vector2 position1 = vector2;
             this.DrawPanel(spriteBatch, position1, width1);
-            spriteBatch.Draw(Main.heartTexture, position1 + new Vector2(5f, 2f), Color.White);
-            position1.X += 10f + (float)Main.heartTexture.Width;
+            spriteBatch.Draw(Game1.heartTexture, position1 + new Vector2(5f, 2f), Color.White);
+            position1.X += 10f + (float)Game1.heartTexture.Width;
             Utils.DrawBorderString(spriteBatch, playerFileData.Player.statLifeMax + " HP", position1 + new Vector2(0.0f, 3f), Color.White, 1f, 0.0f, 0.0f, -1);
             position1.X += 65f;
-            spriteBatch.Draw(Main.manaTexture, position1 + new Vector2(5f, 2f), Color.White);
-            position1.X += 10f + (float)Main.manaTexture.Width;
+            spriteBatch.Draw(Game1.manaTexture, position1 + new Vector2(5f, 2f), Color.White);
+            position1.X += 10f + (float)Game1.manaTexture.Width;
             Utils.DrawBorderString(spriteBatch, playerFileData.Player.statManaMax + " MP", position1 + new Vector2(0.0f, 3f), Color.White, 1f, 0.0f, 0.0f, -1);
             vector2.X += width1 + 5f;
             Vector2 position2 = vector2;
@@ -235,14 +235,14 @@ namespace GameManager.GameContent.UI.Elements
                     break;
                 case 1:
                     text1 = "Mediumcore";
-                    color = Main.mcColor;
+                    color = Game1.mcColor;
                     break;
                 case 2:
                     text1 = "Hardcore";
-                    color = Main.hcColor;
+                    color = Game1.hcColor;
                     break;
             }
-            Vector2 pos1 = position2 + new Vector2((float)(width2 * 0.5 - Main.fontMouseText.MeasureString(text1).X * 0.5), 3f);
+            Vector2 pos1 = position2 + new Vector2((float)(width2 * 0.5 - Game1.fontMouseText.MeasureString(text1).X * 0.5), 3f);
             Utils.DrawBorderString(spriteBatch, text1, pos1, color, 1f, 0.0f, 0.0f, -1);
             vector2.X += width2 + 5f;
             Vector2 position3 = vector2;
@@ -251,7 +251,7 @@ namespace GameManager.GameContent.UI.Elements
             TimeSpan playTime = playerFileData.GetPlayTime();
             int num = playTime.Days * 24 + playTime.Hours;
             string text2 = (num < 10 ? "0" : "") + num + playTime.ToString("\\:mm\\:ss");
-            Vector2 pos2 = position3 + new Vector2((float)(width3 * 0.5 - Main.fontMouseText.MeasureString(text2).X * 0.5), 3f);
+            Vector2 pos2 = position3 + new Vector2((float)(width3 * 0.5 - Game1.fontMouseText.MeasureString(text2).X * 0.5), 3f);
             Utils.DrawBorderString(spriteBatch, text2, pos2, Color.White, 1f, 0.0f, 0.0f, -1);
         }
     }

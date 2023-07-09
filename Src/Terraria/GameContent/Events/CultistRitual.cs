@@ -25,14 +25,14 @@ namespace GameManager.GameContent.Events
 
         public static void UpdateTime()
         {
-            if (Main.netMode == 1)
+            if (Game1.netMode == 1)
                 return;
 
-            delay -= Main.dayRate;
+            delay -= Game1.dayRate;
             if (delay < 0)
                 delay = 0;
 
-            recheck -= Main.dayRate;
+            recheck -= Game1.dayRate;
             if (recheck < 0)
                 recheck = 0;
             if (delay != 0 || recheck != 0)
@@ -44,7 +44,7 @@ namespace GameManager.GameContent.Events
             {
                 for (int index = 0; index < 200; ++index)
                 {
-                    if (Main.npc[index].active && (Main.npc[index].boss || NPCID.Sets.TechnicallyABoss[Main.npc[index].type]))
+                    if (Game1.npc[index].active && (Game1.npc[index].boss || NPCID.Sets.TechnicallyABoss[Game1.npc[index].type]))
                     {
                         flag = true;
                         break;
@@ -55,7 +55,7 @@ namespace GameManager.GameContent.Events
             if (flag)
                 recheck *= 6;
             else
-                TrySpawning(Main.dungeonX, Main.dungeonY);
+                TrySpawning(Game1.dungeonX, Game1.dungeonY);
         }
 
         public static void CultistSlain()
@@ -78,7 +78,7 @@ namespace GameManager.GameContent.Events
 
         private static bool CheckRitual(int x, int y)
         {
-            if (delay != 0 || !Main.hardMode || (!NPC.downedGolemBoss || !NPC.downedBoss3) || (y < 7 || WorldGen.SolidTile(Main.tile[x, y - 7]) || NPC.AnyNPCs(437)))
+            if (delay != 0 || !Game1.hardMode || (!NPC.downedGolemBoss || !NPC.downedBoss3) || (y < 7 || WorldGen.SolidTile(Game1.tile[x, y - 7]) || NPC.AnyNPCs(437)))
                 return false;
 
             Vector2 Center = new Vector2((float)(x * 16 + 8), (float)(y * 16 - 64 - 8 - 27));

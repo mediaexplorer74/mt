@@ -25,21 +25,21 @@ namespace GameManager.Graphics.Shaders
         private float _uProgress;
 
         public ScreenShaderData(string passName)
-            : base(Main.screenShader, passName) { }
+            : base(Game1.screenShader, passName) { }
 
         public ScreenShaderData(Effect shader, string passName)
             : base(shader, passName) { }
 
         public override void Apply()
         {
-            Vector2 vector2_1 = new Vector2((float)Main.offScreenRange, (float)Main.offScreenRange);
-            Vector2 vector2_2 = new Vector2((float)Main.screenWidth, (float)Main.screenHeight);
+            Vector2 vector2_1 = new Vector2((float)Game1.offScreenRange, (float)Game1.offScreenRange);
+            Vector2 vector2_2 = new Vector2((float)Game1.screenWidth, (float)Game1.screenHeight);
             _shader.Parameters["uColor"].SetValue(_uColor);
             _shader.Parameters["uOpacity"].SetValue(_uOpacity * _globalOpacity);
             _shader.Parameters["uSecondaryColor"].SetValue(_uSecondaryColor);
-            _shader.Parameters["uTime"].SetValue(Main.GlobalTime);
+            _shader.Parameters["uTime"].SetValue(Game1.GlobalTime);
             _shader.Parameters["uScreenResolution"].SetValue(vector2_2);
-            _shader.Parameters["uScreenPosition"].SetValue(Main.screenPosition - vector2_1);
+            _shader.Parameters["uScreenPosition"].SetValue(Game1.screenPosition - vector2_1);
             _shader.Parameters["uTargetPosition"].SetValue(_uTargetPosition - vector2_1);
             _shader.Parameters["uIntensity"].SetValue(_uIntensity);
             _shader.Parameters["uProgress"].SetValue(_uProgress);

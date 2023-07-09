@@ -44,7 +44,7 @@ namespace GameManager.GameContent.UI.Elements
         public override void MouseOver(UIMouseEvent evt)
         {
             base.MouseOver(evt);
-            Main.PlaySound(12, -1, -1, 1);
+            Game1.PlaySound(12, -1, -1, 1);
         }
 
         public void SetVisibility(float whenActive, float whenInactive)

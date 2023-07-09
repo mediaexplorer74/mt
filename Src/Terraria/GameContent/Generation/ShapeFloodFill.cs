@@ -39,11 +39,11 @@ namespace GameManager.GameContent.Generation
                 {
                     hashSet.Add(new Point16(point));
                     --num;
-                    if (point.X + 1 < Main.maxTilesX - 1)
+                    if (point.X + 1 < Game1.maxTilesX - 1)
                         queue.Enqueue(new Point(point.X + 1, point.Y));
                     if (point.X - 1 >= 1)
                         queue.Enqueue(new Point(point.X - 1, point.Y));
-                    if (point.Y + 1 < Main.maxTilesY - 1)
+                    if (point.Y + 1 < Game1.maxTilesY - 1)
                         queue.Enqueue(new Point(point.X, point.Y + 1));
                     if (point.Y - 1 >= 1)
                         queue.Enqueue(new Point(point.X, point.Y - 1));

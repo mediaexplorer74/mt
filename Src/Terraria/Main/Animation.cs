@@ -58,7 +58,7 @@ namespace GameManager
         public static void NewTemporaryAnimation(int type, ushort tileType, int x, int y)
         {
             Point16 point16 = new Point16(x, y);
-            if (x < 0 || x >= Main.maxTilesX || (y < 0 || y >= Main.maxTilesY))
+            if (x < 0 || x >= Game1.maxTilesX || (y < 0 || y >= Game1.maxTilesY))
                 return;
             Animation animation = new Animation();
             animation.SetDefaults(type);
@@ -66,7 +66,7 @@ namespace GameManager
             animation._coordinates = point16;
             animation._temporary = true;
             _awaitingAddition.Add(animation);
-            if (Main.netMode != 2)
+            if (Game1.netMode != 2)
                 return;
             NetMessage.SendTemporaryAnimation(-1, type, tileType, x, y);
         }
@@ -105,7 +105,7 @@ namespace GameManager
         {
             if (_temporary)
             {
-                Tile tile = Main.tile[_coordinates.X, _coordinates.Y];
+                Tile tile = Game1.tile[_coordinates.X, _coordinates.Y];
                 if (tile != null && tile.type != _tileType)
                 {
                     RemoveTemporaryAnimation(_coordinates.X, _coordinates.Y);

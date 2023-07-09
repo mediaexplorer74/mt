@@ -40,14 +40,14 @@ namespace GameManager.GameContent.Events
 
         public static void Draw(SpriteBatch sb)
         {
-            if (Main.netDiag || Main.showFrameRate)
+            if (Game1.netDiag || Game1.showFrameRate)
                 return;
 
             for (int index = 0; index < mostSeen.Count; ++index)
             {
                 int num1 = 200 + index % 13 * 100;
                 int num2 = 200 + index / 13 * 30;
-                ChatManager.DrawColorCodedString(sb, Main.fontItemStack, string.Concat(new object[4] { mostSeen[index].Key, " (",
+                ChatManager.DrawColorCodedString(sb, Game1.fontItemStack, string.Concat(new object[4] { mostSeen[index].Key, " (",
                     mostSeen[index].Value, ")" }), new Vector2((float)num1, (float)num2), Color.White, 0.0f, Vector2.Zero, Vector2.One, -1f, 0 != 0);
             }
         }
