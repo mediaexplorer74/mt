@@ -1,15 +1,14 @@
-# mt (Modding Terraria codename; desktop-uwp-1.3 branch)
+# mt (Modding Terraria codename; mobile-uwp-1.4 branch)
 
 ![](Images/intro.png)
 
 ## Tech. details
 
-:: Terraria 1.3.x.x , UWP edition ::
+:: Terraria 1.4.x.x , UWP edition ::
 
 :: Min. Win. os build (SDK): 10240 (Astoria compatibility added)
 
-## Screenshot(s)
-![](Images/shot1.png)
+:: Status of mobile-uwp-1.4 branch: Draft (R.E. is init state)
 
 ## Progress of porting to uwp
 

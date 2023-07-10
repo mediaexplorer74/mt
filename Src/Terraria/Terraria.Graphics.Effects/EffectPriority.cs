@@ -1,0 +1,11 @@
+namespace GameManager.Graphics.Effects
+{
+	public enum EffectPriority
+	{
+		VeryLow,
+		Low,
+		Medium,
+		High,
+		VeryHigh
+	}
+}
