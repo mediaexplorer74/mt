@@ -24,7 +24,8 @@ namespace GameManager.Utilities
 			FO_RENAME
 		}
 
-		[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto, Pack = 1)]
+		//RnD
+		[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode, Pack = 1)]
 		private struct SHFILEOPSTRUCT
 		{
 			public IntPtr hwnd;
@@ -46,8 +47,12 @@ namespace GameManager.Utilities
 			public string lpszProgressTitle;
 		}
 
-		[DllImport("shell32.dll", CharSet = CharSet.Auto)]
-		private static extern int SHFileOperation(SHFILEOPSTRUCT FileOp);
+		//RnD
+		//[DllImport("shell32.dll", CharSet = CharSet.Auto)]
+		private static /*extern*/ int SHFileOperation(SHFILEOPSTRUCT FileOp)
+		{
+			return default;
+		}
 
 		private static bool Send(string path, FileOperationFlags flags)
 		{

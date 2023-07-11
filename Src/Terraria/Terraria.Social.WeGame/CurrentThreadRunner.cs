@@ -1,5 +1,5 @@
 using System;
-using System.Windows.Threading;
+//using System.Windows.Threading;
 
 namespace GameManager.Social.WeGame
 {

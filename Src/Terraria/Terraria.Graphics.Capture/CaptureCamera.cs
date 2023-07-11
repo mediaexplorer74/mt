@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
+//using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -20,7 +20,8 @@ namespace GameManager.Graphics.Capture
 
 			public readonly Microsoft.Xna.Framework.Rectangle ScaledArea;
 
-			public CaptureChunk(Microsoft.Xna.Framework.Rectangle area, Microsoft.Xna.Framework.Rectangle scaledArea)
+			public CaptureChunk(Microsoft.Xna.Framework.Rectangle area, 
+				Microsoft.Xna.Framework.Rectangle scaledArea)
 			{
 				Area = area;
 				ScaledArea = scaledArea;

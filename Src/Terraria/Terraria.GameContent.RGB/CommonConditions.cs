@@ -11,7 +11,7 @@ namespace GameManager.GameContent.RGB
 			protected Player CurrentPlayer => Main.player[Main.myPlayer];
 
 			protected ConditionBase()
-				: base()
+				: base(default)//()
 			{
 			}
 		}
@@ -25,7 +25,8 @@ namespace GameManager.GameContent.RGB
 				_condition = condition;
 			}
 
-			public override bool IsActive()
+			//RnD
+			public /*override*/ bool IsActive()
 			{
 				return _condition(base.CurrentPlayer);
 			}

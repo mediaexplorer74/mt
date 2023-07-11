@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Json;
@@ -7,8 +8,13 @@ namespace GameManager.Social.WeGame
 {
 	public class WeGameHelper
 	{
-		[DllImport("kernel32.dll", CharSet = CharSet.Auto)]
-		private static extern void OutputDebugString(string message);
+		//RnD
+		//[DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+		private static /*extern*/ void OutputDebugString(string message)
+		{
+			Debug.WriteLine(message);
+		}
+
 
 		public static void WriteDebugString(string format, params object[] args)
 		{

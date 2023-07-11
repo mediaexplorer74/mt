@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using System.IO.Pipes;
+//using System.IO.Pipes;
 using System.Threading;
 
 namespace GameManager.Social.WeGame

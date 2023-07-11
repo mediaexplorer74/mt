@@ -113,7 +113,8 @@ namespace GameManager.Social.Steam
 		{
 		}
 
-		public override void Close(RemoteAddress address)
+		//RnD
+		public /*override*/ void Close(RemoteAddress address)
 		{
 			//IL_0007: Unknown result type (might be due to invalid IL or missing references)
 			//IL_000c: Unknown result type (might be due to invalid IL or missing references)
@@ -123,7 +124,8 @@ namespace GameManager.Social.Steam
 			Close(user);
 		}
 
-		public override bool CanInvite()
+		//RnD
+		public /*override*/ bool CanInvite()
 		{
 			if (_hasLocalHost || _lobby.State == LobbyState.Active || Main.LobbyId != 0L)
 			{
@@ -159,7 +161,8 @@ namespace GameManager.Social.Steam
 		{
 		}
 
-		public override void CancelJoin()
+		//RnD
+		public /*override*/ void CancelJoin()
 		{
 			if (_lobby.State != 0)
 			{

@@ -157,7 +157,7 @@ namespace GameManager.Social.WeGame
 
 		private bool GetRailConnectIDFromCmdLine(RailID server_id)
 		{
-			string[] commandLineArgs = Environment.GetCommandLineArgs();
+			string[] commandLineArgs = default;//Environment//.GetCommandLineArgs();
 			foreach (string text in commandLineArgs)
 			{
 				string text2 = "--rail_connect_cmd=";
@@ -260,14 +260,16 @@ namespace GameManager.Social.WeGame
 		{
 		}
 
-		public override void Close(RemoteAddress address)
+		//RnD
+		public /*override*/ void Close(RemoteAddress address)
 		{
 			CleanMyMetaData();
 			RailID remote_peer = RemoteAddressToRailId(address);
 			Close(remote_peer);
 		}
 
-		public override bool CanInvite()
+		//RnD
+		public /*override*/ bool CanInvite()
 		{
 			if (_hasLocalHost || _lobby.State == LobbyState.Active || Main.LobbyId != 0L)
 			{
@@ -299,7 +301,8 @@ namespace GameManager.Social.WeGame
 		{
 		}
 
-		public override void CancelJoin()
+		//RnD
+		public /*override*/ void CancelJoin()
 		{
 			if (_lobby.State != 0)
 			{

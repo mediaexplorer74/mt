@@ -4971,10 +4971,11 @@ namespace GameManager
 					}
 					SetFullScreen(flag);
 				}
-				binaryReader.Close();
+				binaryReader.Dispose();//.Close();
 			}
-			catch
+			catch (Exception ex)
 			{
+				Debug.WriteLine(ex.Message);
 			}
 		}
 
@@ -9741,8 +9742,12 @@ namespace GameManager
 				ItemTooltip.InvalidateTooltips();
 			};
 			PlayerInput.OnBindingChange += ItemTooltip.InvalidateTooltips;
+
 			clientUUID = Guid.NewGuid().ToString();
-			_ = GameManager.Graphics.Effects.Filters.Scene;
+			
+			//RnD
+			//_ = GameManager.Graphics.Effects.Filters.Scene;
+			
 			//Platform.Current.InitializeClientServices(base.Window.Handle);
 			//Platform.Get<IImeService>().AddKeyListener((Action<char>)delegate(char keyStroke)
 			/*{
@@ -9797,16 +9802,21 @@ namespace GameManager
 		private static void CacheSupportedDisplaySizes()
 		{
 			numDisplayModes = 0;
-			foreach (DisplayMode supportedDisplayMode in GraphicsAdapter.DefaultAdapter.SupportedDisplayModes)
+			foreach (DisplayMode supportedDisplayMode 
+				in GraphicsAdapter.DefaultAdapter.SupportedDisplayModes)
 			{
-				if (supportedDisplayMode.Width < minScreenW || supportedDisplayMode.Height < minScreenH || supportedDisplayMode.Width > maxScreenW || supportedDisplayMode.Height > maxScreenH)
+				if (supportedDisplayMode.Width < minScreenW 
+					|| supportedDisplayMode.Height < minScreenH 
+					|| supportedDisplayMode.Width > maxScreenW 
+					|| supportedDisplayMode.Height > maxScreenH)
 				{
 					continue;
 				}
 				bool flag = true;
 				for (int i = 0; i < numDisplayModes; i++)
 				{
-					if (supportedDisplayMode.Width == displayWidth[i] && supportedDisplayMode.Height == displayHeight[i])
+					if (supportedDisplayMode.Width == displayWidth[i] 
+						&& supportedDisplayMode.Height == displayHeight[i])
 					{
 						flag = false;
 						break;
@@ -15489,7 +15499,10 @@ namespace GameManager
 				PlayerInput.SetZoom_UI();
 				UpdateUIStates(gameTime);
 				PlayerInput.SetZoom_Unscaled();
+				
+				//RnD
 				GameManager.Graphics.Effects.Filters.Scene.Update(gameTime);
+				
 				Overlays.Scene.Update(gameTime);
 				LiquidRenderer.Instance.Update(gameTime);
 				UpdateAudio();
@@ -18047,8 +18060,12 @@ namespace GameManager
 			keyCount = 0;
 		}
 
-		[DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
-		public static extern short GetKeyState(int keyCode);
+		//RnD
+		//[DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+		public static /*extern*/ short GetKeyState(int keyCode)
+		{
+			return default;
+		}
 
 		public static string GetInputText(string oldString, bool allowMultiLine = false)
 		{
