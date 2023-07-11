@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using GameManager.Graphics.Effects;
 using GameManager.Localization;
+using Windows.Foundation;
 
 namespace GameManager.Graphics.Capture
 {
@@ -90,9 +91,17 @@ namespace GameManager.Graphics.Capture
 			_spriteBatch = new SpriteBatch(graphics);
 			try
 			{
-				_frameBuffer = new RenderTarget2D(graphics, 2048, 2048, mipMap: false, graphics.PresentationParameters.BackBufferFormat, DepthFormat.None);
-				_filterFrameBuffer1 = new RenderTarget2D(graphics, 2048, 2048, mipMap: false, graphics.PresentationParameters.BackBufferFormat, DepthFormat.None);
-				_filterFrameBuffer2 = new RenderTarget2D(graphics, 2048, 2048, mipMap: false, graphics.PresentationParameters.BackBufferFormat, DepthFormat.None);
+				_frameBuffer = new RenderTarget2D(graphics, 
+					2048, 2048, mipMap: false, graphics.PresentationParameters.BackBufferFormat,
+					DepthFormat.None);
+
+				_filterFrameBuffer1 = new RenderTarget2D(graphics, 
+					2048, 2048, mipMap: false, graphics.PresentationParameters.BackBufferFormat,
+					DepthFormat.None);
+
+				_filterFrameBuffer2 = new RenderTarget2D(graphics, 
+					2048, 2048, mipMap: false, graphics.PresentationParameters.BackBufferFormat,
+					DepthFormat.None);
 			}
 			catch
 			{
@@ -113,7 +122,8 @@ namespace GameManager.Graphics.Capture
 			Monitor.Enter(_captureLock);
 			if (_activeSettings != null)
 			{
-				throw new InvalidOperationException("Capture called while another capture was already active.");
+				throw new InvalidOperationException(
+					"Capture called while another capture was already active.");
 			}
 			_activeSettings = settings;
 			Microsoft.Xna.Framework.Rectangle area = settings.Area;
@@ -129,11 +139,13 @@ namespace GameManager.Graphics.Capture
 					num = Math.Min(num, 4096f / (float)(area.Height * 16));
 				}
 				num = Math.Min(1f, num);
-				_outputImageSize = new Size((int)MathHelper.Clamp((int)(num * (float)(area.Width * 16)), 1f, 4096f), (int)MathHelper.Clamp((int)(num * (float)(area.Height * 16)), 1f, 4096f));
-				_outputData = new byte[4 * _outputImageSize.Width * _outputImageSize.Height];
+				_outputImageSize = new Size((int)MathHelper.Clamp((int)(
+					num * (float)(area.Width * 16)), 1f, 4096f), (int)MathHelper.Clamp((int)(num * (float)(area.Height * 16)), 1f, 4096f));
+				_outputData = new byte[(int)(4 * _outputImageSize.Width * _outputImageSize.Height)];
 				int num2 = (int)Math.Floor(num * 2048f);
 				_scaledFrameData = new byte[4 * num2 * num2];
-				_scaledFrameBuffer = new RenderTarget2D(_graphics, num2, num2, mipMap: false, _graphics.PresentationParameters.BackBufferFormat, DepthFormat.None);
+				_scaledFrameBuffer = new RenderTarget2D(
+					_graphics, num2, num2, mipMap: false, _graphics.PresentationParameters.BackBufferFormat, DepthFormat.None);
 			}
 			else
 			{
@@ -151,7 +163,9 @@ namespace GameManager.Graphics.Capture
 					int height = (int)Math.Floor(num * (float)(num4 * 16));
 					int x = (int)Math.Floor(num * (float)((i - area.X) * 16));
 					int y = (int)Math.Floor(num * (float)((j - area.Y) * 16));
-					_renderQueue.Enqueue(new CaptureChunk(new Microsoft.Xna.Framework.Rectangle(i, j, num3, num4), new Microsoft.Xna.Framework.Rectangle(x, y, width, height)));
+					_renderQueue.Enqueue(new CaptureChunk(
+						new Microsoft.Xna.Framework.Rectangle(i, j, num3, num4),
+						new Microsoft.Xna.Framework.Rectangle(x, y, width, height)));
 				}
 			}
 			Monitor.Exit(_captureLock);
@@ -243,13 +257,14 @@ namespace GameManager.Graphics.Capture
 
 		private bool SaveImage(int width, int height, ImageFormat imageFormat, string filename)
 		{
-			if (!Utils.TryCreatingDirectory(Main.SavePath + Path.DirectorySeparatorChar + "Captures" + Path.DirectorySeparatorChar))
+			if (!Utils.TryCreatingDirectory(Main.SavePath 
+				+ Path.DirectorySeparatorChar + "Captures" + Path.DirectorySeparatorChar))
 			{
 				return false;
 			}
 			try
 			{
-				using (Bitmap bitmap = new Bitmap(width, height))
+				/*using (Bitmap bitmap = new Bitmap(width, height))
 				{
 					System.Drawing.Rectangle rect = new System.Drawing.Rectangle(0, 0, width, height);
 					BitmapData bitmapData = bitmap.LockBits(rect, ImageLockMode.WriteOnly, PixelFormat.Format32bppPArgb);
@@ -259,7 +274,8 @@ namespace GameManager.Graphics.Capture
 					bitmap.Save(filename, imageFormat);
 					bitmap.Dispose();
 				}
-				return true;
+				*/
+				return false;//true;
 			}
 			catch (Exception value)
 			{
@@ -276,6 +292,7 @@ namespace GameManager.Graphics.Capture
 			{
 				return;
 			}
+			/*
 			using Bitmap bitmap = new Bitmap(width, height);
 			System.Drawing.Rectangle rect = new System.Drawing.Rectangle(0, 0, width, height);
 			int elementCount = texture.Width * texture.Height * 4;
@@ -296,11 +313,13 @@ namespace GameManager.Graphics.Capture
 				}
 				num += texture.Width - width << 2;
 			}
+			
 			BitmapData bitmapData = bitmap.LockBits(rect, ImageLockMode.WriteOnly, PixelFormat.Format32bppPArgb);
 			IntPtr scan = bitmapData.Scan0;
 			Marshal.Copy(_outputData, 0, scan, width * height * 4);
 			bitmap.UnlockBits(bitmapData);
 			bitmap.Save(filename2, imageFormat);
+			*/
 		}
 
 		private void FinishCapture()
@@ -352,4 +371,8 @@ namespace GameManager.Graphics.Capture
 			}
 		}
 	}
+
+    internal class ImageFormat
+    {
+    }
 }

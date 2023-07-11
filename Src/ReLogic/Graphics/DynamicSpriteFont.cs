@@ -188,9 +188,13 @@ namespace ReLogic.Graphics
       return zero;
     }
 
-    public string CreateWrappedText(string text, float maxWidth) => this.CreateWrappedText(text, maxWidth, Thread.CurrentThread.CurrentCulture);
+        public string CreateWrappedText(string text, float maxWidth)
+        {
+            return this.CreateWrappedText(text, maxWidth, 
+                /*Thread.CurrentThread.CurrentCulture*/default);
+        }
 
-    public string CreateWrappedText(string text, float maxWidth, CultureInfo culture)
+        public string CreateWrappedText(string text, float maxWidth, CultureInfo culture)
     {
       WrappedTextBuilder wrappedTextBuilder = new WrappedTextBuilder((IFontMetrics) this, maxWidth, culture);
       wrappedTextBuilder.Append(text);

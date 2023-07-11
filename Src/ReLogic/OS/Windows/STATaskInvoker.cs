@@ -25,7 +25,7 @@ namespace ReLogic.OS.Windows
       this._shouldThreadContinue = true;
       this._staThread = new Thread(new ThreadStart(this.TaskThreadStart));
       this._staThread.Name = "STA Invoker Thread";
-      this._staThread.SetApartmentState(ApartmentState.STA);
+      //this._staThread.SetApartmentState(ApartmentState.STA);
       this._staThread.Start();
     }
 

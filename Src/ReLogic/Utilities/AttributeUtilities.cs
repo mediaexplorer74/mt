@@ -11,19 +11,28 @@ namespace ReLogic.Utilities
 {
   public static class AttributeUtilities
   {
-    public static T GetAttribute<T>(this Enum value) where T : Attribute
-    {
-      Type type = value.GetType();
-      return type.GetField(Enum.GetName(type, (object) value)).GetCustomAttributes(false).OfType<T>().SingleOrDefault<T>();
-    }
+      public static T GetAttribute<T>(this Enum value) where T : Attribute
+      {
+        Type type = value.GetType();
 
-    public static A GetCacheableAttribute<T, A>() where A : Attribute => AttributeUtilities.TypeAttributeCache<T, A>.Value;
+        //RnD
+        return default;//type.GetField(Enum.GetName(type, (object) value)).GetCustomAttributes(false).OfType<T>().SingleOrDefault<T>();
+      }
 
-    public static T GetAttribute<T>(this Type type) where T : Attribute => type.GetCustomAttributes(false).OfType<T>().SingleOrDefault<T>();
+        public static A GetCacheableAttribute<T, A>() where A : Attribute
+        {
+            return AttributeUtilities.TypeAttributeCache<T, A>.Value;
+        }
 
-    private static class TypeAttributeCache<T, A> where A : Attribute
-    {
-      public static readonly A Value = typeof (T).GetAttribute<A>();
-    }
+        public static T GetAttribute<T>(this Type type) where T : Attribute
+        {
+            //RnD
+            return default;//type.GetCustomAttributes(false).OfType<T>().SingleOrDefault<T>();
+        }
+
+        private static class TypeAttributeCache<T, A> where A : Attribute
+        {
+         public static readonly A Value = typeof (T).GetAttribute<A>();
+        }
   }
 }

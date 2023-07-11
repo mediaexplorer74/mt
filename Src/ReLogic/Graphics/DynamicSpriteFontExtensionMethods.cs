@@ -45,13 +45,16 @@ namespace ReLogic.Graphics
       float scale,
       SpriteEffects effects,
       float layerDepth)
-    {
-      spriteFont.InternalDraw(text, spriteBatch, position, color, rotation, origin, ref new Vector2()
       {
-        X = scale,
-        Y = scale
-      }, effects, layerDepth);
-    }
+        Vector2 c = new Vector2()
+        {
+            X = scale,
+            Y = scale
+        };
+     
+      spriteFont.InternalDraw(text, spriteBatch, position, color, rotation, origin, 
+          ref c, effects, layerDepth);
+      }
 
     public static void DrawString(
       this SpriteBatch spriteBatch,

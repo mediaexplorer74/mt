@@ -1,10 +1,7 @@
-﻿// Decompiled with JetBrains decompiler
-// Type: ReLogic.IO.ConsoleOutputMirror
-// Assembly: ReLogic, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 33513C57-D94A-4BED-935B-7012D40A5531
-// Assembly location: C:\Users\Admin\Desktop\re\ReLogic.dll
+﻿// ConsoleOutputMirror
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 
@@ -32,13 +29,14 @@ namespace ReLogic.IO
       }
       catch (Exception ex)
       {
-        Console.WriteLine("Unable to bind console output to file: {0}\r\nException: {1}", (object) path, (object) ex.ToString());
+        Debug.WriteLine("Unable to bind console output to file: {0}\r\nException: {1}", 
+            (object) path, (object) ex.ToString());
       }
     }
 
     private ConsoleOutputMirror(string path)
     {
-      this._oldConsoleOutput = Console.Out;
+            this._oldConsoleOutput = default;//Console.Out;
       Directory.CreateDirectory(Directory.GetParent(path).FullName);
       this._fileStream = File.Create(path);
       this._fileWriter = new StreamWriter((Stream) this._fileStream)
@@ -46,7 +44,7 @@ namespace ReLogic.IO
         AutoFlush = true
       };
       this._newConsoleOutput = (TextWriter) new ConsoleOutputMirror.DoubleWriter((TextWriter) this._fileWriter, this._oldConsoleOutput);
-      Console.SetOut(this._newConsoleOutput);
+      //Console.SetOut(this._newConsoleOutput);
     }
 
     protected virtual void Dispose(bool disposing)
@@ -55,16 +53,16 @@ namespace ReLogic.IO
         return;
       if (disposing)
       {
-        Console.SetOut(this._oldConsoleOutput);
+        //Console.SetOut(this._oldConsoleOutput);
         if (this._fileWriter != null)
         {
           this._fileWriter.Flush();
-          this._fileWriter.Close();
+          this._fileWriter.Dispose();//.Close();
           this._fileWriter = (StreamWriter) null;
         }
         if (this._fileStream != null)
         {
-          this._fileStream.Close();
+          this._fileStream.Dispose();//.Close();
           this._fileStream = (FileStream) null;
         }
       }

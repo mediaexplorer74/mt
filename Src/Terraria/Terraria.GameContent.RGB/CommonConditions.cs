@@ -10,8 +10,7 @@ namespace GameManager.GameContent.RGB
 		{
 			protected Player CurrentPlayer => Main.player[Main.myPlayer];
 
-			protected ConditionBase()
-				: base(default)//()
+			protected ConditionBase() : base()
 			{
 			}
 		}

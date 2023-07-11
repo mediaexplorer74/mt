@@ -65,6 +65,9 @@ namespace ReLogic.OS
       return stringBuilder.ToString();
     }
 
-    public virtual void SetWindowUnicodeTitle(GameWindow window, string title) => window.Title = title;
-  }
+        public virtual void SetWindowUnicodeTitle(GameWindow window, string title)
+        {
+            //window.Title = title;
+        }
+    }
 }

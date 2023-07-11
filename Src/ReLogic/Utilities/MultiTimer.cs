@@ -1,8 +1,4 @@
-﻿// Decompiled with JetBrains decompiler
-// Type: ReLogic.Utilities.MultiTimer
-// Assembly: ReLogic, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 33513C57-D94A-4BED-935B-7012D40A5531
-// Assembly location: C:\Users\Admin\Desktop\re\ReLogic.dll
+﻿// MultiTimer
 
 using System;
 using System.Collections.Generic;
@@ -15,11 +11,15 @@ namespace ReLogic.Utilities
     private int _ticksBetweenPrint;
     private int _ticksElapsedForPrint;
     private Stopwatch _timer = new Stopwatch();
-    private Dictionary<string, MultiTimer.TimerData> _timerDataMap = new Dictionary<string, MultiTimer.TimerData>();
+    private Dictionary<string, MultiTimer.TimerData> _timerDataMap 
+            = new Dictionary<string, MultiTimer.TimerData>();
 
-    public MultiTimer(int ticksBetweenPrint = 100) => this._ticksBetweenPrint = ticksBetweenPrint;
+        public MultiTimer(int ticksBetweenPrint = 100)
+        {
+            this._ticksBetweenPrint = ticksBetweenPrint;
+        }
 
-    public void Start()
+        public void Start()
     {
       this._timer.Reset();
       this._timer.Start();
@@ -42,7 +42,7 @@ namespace ReLogic.Utilities
       if (this._ticksElapsedForPrint != this._ticksBetweenPrint)
         return false;
       this._ticksElapsedForPrint = 0;
-      Console.WriteLine("Average elapsed time: ");
+      Debug.WriteLine("Average elapsed time: ");
       double num1 = 0.0;
       int val2 = 0;
       foreach (KeyValuePair<string, MultiTimer.TimerData> timerData in this._timerDataMap)
@@ -66,11 +66,13 @@ namespace ReLogic.Utilities
         objArray[8] = (object) " from ";
         objArray[9] = (object) (int) timerData2.Ticks;
         objArray[10] = (object) " records)";
-        Console.WriteLine(string.Concat(objArray));
+
+        Debug.WriteLine(string.Concat(objArray));
         num1 += timerData2.Total;
       }
       this._timerDataMap.Clear();
-      Console.WriteLine("Total : " + (object) (float) (num1 / (double) this._ticksBetweenPrint) + "ms");
+      Debug.WriteLine("Total : " + (object) (float) (num1 / (double) this._ticksBetweenPrint)
+          + "ms");
       return true;
     }
 
@@ -99,7 +101,11 @@ namespace ReLogic.Utilities
         this.Total = startTime;
       }
 
-      public MultiTimer.TimerData AddTick(double time) => new MultiTimer.TimerData(Math.Min(this.Min, time), Math.Max(this.Max, time), this.Ticks + 1.0, this.Total + time);
-    }
+            public MultiTimer.TimerData AddTick(double time)
+            {
+                return new MultiTimer.TimerData(Math.Min(this.Min, time), 
+                    Math.Max(this.Max, time), this.Ticks + 1.0, this.Total + time);
+            }
+        }
   }
 }

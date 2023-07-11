@@ -27,7 +27,7 @@ namespace ReLogic.OS
     {
       try
       {
-        return Thread.CurrentThread.GetApartmentState();
+         return default;//Thread.CurrentThread.GetApartmentState();
       }
       catch
       {
@@ -35,13 +35,17 @@ namespace ReLogic.OS
       }
     }
 
-    protected override string GetClipboard() => this.InvokeInStaThread<string>((Func<string>) (() => System.Windows.Forms.Clipboard.GetText()));
+        protected override string GetClipboard()
+        {
+            return default;//this.InvokeInStaThread<string>((Func<string>)(
+                //() => System.Windows.Forms.Clipboard.GetText()));
+        }
 
-    protected override void SetClipboard(string text)
+        protected override void SetClipboard(string text)
     {
       if (text == null || !(text != ""))
         return;
-      this.InvokeInStaThread((Action) (() => System.Windows.Forms.Clipboard.SetText(text)));
+      //this.InvokeInStaThread((Action) (() => System.Windows.Forms.Clipboard.SetText(text)));
     }
 
     private T InvokeInStaThread<T>(Func<T> callback)
@@ -50,7 +54,7 @@ namespace ReLogic.OS
         return callback();
       T result = default (T);
       Thread thread = new Thread((ThreadStart) (() => result = callback()));
-      thread.SetApartmentState(ApartmentState.STA);
+      //thread.SetApartmentState(ApartmentState.STA);
       thread.Start();
       thread.Join();
       return result;
@@ -65,18 +69,24 @@ namespace ReLogic.OS
       else
       {
         Thread thread = new Thread((ThreadStart) (() => callback()));
-        thread.SetApartmentState(ApartmentState.STA);
+        //thread.SetApartmentState(ApartmentState.STA);
         thread.Start();
         thread.Join();
       }
     }
 
-    public override string GetStoragePath() => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "My Games");
+        public override string GetStoragePath()
+        {
+            return "My Games";//Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), 
+                //"My Games");
+        }
 
-    public override void SetWindowUnicodeTitle(GameWindow window, string title)
+        public override void SetWindowUnicodeTitle(GameWindow window, string title)
     {
-      WindowsPlatform.WndProcCallback d = new WindowsPlatform.WndProcCallback(ReLogic.OS.Windows.NativeMethods.DefWindowProc);
-      IntPtr dwNewLong = ReLogic.OS.Windows.NativeMethods.SetWindowLong(window.Handle, -4, (int) Marshal.GetFunctionPointerForDelegate((Delegate) d));
+      WindowsPlatform.WndProcCallback d = new WindowsPlatform.WndProcCallback(
+          ReLogic.OS.Windows.NativeMethods.DefWindowProc);
+      IntPtr dwNewLong = ReLogic.OS.Windows.NativeMethods.SetWindowLong(window.Handle, -4, 
+          (int) Marshal.GetFunctionPointerForDelegate((Delegate) d));
       base.SetWindowUnicodeTitle(window, title);
       ReLogic.OS.Windows.NativeMethods.SetWindowLong(window.Handle, -4, (int) dwNewLong);
     }

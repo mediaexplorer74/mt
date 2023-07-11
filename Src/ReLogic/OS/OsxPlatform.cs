@@ -44,8 +44,10 @@ namespace ReLogic.OS
     {
       try
       {
+                
         using (Process process = new Process())
         {
+                /*
           process.StartInfo = new ProcessStartInfo("pbcopy", "-pboard general -Prefer txt")
           {
             UseShellExecute = false,
@@ -56,6 +58,7 @@ namespace ReLogic.OS
           process.StandardInput.Write(text);
           process.StandardInput.Close();
           process.WaitForExit();
+                */
         }
       }
       catch (Exception ex)
@@ -66,7 +69,9 @@ namespace ReLogic.OS
     public override string GetStoragePath()
     {
       string environmentVariable = Environment.GetEnvironmentVariable("HOME");
-      return string.IsNullOrEmpty(environmentVariable) ? "." : environmentVariable + "/Library/Application Support";
+      return string.IsNullOrEmpty(environmentVariable) 
+                ? "." 
+                : environmentVariable + "/Library/Application Support";
     }
   }
 }

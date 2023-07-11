@@ -1,14 +1,10 @@
-﻿// Decompiled with JetBrains decompiler
-// Type: ReLogic.Localization.IME.WindowsIme
-// Assembly: ReLogic, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 33513C57-D94A-4BED-935B-7012D40A5531
-// Assembly location: C:\Users\Admin\Desktop\re\ReLogic.dll
+﻿// WindowsIme
 
 using ReLogic.Localization.IME.Windows;
 using ReLogic.OS.Windows;
 using System;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
+//using System.Windows.Forms;
 
 namespace ReLogic.Localization.IME
 {
@@ -19,20 +15,45 @@ namespace ReLogic.Localization.IME
     private WindowsMessageHook _wndProcHook;
     private bool _disposedValue;
 
-    public override string CompositionString => Marshal.PtrToStringUni(ImeUi.GetCompositionString()).ToString();
+        public override string CompositionString
+        {
+            get
+            {
+                return Marshal.PtrToStringUni(ImeUi.GetCompositionString()).ToString();
+            }
+        }
 
-    public override bool IsCandidateListVisible => ImeUi.IsCandidateListVisible();
+        public override bool IsCandidateListVisible
+        {
+            get
+            {
+                return ImeUi.IsCandidateListVisible();
+            }
+        }
 
-    public override uint SelectedCandidate => ImeUi.GetCandidateSelection();
+        public override uint SelectedCandidate
+        {
+            get
+            {
+                return ImeUi.GetCandidateSelection();
+            }
+        }
 
-    public override uint CandidateCount => ImeUi.GetCandidatePageSize();
+        public override uint CandidateCount
+        {
+            get
+            {
+                return ImeUi.GetCandidatePageSize();
+            }
+        }
 
     public WindowsIme(WindowsMessageHook wndProcHook, IntPtr windowHandle)
     {
       this._wndProcHook = wndProcHook;
       this._windowHandle = windowHandle;
       this._isFocused = ImmNative.GetForegroundWindow() == this._windowHandle;
-      this._wndProcHook.AddMessageFilter((IMessageFilter) this);
+      //RnD
+      //this._wndProcHook.AddMessageFilter((IMessageFilter) this);
       ImeUi.Initialize(this._windowHandle);
     }
 
@@ -49,9 +70,12 @@ namespace ReLogic.Localization.IME
       ImeUi.Enable(false);
     }
 
-    public override string GetCandidate(uint index) => Marshal.PtrToStringUni(ImeUi.GetCandidate(index));
+        public override string GetCandidate(uint index)
+        {
+            return Marshal.PtrToStringUni(ImeUi.GetCandidate(index));
+        }
 
-    public bool PreFilterMessage(ref Message message)
+        public bool PreFilterMessage(ref Message message)
     {
       if (message.Msg == 8)
       {
@@ -110,7 +134,10 @@ namespace ReLogic.Localization.IME
       int num = disposing ? 1 : 0;
       if (this.IsEnabled)
         this.Disable();
-      this._wndProcHook.RemoveMessageFilter((IMessageFilter) this);
+
+      //RnD
+      //this._wndProcHook.RemoveMessageFilter((IMessageFilter) this);
+
       ImeUi.Uninitialize();
       this._disposedValue = true;
     }

@@ -3,18 +3,20 @@ using System;
 
 namespace GameManager.Social.WeGame
 {
+	//RnD
+
 	public class CurrentThreadRunner
 	{
-		private Dispatcher _dsipatcher;
+		//private Dispatcher _dsipatcher;
 
 		public CurrentThreadRunner()
 		{
-			_dsipatcher = Dispatcher.CurrentDispatcher;
+			//_dsipatcher = default;//Dispatcher.CurrentDispatcher;
 		}
 
 		public void Run(Action f)
 		{
-			_dsipatcher.BeginInvoke(f);
+			//_dsipatcher.BeginInvoke(f);
 		}
 	}
 }

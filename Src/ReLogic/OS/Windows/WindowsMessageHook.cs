@@ -4,10 +4,11 @@
 // MVID: 33513C57-D94A-4BED-935B-7012D40A5531
 // Assembly location: C:\Users\Admin\Desktop\re\ReLogic.dll
 
+using ReLogic.Localization.IME;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
+//using System.Windows.Forms;
 
 namespace ReLogic.OS.Windows
 {
@@ -23,9 +24,10 @@ namespace ReLogic.OS.Windows
     public WindowsMessageHook(IntPtr windowHandle)
     {
       this._windowHandle = windowHandle;
-      Application.AddMessageFilter((IMessageFilter) this);
+      //Application.AddMessageFilter((IMessageFilter) this);
       this._wndProc = new WindowsMessageHook.WndProcCallback(this.WndProc);
-      this._previousWndProc = (IntPtr) WindowsApi.SetWindowLong(this._windowHandle, -4, (int) Marshal.GetFunctionPointerForDelegate((Delegate) this._wndProc));
+      this._previousWndProc = (IntPtr) WindowsApi.SetWindowLong(
+          this._windowHandle, -4, (int) Marshal.GetFunctionPointerForDelegate((Delegate) this._wndProc));
     }
 
     public void AddMessageFilter(IMessageFilter filter) => this._filters.Add(filter);
@@ -35,12 +37,19 @@ namespace ReLogic.OS.Windows
     private IntPtr WndProc(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam)
     {
       Message message = Message.Create(hWnd, msg, wParam, lParam);
-      return this.InternalWndProc(ref message) ? message.Result : WindowsApi.CallWindowProc(this._previousWndProc, message.HWnd, message.Msg, message.WParam, message.LParam);
+
+      return this.InternalWndProc(ref message) 
+                ? message.Result 
+                : WindowsApi.CallWindowProc(this._previousWndProc, 
+                  message.HWnd, message.Msg, message.WParam, message.LParam);
     }
 
-    public bool PreFilterMessage(ref Message message) => message.Msg != 258 && this.InternalWndProc(ref message);
+        public bool PreFilterMessage(ref Message message)
+        {
+            return message.Msg != 258 && this.InternalWndProc(ref message);
+        }
 
-    private bool InternalWndProc(ref Message message)
+        private bool InternalWndProc(ref Message message)
     {
       foreach (IMessageFilter filter in this._filters)
       {
@@ -55,7 +64,7 @@ namespace ReLogic.OS.Windows
       if (this.disposedValue)
         return;
       int num = disposing ? 1 : 0;
-      Application.RemoveMessageFilter((IMessageFilter) this);
+     // Application.RemoveMessageFilter((IMessageFilter) this);
       WindowsApi.SetWindowLong(this._windowHandle, -4, (int) this._previousWndProc);
       this.disposedValue = true;
     }

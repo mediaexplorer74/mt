@@ -922,15 +922,20 @@
     <Compile Include="Terraria.Social.Base\ServerJoinRequestsManager.cs" />
     <Compile Include="Terraria.Social.Base\UserJoinToServerRequest.cs" />
     <Compile Include="Terraria.Social.Steam\AchievementsSocialModule.cs" />
+    <Compile Include="Terraria.Social.Steam\AppId_t.cs" />
+    <Compile Include="Terraria.Social.Steam\Callback.cs" />
     <Compile Include="Terraria.Social.Steam\CloudSocialModule.cs" />
     <Compile Include="Terraria.Social.Steam\CoreSocialModule.cs" />
     <Compile Include="Terraria.Social.Steam\FriendsSocialModule.cs" />
+    <Compile Include="Terraria.Social.Steam\GameOverlayActivated_t.cs" />
     <Compile Include="Terraria.Social.Steam\Lobby.cs" />
     <Compile Include="Terraria.Social.Steam\LobbyState.cs" />
     <Compile Include="Terraria.Social.Steam\NetClientSocialModule.cs" />
     <Compile Include="Terraria.Social.Steam\NetServerSocialModule.cs" />
     <Compile Include="Terraria.Social.Steam\NetSocialModule.cs" />
     <Compile Include="Terraria.Social.Steam\OverlaySocialModule.cs" />
+    <Compile Include="Terraria.Social.Steam\Platform.cs" />
+    <Compile Include="Terraria.Social.Steam\SteamAPI.cs" />
     <Compile Include="Terraria.Social.Steam\SteamP2PReader.cs" />
     <Compile Include="Terraria.Social.Steam\SteamP2PWriter.cs" />
     <Compile Include="Terraria.Social.WeGame\AchievementsSocialModule.cs" />
@@ -954,6 +959,17 @@
     <Compile Include="Terraria.Social.WeGame\NetServerSocialModule.cs" />
     <Compile Include="Terraria.Social.WeGame\NetSocialModule.cs" />
     <Compile Include="Terraria.Social.WeGame\OverlaySocialModule.cs" />
+    <Compile Include="Terraria.Social.WeGame\PlayerPersonalInfo.cs" />
+    <Compile Include="Terraria.Social.WeGame\RailCallBackHelper.cs" />
+    <Compile Include="Terraria.Social.WeGame\RailComparableID.cs" />
+    <Compile Include="Terraria.Social.WeGame\RailEventCallBackHandler.cs" />
+    <Compile Include="Terraria.Social.WeGame\RAILEventID.cs" />
+    <Compile Include="Terraria.Social.WeGame\RailGameID.cs" />
+    <Compile Include="Terraria.Social.WeGame\RailID.cs" />
+    <Compile Include="Terraria.Social.WeGame\RailKeyValue.cs" />
+    <Compile Include="Terraria.Social.WeGame\RailSystemState.cs" />
+    <Compile Include="Terraria.Social.WeGame\RailSystemStateChanged.cs" />
+    <Compile Include="Terraria.Social.WeGame\rail_api.cs" />
     <Compile Include="Terraria.Social.WeGame\ReportServerID.cs" />
     <Compile Include="Terraria.Social.WeGame\WeGameFriendListInfo.cs" />
     <Compile Include="Terraria.Social.WeGame\WeGameHelper.cs" />
@@ -1196,6 +1212,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.DotNet.PlatformAbstractions">
+      <Version>3.1.6</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite">
       <Version>1.1.4</Version>
     </PackageReference>
@@ -1218,6 +1237,10 @@
     <ProjectReference Include="..\MonoGame\MonoGame.Framework\MonoGame.Framework.WindowsUAP.csproj">
       <Project>{09c41a48-7bf3-4a46-9eb8-ce95b4c27ca9}</Project>
       <Name>MonoGame.Framework.WindowsUAP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReLogic\ReLogic.csproj">
+      <Project>{76a40b2c-a1c5-4136-8edb-ef5958c3bba8}</Project>
+      <Name>ReLogic</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

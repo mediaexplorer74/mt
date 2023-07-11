@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
-using rail;
+//using rail;
 using GameManager.IO;
 using GameManager.Localization;
 using GameManager.Net;
@@ -75,7 +75,7 @@ namespace GameManager.Social.WeGame
 		private void AsyncSetInviteCommandLine(string cmdline)
 		{
 			//IL_0010: Unknown result type (might be due to invalid IL or missing references)
-			rail_api.RailFactory().RailFriends().AsyncSetInviteCommandLine(cmdline, "");
+			//rail_api.RailFactory().RailFriends().AsyncSetInviteCommandLine(cmdline, "");
 		}
 
 		private void AsyncSetMyMetaData(string key, string value)
@@ -88,15 +88,17 @@ namespace GameManager.Social.WeGame
 			val.key = key;
 			val.value = value;
 			list.Add(val);
-			rail_api.RailFactory().RailFriends().AsyncSetMyMetadata(list, "");
+			//rail_api.RailFactory().RailFriends().AsyncSetMyMetadata(list, "");
 		}
 
 		private bool TryAuthUserByRecvData(RailID user, byte[] data, int length)
 		{
-			WeGameHelper.WriteDebugString("TryAuthUserByRecvData user:{0}", ((RailComparableID)user).id_);
+			WeGameHelper.WriteDebugString("TryAuthUserByRecvData user:{0}",
+				((RailComparableID)user).id_);
 			if (length < 3)
 			{
-				WeGameHelper.WriteDebugString("Failed to validate authentication packet: Too short. (Length: " + length + ")");
+				WeGameHelper.WriteDebugString(
+					"Failed to validate authentication packet: Too short. (Length: " + length + ")");
 				return false;
 			}
 			int num = (data[1] << 8) | data[0];
@@ -297,7 +299,7 @@ namespace GameManager.Social.WeGame
 			}
 		}
 
-		public override void Connect(RemoteAddress address)
+		public /*override*/ void Connect(RemoteAddress address)
 		{
 		}
 

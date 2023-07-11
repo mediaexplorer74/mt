@@ -1,3 +1,5 @@
+// Program
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,7 +8,6 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
-//using System.Windows.Forms;
 using ReLogic.IO;
 using ReLogic.OS;
 using GameManager.Initializers;
@@ -16,7 +17,7 @@ using GameManager.Utilities;
 
 namespace GameManager
 {
-	public static class Program
+	public static class Program1
 	{
 		public const bool IsServer = false;
 
@@ -26,7 +27,8 @@ namespace GameManager
 
 		public const bool IsDebug = false;
 
-		public static Dictionary<string, string> LaunchParameters = new Dictionary<string, string>();
+		public static Dictionary<string, string> LaunchParameters
+			= new Dictionary<string, string>();
 
 		private static int ThingsToLoad;
 
@@ -76,7 +78,8 @@ namespace GameManager
 				MethodInfo[] methods = types[i].GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
 				foreach (MethodInfo methodInfo in methods)
 				{
-					if (!methodInfo.IsAbstract && !methodInfo.ContainsGenericParameters && methodInfo.GetMethodBody() != null)
+					if (!methodInfo.IsAbstract && !methodInfo.ContainsGenericParameters
+						&& methodInfo.GetMethodBody() != null)
 					{
 						RuntimeHelpers.PrepareMethod(methodInfo.MethodHandle);
 					}
@@ -223,6 +226,8 @@ namespace GameManager
 					streamWriter.WriteLine(text);
 					streamWriter.WriteLine("");
 				}
+
+				//RnD
 				//MessageBox.Show(text, "Terraria: Error");
 			}
 			catch

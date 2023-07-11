@@ -1,8 +1,8 @@
 using System;
 using System.Threading;
-using System.Windows.Forms;
-using ReLogic.OS;
-using Steamworks;
+//using System.Windows.Forms;
+//using ReLogic.OS;
+//using Steamworks;
 using GameManager.Localization;
 
 namespace GameManager.Social.Steam
@@ -29,13 +29,15 @@ namespace GameManager.Social.Steam
 			_instance = this;
 			if (SteamAPI.RestartAppIfNecessary(new AppId_t(105600u)))
 			{
-				Environment.Exit(1);
+				//Environment.Exit(1);
 				return;
 			}
 			if (!SteamAPI.Init())
 			{
-				MessageBox.Show(Language.GetTextValue("Error.LaunchFromSteam"), Language.GetTextValue("Error.Error"));
-				Environment.Exit(1);
+				//MessageBox.Show(Language.GetTextValue("Error.LaunchFromSteam"),
+				//Language.GetTextValue("Error.Error"));
+				//Environment.Exit(1);
+				return;
 			}
 			IsSteamValid = true;
 			Thread thread = new Thread(SteamCallbackLoop);
@@ -48,7 +50,8 @@ namespace GameManager.Social.Steam
 			Main.OnTickForThirdPartySoftwareOnly += PulseSteamCallback;
 			if (Platform.IsOSX)
 			{
-				//_onOverlayActivated = Callback<GameOverlayActivated_t>.Create((DispatchDelegate<GameOverlayActivated_t>)OnOverlayActivated);
+				//_onOverlayActivated = Callback<GameOverlayActivated_t>.Create(
+				//(DispatchDelegate<GameOverlayActivated_t>)OnOverlayActivated);
 			}
 		}
 
@@ -104,10 +107,10 @@ namespace GameManager.Social.Steam
 
 		public void Shutdown()
 		{
-			Application.ApplicationExit += delegate
-			{
-				IsSteamValid = false;
-			};
+			//Application.ApplicationExit += delegate
+			//{
+			//	IsSteamValid = false;
+			//};
 		}
 
 		public void OnOverlayActivated(GameOverlayActivated_t result)

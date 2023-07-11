@@ -108,7 +108,10 @@ namespace ReLogic.Text
 
     internal static bool IsIgnoredCharacter(char character) => character < ' ' && character != '\n';
 
-    internal static bool CanBreakBetween(char previousChar, char nextChar, CultureInfo culture) => culture.LCID == StringReaderWrapExtension.SimplifiedChinese.LCID && !StringReaderWrapExtension.InvalidCharactersForLineEnd.Contains(previousChar) && !StringReaderWrapExtension.InvalidCharactersForLineStart.Contains(nextChar);
+    internal static bool CanBreakBetween(char previousChar, char nextChar, CultureInfo culture)
+    {
+        return true;//culture.LCID == StringReaderWrapExtension.SimplifiedChinese.LCID && !StringReaderWrapExtension.InvalidCharactersForLineEnd.Contains(previousChar) && !StringReaderWrapExtension.InvalidCharactersForLineStart.Contains(nextChar);
+    }
 
     internal static StringReaderWrapExtension.WrapScanMode GetModeForCharacter(char character)
     {

@@ -81,7 +81,7 @@ namespace ReLogic.OS
             };
             process.Start();
             process.StandardInput.Write(text);
-            process.StandardInput.Close();
+            process.StandardInput.Dispose();//.Close();
             process.WaitForExit();
           }
         }

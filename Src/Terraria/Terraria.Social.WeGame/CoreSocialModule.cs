@@ -1,8 +1,10 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Windows.Forms;
-using rail;
+using Windows.System.Threading;
+//using System.Windows.Forms;
+//using rail;
 
 namespace GameManager.Social.WeGame
 {
@@ -33,15 +35,20 @@ namespace GameManager.Social.WeGame
 			};
 			if (rail_api.RailNeedRestartAppForCheckingEnvironment(val, array.Length, array))
 			{
-				Environment.Exit(1);
+				//Environment.Exit(1);
+				return;
 			}
 			if (!rail_api.RailInitialize())
 			{
-				Environment.Exit(1);
+				//Environment.Exit(1);
 			}
-			_callbackHelper.RegisterCallback((RAILEventID)2, new RailEventCallBackHandler(RailEventCallBack));
+			
+			//_callbackHelper.RegisterCallback((RAILEventID)2,
+			//new RailEventCallBackHandler(RailEventCallBack));
 			isRailValid = true;
-			ThreadPool.QueueUserWorkItem(TickThread, null);
+
+			//ThreadPool.QueueUserWorkItem(TickThread, null);
+
 			Main.OnTickForThirdPartySoftwareOnly += RailEventTick;
 		}
 
@@ -71,10 +78,10 @@ namespace GameManager.Social.WeGame
 
 		public void Shutdown()
 		{
-			Application.ApplicationExit += delegate
-			{
-				isRailValid = false;
-			};
+			//Application.ApplicationExit += delegate
+			//{
+			//	isRailValid = false;
+			//};
 			_callbackHelper.UnregisterAllCallback();
 			rail_api.RailFinalize();
 		}
@@ -104,9 +111,15 @@ namespace GameManager.Social.WeGame
 			//IL_0006: Invalid comparison between Unknown and I4
 			if ((int)state == 2 || (int)state == 3)
 			{
-				MessageBox.Show("检测到WeGame异常，游戏将自动保存进度并退出游戏", "Terraria--WeGame Error");
-				WorldGen.SaveAndQuit(SaveAndQuitCallBack);
+				//RnD
+				//MessageBox.Show("检测到WeGame异常，游戏将自动保存进度并退出游戏", "Terraria--WeGame Error");
+				Debug.WriteLine("Terraria--WeGame Error");
+                WorldGen.SaveAndQuit(SaveAndQuitCallBack);
 			}
 		}
 	}
+
+    public class EventBase
+    {
+    }
 }

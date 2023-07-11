@@ -157,7 +157,7 @@ namespace GameManager.Social.Steam
 			}
 		}
 
-		public override void Connect(RemoteAddress address)
+		public /*override*/ void Connect(RemoteAddress address)
 		{
 		}
 
