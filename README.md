@@ -17,8 +17,11 @@ My attempt(s) to "reconsruct" some smallest and simplest game mechanics aka Terr
 ## Progress of porting to uwp
 
 :: Sound effects fixed :)
+
 :: DB storage ok
+
 :: Some debug mode added (but remerked/commented partially... only "god mode for life autosaving" on at now)))
+
 :: Some modded content added ... but all old terreria 1.0 theme remained, of couse! 
 
 :: DB "auto-deploy" fixed. So, terraria.bd file will automatically copied to AppData\Local\Packages\ME.ModdingTerrariaV1_...\LocalState  at first app start :)
@@ -28,7 +31,7 @@ My attempt(s) to "reconsruct" some smallest and simplest game mechanics aka Terr
 :: No sound (wavebank WMA support not recovered, sadly), but save / restore settings (player/genworld data storage) fixed :)
 
 ### Content
-This repo contains the decompiled source of the Terraria client binaries, from version 1.0-beta founded at [achive site](). Decompiled with [JetBrains dotPeek](https://www.jetbrains.com/decompiler/). 
+This repo contains the decompiled source of the Terraria client binaries, from version 1.0-beta founded at [Terraria-pc-version-archive site](https://archive.org/details/terraria-pc-version-archive). Decompiled with [JetBrains dotPeek](https://www.jetbrains.com/decompiler/). 
 
 ### Important
 - If you want to fix music themes, find cool utils for modding music content, and use *Src\Contents\Wave Bank.xbw* (unpack it, explore Xbox row RIFF format, recode all music files, pack them...). 
