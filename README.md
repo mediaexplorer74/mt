@@ -1,40 +1,33 @@
-# mt (Modding Terraria codename; 1.0-beta-uwp branch)
+# mt (Modding Terraria codename; 1.0-prealpha-uwp branch)
 
-My attempt(s) to "reconsruct" some smallest and simplest game mechanics aka Terraria project :)
+This is MINIMAL UWP Terraria app. It's my own attempt to RnD of Terraria XNA game mechanics.
 
 ## Tech. details
 
-:: Terraria 1.0 experimental UWP edition with special "modded" MonoGame ::
+:: Terraria 1.0-prealpha experimental "UWP port" with special "UWP-modded" MonoGame ::
 
 :: Min. Win. os build (SDK): 10240 (Astoria compatibility added)
 
-## Screenshot(s)
-![](Images/shot1.png)
-![](Images/shot2.png)
-![](Images/shot3.png)
-![](Images/shot4.png)
 
-## Progress of porting to uwp
+## Progress
 
 :: Sound effects fixed :)
 
-:: DB storage ok
+:: DB storage - not realized yet
 
-:: Some debug mode added (but remerked/commented partially... only "god mode for life autosaving" on at now)))
+:: Some "debug mode events" added (both left+right mouse click generate "some great yellow object" ;)))
 
 :: Some modded content added ... but all old terreria 1.0 theme remained, of couse! 
 
-:: DB "auto-deploy" fixed. So, terraria.bd file will automatically copied to AppData\Local\Packages\ME.ModdingTerrariaV1_...\LocalState  at first app start :)
-
 :: The app do its work only at "start mode" (minimum WASD + UpDownLeftRight keyboard control, not touchscreen event yet, sadly...) 
 
-:: No sound (wavebank WMA support not recovered, sadly), but save / restore settings (player/genworld data storage) fixed :)
+:: No music yet ... but I have plans to add main terraria music theme only as one .mp3 file ... or .ogg file? :)
 
 ### Content
-This repo contains the decompiled source of the Terraria client binaries, from version 1.0-beta founded at [Terraria-pc-version-archive site](https://archive.org/details/terraria-pc-version-archive). Decompiled with [JetBrains dotPeek](https://www.jetbrains.com/decompiler/). 
+This repo contains the decompiled source of the Terraria client binaries, from version 1.0-prealpha founded at [Terraria-pc-version-archive site](https://archive.org/details/terraria-pc-version-archive). Decompiled with [JetBrains dotPeek](https://www.jetbrains.com/decompiler/). 
 
 ### Important
-- If you want to fix music themes, find cool utils for modding music content, and use *Src\Contents\Wave Bank.xbw* (unpack it, explore Xbox row RIFF format, recode all music files, pack them...). 
+- If you want to improve game mechanics, I recommend to explore my W10MDevQuiqie repo before   
 - Use this at your own risk: I am not responsible for any legal consequences that may occur by using this decompiled code, nor will I provide support for it.
 I am just providing the decompiled code as a reference and making it easily accessible on GitHub.
 
@@ -42,10 +35,10 @@ I am just providing the decompiled code as a reference and making it easily acce
 - Explore all code structures : :
 - Try to patch decomp. bugs : :
 - Research game mechanics : :
-- Add your own game mech
-- Fix music : :
+- Add your own game mech : :
+- Add music : :
 - Add touchscreen event handlers : :
-- Do something else (deploy to old swwet Lumia phones... why not?) : :
+- Do something else.. Only dream of Mobile touch contol + mobile design + deploy result to your old sweet Lumia phones... because of why not?! ;) : :
 
 ## Add. info / References
 - https://onlineblogzone.com/modding-terraria-part-1-getting-started/ Modding Terraria – Part 1 Getting Started (article)
