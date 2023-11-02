@@ -1,16 +1,17 @@
 # mt (Project [M]icro[T]erraria codename; 1.0-prealpha-uwp branch)
-
 This is MINIMAL UWP Terraria app. It's my own attempt to RnD of Terraria XNA game mechanics.
 
-## Tech. details
+## Screenshot(s)
+![](Images/shot1.png)
 
+
+## Tech. details
 :: Terraria 1.0-prealpha experimental "UWP port" with special "UWP-modded" MonoGame ::
 
 :: Min. Win. os build (SDK): 10240 (Astoria compatibility added)
 
 
 ## Progress
-
 :: Sound effects fixed :)
 
 :: DB storage - not realized yet
