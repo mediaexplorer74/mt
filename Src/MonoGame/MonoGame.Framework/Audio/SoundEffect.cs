@@ -17,21 +17,147 @@ namespace Microsoft.Xna.Framework.Audio
     {
         #region Internal Audio Data
 
-        private string _name;
+        private string _name = string.Empty;
         
         private bool _isDisposed = false;
-        private TimeSpan _duration = TimeSpan.Zero;
+
+        private TimeSpan _duration;// = TimeSpan.Zero;
 
         #endregion
+
+
 
         #region Internal Constructors
 
-        internal SoundEffect() { }
+        //internal 
+        private SoundEffect(Stream stream) 
+        {
+            /*
+              The Stream object must point to the head of a valid PCM wave file. Also, this wave file must be in the RIFF bitstream format.
+              The audio format has the following restrictions:
+              Must be a PCM wave file
+              Can only be mono or stereo
+              Must be 8 or 16 bit
+              Sample rate must be between 8,000 Hz and 48,000 Hz
+            */
+
+            PlatformLoadAudioStream(stream, out _duration);
+        }
+
+
+        // Only used from SoundEffectReader.
+        internal SoundEffect(byte[] header, byte[] buffer, int bufferSize, int durationMs, int loopStart, int loopLength)
+        {
+            _duration = TimeSpan.FromMilliseconds(durationMs);
+
+            // Peek at the format... handle regular PCM data.
+            var format = BitConverter.ToInt16(header, 0);
+            if (format == 1)
+            {
+                var channels = BitConverter.ToInt16(header, 2);
+                var sampleRate = BitConverter.ToInt32(header, 4);
+                var bitsPerSample = BitConverter.ToInt16(header, 14);
+                PlatformInitializePcm(buffer, 0, bufferSize, bitsPerSample, sampleRate, (AudioChannels)channels, loopStart, loopLength);
+                return;
+            }
+
+            // Everything else is platform specific.
+            PlatformInitializeFormat(header, buffer, bufferSize, loopStart, loopLength);
+        }
+
+        // Only used from XACT WaveBank.
+        internal SoundEffect(MiniFormatTag codec, byte[] buffer, int channels, 
+            int sampleRate, int blockAlignment, int loopStart, int loopLength)
+        {
+            // Handle the common case... the rest is platform specific.
+            //RnD : true -- WMA experimental mode enabled
+            if ( /*true*/codec == MiniFormatTag.Pcm )
+            {
+                _duration = TimeSpan.FromSeconds((float)buffer.Length / (sampleRate * blockAlignment));
+                PlatformInitializePcm(buffer, 0, buffer.Length, 16, sampleRate, 
+                    (AudioChannels)channels, loopStart, loopLength);
+                return;
+            }
+
+            PlatformInitializeXact(codec, buffer, channels, sampleRate, blockAlignment, 
+                loopStart, loopLength, out _duration);
+        }
 
         #endregion
 
+
+
         #region Public Constructors
 
+        /// <summary>
+        /// Create a sound effect.
+        /// </summary>
+        /// <param name="buffer">The buffer with the sound data.</param>
+        /// <param name="sampleRate">The sound data sample rate in hertz.</param>
+        /// <param name="channels">The number of channels in the sound data.</param>
+        /// <remarks>This only supports uncompressed 16bit PCM wav data.</remarks>
+        public SoundEffect(byte[] buffer, int sampleRate, AudioChannels channels)
+             : this(buffer, 0, buffer != null ? buffer.Length : 0, sampleRate, channels, 0, 0)
+        {
+        }
+
+
+        /// <summary>
+        /// Create a sound effect.
+        /// </summary>
+        /// <param name="buffer">The buffer with the sound data.</param>
+        /// <param name="offset">The offset to the start of the sound data in bytes.</param>
+        /// <param name="count">The length of the sound data in bytes.</param>
+        /// <param name="sampleRate">The sound data sample rate in hertz.</param>
+        /// <param name="channels">The number of channels in the sound data.</param>
+        /// <param name="loopStart">The position where the sound should begin looping in samples.</param>
+        /// <param name="loopLength">The duration of the sound data loop in samples.</param>
+        /// <remarks>This only supports uncompressed 16bit PCM wav data.</remarks>
+        public SoundEffect(byte[] buffer, int offset, int count, int sampleRate, AudioChannels channels, int loopStart, int loopLength)
+        {
+            if (sampleRate < 8000 || sampleRate > 48000)
+                throw new ArgumentOutOfRangeException("sampleRate");
+            if ((int)channels != 1 && (int)channels != 2)
+                throw new ArgumentOutOfRangeException("channels");
+
+            if (buffer == null || buffer.Length == 0)
+                throw new ArgumentException("Ensure that the buffer length is non-zero.", "buffer");
+
+            var blockAlign = (int)channels * 2;
+            if ((buffer.Length % blockAlign) != 0)
+                throw new ArgumentException("Ensure that the buffer meets the block alignment requirements for the number of channels.", "buffer");
+
+            if (count <= 0)
+                throw new ArgumentException("Ensure that the count is greater than zero.", "count");
+            if ((count % blockAlign) != 0)
+                throw new ArgumentException("Ensure that the count meets the block alignment requirements for the number of channels.", "count");
+
+            if (offset < 0)
+                throw new ArgumentException("The offset cannot be negative.", "offset");
+            if (((ulong)count + (ulong)offset) > (ulong)buffer.Length)
+                throw new ArgumentException("Ensure that the offset+count region lines within the buffer.", "offset");
+
+            var totalSamples = buffer.Length / blockAlign;
+
+            if (loopStart < 0)
+                throw new ArgumentException("The loopStart cannot be negative.", "loopStart");
+            if (loopStart > totalSamples)
+                throw new ArgumentException("The loopStart cannot be greater than the total number of samples.", "loopStart");
+
+            if (loopLength == 0)
+                loopLength = totalSamples - loopStart;
+
+            if (loopLength < 0)
+                throw new ArgumentException("The loopLength cannot be negative.", "loopLength");
+            if (((ulong)loopStart + (ulong)loopLength) > (ulong)totalSamples)
+                throw new ArgumentException("Ensure that the loopStart+loopLength region lies within the sample range.", "loopLength");
+
+            _duration = GetSampleDuration(count, sampleRate, channels);
+
+            PlatformInitializePcm(buffer, offset, count, 16, sampleRate, channels, loopStart, loopLength);
+        }
+
+        /*
         /// <param name="buffer">Buffer containing PCM wave data.</param>
         /// <param name="sampleRate">Sample rate, in Hertz (Hz)</param>
         /// <param name="channels">Number of channels (mono or stereo).</param>
@@ -56,8 +182,11 @@ namespace Microsoft.Xna.Framework.Audio
 
             PlatformInitialize(buffer, offset, count, sampleRate, channels, loopStart, loopLength);
         }
+        */
 
         #endregion
+
+
 
         #region Finalizer
 
@@ -71,6 +200,8 @@ namespace Microsoft.Xna.Framework.Audio
         }
 
         #endregion
+
+
 
         #region Additional SoundEffect/SoundEffectInstance Creation Methods
 
@@ -96,9 +227,9 @@ namespace Microsoft.Xna.Framework.Audio
         /// <param name="s">Stream object containing PCM wave data.</param>
         /// <returns>A new SoundEffect object.</returns>
         /// <remarks>The Stream object must point to the head of a valid PCM wave file. Also, this wave file must be in the RIFF bitstream format.</remarks>
-        public static SoundEffect FromStream(Stream s)
+        public static SoundEffect FromStream(Stream stream)
         {
-            if (s == null)
+            if (stream == null)
                 throw new ArgumentNullException();
 
             // Notes from the docs:
@@ -110,9 +241,9 @@ namespace Microsoft.Xna.Framework.Audio
               Must be 8 or 16 bit
               Sample rate must be between 8,000 Hz and 48,000 Hz*/
 
-            var sfx = new SoundEffect();
+            var sfx = new SoundEffect(default);
 
-            sfx.PlatformLoadAudioStream(s);
+            sfx.PlatformLoadAudioStream(stream);
 
             return sfx;
         }
@@ -127,10 +258,17 @@ namespace Microsoft.Xna.Framework.Audio
         public static TimeSpan GetSampleDuration(int sizeInBytes, int sampleRate, AudioChannels channels)
         {
             if (sampleRate < 8000 || sampleRate > 48000)
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException("sampleRate");
 
-            // Reference: http://social.msdn.microsoft.com/Forums/windows/en-US/5a92be69-3b4e-4d92-b1d2-141ef0a50c91/how-to-calculate-duration-of-wave-file-from-its-size?forum=winforms
             var numChannels = (int)channels;
+            if (numChannels != 1 && numChannels != 2)
+                throw new ArgumentOutOfRangeException("channels");
+
+            if (sizeInBytes == 0)
+                return TimeSpan.Zero;
+
+            // Reference
+            // http://tinyurl.com/hq9slfy
 
             var dur = sizeInBytes / (sampleRate * numChannels * 16f / 8f);
 
@@ -148,12 +286,16 @@ namespace Microsoft.Xna.Framework.Audio
         /// <returns>Size of a single sample of audio data.</returns>
         public static int GetSampleSizeInBytes(TimeSpan duration, int sampleRate, AudioChannels channels)
         {
+            if (duration < TimeSpan.Zero || duration > TimeSpan.FromMilliseconds(0x7FFFFFF))
+                throw new ArgumentOutOfRangeException("duration");
+
             if (sampleRate < 8000 || sampleRate > 48000)
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException("samplerate");
 
-            // Reference: http://social.msdn.microsoft.com/Forums/windows/en-US/5a92be69-3b4e-4d92-b1d2-141ef0a50c91/how-to-calculate-duration-of-wave-file-from-its-size?forum=winforms
-
+            
             var numChannels = (int)channels;
+            if (numChannels != 1 && numChannels != 2)
+                throw new ArgumentOutOfRangeException("channels");
 
             var sizeInBytes = duration.TotalSeconds * (sampleRate * numChannels * 16f / 8f);
 
@@ -161,6 +303,7 @@ namespace Microsoft.Xna.Framework.Audio
         }
 
         #endregion
+
 
         #region Play
 
@@ -359,6 +502,7 @@ namespace Microsoft.Xna.Framework.Audio
             }
         }
 
+    
         #endregion
 
     }

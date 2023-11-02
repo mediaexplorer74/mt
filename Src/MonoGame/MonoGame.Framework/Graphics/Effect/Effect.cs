@@ -124,21 +124,37 @@ namespace Microsoft.Xna.Framework.Graphics
             header.EffectKey = BitConverter.ToInt32(effectCode, i); i += 4;
             header.HeaderSize = i;
 
+            //RnD
             if (header.Signature != MGFXHeader.MGFXSignature)
-                throw new Exception("This does not appear to be a MonoGame MGFX file!");
+            {
+                Debug.WriteLine("[monogame] Effects : " 
+                    + "This does not appear to be a MonoGame MGFX file!");
+                //throw new Exception("This does not appear to be a MonoGame MGFX file!");
+            }
             if (header.Version < MGFXHeader.MGFXVersion)
-                throw new Exception("This MGFX effect is for an older release of MonoGame and needs to be rebuilt.");
+            {
+                Debug.WriteLine("[monogame] Effects : " 
+                    + "This does not appear to be a MonoGame MGFX file");
+                //throw new Exception("This MGFX effect is for an older release of MonoGame and needs to be rebuilt.");
+            }
             if (header.Version > MGFXHeader.MGFXVersion)
-                throw new Exception("This MGFX effect seems to be for a newer release of MonoGame.");
+            {
+                Debug.WriteLine("[monogame] Effects : " 
+                    + "This MGFX effect seems to be for a newer release of MonoGame.");
+                //throw new Exception("This MGFX effect seems to be for a newer release of MonoGame.");
+            }
 
 #if DIRECTX
             if (header.Profile != 1)
 #else
 			if (header.Profile != 0)
 #endif
-                throw new Exception("This MGFX effect was built for a different platform!");
-            
-            
+            {
+                Debug.WriteLine("[monogame] Effects : "
+                   + "This MGFX effect was built for a different platform!");
+                //throw new Exception("This MGFX effect was built for a different platform!");
+            }
+                        
             return header;
         }
 
@@ -481,6 +497,16 @@ namespace Microsoft.Xna.Framework.Graphics
 
 			return new EffectParameterCollection(parameters);
 		}
+
+        public void Begin()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void End()
+        {
+            throw new NotImplementedException();
+        }
         #endregion // Effect File Reader
-	}
+    }
 }
