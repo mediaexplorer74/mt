@@ -11,19 +11,19 @@ using System.Diagnostics;
 namespace GameManager
 {
 
-    // Game1 class Game1
-    public class Game1 : Game
-    {
+  // Game1 class Game1
+  public class Game1 : Game
+  {
 
-        // Mouse support
-        MouseState lastMouseState;
-        Vector2 mouseposition = Vector2.Zero;
+    // Mouse support
+    MouseState lastMouseState;
+    Vector2 mouseposition = Vector2.Zero;
 
-        // TouchPanel support
-        TouchCollection lastTouchState;
-        Vector2 touchposition = Vector2.Zero;
+    // TouchPanel support
+    TouchCollection lastTouchState;
+    Vector2 touchposition = Vector2.Zero;
 
-        public const float leftWorld = 0.0f;
+    public const float leftWorld = 0.0f;
     public const float rightWorld = 80000f;
     public const float topWorld = 0.0f;
     public const float bottomWorld = 40000f;
@@ -162,7 +162,8 @@ namespace GameManager
 
     protected override void Initialize()
     {
-      this.Window.Title = "Terraria: Dig Peon, Dig!";
+      this.Window.Title = "[M]icro[T]erraria: Dig Peon, Dig!"; // =)
+
       for (int index1 = 0; index1 < 5001; ++index1)
       {
         for (int index2 = 0; index2 < 2501; ++index2)
@@ -282,75 +283,162 @@ namespace GameManager
 
     protected override void UnloadContent()
     {
-            //
+      
     }
 
 
     // Handle user input from the keyboard
     public void MouseAndKeyboardHandler()
     {
+        bool SpecialDebugEventHandlingNeeded = false;
+        float PosX = 0;
+        float PosY = 0;
+
         // ++++++++++++++ TOUCH PANEL ++++++++++++++++++++
-
         TouchCollection currentTouchState = TouchPanel.GetState();
-
         // Touch detected
         if (currentTouchState.Count > 0)
         {
-            if (currentTouchState[0].Position.X != lastTouchState[0].Position.X ||
-            currentTouchState[0].Position.Y != lastTouchState[0].Position.Y)
-            {
-                //DEBUG
-                touchposition = new Vector2(currentTouchState[0].Position.X,
-                    currentTouchState[0].Position.Y);
+            PosX = currentTouchState[0].Position.X;
+            PosY = currentTouchState[0].Position.Y;
 
-                if (currentTouchState[0].Position.X < lastTouchState[0].Position.X)
+#region Future
+            if 
+            (    currentTouchState[0].Position.X != lastTouchState[0].Position.X
+                || currentTouchState[0].Position.Y != lastTouchState[0].Position.Y
+            )
+            {
+                Debug.WriteLine("[i] Event: Touchscreen touched!");
+                SpecialDebugEventHandlingNeeded = true;
+
+  #region D1
+                    //DEBUG
+                    //touchposition = new Vector2(currentTouchState[0].Position.X,
+                    //    currentTouchState[0].Position.Y);
+
+                    if (PosX < lastTouchState[0].Position.X)
                 {
                     //dino.dX = dinoSpeedX * -1;
-                        
+
                 }
-                else if (currentTouchState[0].Position.X > lastTouchState[0].Position.X)
+                else if (PosX > lastTouchState[0].Position.X)
                 {
                     //dino.dX = dinoSpeedX * 1;
+                    //Game1.keyState.IsKeyDown...
                 }
                 else
                 {
                     //dino.dX = 0;
                 }
+                    #endregion
+
+                    // Experimental autopanning mode 
+                    if (PosX < lastMouseState.X)
+                        Game1.screenPosition.X -= 2f;
+
+                    if (PosX > lastMouseState.X)
+                        Game1.screenPosition.X += 2f;
+
+                    if (PosY < lastMouseState.Y)
+                        Game1.screenPosition.Y -= 2f;
+
+                    if (PosY > lastMouseState.Y)
+                        Game1.screenPosition.Y += 2f;
+
+                }//if
+#endregion
+            }//if (currentTouchState.Count...
 
 
-                //// Both mouse button pressed
-                //if (Game1.mouseState.RightButton == ButtonState.Pressed
-                //     && Game1.mouseState.LeftButton == ButtonState.Pressed)
-                //{
-                    Debug.WriteLine("[i] Event: Screen touched!");
-
-                    if (Game1.player[Game1.myPlayer].releaseUseItem)
-                    {
-                        int index = NPC.NewNPC((int)((double)currentTouchState[0].Position.X
-                            + (double)Game1.screenPosition.X), (int)((double)
-                            currentTouchState[0].Position.Y + (double)Game1.screenPosition.Y), 1);
-                        Game1.dayTime = true;
-                        Game1.npc[index].name = "Yellow Slime";
-                        Game1.npc[index].scale = 1.2f;
-                        Game1.npc[index].damage = 15;
-                        Game1.npc[index].defense = 15;
-                        Game1.npc[index].life = 50;
-                        Game1.npc[index].lifeMax = Game1.npc[index].life;
-                        Game1.npc[index].color = new Color((int)byte.MaxValue, 200, 0, 100);
-                    }
-                //}
+            // ============== MOUSE CONTROL ==================
 
 
-            }//if
-        }//if (currentTouchState.Count...
+            PosX = Game1.mouseState.Position.X;
+            PosY = Game1.mouseState.Position.Y;
 
-        
-        // ====================================================
+            // ******Experimental -- autopanning on mouse move =) ************
 
-        //lastMouseState = currentMouseState;
+            if (PosX < lastMouseState.X)
+                Game1.screenPosition.X -= 2f;
 
+            if (PosX > lastMouseState.X)
+                Game1.screenPosition.X += 2f;
+
+            if (PosY < lastMouseState.Y)
+                Game1.screenPosition.Y -= 2f;
+
+            if (PosY > lastMouseState.Y)
+                Game1.screenPosition.Y += 2f;
+
+            // *******************************************
+
+            //// Both mouse button pressed
+            if (    Game1.mouseState.RightButton == ButtonState.Pressed
+                 && Game1.mouseState.LeftButton  == ButtonState.Pressed  
+                 && ((PosX != lastMouseState.X)  || (PosY != lastMouseState.Y))
+                 )
+            {
+                Debug.WriteLine("[i] Event: Both left+right mouse button pressed!"); 
+                SpecialDebugEventHandlingNeeded = true;          
+            }
+        // ===============================================
+
+
+            // ============ KEYBOARD CONTOL ===================
+
+            // Panning control via WASD keys
+            if (Game1.keyState.IsKeyDown(/*Keys.Up*/Keys.W))
+                Game1.screenPosition.Y -= 4f;//32f;
+
+            if (Game1.keyState.IsKeyDown(/*Keys.Left*/Keys.A))
+                Game1.screenPosition.X -= 4f;//32f;
+
+            if (Game1.keyState.IsKeyDown(/*Keys.Down*/Keys.S))
+                Game1.screenPosition.Y += 4f;//32f;
+
+            if (Game1.keyState.IsKeyDown(/*Keys.Right*/Keys.D))
+                Game1.screenPosition.X += 4f;//32f;
+
+            // ===============================================
+
+
+            // ++++++++++++++++++++++++++++++++++++++++++++++
+
+            //// SpecialDebugEvent handler
+
+            if (SpecialDebugEventHandlingNeeded)
+        {
+            Debug.WriteLine("[i] SpecialDebugEvent handled!");
+
+            if (true)//(Game1.player[Game1.myPlayer].releaseUseItem)
+            {
+                //RnD
+                Game1.player[Game1.myPlayer].releaseUseItem = true;
+
+                int index = NPC.NewNPC
+                (
+                    (int)((double)PosX  + (double)Game1.screenPosition.X), 
+                    (int)((double)PosY + (double)Game1.screenPosition.Y), 
+                    1
+                );
+                Game1.dayTime = true;
+                Game1.npc[index].name = "Yellow Slime";
+                Game1.npc[index].scale = 1.2f;
+                Game1.npc[index].damage = 15;
+                Game1.npc[index].defense = 15;
+                Game1.npc[index].life = 50;
+                Game1.npc[index].lifeMax = Game1.npc[index].life;
+                Game1.npc[index].color = new Color((int)byte.MaxValue, 200, 0, 100);
+            }
+        }
+        // ++++++++++++++++++++++++++++++++++++++++++++++
+
+        lastMouseState = Game1.mouseState;
         lastTouchState = currentTouchState;
+        SpecialDebugEventHandlingNeeded = false;
+
     }//MouseAndKeyboardHandler
+
 
     // Update
      protected override void Update(GameTime gameTime)

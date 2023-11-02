@@ -90,6 +90,8 @@ namespace GameManager
 
     public void UpdatePlayer(int i)
     {
+      bool AutoPanNeeded = false;
+
       if (!this.active)
         return;
       if (this.dead)
@@ -126,20 +128,177 @@ namespace GameManager
           this.controlJump = false;
           this.controlUseItem = false;
           this.controlUseTile = false;
-          if (Game1.keyState.IsKeyDown(Keys.W))
-            this.controlUp = true;
-          if (Game1.keyState.IsKeyDown(Keys.A))
-            this.controlLeft = true;
-          if (Game1.keyState.IsKeyDown(Keys.S))
-            this.controlDown = true;
-          if (Game1.keyState.IsKeyDown(Keys.D))
-            this.controlRight = true;
-          if (Game1.keyState.IsKeyDown(Keys.Space))
+
+                    // phase 1
+
+                    /*
+                    //------------------Mouse ---------------
+                    if (Game1.mouseState.Position.X - Game1.oldMouseState.Position.X > 0)
+                    {
+                        this.controlRight = true;
+                        AutoPanNeeded = true;
+
+                        //RnD
+                        //Game1.player[Game1.myPlayer].position.X += 8f;
+                    }
+
+                    if (Game1.mouseState.Position.X - Game1.oldMouseState.Position.X < 0)
+                    {
+                        this.controlLeft = true;
+                        AutoPanNeeded = true;
+
+                        //RnD
+                        //Game1.player[Game1.myPlayer].position.X -= 8f;
+
+                    }
+
+                    if (Game1.mouseState.Position.X - Game1.oldMouseState.Position.X < 0)
+                    {
+                        this.controlUp = true;
+                        AutoPanNeeded = true;
+                    }
+
+
+                    if (Game1.mouseState.Position.Y - Game1.oldMouseState.Position.Y > 0)
+                    {
+                        this.controlDown = true;
+                        AutoPanNeeded = true;
+                    }
+                    */
+
+                    // ------------------------------------------------------------------
+
+                    /*
+                  //------------------ Touchpanel ---------------
+                  if (Game1.mouseState.Position.X - Game1.oldMouseState.Position.X > 0)
+                  {
+                      this.controlRight = true;
+                      AutoPanNeeded = true;
+
+                      //RnD
+                      //Game1.player[Game1.myPlayer].position.X += 8f;
+                  }
+
+                  if (Game1.mouseState.Position.X - Game1.oldMouseState.Position.X < 0)
+                  {
+                      this.controlLeft = true;
+                      AutoPanNeeded = true;
+
+                      //RnD
+                      //Game1.player[Game1.myPlayer].position.X -= 8f;
+
+                  }
+
+                  if (Game1.mouseState.Position.X - Game1.oldMouseState.Position.X < 0)
+                  {
+                      this.controlUp = true;
+                      AutoPanNeeded = true;
+                  }
+
+
+                  if (Game1.mouseState.Position.Y - Game1.oldMouseState.Position.Y > 0)
+                  {
+                      this.controlDown = true;
+                      AutoPanNeeded = true;
+                  }
+                  */
+
+                    // ------------------------------------------------------------------
+
+
+                    // ---------------- Keyboard ----------------------------------------
+
+                    if (Game1.keyState.IsKeyDown(/*Keys.D*/Keys.Right))
+            {
+                this.controlRight = true;
+                AutoPanNeeded = true;
+
+            }
+               
+
+            if (Game1.keyState.IsKeyDown(/*Keys.A*/Keys.Left))
+            {
+                this.controlLeft = true;
+                AutoPanNeeded = true;
+                                       
+            }
+
+            if (Game1.keyState.IsKeyDown(/*Keys.W*/Keys.Up))
+            {
+                this.controlUp = true;
+                AutoPanNeeded = true;           
+            }
+
+                    
+           if (Game1.keyState.IsKeyDown(/*Keys.S*/Keys.Down))
+           {
+              this.controlDown = true;
+              AutoPanNeeded = true;                      
+           }
+
+
+            //phase 2
+
+            if (AutoPanNeeded)
+            {
+
+                //Experimental
+                // 1
+                if ((Game1.player[Game1.myPlayer].position.X - Game1.screenPosition.X)
+                    > Game1.screenWidth - 96)
+                {
+                    Game1.screenPosition.X += 8f;//32f;
+                }
+
+                // 2
+                if
+                (
+                    (Game1.player[Game1.myPlayer].position.X - Game1.screenPosition.X)
+                        < 0 + 96
+                )
+                {
+                    Game1.screenPosition.X -= 8f;//32f;
+                }
+
+                // 3
+                //Experimental
+                if
+                (
+                    ((Game1.player[Game1.myPlayer].position.Y - Game1.screenPosition.Y)
+                    > Game1.screenHeight - 192)
+                )
+                {
+                    Game1.screenPosition.Y += 8f;//32f;
+                }
+
+                // 4
+                //Experimental
+                if
+                (
+                    (Game1.player[Game1.myPlayer].position.Y - Game1.screenPosition.Y)
+                        < 0 + 192
+                )
+                {
+                    Game1.screenPosition.Y -= 8f;//32f;
+                }
+
+
+                // ok, handled
+                AutoPanNeeded = false;
+            }
+
+        // ---------------------------------------
+
+
+         if (Game1.keyState.IsKeyDown(Keys.Space))
             this.controlJump = true;
+          
           if (Game1.mouseState.LeftButton == ButtonState.Pressed && !this.mouseInterface)
             this.controlUseItem = true;
+          
           if (Game1.mouseState.RightButton == ButtonState.Pressed && !this.mouseInterface)
             this.controlUseTile = true;
+          
           if (Game1.keyState.IsKeyDown(Keys.Escape))
           {
             if (this.releaseInventory)
