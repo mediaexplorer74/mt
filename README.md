@@ -19,7 +19,7 @@ This is MINIMAL UWP Terraria app. It's my own attempt to RnD of Terraria XNA gam
 
 :: Some modded content added ... but all old terreria 1.0 theme remained, of couse! 
 
-:: The app do its work only at "start mode" (minimum WASD + UpDownLeftRight keyboard control, not touchscreen event yet, sadly...) 
+:: The app do its work only at "start mode" (minimum WASD + UpDownLeftRight keyboard control, and minimal touchscreen event handing aka both left+right mousebuttonpressed emulation!) 
 
 :: No music yet ... but I have plans to add main terraria music theme only as one .mp3 file ... or .ogg file? :)
 
