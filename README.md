@@ -1,4 +1,4 @@
-# mt (Modding Terraria codename; 1.0-prealpha-uwp branch)
+# mt (Project [M]icro[T]erraria codename; 1.0-prealpha-uwp branch)
 
 This is MINIMAL UWP Terraria app. It's my own attempt to RnD of Terraria XNA game mechanics.
 
