@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"  xmlns:iot="http://schemas.microsoft.com/appx/manifest/iot/windows10" IgnorableNamespaces="uap mp iot">
-  <Identity Name="ME.MT1Beta" Publisher="CN=Admin" Version="1.0.0.0" />
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:iot="http://schemas.microsoft.com/appx/manifest/iot/windows10" IgnorableNamespaces="uap mp iot">
+  <Identity Name="ME.MT1Beta1" Publisher="CN=mediaexplorer" Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="5e06543d-af2a-4105-4a80-eb18c64e4724" PhonePublisherId="50000045-6565-4035-4000-200280350024" />
   <Properties>
-    <DisplayName>MTerraria v1-beta</DisplayName>
+    <DisplayName>MTerraria v1-beta1</DisplayName>
     <PublisherDisplayName>mediaexplorer</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -29,11 +29,11 @@
   </Applications>
   <Capabilities>
     <Capability Name="internetClient" />
+    <Capability Name="internetClientServer" />
     <uap:Capability Name="videosLibrary" />
     <uap:Capability Name="picturesLibrary" />
     <uap:Capability Name="musicLibrary" />
     <uap:Capability Name="removableStorage" />
-    <Capability Name="internetClientServer"/>
-    <iot:Capability Name="systemManagement"/>
+    <iot:Capability Name="systemManagement" />
   </Capabilities>
 </Package>

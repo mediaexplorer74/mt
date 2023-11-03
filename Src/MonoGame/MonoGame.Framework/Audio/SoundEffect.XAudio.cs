@@ -360,7 +360,7 @@ namespace Microsoft.Xna.Framework.Audio
             {
                 if (_format != null)
                 {
-                    //Debug.WriteLine("[i] PlatformSetupInstance: _format =", _format.ToString());
+                    //Debug.WriteLine("[i] PlatformSetupInstance: _format=", _format.ToString());
 
 
                     voice = new SourceVoice(Device, _format, VoiceFlags.None,
@@ -371,14 +371,14 @@ namespace Microsoft.Xna.Framework.Audio
                 }
                 else
                 {
-                    //Debug.WriteLine("[ex] PlatformSetupInstance: _format IS NULL!");
+                    Debug.WriteLine("[ex] PlatformSetupInstance: _format IS NULL!");
 
                     // Experimental! Del it if all sound system fails
                     // Plan A
-                    //voice = new SourceVoice(Device, default, VoiceFlags.None,
-                    //    XAudio2.MaximumFrequencyRatio);
-                    //inst._voice = voice;
-                    //inst._format = _format;
+                    voice = new SourceVoice(Device, default, VoiceFlags.None,
+                        XAudio2.MaximumFrequencyRatio);
+                    inst._voice = voice;
+                    inst._format = _format;
 
                     //RnD: PLAN B
                     //voice = new SourceVoice(Device, _format, VoiceFlags.UseFilter,

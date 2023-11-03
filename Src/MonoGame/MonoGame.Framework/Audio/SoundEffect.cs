@@ -71,7 +71,7 @@ namespace Microsoft.Xna.Framework.Audio
         {
             // Handle the common case... the rest is platform specific.
             //RnD : true -- WMA experimental mode enabled
-            if ( /*true*/codec == MiniFormatTag.Pcm )
+            if ( codec == MiniFormatTag.Pcm )
             {
                 _duration = TimeSpan.FromSeconds((float)buffer.Length / (sampleRate * blockAlignment));
                 PlatformInitializePcm(buffer, 0, buffer.Length, 16, sampleRate, 

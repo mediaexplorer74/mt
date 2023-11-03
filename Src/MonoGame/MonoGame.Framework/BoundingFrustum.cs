@@ -344,8 +344,7 @@ namespace Microsoft.Xna.Framework
         {
             if (corners == null)
             {
-                throw new 
-                    ("corners");
+                throw new ArgumentNullException("corners");
             }
 
             if (corners.Length < CornerCount)

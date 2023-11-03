@@ -296,11 +296,16 @@ namespace GameManager
               if (Game1.keyState.IsKeyDown(Keys.Space))
                 this.controlJump = true;
             }
-            if (Game1.mouseState.LeftButton == ButtonState.Pressed && !this.mouseInterface)
+            if (Game1.mouseState.Count == 1//Game1.mouseState.LeftButton == ButtonState.Pressed 
+            && !this.mouseInterface)
               this.controlUseItem = true;
-            if (Game1.mouseState.RightButton == ButtonState.Pressed && !this.mouseInterface)
+
+            if (Game1.mouseState.Count > 1//Game1.mouseState.RightButton == ButtonState.Pressed 
+            && !this.mouseInterface)
               this.controlUseTile = true;
-            if (Game1.keyState.IsKeyDown(Keys.Escape))
+
+            // 4-finger touch gives Escape ! =)
+            if (Game1.keyState.IsKeyDown(Keys.Escape) || Game1.mouseState.Count > 3)
             {
               if (this.releaseInventory)
               {
@@ -345,11 +350,17 @@ namespace GameManager
               {
                 int num7 = Game1.chatMode ? 1 : 0;
               }
-              if ((Game1.mouseState.LeftButton == ButtonState.Pressed && !this.mouseInterface && Game1.mouseLeftRelease || !Game1.playerInventory ? (Game1.mouseItem.type > 0 ? 1 : 0) : 0) != 0)
+
+              if ((Game1.mouseState.Count == 1 //Game1.mouseState.LeftButton == ButtonState.Pressed 
+                                && !this.mouseInterface && Game1.mouseLeftRelease
+                                || !Game1.playerInventory ? (Game1.mouseItem.type > 0 ? 1 : 0) : 0) != 0)
               {
                 Item obj = new Item();
                 bool flag = false;
-                if ((Game1.mouseState.LeftButton == ButtonState.Pressed && !this.mouseInterface && Game1.mouseLeftRelease || !Game1.playerInventory) && Game1.mouseItem.type > 0)
+
+                if ((Game1.mouseState.Count == 1 //Game1.mouseState.LeftButton == ButtonState.Pressed 
+                                    && !this.mouseInterface && Game1.mouseLeftRelease 
+                                    || !Game1.playerInventory) && Game1.mouseItem.type > 0)
                 {
                   obj = this.inventory[this.selectedItem];
                   this.inventory[this.selectedItem] = Game1.mouseItem;
@@ -372,7 +383,9 @@ namespace GameManager
                   Game1.item[number].noGrabDelay = 100;
                 Game1.item[number].velocity.Y = -2f;
                 Game1.item[number].velocity.X = (float) (4 * this.direction) + this.velocity.X;
-                if ((Game1.mouseState.LeftButton == ButtonState.Pressed && !this.mouseInterface || !Game1.playerInventory) && Game1.mouseItem.type > 0)
+
+                if ((Game1.mouseState.Count == 1 //Game1.mouseState.LeftButton == ButtonState.Pressed 
+                    && !this.mouseInterface || !Game1.playerInventory) && Game1.mouseItem.type > 0)
                 {
                   this.inventory[this.selectedItem] = obj;
                   Game1.mouseItem = new Item();
@@ -411,7 +424,10 @@ namespace GameManager
                   this.selectedItem = 9;
                 if (selectedItem != this.selectedItem)
                   Game1.PlaySound(12);
-                int num8 = (Game1.mouseState.ScrollWheelValue - Game1.oldMouseState.ScrollWheelValue) / 120;
+
+                //RnD: Scroll wheel
+                int num8 = 0;//(Game1.mouseState.ScrollWheelValue - Game1.oldMouseState.ScrollWheelValue) / 120;
+
                 while (num8 > 9)
                   num8 -= 10;
                 while (num8 < 0)
@@ -433,8 +449,9 @@ namespace GameManager
               }
               else
               {
-                int num9 = (Game1.mouseState.ScrollWheelValue - Game1.oldMouseState.ScrollWheelValue) / 120;
+                int num9 = 0;//(Game1.mouseState.ScrollWheelValue - Game1.oldMouseState.ScrollWheelValue) / 120;
                 Game1.focusRecipe += num9;
+
                 if (Game1.focusRecipe > Game1.numAvailableRecipes - 1)
                   Game1.focusRecipe = Game1.numAvailableRecipes - 1;
                 if (Game1.focusRecipe < 0)
@@ -505,8 +522,12 @@ namespace GameManager
         }
         if (this.mouseInterface)
           this.delayUseItem = true;
-        Player.tileTargetX = (int) (((double) Game1.mouseState.X + (double) Game1.screenPosition.X) / 16.0);
-        Player.tileTargetY = (int) (((double) Game1.mouseState.Y + (double) Game1.screenPosition.Y) / 16.0);
+
+        Player.tileTargetX = (int) (((double) Game1.mouseState[0].Position.X 
+                    + (double) Game1.screenPosition.X) / 16.0);
+
+        Player.tileTargetY = (int) (((double) Game1.mouseState[0].Position.Y 
+                    + (double) Game1.screenPosition.Y) / 16.0);
         if (this.immune)
         {
           --this.immuneTime;
@@ -2144,9 +2165,14 @@ namespace GameManager
         }
         if (this.inventory[this.selectedItem].shoot == 17 && flag && i == Game1.myPlayer)
         {
-          int index1 = (int) ((double) Game1.mouseState.X + (double) Game1.screenPosition.X) / 16;
-          int index2 = (int) ((double) Game1.mouseState.Y + (double) Game1.screenPosition.Y) / 16;
-          if (Game1.tile[index1, index2].active && (Game1.tile[index1, index2].type == (byte) 0 || Game1.tile[index1, index2].type == (byte) 2 || Game1.tile[index1, index2].type == (byte) 23))
+          int index1 = (int) ((double) Game1.mouseState[0].Position.X 
+                        + (double) Game1.screenPosition.X) / 16;
+          int index2 = (int) ((double) Game1.mouseState[0].Position.Y 
+                        + (double) Game1.screenPosition.Y) / 16;
+          if (Game1.tile[index1, index2].active 
+                        && (Game1.tile[index1, index2].type == (byte) 0 
+                        || Game1.tile[index1, index2].type == (byte) 2 
+                        || Game1.tile[index1, index2].type == (byte) 23))
           {
             WorldGen.KillTile(index1, index2, noItem: true);
             if (!Game1.tile[index1, index2].active)
@@ -2403,29 +2429,37 @@ namespace GameManager
             if (Type == 1 && this.inventory[this.selectedItem].type == 120)
               Type = 2;
             this.itemTime = this.inventory[this.selectedItem].useTime;
-            this.direction = (double) Game1.mouseState.X + (double) Game1.screenPosition.X <= (double) this.position.X + (double) this.width * 0.5 ? -1 : 1;
-            Vector2 vector2 = new Vector2(this.position.X + (float) this.width * 0.5f, this.position.Y + (float) this.height * 0.5f);
+            this.direction = (double) Game1.mouseState[0].Position.X 
+                            + (double) Game1.screenPosition.X <= (double) this.position.X
+                            + (double) this.width * 0.5 ? -1 : 1;
+
+            Vector2 vector2 = new Vector2(this.position.X 
+                + (float) this.width * 0.5f, this.position.Y + (float) this.height * 0.5f);
             if (Type == 9)
             {
-              vector2 = new Vector2(this.position.X + (float) this.width * 0.5f + (float) (Game1.rand.Next(601) * -this.direction), (float) ((double) this.position.Y + (double) this.height * 0.5 - 300.0) - (float) Game1.rand.Next(100));
+              vector2 = new Vector2(this.position.X + (float) this.width * 0.5f 
+                  + (float) (Game1.rand.Next(601) * -this.direction),
+                  (float) ((double) this.position.Y + (double) this.height * 0.5 - 300.0) 
+                  - (float) Game1.rand.Next(100));
               KnockBack = 0.0f;
             }
-            float num5 = (float) Game1.mouseState.X + Game1.screenPosition.X - vector2.X;
-            float num6 = (float) Game1.mouseState.Y + Game1.screenPosition.Y - vector2.Y;
+            float num5 = (float) Game1.mouseState[0].Position.X + Game1.screenPosition.X - vector2.X;
+            float num6 = (float) Game1.mouseState[0].Position.Y + Game1.screenPosition.Y - vector2.Y;
             float num7 = (float) Math.Sqrt((double) num5 * (double) num5 + (double) num6 * (double) num6);
             float num8 = shootSpeed / num7;
             float SpeedX = num5 * num8;
             float SpeedY = num6 * num8;
             if (this.inventory[this.selectedItem].useStyle == 5)
             {
-              this.itemRotation = (float) Math.Atan2((double) SpeedY * (double) this.direction, (double) SpeedX * (double) this.direction);
+              this.itemRotation = (float) Math.Atan2((double) SpeedY * (double) this.direction,
+                  (double) SpeedX * (double) this.direction);
               NetMessage.SendData(13, number: this.whoAmi);
               NetMessage.SendData(41, number: this.whoAmi);
             }
             if (Type == 17)
             {
-              vector2.X = (float) Game1.mouseState.X + Game1.screenPosition.X;
-              vector2.Y = (float) Game1.mouseState.Y + Game1.screenPosition.Y;
+              vector2.X = (float) Game1.mouseState[0].Position.X + Game1.screenPosition.X;
+              vector2.Y = (float) Game1.mouseState[0].Position.Y + Game1.screenPosition.Y;
             }
             Projectile.NewProjectile(vector2.X, vector2.Y, SpeedX, SpeedY, Type, damage, KnockBack, i);
           }
@@ -2649,12 +2683,35 @@ namespace GameManager
         }
         if (this.inventory[this.selectedItem].createWall >= 0)
         {
-          Player.tileTargetX = (int) (((double) Game1.mouseState.X + (double) Game1.screenPosition.X) / 16.0);
-          Player.tileTargetY = (int) (((double) Game1.mouseState.Y + (double) Game1.screenPosition.Y) / 16.0);
-          if ((double) this.position.X / 16.0 - (double) Player.tileRangeX - (double) this.inventory[this.selectedItem].tileBoost <= (double) Player.tileTargetX && ((double) this.position.X + (double) this.width) / 16.0 + (double) Player.tileRangeX + (double) this.inventory[this.selectedItem].tileBoost - 1.0 >= (double) Player.tileTargetX && (double) this.position.Y / 16.0 - (double) Player.tileRangeY - (double) this.inventory[this.selectedItem].tileBoost <= (double) Player.tileTargetY && ((double) this.position.Y + (double) this.height) / 16.0 + (double) Player.tileRangeY + (double) this.inventory[this.selectedItem].tileBoost - 2.0 >= (double) Player.tileTargetY)
+          Player.tileTargetX = (int) (((double) Game1.mouseState[0].Position.X 
+                        + (double) Game1.screenPosition.X) / 16.0);
+          Player.tileTargetY = (int) (((double) Game1.mouseState[0].Position.Y 
+                        + (double) Game1.screenPosition.Y) / 16.0);
+
+          if ((double) this.position.X / 16.0 - (double) Player.tileRangeX 
+           - (double) this.inventory[this.selectedItem].tileBoost <= (double) Player.tileTargetX 
+           && ((double) this.position.X + (double) this.width) / 16.0 
+           + (double) Player.tileRangeX + (double) this.inventory[this.selectedItem].tileBoost 
+           - 1.0 >= (double) Player.tileTargetX 
+           && (double) this.position.Y / 16.0 
+           - (double) Player.tileRangeY - (double) this.inventory[this.selectedItem].tileBoost 
+           <= (double) Player.tileTargetY 
+           && ((double) this.position.Y + (double) this.height) / 16.0 
+           + (double) Player.tileRangeY + (double) this.inventory[this.selectedItem].tileBoost
+           - 2.0 >= (double) Player.tileTargetY)
           {
             this.showItemIcon = true;
-            if (this.itemTime == 0 && this.itemAnimation > 0 && this.controlUseItem && (Game1.tile[Player.tileTargetX + 1, Player.tileTargetY].active || Game1.tile[Player.tileTargetX + 1, Player.tileTargetY].wall > (byte) 0 || Game1.tile[Player.tileTargetX - 1, Player.tileTargetY].active || Game1.tile[Player.tileTargetX - 1, Player.tileTargetY].wall > (byte) 0 || Game1.tile[Player.tileTargetX, Player.tileTargetY + 1].active || Game1.tile[Player.tileTargetX, Player.tileTargetY + 1].wall > (byte) 0 || Game1.tile[Player.tileTargetX, Player.tileTargetY - 1].active || Game1.tile[Player.tileTargetX, Player.tileTargetY - 1].wall > (byte) 0) && (int) Game1.tile[Player.tileTargetX, Player.tileTargetY].wall != this.inventory[this.selectedItem].createWall)
+            if (this.itemTime == 0 && this.itemAnimation > 0 && this.controlUseItem 
+          && (Game1.tile[Player.tileTargetX + 1, Player.tileTargetY].active 
+          || Game1.tile[Player.tileTargetX + 1, Player.tileTargetY].wall > (byte) 0
+          || Game1.tile[Player.tileTargetX - 1, Player.tileTargetY].active 
+          || Game1.tile[Player.tileTargetX - 1, Player.tileTargetY].wall > (byte) 0 
+          || Game1.tile[Player.tileTargetX, Player.tileTargetY + 1].active 
+          || Game1.tile[Player.tileTargetX, Player.tileTargetY + 1].wall > (byte) 0 
+          || Game1.tile[Player.tileTargetX, Player.tileTargetY - 1].active 
+          || Game1.tile[Player.tileTargetX, Player.tileTargetY - 1].wall > (byte) 0) 
+          && (int) Game1.tile[Player.tileTargetX, 
+          Player.tileTargetY].wall != this.inventory[this.selectedItem].createWall)
             {
               WorldGen.PlaceWall(Player.tileTargetX, Player.tileTargetY, this.inventory[this.selectedItem].createWall);
               if ((int) Game1.tile[Player.tileTargetX, Player.tileTargetY].wall == this.inventory[this.selectedItem].createWall)

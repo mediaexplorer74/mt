@@ -194,20 +194,32 @@ namespace GameManager
       }
     }
 
+    // addLight
     public static void addLight(int i, int j, float Lightness)
     {
-      if (Lighting.tempLightCount == Lighting.maxTempLights || i - Lighting.firstTileX + 21 < 0 || i - Lighting.firstTileX + 21 >= Game1.screenWidth / 16 + 42 + 10 || j - Lighting.firstTileY + 21 < 0 || j - Lighting.firstTileY + 21 >= Game1.screenHeight / 16 + 42 + 10)
+      if 
+      (
+          Lighting.tempLightCount == Lighting.maxTempLights 
+        || i - Lighting.firstTileX + 21 < 0 
+        || i - Lighting.firstTileX + 21 >= Game1.screenWidth / 16 + 42 + 10 
+        || j - Lighting.firstTileY + 21 < 0 
+        || j - Lighting.firstTileY + 21 >= Game1.screenHeight / 16 + 42 + 10
+      )
         return;
+      
       for (int index = 0; index < Lighting.tempLightCount; ++index)
       {
-        if (Lighting.tempLightX[index] == i && Lighting.tempLightY[index] == j && (double) Lightness <= (double) Lighting.tempLight[index])
+        if (Lighting.tempLightX[index] == i && Lighting.tempLightY[index] == j 
+                    && (double) Lightness <= (double) Lighting.tempLight[index])
           return;
       }
       Lighting.tempLightX[Lighting.tempLightCount] = i;
       Lighting.tempLightY[Lighting.tempLightCount] = j;
       Lighting.tempLight[Lighting.tempLightCount] = Lightness;
+
       ++Lighting.tempLightCount;
-    }
+    }//addLight
+
 
     private static void LightColor(int i, int j)
     {
@@ -266,7 +278,7 @@ namespace GameManager
         return oldColor;
       if (index1 < 0 || index2 < 0 || index1 >= Game1.screenWidth / 16 + 42 + 10 || index2 >= Game1.screenHeight / 16 + 42 + 10)
         return Color.Black;
-      return Color.White with
+      return new Color//.White with
       {
         R = (byte) ((double) oldColor.R * (double) Lighting.color[index1, index2]),
         G = (byte) ((double) oldColor.G * (double) Lighting.color[index1, index2]),

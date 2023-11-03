@@ -823,7 +823,8 @@ namespace GameManager
           binaryWriter.Write(Game1.invasionX);
           for (int index1 = 0; index1 < Game1.maxTilesX; ++index1)
           {
-            Game1.statusText = "Saving world data: " + (object) (int) ((double) ((float) index1 / (float) Game1.maxTilesX) * 100.0 + 1.0) + "%";
+            Game1.statusText = "Saving world data: " + (object) (int) (
+                            (double) ((float) index1 / (float) Game1.maxTilesX) * 100.0 + 1.0) + "%";
             for (int index2 = 0; index2 < Game1.maxTilesY; ++index2)
             {
               binaryWriter.Write(Game1.tile[index1, index2].active);

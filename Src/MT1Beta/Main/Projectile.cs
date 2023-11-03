@@ -1291,8 +1291,8 @@ namespace GameManager
           {
             float num29 = 12f;
             Vector2 vector2 = new Vector2(this.position.X + (float) this.width * 0.5f, this.position.Y + (float) this.height * 0.5f);
-            float num30 = (float) Game1.mouseState.X + Game1.screenPosition.X - vector2.X;
-            float num31 = (float) Game1.mouseState.Y + Game1.screenPosition.Y - vector2.Y;
+            float num30 = (float) Game1.mouseState[0].Position.X + Game1.screenPosition.X - vector2.X;
+            float num31 = (float) Game1.mouseState[0].Position.Y + Game1.screenPosition.Y - vector2.Y;
             num1 = (float) Math.Sqrt((double) num30 * (double) num30 + (double) num31 * (double) num31);
             float num32 = (float) Math.Sqrt((double) num30 * (double) num30 + (double) num31 * (double) num31);
             if ((double) num32 > (double) num29)
@@ -1339,11 +1339,15 @@ namespace GameManager
           if (Game1.player[this.owner].channel)
           {
             float num36 = 12f;
-            Vector2 vector2 = new Vector2(this.position.X + (float) this.width * 0.5f, this.position.Y + (float) this.height * 0.5f);
-            float num37 = (float) Game1.mouseState.X + Game1.screenPosition.X - vector2.X;
-            float num38 = (float) Game1.mouseState.Y + Game1.screenPosition.Y - vector2.Y;
+            Vector2 vector2 = new Vector2(this.position.X + (float) this.width * 0.5f, 
+                this.position.Y + (float) this.height * 0.5f);
+
+            float num37 = (float) Game1.mouseState[0].Position.X + Game1.screenPosition.X - vector2.X;
+            float num38 = (float) Game1.mouseState[0].Position.Y + Game1.screenPosition.Y - vector2.Y;
             num1 = (float) Math.Sqrt((double) num37 * (double) num37 + (double) num38 * (double) num38);
-            float num39 = (float) Math.Sqrt((double) num37 * (double) num37 + (double) num38 * (double) num38);
+
+            float num39 = (float) Math.Sqrt((double) num37 * (double) num37 
+                + (double) num38 * (double) num38);
             if ((double) num39 > (double) num36)
             {
               float num40 = num36 / num39;

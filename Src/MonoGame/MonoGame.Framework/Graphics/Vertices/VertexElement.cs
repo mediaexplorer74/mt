@@ -16,6 +16,7 @@ namespace Microsoft.Xna.Framework.Graphics
         private VertexElementUsage _usage;
         private int _usageIndex;
 
+
         /// <summary>
         /// Gets or sets the offset in bytes from the beginning of the stream to the vertex element.
         /// </summary>
@@ -72,14 +73,15 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <param name="elementFormat">The element format.</param>
         /// <param name="elementUsage">The HLSL semantic of the element in the vertex shader input-signature.</param>
         /// <param name="usageIndex">The semantic index, which is required if the semantic is used for more than one vertex element.</param>
-        public VertexElement(int offset, VertexElementFormat elementFormat, VertexElementUsage elementUsage, int usageIndex)
+        public VertexElement(int offset, VertexElementFormat elementFormat,
+         VertexElementUsage elementUsage, int usageIndex) : this()
         {
             _offset = offset;
             _format = elementFormat;
             _usageIndex = usageIndex;
             _usage = elementUsage;
         }
-
+        
         /// <summary>
         /// Returns a hash code for this instance.
         /// </summary>

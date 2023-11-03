@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
+
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -51,22 +53,34 @@ namespace GameManager
 
     //RnD
     public static bool grabSun = true;//false;
-    public static bool debugMode = true;//false;
+    
+    public static bool debugMode = true;//set True for/to debug
+    
     public static bool godMode = true;//false;
+    
     public static bool stopSpawns = false;
+    
     public static bool dumbAI = false;
 
-    public static bool skipMenu = false;
+    public static bool skipMenu = false;//false;
+
     public static bool lightTiles = false;
     public static bool verboseNetplay = false;
     public static bool stopTimeOuts = false;
     public static bool showSpam = false;
     public static bool showItemOwner = false;
     public static string defaultIP = "74.132.0.65";
+
     private GraphicsDeviceManager graphics;
     private SpriteBatch spriteBatch;
-    public static MouseState mouseState = Mouse.GetState();
-    public static MouseState oldMouseState = Mouse.GetState();
+
+    public static MouseState mouseState1 = Mouse.GetState();
+    public static TouchCollection mouseState = TouchPanel.GetState();//Experimental
+
+    // public static MouseState oldMouseState = Mouse.GetState();
+    public static MouseState oldMouseState1 = Mouse.GetState();
+    public static TouchCollection oldMouseState = TouchPanel.GetState();//Experimental
+
     public static KeyboardState keyState = Keyboard.GetState();
     public static int updateTime = 0;
     public static int drawTime = 0;
@@ -398,7 +412,14 @@ namespace GameManager
     private float logoScaleDirection = 1f;
     private float logoScaleSpeed = 1f;
     private static int maxMenuItems = 11;
-    private float[] menuItemScale = new float[Game1.maxMenuItems];
+
+    private float[] menuItemScale = new float[] 
+    {   1, 1, 1,
+        1,1,1,1,
+        1,1,1,1,
+        1,1
+    };// new float[Game1.maxMenuItems];
+
     private int focusMenu = -1;
     private int selectedMenu = -1;
     private int selectedPlayer = 0;
@@ -411,14 +432,24 @@ namespace GameManager
     private int focusColor = 0;
     private int colorDelay = 0;
 
-    [DllImport("User32")]
-    private static extern int RemoveMenu(IntPtr hMenu, int nPosition, int wFlags);
+    //[DllImport("User32")]
+    private static /*extern*/ int RemoveMenu(IntPtr hMenu, int nPosition, int wFlags)
+    {
+       return default;
+    }
 
-    [DllImport("User32")]
-    private static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
+    //[DllImport("User32")]
+    private static /*extern*/ IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert)
+    { 
+      return default;
+    }
 
-    [DllImport("User32")]
-    private static extern int GetMenuItemCount(IntPtr hWnd);
+    //[DllImport("User32")]
+    private static /*extern*/ int GetMenuItemCount(IntPtr hWnd)
+    {
+        int menuItemsCount = 11;
+        return menuItemsCount;//default;
+    }
 
     public static void LoadWorlds()
     {
@@ -757,8 +788,10 @@ namespace GameManager
       Game1.wallHouse[10] = true;
       Game1.wallHouse[11] = true;
       Game1.wallHouse[12] = true;
+
       for (int index = 0; index < Game1.maxMenuItems; ++index)
         this.menuItemScale[index] = 0.8f;
+
       for (int index = 0; index < 2000; ++index)
         Game1.dust[index] = new Dust();
       for (int index = 0; index < 201; ++index)
@@ -808,6 +841,7 @@ namespace GameManager
       Game1.teamColor[3] = new Color(75, 90, (int) byte.MaxValue);
       Game1.teamColor[4] = new Color(200, 180, 0);
       Netplay.Init();
+
       if (Game1.skipMenu)
       {
         WorldGen.clearWorld();
@@ -819,6 +853,9 @@ namespace GameManager
         WorldGen.generateWorld();
         WorldGen.EveryTileFrame();
         Game1.player[Game1.myPlayer].Spawn();
+        //IntPtr systemMenu = Game1.GetSystemMenu(this.Window.Handle, false);
+        //int menuItemCount = Game1.GetMenuItemCount(systemMenu);
+        //Game1.RemoveMenu(systemMenu, menuItemCount - 1, 1024);
       }
       else
       {
@@ -826,6 +863,7 @@ namespace GameManager
         int menuItemCount = Game1.GetMenuItemCount(systemMenu);
         Game1.RemoveMenu(systemMenu, menuItemCount - 1, 1024);
       }
+
       base.Initialize();
       Star.SpawnStars();
     }
@@ -835,8 +873,10 @@ namespace GameManager
       Game1.engine = new AudioEngine("Content\\TerrariaMusic.xgs");
       Game1.soundBank = new SoundBank(Game1.engine, "Content\\Sound Bank.xsb");
       Game1.waveBank = new WaveBank(Game1.engine, "Content\\Wave Bank.xwb");
+
       for (int index = 1; index < 6; ++index)
         Game1.music[index] = Game1.soundBank.GetCue("Music_" + (object) index);
+      
       this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
       for (int index = 0; index < 76; ++index)
         Game1.tileTexture[index] = this.Content.Load<Texture2D>("Images\\Tiles_" + (object) index);
@@ -992,6 +1032,7 @@ namespace GameManager
           }
         }
       }
+      
       if ((double) Game1.musicVolume == 0.0)
         this.newMusic = 0;
       else if (Game1.gameMenu)
@@ -1008,7 +1049,9 @@ namespace GameManager
         this.newMusic = 1;
       else if (!Game1.dayTime)
         this.newMusic = !Game1.bloodMoon ? 3 : 2;
-      this.curMusic = this.newMusic;
+
+            this.curMusic = this.newMusic;
+
       for (int index = 1; index < 6; ++index)
       {
         if (index == this.curMusic)
@@ -1175,8 +1218,10 @@ namespace GameManager
         }
         else
           this.toggleFullscreen = true;
+
         Game1.oldMouseState = Game1.mouseState;
-        Game1.mouseState = Mouse.GetState();
+        Game1.mouseState = TouchPanel.GetState();//Mouse.GetState();
+
         Game1.keyState = Keyboard.GetState();
         if (Game1.editSign)
           Game1.chatMode = false;
@@ -1529,9 +1574,10 @@ namespace GameManager
 
     protected void MouseText(string cursorText, int rare = 0)
     {
-      int x1 = Game1.mouseState.X + 10;
-      int y1 = Game1.mouseState.Y + 10;
-      Color color1 = new Color((int) Game1.mouseTextColor, (int) Game1.mouseTextColor, (int) Game1.mouseTextColor, (int) Game1.mouseTextColor);
+      int x1 = (int)Game1.mouseState[0].Position.X + 10;
+      int y1 = (int)Game1.mouseState[0].Position.Y + 10;
+      Color color1 = new Color((int) Game1.mouseTextColor, 
+          (int) Game1.mouseTextColor, (int) Game1.mouseTextColor, (int) Game1.mouseTextColor);
       if (Game1.toolTip.type > 0)
       {
         rare = Game1.toolTip.rare;
@@ -2776,7 +2822,12 @@ label_90:
         int num10 = 180;
         int num11 = 130 + num3 * 30;
         float scale1 = 0.9f;
-        if (Game1.mouseState.X > num10 && (double) Game1.mouseState.X < (double) num10 + (double) Game1.fontMouseText.MeasureString(text).X && Game1.mouseState.Y > num11 && (double) Game1.mouseState.Y < (double) num11 + (double) Game1.fontMouseText.MeasureString(text).Y)
+
+        if (Game1.mouseState[0].Position.X > num10 && (double) Game1.mouseState[0].Position.X 
+                    < (double) num10 + (double) Game1.fontMouseText.MeasureString(text).X 
+                    && Game1.mouseState[0].Position.Y > num11 
+                    && (double) Game1.mouseState[0].Position.Y < (double) num11 
+                    + (double) Game1.fontMouseText.MeasureString(text).Y)
         {
           Game1.player[Game1.myPlayer].mouseInterface = true;
           scale1 = 1.1f;
@@ -2791,6 +2842,7 @@ label_90:
             Game1.PlaySound(12);
           Game1.npcChatFocus2 = false;
         }
+
         Vector2 origin;
         for (int index5 = 0; index5 < 5; ++index5)
         {
@@ -2815,7 +2867,12 @@ label_90:
         int num14 = num10 + (int) Game1.fontMouseText.MeasureString(text).X + 20;
         int num15 = 130 + num3 * 30;
         float scale2 = 0.9f;
-        if (Game1.mouseState.X > num14 && (double) Game1.mouseState.X < (double) num14 + (double) Game1.fontMouseText.MeasureString("Close").X && Game1.mouseState.Y > num15 && (double) Game1.mouseState.Y < (double) num15 + (double) Game1.fontMouseText.MeasureString("Close").Y)
+        if (Game1.mouseState[0].Position.X > num14
+                    && (double) Game1.mouseState[0].Position.X 
+                    < (double) num14 + (double) Game1.fontMouseText.MeasureString("Close").X 
+                    && Game1.mouseState[0].Position.Y > num15 
+                    && (double) Game1.mouseState[0].Position.Y < (double) num15
+                    + (double) Game1.fontMouseText.MeasureString("Close").Y)
         {
           scale2 = 1.1f;
           if (!Game1.npcChatFocus1)
@@ -2846,9 +2903,12 @@ label_90:
             color5 = color2;
           origin = Game1.fontMouseText.MeasureString("Close");
           origin *= 0.5f;
-          this.spriteBatch.DrawString(Game1.fontMouseText, "Close", new Vector2((float) num16 + origin.X, (float) num17 + origin.Y), color5, 0.0f, origin, scale2, SpriteEffects.None, 0.0f);
+          this.spriteBatch.DrawString(Game1.fontMouseText, 
+              "Close", new Vector2((float) num16 + origin.X, (float) num17 + origin.Y),
+              color5, 0.0f, origin, scale2, SpriteEffects.None, 0.0f);
         }
-        if (Game1.mouseState.LeftButton != ButtonState.Pressed || !Game1.mouseLeftRelease)
+        if (/*Game1.mouseState.LeftButton != ButtonState.Pressed */
+                    Game1.mouseState.Count == 0 || !Game1.mouseLeftRelease)
           return;
         Game1.mouseLeftRelease = false;
         Game1.player[Game1.myPlayer].releaseUseItem = false;
@@ -3145,10 +3205,14 @@ label_90:
             this.spriteBatch.Draw(Game1.itemTexture[4], new Vector2((float) (num27 - 16), (float) (y + 14)), new Rectangle?(new Rectangle(0, 0, Game1.itemTexture[4].Width, Game1.itemTexture[4].Height)), Game1.teamColor[Game1.player[Game1.myPlayer].team], -0.785f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
             this.spriteBatch.Draw(Game1.itemTexture[4], new Vector2((float) (num27 + 2), (float) (y + 14)), new Rectangle?(new Rectangle(0, 0, Game1.itemTexture[4].Width, Game1.itemTexture[4].Height)), Game1.teamColor[Game1.player[Game1.myPlayer].team], -0.785f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
           }
-          if (Game1.mouseState.X > num27 && Game1.mouseState.X < num27 + 34 && Game1.mouseState.Y > y - 2 && Game1.mouseState.Y < y + 34)
+          if (Game1.mouseState[0].Position.X > num27 
+                        && Game1.mouseState[0].Position.X < num27 + 34 && 
+                        Game1.mouseState[0].Position.Y > y - 2 
+                        && Game1.mouseState[0].Position.Y < y + 34)
           {
             Game1.player[Game1.myPlayer].mouseInterface = true;
-            if (Game1.mouseState.LeftButton == ButtonState.Pressed && Game1.mouseLeftRelease)
+            if (Game1.mouseState.Count == 1 //Game1.mouseState.LeftButton == ButtonState.Pressed
+               && Game1.mouseLeftRelease)
             {
               Game1.PlaySound(12);
               Game1.player[Game1.myPlayer].hostile = !Game1.player[Game1.myPlayer].hostile;
@@ -3156,7 +3220,9 @@ label_90:
             }
           }
           int num28 = num27 - 3;
-          Rectangle rectangle3 = new Rectangle(Game1.mouseState.X, Game1.mouseState.Y, 1, 1);
+          Rectangle rectangle3 = new Rectangle(
+              (int)Game1.mouseState[0].Position.X, 
+              (int)Game1.mouseState[0].Position.Y, 1, 1);
           int width = Game1.teamTexture.Width;
           int height = Game1.teamTexture.Height;
           for (int index = 0; index < 5; ++index)
@@ -3175,7 +3241,10 @@ label_90:
             if (rectangle4.Intersects(rectangle3))
             {
               Game1.player[Game1.myPlayer].mouseInterface = true;
-              if (Game1.mouseState.LeftButton == ButtonState.Pressed && Game1.mouseLeftRelease && Game1.player[Game1.myPlayer].team != index)
+              if (  Game1.mouseState.Count == 1
+                                //Game1.mouseState.LeftButton == ButtonState.Pressed 
+                                && Game1.mouseLeftRelease 
+                                && Game1.player[Game1.myPlayer].team != index)
               {
                 Game1.PlaySound(12);
                 Game1.player[Game1.myPlayer].team = index;
@@ -3183,11 +3252,26 @@ label_90:
               }
             }
           }
-          this.spriteBatch.Draw(Game1.teamTexture, new Vector2((float) (num28 + 50), (float) (y - 20)), new Rectangle?(new Rectangle(0, 0, Game1.teamTexture.Width, Game1.teamTexture.Height)), Game1.teamColor[0], 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
-          this.spriteBatch.Draw(Game1.teamTexture, new Vector2((float) (num28 + 40), (float) y), new Rectangle?(new Rectangle(0, 0, Game1.teamTexture.Width, Game1.teamTexture.Height)), Game1.teamColor[1], 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
-          this.spriteBatch.Draw(Game1.teamTexture, new Vector2((float) (num28 + 60), (float) y), new Rectangle?(new Rectangle(0, 0, Game1.teamTexture.Width, Game1.teamTexture.Height)), Game1.teamColor[2], 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
-          this.spriteBatch.Draw(Game1.teamTexture, new Vector2((float) (num28 + 40), (float) (y + 20)), new Rectangle?(new Rectangle(0, 0, Game1.teamTexture.Width, Game1.teamTexture.Height)), Game1.teamColor[3], 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
-          this.spriteBatch.Draw(Game1.teamTexture, new Vector2((float) (num28 + 60), (float) (y + 20)), new Rectangle?(new Rectangle(0, 0, Game1.teamTexture.Width, Game1.teamTexture.Height)), Game1.teamColor[4], 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
+          this.spriteBatch.Draw(Game1.teamTexture, new Vector2((float) (num28 + 50),
+              (float) (y - 20)), new Rectangle?(new Rectangle(0, 0, Game1.teamTexture.Width, 
+              Game1.teamTexture.Height)), Game1.teamColor[0], 0.0f, new Vector2(), 1f, 
+              SpriteEffects.None, 0.0f);
+          this.spriteBatch.Draw(Game1.teamTexture, new Vector2((float) (num28 + 40), 
+              (float) y), new Rectangle?(new Rectangle(0, 0, Game1.teamTexture.Width, 
+              Game1.teamTexture.Height)), Game1.teamColor[1], 0.0f, new Vector2(), 1f, 
+              SpriteEffects.None, 0.0f);
+          this.spriteBatch.Draw(Game1.teamTexture, new Vector2((float) (num28 + 60),
+              (float) y), new Rectangle?(new Rectangle(0, 0, Game1.teamTexture.Width, 
+              Game1.teamTexture.Height)), Game1.teamColor[2], 0.0f, new Vector2(), 1f, 
+              SpriteEffects.None, 0.0f);
+          this.spriteBatch.Draw(Game1.teamTexture, new Vector2((float) (num28 + 40),
+              (float) (y + 20)), new Rectangle?(new Rectangle(0, 0, Game1.teamTexture.Width, 
+              Game1.teamTexture.Height)), Game1.teamColor[3], 0.0f, new Vector2(), 1f,
+              SpriteEffects.None, 0.0f);
+          this.spriteBatch.Draw(Game1.teamTexture, new Vector2((float) (num28 + 60), 
+              (float) (y + 20)), new Rectangle?(new Rectangle(0, 0, Game1.teamTexture.Width,
+              Game1.teamTexture.Height)), Game1.teamColor[4], 0.0f, new Vector2(), 1f, 
+              SpriteEffects.None, 0.0f);
         }
         string text3 = "Save & Exit";
         if (Game1.netMode != 0)
@@ -3219,13 +3303,18 @@ label_90:
             color2 = Color.White;
           this.spriteBatch.DrawString(Game1.fontDeathText, text3, new Vector2((float) (num29 + num31), (float) (num30 + num32)), color2, 0.0f, new Vector2(vector2_1.X / 2f, vector2_1.Y / 2f), Game1.exitScale - 0.2f, SpriteEffects.None, 0.0f);
         }
-        if ((double) Game1.mouseState.X > (double) num29 - (double) vector2_1.X / 2.0 && (double) Game1.mouseState.X < (double) num29 + (double) vector2_1.X / 2.0 && (double) Game1.mouseState.Y > (double) num30 - (double) vector2_1.Y / 2.0 && (double) Game1.mouseState.Y < (double) num30 + (double) vector2_1.Y / 2.0 - 10.0)
+        if ((double) Game1.mouseState[0].Position.X >
+            (double) num29 - (double) vector2_1.X / 2.0 
+        && (double) Game1.mouseState[0].Position.X < (double) num29 + (double) vector2_1.X / 2.0 
+        && (double) Game1.mouseState[0].Position.Y > (double) num30 - (double) vector2_1.Y / 2.0 
+        && (double) Game1.mouseState[0].Position.Y < (double) num30 + (double) vector2_1.Y / 2.0 - 10.0)
         {
           if (!Game1.mouseExit)
             Game1.PlaySound(12);
           Game1.mouseExit = true;
           Game1.player[Game1.myPlayer].mouseInterface = true;
-          if (Game1.mouseLeftRelease && Game1.mouseState.LeftButton == ButtonState.Pressed)
+          if (Game1.mouseLeftRelease && //Game1.mouseState.LeftButton == ButtonState.Pressed
+                Game1.mouseState.Count == 1)
           {
             Game1.menuMode = 10;
             WorldGen.SaveAndQuit();
@@ -3244,10 +3333,17 @@ label_90:
             int y = (int) (20.0 + (double) (index2 * 56) * (double) Game1.inventoryScale);
             int index3 = index1 + index2 * 10;
             color3 = new Color(100, 100, 100, 100);
-            if (Game1.mouseState.X >= x && (double) Game1.mouseState.X <= (double) x + (double) Game1.inventoryBackTexture.Width * (double) Game1.inventoryScale && Game1.mouseState.Y >= y && (double) Game1.mouseState.Y <= (double) y + (double) Game1.inventoryBackTexture.Height * (double) Game1.inventoryScale)
+            if (Game1.mouseState[0].Position.X >= x && 
+                            (double) Game1.mouseState[0].Position.X <= (double) x
+                            + (double) Game1.inventoryBackTexture.Width 
+                            * (double) Game1.inventoryScale 
+                            && Game1.mouseState[0].Position.Y >= y 
+                            && (double) Game1.mouseState[0].Position.Y <= (double) y 
+                             + (double) Game1.inventoryBackTexture.Height * (double) Game1.inventoryScale)
             {
               Game1.player[Game1.myPlayer].mouseInterface = true;
-              if (Game1.mouseLeftRelease && Game1.mouseState.LeftButton == ButtonState.Pressed)
+              if (Game1.mouseLeftRelease 
+                                && Game1.mouseState.Count == 1/*Game1.mouseState.LeftButton == ButtonState.Pressed*/)
               {
                 if (Game1.player[Game1.myPlayer].selectedItem != index3 || Game1.player[Game1.myPlayer].itemAnimation <= 0)
                 {
@@ -3279,7 +3375,11 @@ label_90:
                   }
                 }
               }
-              else if (Game1.stackSplit <= 1 && Game1.mouseState.RightButton == ButtonState.Pressed && (Game1.mouseItem.IsTheSameAs(Game1.player[Game1.myPlayer].inventory[index3]) || Game1.mouseItem.type == 0) && (Game1.mouseItem.stack < Game1.mouseItem.maxStack || Game1.mouseItem.type == 0))
+              else if (Game1.stackSplit <= 1 
+                   && Game1.mouseState.Count > 1//Game1.mouseState.RightButton == ButtonState.Pressed 
+                   && (Game1.mouseItem.IsTheSameAs(Game1.player[Game1.myPlayer].inventory[index3])
+                   || Game1.mouseItem.type == 0) 
+                   && (Game1.mouseItem.stack < Game1.mouseItem.maxStack || Game1.mouseItem.type == 0))
               {
                 if (Game1.mouseItem.type == 0)
                 {
@@ -3332,11 +3432,26 @@ label_90:
           else if (index == 3)
             text4 = "Accessories";
           Vector2 vector2_2 = Game1.fontMouseText.MeasureString(text4);
-          this.spriteBatch.DrawString(Game1.fontMouseText, text4, new Vector2((float) ((double) x - (double) vector2_2.X - 10.0), (float) ((double) y + (double) Game1.inventoryBackTexture.Height * 0.5 - (double) vector2_2.Y * 0.5)), new Color((int) Game1.mouseTextColor, (int) Game1.mouseTextColor, (int) Game1.mouseTextColor, (int) Game1.mouseTextColor), 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
-          if (Game1.mouseState.X >= x && (double) Game1.mouseState.X <= (double) x + (double) Game1.inventoryBackTexture.Width * (double) Game1.inventoryScale && Game1.mouseState.Y >= y && (double) Game1.mouseState.Y <= (double) y + (double) Game1.inventoryBackTexture.Height * (double) Game1.inventoryScale)
+          this.spriteBatch.DrawString(Game1.fontMouseText, text4, new Vector2((float) ((double) x 
+              - (double) vector2_2.X - 10.0), (float) ((double) y 
+              + (double) Game1.inventoryBackTexture.Height * 0.5 
+              - (double) vector2_2.Y * 0.5)), new Color((int) Game1.mouseTextColor,
+              (int) Game1.mouseTextColor, (int) Game1.mouseTextColor,
+              (int) Game1.mouseTextColor), 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
+          if (Game1.mouseState[0].Position.X >= x && (double) Game1.mouseState[0].Position.X <= (double) x 
+                        + (double) Game1.inventoryBackTexture.Width 
+                        * (double) Game1.inventoryScale && Game1.mouseState[0].Position.Y >= y 
+                        && (double) Game1.mouseState[0].Position.Y <= (double) y + (double) Game1.inventoryBackTexture.Height
+                        * (double) Game1.inventoryScale)
           {
             Game1.player[Game1.myPlayer].mouseInterface = true;
-            if (Game1.mouseLeftRelease && Game1.mouseState.LeftButton == ButtonState.Pressed && (Game1.mouseItem.type == 0 || Game1.mouseItem.headSlot > -1 && index == 0 || Game1.mouseItem.bodySlot > -1 && index == 1 || Game1.mouseItem.legSlot > -1 && index == 2 || Game1.mouseItem.accessory && index > 2))
+            if (Game1.mouseLeftRelease 
+                            && Game1.mouseState.Count == 1//Game1.mouseState.LeftButton == ButtonState.Pressed 
+                            && (Game1.mouseItem.type == 0 
+                            || Game1.mouseItem.headSlot > -1 && index == 0 
+                            || Game1.mouseItem.bodySlot > -1 && index == 1
+                            || Game1.mouseItem.legSlot > -1 && index == 2 
+                            || Game1.mouseItem.accessory && index > 2))
             {
               Item mouseItem = Game1.mouseItem;
               Game1.mouseItem = Game1.player[Game1.myPlayer].armor[index];
@@ -3391,23 +3506,33 @@ label_90:
               Game1.PlaySound(12);
             Game1.availableRecipeY[index] -= 6.5f;
           }
-          if (index < Game1.numAvailableRecipes && (double) Math.Abs(Game1.availableRecipeY[index]) <= 250.0)
+          if (index < Game1.numAvailableRecipes 
+                        && (double) Math.Abs(Game1.availableRecipeY[index]) <= 250.0)
           {
             int x = (int) (46.0 - 26.0 * (double) Game1.inventoryScale);
-            int y = (int) (410.0 + (double) Game1.availableRecipeY[index] * (double) Game1.inventoryScale - 30.0 * (double) Game1.inventoryScale);
+            int y = (int) (410.0 + (double) Game1.availableRecipeY[index] 
+                            * (double) Game1.inventoryScale - 30.0 * (double) Game1.inventoryScale);
             double num36 = (double) ((int) color1.A + 50);
             double num37 = (double) byte.MaxValue;
             if ((double) Math.Abs(Game1.availableRecipeY[index]) > 150.0)
             {
               num36 = 150.0 * (100.0 - ((double) Math.Abs(Game1.availableRecipeY[index]) - 150.0)) * 0.01;
-              num37 = (double) byte.MaxValue * (100.0 - ((double) Math.Abs(Game1.availableRecipeY[index]) - 150.0)) * 0.01;
+              num37 = (double) byte.MaxValue * (100.0 - ((double) 
+                                Math.Abs(Game1.availableRecipeY[index]) - 150.0)) * 0.01;
             }
-            color3 = new Color((int) (byte) num36, (int) (byte) num36, (int) (byte) num36, (int) (byte) num36);
-            Color newColor = new Color((int) (byte) num37, (int) (byte) num37, (int) (byte) num37, (int) (byte) num37);
-            if (Game1.mouseState.X >= x && (double) Game1.mouseState.X <= (double) x + (double) Game1.inventoryBackTexture.Width * (double) Game1.inventoryScale && Game1.mouseState.Y >= y && (double) Game1.mouseState.Y <= (double) y + (double) Game1.inventoryBackTexture.Height * (double) Game1.inventoryScale)
+            color3 = new Color((int) (byte) num36, (int) (byte) num36, 
+                (int) (byte) num36, (int) (byte) num36);
+            Color newColor = new Color((int) (byte) num37, (int) (byte) num37, 
+                (int) (byte) num37, (int) (byte) num37);
+            if (Game1.mouseState[0].Position.X >= x && (double) Game1.mouseState[0].Position.X <= (double) x 
+                            + (double) Game1.inventoryBackTexture.Width 
+                            * (double) Game1.inventoryScale && Game1.mouseState[0].Position.Y >= y 
+                            && (double) Game1.mouseState[0].Position.Y <= (double) y 
+                            + (double) Game1.inventoryBackTexture.Height * (double) Game1.inventoryScale)
             {
               Game1.player[Game1.myPlayer].mouseInterface = true;
-              if (Game1.mouseLeftRelease && Game1.mouseState.LeftButton == ButtonState.Pressed)
+              if (Game1.mouseLeftRelease && 
+                   Game1.mouseState.Count == 1/*Game1.mouseState.LeftButton == ButtonState.Pressed*/)
               {
                 if (Game1.focusRecipe == index)
                 {
@@ -3476,7 +3601,11 @@ label_90:
             Game1.inventoryScale = 0.6f;
             if (num41 != 0.0)
             {
-              if (Game1.mouseState.X >= x && (double) Game1.mouseState.X <= (double) x + (double) Game1.inventoryBackTexture.Width * (double) Game1.inventoryScale && Game1.mouseState.Y >= y && (double) Game1.mouseState.Y <= (double) y + (double) Game1.inventoryBackTexture.Height * (double) Game1.inventoryScale)
+              if (Game1.mouseState[0].Position.X >= x 
+                                && (double) Game1.mouseState[0].Position.X <= (double) x + (double) Game1.inventoryBackTexture.Width 
+                                * (double) Game1.inventoryScale && (double) Game1.mouseState[0].Position.Y >= y 
+                                    && (double) Game1.mouseState[0].Position.Y <= (double) y 
+                                    + (double) Game1.inventoryBackTexture.Height * (double) Game1.inventoryScale)
               {
                 Game1.player[Game1.myPlayer].mouseInterface = true;
                 cursorText1 = Game1.recipe[Game1.availableRecipe[Game1.focusRecipe]].requiredItem[index].name;
@@ -3513,28 +3642,44 @@ label_90:
           int y = (int) (85.0 + (double) (index4 * 56) * (double) Game1.inventoryScale);
           int index5 = index4 + 40;
           color3 = new Color(100, 100, 100, 100);
-          if (Game1.mouseState.X >= x && (double) Game1.mouseState.X <= (double) x + (double) Game1.inventoryBackTexture.Width * (double) Game1.inventoryScale && Game1.mouseState.Y >= y && (double) Game1.mouseState.Y <= (double) y + (double) Game1.inventoryBackTexture.Height * (double) Game1.inventoryScale)
+          if (Game1.mouseState[0].Position.X >= x 
+                        && (double) Game1.mouseState[0].Position.X 
+                        <= (double) x + (double) Game1.inventoryBackTexture.Width
+                        * (double) Game1.inventoryScale
+                        && Game1.mouseState[0].Position.Y >= y 
+                        && (double) Game1.mouseState[0].Position.Y <= (double) y 
+                        + (double) Game1.inventoryBackTexture.Height * (double) Game1.inventoryScale)
           {
             Game1.player[Game1.myPlayer].mouseInterface = true;
-            if (Game1.mouseLeftRelease && Game1.mouseState.LeftButton == ButtonState.Pressed)
+            if (Game1.mouseLeftRelease
+                            && Game1.mouseState.Count==1//Game1.mouseState.LeftButton == ButtonState.Pressed
+               )
             {
-              if ((Game1.player[Game1.myPlayer].selectedItem != index5 || Game1.player[Game1.myPlayer].itemAnimation <= 0) && (Game1.mouseItem.type == 0 || Game1.mouseItem.type == 71 || Game1.mouseItem.type == 72 || Game1.mouseItem.type == 73 || Game1.mouseItem.type == 74))
+              if ((Game1.player[Game1.myPlayer].selectedItem != index5
+                                || Game1.player[Game1.myPlayer].itemAnimation <= 0)
+                                && (Game1.mouseItem.type == 0 || Game1.mouseItem.type == 71 
+                                || Game1.mouseItem.type == 72 || Game1.mouseItem.type == 73 
+                                || Game1.mouseItem.type == 74))
               {
                 Item mouseItem = Game1.mouseItem;
                 Game1.mouseItem = Game1.player[Game1.myPlayer].inventory[index5];
                 Game1.player[Game1.myPlayer].inventory[index5] = mouseItem;
-                if (Game1.player[Game1.myPlayer].inventory[index5].type == 0 || Game1.player[Game1.myPlayer].inventory[index5].stack < 1)
+                if (Game1.player[Game1.myPlayer].inventory[index5].type == 0 
+                                    || Game1.player[Game1.myPlayer].inventory[index5].stack < 1)
                   Game1.player[Game1.myPlayer].inventory[index5] = new Item();
-                if (Game1.mouseItem.IsTheSameAs(Game1.player[Game1.myPlayer].inventory[index5]) && Game1.player[Game1.myPlayer].inventory[index5].stack != Game1.player[Game1.myPlayer].inventory[index5].maxStack && Game1.mouseItem.stack != Game1.mouseItem.maxStack)
+                if (Game1.mouseItem.IsTheSameAs(Game1.player[Game1.myPlayer].inventory[index5])
+                                    && Game1.player[Game1.myPlayer].inventory[index5].stack != Game1.player[Game1.myPlayer].inventory[index5].maxStack && Game1.mouseItem.stack != Game1.mouseItem.maxStack)
                 {
-                  if (Game1.mouseItem.stack + Game1.player[Game1.myPlayer].inventory[index5].stack <= Game1.mouseItem.maxStack)
+                  if (Game1.mouseItem.stack + Game1.player[Game1.myPlayer].inventory[index5].stack 
+                                        <= Game1.mouseItem.maxStack)
                   {
                     Game1.player[Game1.myPlayer].inventory[index5].stack += Game1.mouseItem.stack;
                     Game1.mouseItem.stack = 0;
                   }
                   else
                   {
-                    int num45 = Game1.mouseItem.maxStack - Game1.player[Game1.myPlayer].inventory[index5].stack;
+                    int num45 = Game1.mouseItem.maxStack
+                                            - Game1.player[Game1.myPlayer].inventory[index5].stack;
                     Game1.player[Game1.myPlayer].inventory[index5].stack += num45;
                     Game1.mouseItem.stack -= num45;
                   }
@@ -3545,7 +3690,12 @@ label_90:
                   Game1.PlaySound(7);
               }
             }
-            else if (Game1.stackSplit <= 1 && Game1.mouseState.RightButton == ButtonState.Pressed && (Game1.mouseItem.IsTheSameAs(Game1.player[Game1.myPlayer].inventory[index5]) || Game1.mouseItem.type == 0) && (Game1.mouseItem.stack < Game1.mouseItem.maxStack || Game1.mouseItem.type == 0))
+            else if (Game1.stackSplit <= 1 
+                            && Game1.mouseState.Count > 1//Game1.mouseState.RightButton == ButtonState.Pressed 
+                            && (Game1.mouseItem.IsTheSameAs(Game1.player[Game1.myPlayer].inventory[index5]) 
+                            || Game1.mouseItem.type == 0) 
+                            && (Game1.mouseItem.stack < Game1.mouseItem.maxStack 
+                            || Game1.mouseItem.type == 0))
             {
               if (Game1.mouseItem.type == 0)
               {
@@ -3596,10 +3746,17 @@ label_90:
               int y = (int) (210.0 + (double) (index7 * 56) * (double) Game1.inventoryScale);
               int index8 = index6 + index7 * 5;
               color3 = new Color(100, 100, 100, 100);
-              if (Game1.mouseState.X >= x && (double) Game1.mouseState.X <= (double) x + (double) Game1.inventoryBackTexture.Width * (double) Game1.inventoryScale && Game1.mouseState.Y >= y && (double) Game1.mouseState.Y <= (double) y + (double) Game1.inventoryBackTexture.Height * (double) Game1.inventoryScale)
+              if (Game1.mouseState[0].Position.X >= x 
+                && (double) Game1.mouseState[0].Position.X <= (double) x 
+                + (double) Game1.inventoryBackTexture.Width 
+                * (double) Game1.inventoryScale 
+                && Game1.mouseState[0].Position.Y >= y 
+                && (double) Game1.mouseState[0].Position.Y <= (double) y 
+                + (double) Game1.inventoryBackTexture.Height * (double) Game1.inventoryScale)
               {
                 Game1.player[Game1.myPlayer].mouseInterface = true;
-                if (Game1.mouseLeftRelease && Game1.mouseState.LeftButton == ButtonState.Pressed)
+                if (Game1.mouseLeftRelease && Game1.mouseState.Count==1//Game1.mouseState.LeftButton == ButtonState.Pressed
+                )
                 {
                   if (Game1.mouseItem.type == 0)
                   {
@@ -3622,7 +3779,13 @@ label_90:
                     Game1.PlaySound(7);
                   }
                 }
-                else if (Game1.stackSplit <= 1 && Game1.mouseState.RightButton == ButtonState.Pressed && (Game1.mouseItem.IsTheSameAs(this.shop[Game1.npcShop].item[index8]) || Game1.mouseItem.type == 0) && (Game1.mouseItem.stack < Game1.mouseItem.maxStack || Game1.mouseItem.type == 0) && Game1.player[Game1.myPlayer].BuyItem(this.shop[Game1.npcShop].item[index8].value))
+                else if (Game1.stackSplit <= 1 
+                    && Game1.mouseState.Count > 1//Game1.mouseState.RightButton == ButtonState.Pressed 
+                    && (Game1.mouseItem.IsTheSameAs(this.shop[Game1.npcShop].item[index8])
+                    || Game1.mouseItem.type == 0) 
+                    && (Game1.mouseItem.stack < Game1.mouseItem.maxStack 
+                    || Game1.mouseItem.type == 0) 
+                    && Game1.player[Game1.myPlayer].BuyItem(this.shop[Game1.npcShop].item[index8].value))
                 {
                   Game1.PlaySound(18);
                   if (Game1.mouseItem.type == 0)
@@ -3668,10 +3831,18 @@ label_90:
               int y = (int) (210.0 + (double) (index10 * 56) * (double) Game1.inventoryScale);
               int number2 = index9 + index10 * 5;
               color3 = new Color(100, 100, 100, 100);
-              if (Game1.mouseState.X >= x && (double) Game1.mouseState.X <= (double) x + (double) Game1.inventoryBackTexture.Width * (double) Game1.inventoryScale && Game1.mouseState.Y >= y && (double) Game1.mouseState.Y <= (double) y + (double) Game1.inventoryBackTexture.Height * (double) Game1.inventoryScale)
+              if (Game1.mouseState[0].Position.X >= x
+                                && (double) Game1.mouseState[0].Position.X <= (double) x 
+                                + (double) Game1.inventoryBackTexture.Width 
+                                * (double) Game1.inventoryScale 
+                                && Game1.mouseState[0].Position.Y >= y 
+                                && (double) Game1.mouseState[0].Position.Y <= (double) y 
+                                + (double) Game1.inventoryBackTexture.Height 
+                                * (double) Game1.inventoryScale)
               {
                 Game1.player[Game1.myPlayer].mouseInterface = true;
-                if (Game1.mouseLeftRelease && Game1.mouseState.LeftButton == ButtonState.Pressed)
+                if (Game1.mouseLeftRelease && Game1.mouseState.Count==1//Game1.mouseState.LeftButton == ButtonState.Pressed
+                 )
                 {
                   if (Game1.player[Game1.myPlayer].selectedItem != number2 || Game1.player[Game1.myPlayer].itemAnimation <= 0)
                   {
@@ -3705,7 +3876,11 @@ label_90:
                       NetMessage.SendData(32, number: Game1.player[Game1.myPlayer].chest, number2: (float) number2);
                   }
                 }
-                else if (Game1.stackSplit <= 1 && Game1.mouseState.RightButton == ButtonState.Pressed && (Game1.mouseItem.IsTheSameAs(Game1.chest[Game1.player[Game1.myPlayer].chest].item[number2]) || Game1.mouseItem.type == 0) && (Game1.mouseItem.stack < Game1.mouseItem.maxStack || Game1.mouseItem.type == 0))
+                else if (Game1.stackSplit <= 1 
+                 && Game1.mouseState.Count > 1//Game1.mouseState.RightButton == ButtonState.Pressed 
+               && (Game1.mouseItem.IsTheSameAs(Game1.chest[Game1.player[Game1.myPlayer].chest].item[number2]) 
+               || Game1.mouseItem.type == 0) && (Game1.mouseItem.stack < Game1.mouseItem.maxStack 
+               || Game1.mouseItem.type == 0))
                 {
                   if (Game1.mouseItem.type == 0)
                   {
@@ -3758,10 +3933,18 @@ label_90:
               int y = (int) (210.0 + (double) (index12 * 56) * (double) Game1.inventoryScale);
               int index13 = index11 + index12 * 5;
               color3 = new Color(100, 100, 100, 100);
-              if (Game1.mouseState.X >= x && (double) Game1.mouseState.X <= (double) x + (double) Game1.inventoryBackTexture.Width * (double) Game1.inventoryScale && Game1.mouseState.Y >= y && (double) Game1.mouseState.Y <= (double) y + (double) Game1.inventoryBackTexture.Height * (double) Game1.inventoryScale)
+              if (Game1.mouseState[0].Position.X >= x 
+                                && (double) Game1.mouseState[0].Position.X 
+                                <= (double) x + (double) Game1.inventoryBackTexture.Width
+                                * (double) Game1.inventoryScale 
+                                && Game1.mouseState[0].Position.Y >= y 
+                                && (double) Game1.mouseState[0].Position.Y <= 
+                                (double) y + (double) Game1.inventoryBackTexture.Height
+                                * (double) Game1.inventoryScale)
               {
                 Game1.player[Game1.myPlayer].mouseInterface = true;
-                if (Game1.mouseLeftRelease && Game1.mouseState.LeftButton == ButtonState.Pressed)
+                if (Game1.mouseLeftRelease && Game1.mouseState.Count==1//Game1.mouseState.LeftButton == ButtonState.Pressed
+                )
                 {
                   if (Game1.player[Game1.myPlayer].selectedItem != index13 || Game1.player[Game1.myPlayer].itemAnimation <= 0)
                   {
@@ -3793,7 +3976,13 @@ label_90:
                     }
                   }
                 }
-                else if (Game1.stackSplit <= 1 && Game1.mouseState.RightButton == ButtonState.Pressed && (Game1.mouseItem.IsTheSameAs(Game1.player[Game1.myPlayer].bank[index13]) || Game1.mouseItem.type == 0) && (Game1.mouseItem.stack < Game1.mouseItem.maxStack || Game1.mouseItem.type == 0))
+                else if (Game1.stackSplit <= 1 
+                                    && Game1.mouseState.Count > 1//Game1.mouseState.RightButton == ButtonState.Pressed 
+                                    && (Game1.mouseItem.IsTheSameAs(
+                                        Game1.player[Game1.myPlayer].bank[index13]) 
+                                        || Game1.mouseItem.type == 0) 
+                                        && (Game1.mouseItem.stack < Game1.mouseItem.maxStack 
+                                        || Game1.mouseItem.type == 0))
                 {
                   if (Game1.mouseItem.type == 0)
                   {
@@ -3911,8 +4100,12 @@ label_90:
       }
       if (!Game1.playerInventory)
       {
-        this.spriteBatch.DrawString(Game1.fontMouseText, "Items", new Vector2(215f, 0.0f), new Color((int) Game1.mouseTextColor, (int) Game1.mouseTextColor, (int) Game1.mouseTextColor, (int) Game1.mouseTextColor), 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
+        this.spriteBatch.DrawString(Game1.fontMouseText, "Items", new Vector2(215f, 0.0f), 
+            new Color((int) Game1.mouseTextColor, (int) Game1.mouseTextColor, 
+            (int) Game1.mouseTextColor, (int) Game1.mouseTextColor), 0.0f, new Vector2(), 
+            1f, SpriteEffects.None, 0.0f);
         int x = 20;
+
         for (int index = 0; index < 10; ++index)
         {
           if (index == Game1.player[Game1.myPlayer].selectedItem)
@@ -3922,13 +4115,28 @@ label_90:
           }
           else if ((double) Game1.hotbarScale[index] > 0.75)
             Game1.hotbarScale[index] -= 0.05f;
+
           int y = (int) (20.0 + 22.0 * (1.0 - (double) Game1.hotbarScale[index]));
-          Color color5 = new Color((int) byte.MaxValue, (int) byte.MaxValue, (int) byte.MaxValue, (int) (75.0 + 150.0 * (double) Game1.hotbarScale[index]));
-          this.spriteBatch.Draw(Game1.inventoryBackTexture, new Vector2((float) x, (float) y), new Rectangle?(new Rectangle(0, 0, Game1.inventoryBackTexture.Width, Game1.inventoryBackTexture.Height)), new Color(100, 100, 100, 100), 0.0f, new Vector2(), Game1.hotbarScale[index], SpriteEffects.None, 0.0f);
-          if (Game1.mouseState.X >= x && (double) Game1.mouseState.X <= (double) x + (double) Game1.inventoryBackTexture.Width * (double) Game1.hotbarScale[index] && Game1.mouseState.Y >= y && (double) Game1.mouseState.Y <= (double) y + (double) Game1.inventoryBackTexture.Height * (double) Game1.hotbarScale[index] && !Game1.player[Game1.myPlayer].channel)
+
+          Color color5 = new Color((int) byte.MaxValue, (int) byte.MaxValue, 
+              (int) byte.MaxValue, (int) (75.0 + 150.0 * (double) Game1.hotbarScale[index]));
+
+          this.spriteBatch.Draw(Game1.inventoryBackTexture, new Vector2((float) x, (float) y), 
+              new Rectangle?(new Rectangle(0, 0, Game1.inventoryBackTexture.Width, 
+              Game1.inventoryBackTexture.Height)), new Color(100, 100, 100, 100),
+              0.0f, new Vector2(), Game1.hotbarScale[index], SpriteEffects.None, 0.0f);
+          if (Game1.mouseState[0].Position.X >= x 
+                        && (double) Game1.mouseState[0].Position.X <= (double) x 
+                        + (double) Game1.inventoryBackTexture.Width 
+                        * (double) Game1.hotbarScale[index]
+                        && Game1.mouseState[0].Position.Y >= y 
+                        && (double) Game1.mouseState[0].Position.Y <= (double) y 
+                        + (double) Game1.inventoryBackTexture.Height 
+                        * (double) Game1.hotbarScale[index] && !Game1.player[Game1.myPlayer].channel)
           {
             Game1.player[Game1.myPlayer].mouseInterface = true;
-            if (Game1.mouseState.LeftButton == ButtonState.Pressed)
+            if (Game1.mouseState.Count==1//Game1.mouseState.LeftButton == ButtonState.Pressed
+            )
               Game1.player[Game1.myPlayer].changeItem = index;
             Game1.player[Game1.myPlayer].showItemIcon = false;
             cursorText1 = Game1.player[Game1.myPlayer].inventory[index].name;
@@ -4006,36 +4214,90 @@ label_90:
             if (index17 == 3)
               num64 = 2;
             if (index17 == 4)
-              color7 = new Color((int) (byte) ((double) Game1.chatLine[index16].color.R * (double) num62), (int) (byte) ((double) Game1.chatLine[index16].color.G * (double) num62), (int) (byte) ((double) Game1.chatLine[index16].color.B * (double) num62), (int) Game1.mouseTextColor);
-            this.spriteBatch.DrawString(Game1.fontMouseText, Game1.chatLine[index16].text, new Vector2((float) (88 + num63), (float) (Game1.screenHeight - 30 + num64 - 28 - index16 * 21)), color7, 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
+              color7 = 
+                new Color((int) (byte) ((double) Game1.chatLine[index16].color.R 
+                  * (double) num62), 
+                 (int) (byte) ((double) Game1.chatLine[index16].color.G 
+                  * (double) num62), 
+                 (int) (byte) ((double) Game1.chatLine[index16].color.B 
+                  * (double) num62), 
+                 (int) Game1.mouseTextColor);
+
+            this.spriteBatch.DrawString(Game1.fontMouseText,
+                Game1.chatLine[index16].text, new Vector2((float) (88 + num63), (float) (Game1.screenHeight - 30 + num64 - 28 - index16 * 21)), color7, 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
           }
         }
       }
       if (Game1.player[Game1.myPlayer].dead)
       {
         string text = Game1.player[Game1.myPlayer].name + " was slain...";
-        this.spriteBatch.DrawString(Game1.fontDeathText, text, new Vector2((float) (Game1.screenWidth / 2 - text.Length * 10), (float) (Game1.screenHeight / 2 - 20)), Game1.player[Game1.myPlayer].GetDeathAlpha(new Color(0, 0, 0, 0)), 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
+        this.spriteBatch.DrawString(Game1.fontDeathText, text, 
+            new Vector2((float) (Game1.screenWidth / 2 - text.Length * 10), 
+            (float) (Game1.screenHeight / 2 - 20)), 
+            Game1.player[Game1.myPlayer].GetDeathAlpha(new Color(0, 0, 0, 0)),
+            0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
       }
-      this.spriteBatch.Draw(Game1.cursorTexture, new Vector2((float) (Game1.mouseState.X + 1), (float) (Game1.mouseState.Y + 1)), new Rectangle?(new Rectangle(0, 0, Game1.cursorTexture.Width, Game1.cursorTexture.Height)), new Color((int) ((double) Game1.cursorColor.R * 0.20000000298023224), (int) ((double) Game1.cursorColor.G * 0.20000000298023224), (int) ((double) Game1.cursorColor.B * 0.20000000298023224), (int) ((double) Game1.cursorColor.A * 0.5)), 0.0f, new Vector2(), Game1.cursorScale * 1.1f, SpriteEffects.None, 0.0f);
-      this.spriteBatch.Draw(Game1.cursorTexture, new Vector2((float) Game1.mouseState.X, (float) Game1.mouseState.Y), new Rectangle?(new Rectangle(0, 0, Game1.cursorTexture.Width, Game1.cursorTexture.Height)), Game1.cursorColor, 0.0f, new Vector2(), Game1.cursorScale, SpriteEffects.None, 0.0f);
+
+      this.spriteBatch.Draw(Game1.cursorTexture, new Vector2((float) (
+          Game1.mouseState[0].Position.X + 1),
+          (float) (Game1.mouseState[0].Position.Y + 1)), 
+          new Rectangle?(new Rectangle(0, 0, Game1.cursorTexture.Width, 
+          Game1.cursorTexture.Height)), 
+          new Color((int) ((double) Game1.cursorColor.R * 0.20000000298023224), 
+          (int) ((double) Game1.cursorColor.G * 0.20000000298023224), 
+          (int) ((double) Game1.cursorColor.B * 0.20000000298023224),
+          (int) ((double) Game1.cursorColor.A * 0.5)), 0.0f, 
+          new Vector2(), Game1.cursorScale * 1.1f, SpriteEffects.None, 0.0f);
+
+      this.spriteBatch.Draw(Game1.cursorTexture, 
+          new Vector2((float) Game1.mouseState[0].Position.X, 
+          (float) Game1.mouseState[0].Position.Y), 
+          new Rectangle?(new Rectangle(0, 0, Game1.cursorTexture.Width, Game1.cursorTexture.Height)), 
+          Game1.cursorColor, 0.0f, new Vector2(), Game1.cursorScale, SpriteEffects.None, 0.0f);
       if (Game1.mouseItem.type > 0 && Game1.mouseItem.stack > 0)
       {
         Game1.player[Game1.myPlayer].showItemIcon = false;
         Game1.player[Game1.myPlayer].showItemIcon2 = 0;
         flag1 = true;
         float num65 = 1f;
-        if (Game1.itemTexture[Game1.mouseItem.type].Width > 32 || Game1.itemTexture[Game1.mouseItem.type].Height > 32)
-          num65 = Game1.itemTexture[Game1.mouseItem.type].Width <= Game1.itemTexture[Game1.mouseItem.type].Height ? 32f / (float) Game1.itemTexture[Game1.mouseItem.type].Height : 32f / (float) Game1.itemTexture[Game1.mouseItem.type].Width;
+        if (Game1.itemTexture[Game1.mouseItem.type].Width > 32 || 
+                    Game1.itemTexture[Game1.mouseItem.type].Height > 32)
+          num65 = Game1.itemTexture[Game1.mouseItem.type].Width <= 
+                        Game1.itemTexture[Game1.mouseItem.type].Height 
+                        ? 32f / (float) Game1.itemTexture[Game1.mouseItem.type].Height : 32f 
+                        / (float) Game1.itemTexture[Game1.mouseItem.type].Width;
         float num66 = 1f;
         Color white = Color.White;
         float scale = num65 * num66;
-        this.spriteBatch.Draw(Game1.itemTexture[Game1.mouseItem.type], new Vector2((float) ((double) Game1.mouseState.X + 26.0 * (double) num66 - (double) Game1.itemTexture[Game1.mouseItem.type].Width * 0.5 * (double) scale), (float) ((double) Game1.mouseState.Y + 26.0 * (double) num66 - (double) Game1.itemTexture[Game1.mouseItem.type].Height * 0.5 * (double) scale)), new Rectangle?(new Rectangle(0, 0, Game1.itemTexture[Game1.mouseItem.type].Width, Game1.itemTexture[Game1.mouseItem.type].Height)), Game1.mouseItem.GetAlpha(white), 0.0f, new Vector2(), scale, SpriteEffects.None, 0.0f);
+
+        this.spriteBatch.Draw(Game1.itemTexture[Game1.mouseItem.type], 
+            new Vector2((float) ((double) Game1.mouseState[0].Position.X + 26.0 * (double) num66 - 
+            (double) Game1.itemTexture[Game1.mouseItem.type].Width * 0.5 * (double) scale),
+            (float) ((double) Game1.mouseState[0].Position.Y + 26.0 * (double) num66 - 
+            (double) Game1.itemTexture[Game1.mouseItem.type].Height * 0.5 * (double) scale)), 
+            new Rectangle?(new Rectangle(0, 0, Game1.itemTexture[Game1.mouseItem.type].Width,
+            Game1.itemTexture[Game1.mouseItem.type].Height)), Game1.mouseItem.GetAlpha(white), 0.0f, 
+            new Vector2(), scale, SpriteEffects.None, 0.0f);
+
         if (Game1.mouseItem.color != new Color())
-          this.spriteBatch.Draw(Game1.itemTexture[Game1.mouseItem.type], new Vector2((float) ((double) Game1.mouseState.X + 26.0 * (double) num66 - (double) Game1.itemTexture[Game1.mouseItem.type].Width * 0.5 * (double) scale), (float) ((double) Game1.mouseState.Y + 26.0 * (double) num66 - (double) Game1.itemTexture[Game1.mouseItem.type].Height * 0.5 * (double) scale)), new Rectangle?(new Rectangle(0, 0, Game1.itemTexture[Game1.mouseItem.type].Width, Game1.itemTexture[Game1.mouseItem.type].Height)), Game1.mouseItem.GetColor(white), 0.0f, new Vector2(), scale, SpriteEffects.None, 0.0f);
+          this.spriteBatch.Draw(Game1.itemTexture[Game1.mouseItem.type], new Vector2((float) (
+              (double) Game1.mouseState[0].Position.X + 26.0 * (double) num66 -
+              (double) Game1.itemTexture[Game1.mouseItem.type].Width * 0.5 * (double) scale), 
+              (float) ((double) Game1.mouseState[0].Position.Y + 26.0 * (double) num66 - 
+              (double) Game1.itemTexture[Game1.mouseItem.type].Height * 0.5 * (double) scale)), 
+              new Rectangle?(new Rectangle(0, 0, Game1.itemTexture[Game1.mouseItem.type].Width, 
+              Game1.itemTexture[Game1.mouseItem.type].Height)), Game1.mouseItem.GetColor(white), 0.0f, 
+              new Vector2(), scale, SpriteEffects.None, 0.0f);
+
         if (Game1.mouseItem.stack > 1)
-          this.spriteBatch.DrawString(Game1.fontItemStack, string.Concat((object) Game1.mouseItem.stack), new Vector2((float) Game1.mouseState.X + 10f * num66, (float) Game1.mouseState.Y + 26f * num66), white, 0.0f, new Vector2(), scale, SpriteEffects.None, 0.0f);
+          this.spriteBatch.DrawString(Game1.fontItemStack, string.Concat((object) Game1.mouseItem.stack), 
+              new Vector2((float) Game1.mouseState[0].Position.X + 10f * num66, 
+              (float) Game1.mouseState[0].Position.Y + 26f * num66),
+              white, 0.0f, new Vector2(), scale, SpriteEffects.None, 0.0f);
       }
-      Rectangle rectangle5 = new Rectangle((int) ((double) Game1.mouseState.X + (double) Game1.screenPosition.X), (int) ((double) Game1.mouseState.Y + (double) Game1.screenPosition.Y), 1, 1);
+      Rectangle rectangle5 = new Rectangle((int) ((double) Game1.mouseState[0].Position.X + 
+          (double) Game1.screenPosition.X), (int) ((double) Game1.mouseState[0].Position.Y +
+          (double) Game1.screenPosition.Y), 1, 1);
       if (!flag1)
       {
         int num67 = 26 * Game1.player[Game1.myPlayer].statLifeMax / num11;
@@ -4045,10 +4307,14 @@ label_90:
           num67 = 260;
           num68 += 26;
         }
-        if (Game1.mouseState.X > 500 && Game1.mouseState.X < 500 + num67 && Game1.mouseState.Y > 32 && Game1.mouseState.Y < 32 + Game1.heartTexture.Height + num68)
+        if (Game1.mouseState[0].Position.X > 500 
+                    && Game1.mouseState[0].Position.X < 500 + num67 
+                    && Game1.mouseState[0].Position.Y > 32 
+                    && Game1.mouseState[0].Position.Y < 32 + Game1.heartTexture.Height + num68)
         {
           Game1.player[Game1.myPlayer].showItemIcon = false;
-          this.MouseText(Game1.player[Game1.myPlayer].statLife.ToString() + "/" + (object) Game1.player[Game1.myPlayer].statLifeMax);
+          this.MouseText(Game1.player[Game1.myPlayer].statLife.ToString() 
+              + "/" + (object) Game1.player[Game1.myPlayer].statLifeMax);
           flag1 = true;
         }
       }
@@ -4056,10 +4322,15 @@ label_90:
       {
         int num69 = 24;
         int num70 = 28 * Game1.player[Game1.myPlayer].statManaMax / num16;
-        if (Game1.mouseState.X > 762 && Game1.mouseState.X < 762 + num69 && Game1.mouseState.Y > 30 && Game1.mouseState.Y < 30 + num70)
+
+        if (Game1.mouseState[0].Position.X > 762 
+                    && Game1.mouseState[0].Position.X < 762 + 
+                    num69 && Game1.mouseState[0].Position.Y > 30 
+                    && Game1.mouseState[0].Position.Y < 30 + num70)
         {
           Game1.player[Game1.myPlayer].showItemIcon = false;
-          this.MouseText(Game1.player[Game1.myPlayer].statMana.ToString() + "/" + (object) Game1.player[Game1.myPlayer].statManaMax);
+          this.MouseText(Game1.player[Game1.myPlayer].statMana.ToString() 
+              + "/" + (object) Game1.player[Game1.myPlayer].statManaMax);
           flag1 = true;
         }
       }
@@ -4069,7 +4340,16 @@ label_90:
         {
           if (Game1.item[index].active)
           {
-            Rectangle rectangle6 = new Rectangle((int) ((double) Game1.item[index].position.X + (double) Game1.item[index].width * 0.5 - (double) Game1.itemTexture[Game1.item[index].type].Width * 0.5), (int) ((double) Game1.item[index].position.Y + (double) Game1.item[index].height - (double) Game1.itemTexture[Game1.item[index].type].Height), Game1.itemTexture[Game1.item[index].type].Width, Game1.itemTexture[Game1.item[index].type].Height);
+            Rectangle rectangle6 = new Rectangle((int) (
+                (double) Game1.item[index].position.X + 
+                (double) Game1.item[index].width * 0.5 
+                - (double) Game1.itemTexture[Game1.item[index].type].Width * 0.5), 
+                (int) ((double) Game1.item[index].position.Y 
+                + (double) Game1.item[index].height - 
+                (double) Game1.itemTexture[Game1.item[index].type].Height), 
+                Game1.itemTexture[Game1.item[index].type].Width,
+                Game1.itemTexture[Game1.item[index].type].Height);
+
             if (rectangle5.Intersects(rectangle6))
             {
               Game1.player[Game1.myPlayer].showItemIcon = false;
@@ -4122,8 +4402,18 @@ label_90:
                   effects = SpriteEffects.FlipHorizontally;
                   num71 = Game1.npc[index].width / 2 + 8;
                 }
-                this.spriteBatch.Draw(Game1.chatTexture, new Vector2(Game1.npc[index].position.X + (float) (Game1.npc[index].width / 2) - Game1.screenPosition.X - (float) (Game1.chatTexture.Width / 2) - (float) num71, Game1.npc[index].position.Y - (float) Game1.chatTexture.Height - Game1.screenPosition.Y), new Rectangle?(new Rectangle(0, 0, Game1.chatTexture.Width, Game1.chatTexture.Height)), new Color((int) Game1.mouseTextColor, (int) Game1.mouseTextColor, (int) Game1.mouseTextColor, (int) Game1.mouseTextColor), 0.0f, new Vector2(), 1f, effects, 0.0f);
-                if (Game1.mouseState.RightButton == ButtonState.Pressed && Game1.npcChatRelease)
+                this.spriteBatch.Draw(Game1.chatTexture, 
+                    new Vector2(Game1.npc[index].position.X + (float) (Game1.npc[index].width / 2) 
+                    - Game1.screenPosition.X - (float) (Game1.chatTexture.Width / 2) 
+                    - (float) num71, Game1.npc[index].position.Y -
+                    (float) Game1.chatTexture.Height - Game1.screenPosition.Y), 
+                    new Rectangle?(new Rectangle(0, 0, Game1.chatTexture.Width, Game1.chatTexture.Height)),
+                    new Color((int) Game1.mouseTextColor, (int) Game1.mouseTextColor, 
+                    (int) Game1.mouseTextColor, (int) Game1.mouseTextColor), 0.0f, 
+                    new Vector2(), 1f, effects, 0.0f);
+
+                if (Game1.mouseState.Count > 1 //Game1.mouseState.RightButton == ButtonState.Pressed 
+                                    && Game1.npcChatRelease)
                 {
                   Game1.npcChatRelease = false;
                   if (Game1.player[Game1.myPlayer].talkNPC != index)
@@ -4145,8 +4435,12 @@ label_90:
           }
         }
       }
-      Game1.npcChatRelease = Game1.mouseState.RightButton != ButtonState.Pressed;
-      if (Game1.player[Game1.myPlayer].showItemIcon && (Game1.player[Game1.myPlayer].inventory[Game1.player[Game1.myPlayer].selectedItem].type > 0 || Game1.player[Game1.myPlayer].showItemIcon2 > 0))
+
+      Game1.npcChatRelease = (Game1.mouseState.Count < 2);//Game1.mouseState.RightButton != ButtonState.Pressed;
+
+      if (Game1.player[Game1.myPlayer].showItemIcon 
+                && (Game1.player[Game1.myPlayer].inventory[Game1.player[Game1.myPlayer].selectedItem].type > 0 
+                || Game1.player[Game1.myPlayer].showItemIcon2 > 0))
       {
         int index = Game1.player[Game1.myPlayer].inventory[Game1.player[Game1.myPlayer].selectedItem].type;
         Color color8 = Game1.player[Game1.myPlayer].inventory[Game1.player[Game1.myPlayer].selectedItem].GetAlpha(Color.White);
@@ -4157,9 +4451,18 @@ label_90:
           color8 = Color.White;
           color9 = new Color();
         }
-        this.spriteBatch.Draw(Game1.itemTexture[index], new Vector2((float) (Game1.mouseState.X + 10), (float) (Game1.mouseState.Y + 10)), new Rectangle?(new Rectangle(0, 0, Game1.itemTexture[index].Width, Game1.itemTexture[index].Height)), color8, 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
+        this.spriteBatch.Draw(Game1.itemTexture[index], 
+            new Vector2((float) (Game1.mouseState[0].Position.X + 10),
+            (float) (Game1.mouseState[0].Position.Y + 10)), 
+            new Rectangle?(
+                new Rectangle(0, 0, Game1.itemTexture[index].Width, Game1.itemTexture[index].Height)),
+            color8, 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
         if (Game1.player[Game1.myPlayer].showItemIcon2 == 0 && Game1.player[Game1.myPlayer].inventory[Game1.player[Game1.myPlayer].selectedItem].color != new Color())
-          this.spriteBatch.Draw(Game1.itemTexture[Game1.player[Game1.myPlayer].inventory[Game1.player[Game1.myPlayer].selectedItem].type], new Vector2((float) (Game1.mouseState.X + 10), (float) (Game1.mouseState.Y + 10)), new Rectangle?(new Rectangle(0, 0, Game1.itemTexture[Game1.player[Game1.myPlayer].inventory[Game1.player[Game1.myPlayer].selectedItem].type].Width, Game1.itemTexture[Game1.player[Game1.myPlayer].inventory[Game1.player[Game1.myPlayer].selectedItem].type].Height)), color9, 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
+          this.spriteBatch.Draw(Game1.itemTexture[Game1.player[Game1.myPlayer].inventory[Game1.player[Game1.myPlayer].selectedItem].type], 
+              new Vector2((float) (Game1.mouseState[0].Position.X + 10), 
+              (float) (Game1.mouseState[0].Position.Y + 10)), 
+              new Rectangle?(new Rectangle(0, 0,
+              Game1.itemTexture[Game1.player[Game1.myPlayer].inventory[Game1.player[Game1.myPlayer].selectedItem].type].Width, Game1.itemTexture[Game1.player[Game1.myPlayer].inventory[Game1.player[Game1.myPlayer].selectedItem].type].Height)), color9, 0.0f, new Vector2(), 1f, SpriteEffects.None, 0.0f);
       }
       Game1.player[Game1.myPlayer].showItemIcon = false;
       Game1.player[Game1.myPlayer].showItemIcon2 = 0;
@@ -5303,14 +5606,18 @@ label_90:
                   text2 = "+";
                 Vector2 vector2 = new Vector2(24f, 24f);
                 int a = 142;
-                if (Game1.mouseState.X > num16 && (double) Game1.mouseState.X < (double) num16 + (double) vector2.X && Game1.mouseState.Y > num14 + 13 && (double) Game1.mouseState.Y < (double) (num14 + 13) + (double) vector2.Y)
+                if (Game1.mouseState[0].Position.X > num16 
+                  && (double) Game1.mouseState[0].Position.X < (double) num16 + (double) vector2.X 
+                  && Game1.mouseState[0].Position.Y > num14 + 13 
+                  && (double) Game1.mouseState[0].Position.Y < (double) (num14 + 13) + (double) vector2.Y)
                 {
                   if (this.focusColor != (index15 + 1) * (index16 + 10))
                     Game1.PlaySound(12);
                   this.focusColor = (index15 + 1) * (index16 + 10);
                   flag3 = true;
                   a = (int) byte.MaxValue;
-                  if (Game1.mouseState.LeftButton == ButtonState.Pressed)
+                  if (Game1.mouseState.Count==1//Game1.mouseState.LeftButton == ButtonState.Pressed
+                  )
                   {
                     if (this.colorDelay <= 1)
                     {
@@ -5443,14 +5750,21 @@ label_90:
                   text4 = "+";
                 Vector2 vector2 = new Vector2(24f, 24f);
                 int a = 142;
-                if (Game1.mouseState.X > num29 && (double) Game1.mouseState.X < (double) num29 + (double) vector2.X && Game1.mouseState.Y > num27 + 13 && (double) Game1.mouseState.Y < (double) (num27 + 13) + (double) vector2.Y)
+                if (Game1.mouseState[0].Position.X > num29 
+                      && (double) Game1.mouseState[0].Position.X 
+                                               < (double) num29 + (double) vector2.X 
+                      && Game1.mouseState[0].Position.Y > num27 + 13 
+                      && (double) Game1.mouseState[0].Position.Y 
+                                                < (double) (num27 + 13) + (double) vector2.Y)
                 {
                   if (this.focusColor != (index20 + 1) * (index21 + 10))
                     Game1.PlaySound(12);
                   this.focusColor = (index20 + 1) * (index21 + 10);
                   flag4 = true;
                   a = (int) byte.MaxValue;
-                  if (Game1.mouseState.LeftButton == ButtonState.Pressed)
+
+                  if (Game1.mouseState.Count == 1//Game1.mouseState.LeftButton == ButtonState.Pressed
+                  )
                   {
                     if (this.colorDelay <= 1)
                     {
@@ -5549,9 +5863,21 @@ label_90:
               scale *= 0.35f;
             else if (Game1.netMode == 2)
               scale *= 0.5f;
-            this.spriteBatch.DrawString(Game1.fontDeathText, strArray1[index12], new Vector2((float) (num3 + num35 + numArray2[index12]), (float) (num2 + num4 * index12 + num36) + origin.Y + (float) numArray1[index12]), color2, 0.0f, origin, scale, SpriteEffects.None, 0.0f);
+            this.spriteBatch.DrawString(
+                Game1.fontDeathText, strArray1[index12], 
+                new Vector2((float) (num3 + num35 + numArray2[index12]),
+                (float) (num2 + num4 * index12 + num36) + origin.Y 
+                + (float) numArray1[index12]), color2, 0.0f,
+                origin, scale, SpriteEffects.None, 0.0f);
           }
-          if (Game1.mouseState.X > num3 - strArray1[index12].Length * 10 + numArray2[index12] && Game1.mouseState.X < num3 + strArray1[index12].Length * 10 + numArray2[index12] && Game1.mouseState.Y > num2 + num4 * index12 + numArray1[index12] && Game1.mouseState.Y < num2 + num4 * index12 + 50 + numArray1[index12] && Game1.hasFocus)
+
+          if (Game1.mouseState[0].Position.X > num3 - strArray1[index12].Length * 10 + numArray2[index12] 
+                        && Game1.mouseState[0].Position.X < num3 
+                        + strArray1[index12].Length * 10 + numArray2[index12] 
+                        && Game1.mouseState[0].Position.Y > num2 + num4 * index12 
+                        + numArray1[index12] 
+                        && Game1.mouseState[0].Position.Y < num2 + num4 * index12 + 50 + numArray1[index12] 
+                        && Game1.hasFocus)
           {
             this.focusMenu = index12;
             if (flagArray1[index12] || flagArray2[index12])
@@ -5562,7 +5888,8 @@ label_90:
             {
               if (focusMenu != this.focusMenu)
                 Game1.PlaySound(12);
-              if (Game1.mouseLeftRelease && Game1.mouseState.LeftButton == ButtonState.Pressed)
+              if (Game1.mouseLeftRelease && Game1.mouseState.Count==1//Game1.mouseState.LeftButton == ButtonState.Pressed
+              )
                 this.selectedMenu = index12;
             }
           }
@@ -5587,11 +5914,26 @@ label_90:
         Game1.loadPlayer[index1].position.Y = (float) num7 + Game1.screenPosition.Y;
         this.DrawPlayer(Game1.loadPlayer[index1]);
       }
-      this.spriteBatch.Draw(Game1.cursorTexture, new Vector2((float) (Game1.mouseState.X + 1), (float) (Game1.mouseState.Y + 1)), new Rectangle?(new Rectangle(0, 0, Game1.cursorTexture.Width, Game1.cursorTexture.Height)), new Color((int) ((double) Game1.cursorColor.R * 0.20000000298023224), (int) ((double) Game1.cursorColor.G * 0.20000000298023224), (int) ((double) Game1.cursorColor.B * 0.20000000298023224), (int) ((double) Game1.cursorColor.A * 0.5)), 0.0f, new Vector2(), Game1.cursorScale * 1.1f, SpriteEffects.None, 0.0f);
-      this.spriteBatch.Draw(Game1.cursorTexture, new Vector2((float) Game1.mouseState.X, (float) Game1.mouseState.Y), new Rectangle?(new Rectangle(0, 0, Game1.cursorTexture.Width, Game1.cursorTexture.Height)), Game1.cursorColor, 0.0f, new Vector2(), Game1.cursorScale, SpriteEffects.None, 0.0f);
+      this.spriteBatch.Draw(Game1.cursorTexture, 
+          new Vector2((float) (Game1.mouseState[0].Position.X + 1), 
+          (float) (Game1.mouseState[0].Position.Y + 1)), new Rectangle?(
+              new Rectangle(0, 0, Game1.cursorTexture.Width, Game1.cursorTexture.Height)), 
+          new Color((int) ((double) Game1.cursorColor.R * 0.20000000298023224),
+          (int) ((double) Game1.cursorColor.G * 0.20000000298023224),
+          (int) ((double) Game1.cursorColor.B * 0.20000000298023224),
+          (int) ((double) Game1.cursorColor.A * 0.5)), 0.0f, 
+          new Vector2(), Game1.cursorScale * 1.1f, SpriteEffects.None, 0.0f);
+
+      this.spriteBatch.Draw(Game1.cursorTexture, 
+          new Vector2((float) Game1.mouseState[0].Position.X,
+          (float) Game1.mouseState[0].Position.Y), new Rectangle?(
+              new Rectangle(0, 0, Game1.cursorTexture.Width, Game1.cursorTexture.Height)),
+          Game1.cursorColor, 0.0f, new Vector2(), Game1.cursorScale, SpriteEffects.None, 0.0f);
       this.spriteBatch.End();
-      Game1.mouseLeftRelease = Game1.mouseState.LeftButton != ButtonState.Pressed;
-      if (Game1.mouseState.RightButton == ButtonState.Pressed)
+            Game1.mouseLeftRelease = (Game1.mouseState.Count == 0);//Game1.mouseState.LeftButton != ButtonState.Pressed;
+      if (
+           Game1.mouseState.Count > 1 // Game1.mouseState.RightButton == ButtonState.Pressed
+      )
         Game1.mouseRightRelease = false;
       else
         Game1.mouseRightRelease = true;
@@ -5646,10 +5988,12 @@ label_90:
       if (Game1.myPlayer >= 0)
         Game1.player[Game1.myPlayer].mouseInterface = false;
       Game1.toolTip = new Item();
-      if (!Game1.debugMode && !Game1.gameMenu && Game1.netMode != 2)
+
+      // screen panning
+      if (/*!Game1.debugMode && */ !Game1.gameMenu && Game1.netMode != 2)
       {
-        int num1 = Game1.mouseState.X;
-        int num2 = Game1.mouseState.Y;
+        int num1 = (int)Game1.mouseState[0].Position.X;
+        int num2 = (int)Game1.mouseState[0].Position.Y;
         if (num1 < 0)
           num1 = 0;
         if (num1 > Game1.screenWidth)
@@ -5662,8 +6006,12 @@ label_90:
         {
           int screenHeight = Game1.screenHeight;
         }
-        Game1.screenPosition.X = (float) ((double) Game1.player[Game1.myPlayer].position.X + (double) Game1.player[Game1.myPlayer].width * 0.5 - (double) Game1.screenWidth * 0.5);
-        Game1.screenPosition.Y = (float) ((double) Game1.player[Game1.myPlayer].position.Y + (double) Game1.player[Game1.myPlayer].height * 0.5 - (double) Game1.screenHeight * 0.5);
+        Game1.screenPosition.X = (float) ((double) Game1.player[Game1.myPlayer].position.X 
+                    + (double) Game1.player[Game1.myPlayer].width * 0.5 
+                    - (double) Game1.screenWidth * 0.5);
+        Game1.screenPosition.Y = (float) ((double) Game1.player[Game1.myPlayer].position.Y 
+                    + (double) Game1.player[Game1.myPlayer].height * 0.5 
+                    - (double) Game1.screenHeight * 0.5);
         Game1.screenPosition.X = (float) (int) Game1.screenPosition.X;
         Game1.screenPosition.Y = (float) (int) Game1.screenPosition.Y;
       }
@@ -5678,13 +6026,17 @@ label_90:
         else if ((double) Game1.screenPosition.Y + (double) Game1.screenHeight > (double) Game1.bottomWorld - 336.0 - 32.0)
           Game1.screenPosition.Y = (float) ((double) Game1.bottomWorld - (double) Game1.screenHeight - 336.0 - 32.0);
       }
+     
       this.GraphicsDevice.Clear(Color.Black);
       base.Draw(gameTime);
       this.spriteBatch.Begin();
       double num3 = 0.5;
-      int num4 = (int) (-Math.IEEERemainder((double) Game1.screenPosition.X * num3, (double) Game1.backgroundWidth[Game1.background]) - (double) (Game1.backgroundWidth[Game1.background] / 2));
+      int num4 = (int) (-Math.IEEERemainder((double) Game1.screenPosition.X * num3, 
+          (double) Game1.backgroundWidth[Game1.background]) - (double) (Game1.backgroundWidth[Game1.background] / 2));
       int num5 = Game1.screenWidth / Game1.backgroundWidth[Game1.background] + 2;
-      int y1 = (int) (-(double) Game1.screenPosition.Y / (Game1.worldSurface * 16.0 - (double) Game1.screenHeight) * (double) (Game1.backgroundHeight[Game1.background] - Game1.screenHeight));
+      int y1 = (int) (-(double) Game1.screenPosition.Y / (Game1.worldSurface * 16.0 -
+                (double) Game1.screenHeight) * (double) (Game1.backgroundHeight[Game1.background] - Game1.screenHeight));
+     
       if (Game1.gameMenu || Game1.netMode == 2)
         y1 = -200;
       Color white1 = Color.White;
@@ -5908,30 +6260,49 @@ label_90:
         }
       }
       if (Game1.dayTime)
-        this.spriteBatch.Draw(Game1.sunTexture, new Vector2((float) x1, (float) (num6 + (int) Game1.sunModY)), new Rectangle?(new Rectangle(0, 0, Game1.sunTexture.Width, Game1.sunTexture.Height)), white2, rotation1, new Vector2((float) (Game1.sunTexture.Width / 2), (float) (Game1.sunTexture.Height / 2)), scale1, SpriteEffects.None, 0.0f);
+        this.spriteBatch.Draw(Game1.sunTexture, 
+            new Vector2((float) x1, (float) (num6 + (int) Game1.sunModY)), 
+            new Rectangle?(new Rectangle(0, 0, Game1.sunTexture.Width, Game1.sunTexture.Height)), 
+            white2, rotation1, new Vector2((float) (Game1.sunTexture.Width / 2), 
+            (float) (Game1.sunTexture.Height / 2)), scale1, SpriteEffects.None, 0.0f);
       if (!Game1.dayTime)
-        this.spriteBatch.Draw(Game1.moonTexture, new Vector2((float) x2, (float) (num7 + (int) Game1.moonModY)), new Rectangle?(new Rectangle(0, Game1.moonTexture.Width * Game1.moonPhase, Game1.moonTexture.Width, Game1.moonTexture.Width)), white3, rotation2, new Vector2((float) (Game1.moonTexture.Width / 2), (float) (Game1.moonTexture.Width / 2)), scale2, SpriteEffects.None, 0.0f);
-      Rectangle rectangle1 = !Game1.dayTime ? new Rectangle((int) ((double) x2 - (double) Game1.moonTexture.Width * 0.5 * (double) scale2), (int) ((double) num7 - (double) Game1.moonTexture.Width * 0.5 * (double) scale2 + (double) Game1.moonModY), (int) ((double) Game1.moonTexture.Width * (double) scale2), (int) ((double) Game1.moonTexture.Width * (double) scale2)) : new Rectangle((int) ((double) x1 - (double) Game1.sunTexture.Width * 0.5 * (double) scale1), (int) ((double) num6 - (double) Game1.sunTexture.Height * 0.5 * (double) scale1 + (double) Game1.sunModY), (int) ((double) Game1.sunTexture.Width * (double) scale1), (int) ((double) Game1.sunTexture.Width * (double) scale1));
-      Rectangle rectangle2 = new Rectangle(Game1.mouseState.X, Game1.mouseState.Y, 1, 1);
+        this.spriteBatch.Draw(Game1.moonTexture, 
+            new Vector2((float) x2, (float) (num7 + (int) Game1.moonModY)), 
+            new Rectangle?(new Rectangle(0, Game1.moonTexture.Width * Game1.moonPhase, 
+            Game1.moonTexture.Width, Game1.moonTexture.Width)), white3, rotation2, 
+            new Vector2((float) (Game1.moonTexture.Width / 2), 
+            (float) (Game1.moonTexture.Width / 2)), scale2, SpriteEffects.None, 0.0f);
+
+      Rectangle rectangle1 = !Game1.dayTime 
+                ? new Rectangle((int) ((double) x2 - (double) Game1.moonTexture.Width * 0.5 * (double) scale2), (int) ((double) num7 - (double) Game1.moonTexture.Width * 0.5 * (double) scale2 + (double) Game1.moonModY), (int) ((double) Game1.moonTexture.Width * (double) scale2), (int) ((double) Game1.moonTexture.Width * (double) scale2)) : new Rectangle((int) ((double) x1 - (double) Game1.sunTexture.Width * 0.5 * (double) scale1), (int) ((double) num6 - (double) Game1.sunTexture.Height * 0.5 * (double) scale1 + (double) Game1.sunModY), (int) ((double) Game1.sunTexture.Width * (double) scale1), (int) ((double) Game1.sunTexture.Width * (double) scale1));
+
+      Rectangle rectangle2 = new Rectangle(
+          (int)Game1.mouseState[0].Position.X, 
+          (int)Game1.mouseState[0].Position.Y, 1, 1);
       Game1.sunModY = (short) ((double) Game1.sunModY * 0.999);
       Game1.moonModY = (short) ((double) Game1.moonModY * 0.999);
       if (Game1.gameMenu && Game1.netMode != 1 || Game1.grabSun)
       {
-        if (Game1.mouseState.LeftButton == ButtonState.Pressed && Game1.hasFocus)
+        if (Game1.mouseState.Count == 1 //Game1.mouseState.LeftButton == ButtonState.Pressed 
+        && Game1.hasFocus)
         {
           if (rectangle2.Intersects(rectangle1) || Game1.grabSky)
           {
             if (Game1.dayTime)
             {
-              Game1.time = 54000.0 * ((double) (Game1.mouseState.X + Game1.sunTexture.Width) / ((double) Game1.screenWidth + (double) (Game1.sunTexture.Width * 2)));
-              Game1.sunModY = (short) (Game1.mouseState.Y - num6);
+              Game1.time = 54000.0 * 
+                                ((double) (Game1.mouseState[0].Position.X + Game1.sunTexture.Width) 
+                                / ((double) Game1.screenWidth + (double) (Game1.sunTexture.Width * 2)));
+              Game1.sunModY = (short) (Game1.mouseState[0].Position.Y - num6);
               if (Game1.time > 53990.0)
                 Game1.time = 53990.0;
             }
             else
             {
-              Game1.time = 32400.0 * ((double) (Game1.mouseState.X + Game1.moonTexture.Width) / ((double) Game1.screenWidth + (double) (Game1.moonTexture.Width * 2)));
-              Game1.moonModY = (short) (Game1.mouseState.Y - num7);
+              Game1.time = 32400.0 * ((double) (Game1.mouseState[0].Position.X + Game1.moonTexture.Width)
+                                / ((double) Game1.screenWidth + (double) (Game1.moonTexture.Width * 2)));
+
+              Game1.moonModY = (short) (Game1.mouseState[0].Position.Y - num7);
               if (Game1.time > 32390.0)
                 Game1.time = 32390.0;
             }
@@ -6012,9 +6383,12 @@ label_90:
           firstY = 0;
         if (lastY > Game1.maxTilesY)
           lastY = Game1.maxTilesY;
+
         Lighting.LightTiles(firstX, lastX, firstY, lastY);
+        
         Color white4 = Color.White;
         this.DrawWater(true);
+        
         double num36 = 1.0;
         int num37 = (int) (-Math.IEEERemainder((double) Game1.screenPosition.X * num36, (double) Game1.backgroundWidth[1]) - (double) (Game1.backgroundWidth[1] / 2));
         int num38 = Game1.screenWidth / Game1.backgroundWidth[1] + 2;
@@ -6498,9 +6872,12 @@ label_90:
           this.DrawInterface();
         }
         this.spriteBatch.End();
-        Game1.mouseLeftRelease = Game1.mouseState.LeftButton != ButtonState.Pressed;
-        Game1.mouseRightRelease = Game1.mouseState.RightButton != ButtonState.Pressed;
-        if (Game1.mouseState.RightButton != ButtonState.Pressed)
+        
+        //RnD
+        Game1.mouseLeftRelease = (Game1.mouseState.Count == 0);//Game1.mouseState.LeftButton != ButtonState.Pressed;
+        Game1.mouseRightRelease = (Game1.mouseState.Count == 0);//Game1.mouseState.RightButton != ButtonState.Pressed;
+        if (Game1.mouseState.Count < 2//Game1.mouseState.RightButton != ButtonState.Pressed
+        )
           Game1.stackSplit = 0;
         if (Game1.stackSplit <= 0)
           return;
@@ -7060,40 +7437,43 @@ label_90:
       if (Game1.netMode == 2)
         return;
 
-    // Panning control via WASD keys
-    if (Game1.keyState.IsKeyDown(/*Keys.Up*/Keys.W))
+      // Panning control via WASD keys
+      if (Game1.keyState.IsKeyDown(/*Keys.Up*/Keys.W))
         Game1.screenPosition.Y -= 8f;//32f;
 
-    if (Game1.keyState.IsKeyDown(/*Keys.Left*/Keys.A))
+      if (Game1.keyState.IsKeyDown(/*Keys.Left*/Keys.A))
         Game1.screenPosition.X -= 8f;//32f;
 
-    if (Game1.keyState.IsKeyDown(/*Keys.Down*/Keys.S))
+      if (Game1.keyState.IsKeyDown(/*Keys.Down*/Keys.S))
         Game1.screenPosition.Y += 8f;//32f;
 
-    if (Game1.keyState.IsKeyDown(/*Keys.Right*/Keys.D))
+      if (Game1.keyState.IsKeyDown(/*Keys.Right*/Keys.D))
         Game1.screenPosition.X += 8f;//32f;
 
-      int i = (int) (((double) Game1.mouseState.X + (double) Game1.screenPosition.X) / 16.0);
-      int j = (int) (((double) Game1.mouseState.Y + (double) Game1.screenPosition.Y) / 16.0);
+      //RnD
+      if (Game1.mouseState.Count == 0)
+        return;
+
+      int i = (int) (((double) Game1.mouseState[0].Position.X + (double) Game1.screenPosition.X) / 16.0);
+      int j = (int) (((double) Game1.mouseState[0].Position.Y + (double) Game1.screenPosition.Y) / 16.0)-1;
      
       if 
-       (Game1.mouseState.X >= Game1.screenWidth 
-       || Game1.mouseState.Y >= Game1.screenHeight 
+       (Game1.mouseState[0].Position.X >= Game1.screenWidth 
+       || Game1.mouseState[0].Position.Y >= Game1.screenHeight 
        || i < 0 || j < 0 
        || i >= Game1.maxTilesX || j >= Game1.maxTilesY
       )
         return;
 
-      /*
+      // RnD: Light ?
       Lighting.addLight(i, j, 1f);
       
-      if (Game1.mouseState.RightButton != ButtonState.Pressed 
-                || Game1.mouseState.LeftButton != ButtonState.Pressed)
-      {
-         //
-      }
+      //if (Game1.mouseState.RightButton != ButtonState.Pressed 
+      //|| Game1.mouseState.LeftButton != ButtonState.Pressed)
+      //{}
 
-      if (Game1.mouseState.RightButton == ButtonState.Pressed)
+      if (Game1.mouseState.Count == 2//Game1.mouseState.RightButton == ButtonState.Pressed
+      )
       {
         int player = Game1.myPlayer;
         int number = Game1.rand.Next(8);
@@ -7113,7 +7493,8 @@ label_90:
             ++num;
         }
       }
-      else if (Game1.mouseState.LeftButton == ButtonState.Pressed)
+      else if (Game1.mouseState.Count == 3//Game1.mouseState.LeftButton == ButtonState.Pressed
+      )
       {
         WorldGen.KillTile(i, j);
         for (int index1 = -5; index1 <= 5; ++index1)
@@ -7125,7 +7506,7 @@ label_90:
           }
         }
       }
-      */
+      
 
     }//UpdateDebug
 

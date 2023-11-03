@@ -1,10 +1,5 @@
-# mt (Modding Terraria codename; 1.0-beta-uwp branch)
-
-My attempt(s) to "reconsruct" some smallest and simplest game mechanics aka Terraria project :)
-
-## Tech. details
-
-:: Terraria 1.0 experimental UWP edition with special "modded" MonoGame ::
+# mt-1.0-beta1 (Project [M]icro[T]erraria codename; 1.0-beta-uwp branch)
+This is MINIMAL UWP Terraria app. It's my own attempt to RnD of Terraria XNA game mechanics.
 
 :: Min. Win. os build (SDK): 10240 (Astoria compatibility added)
 
@@ -16,7 +11,9 @@ My attempt(s) to "reconsruct" some smallest and simplest game mechanics aka Terr
 
 ## Progress of porting to uwp
 
-:: Sound effects fixed :)
+:: Touch control seems to be ok... but buggy =) After long play "finger touch" counting autoincrementing occccccccurs.... =))))
+
+:: Background music recovered (but wavebank after xbox->pc convert. is HUGE at now!)) 
 
 :: DB storage ok
 
@@ -28,7 +25,9 @@ My attempt(s) to "reconsruct" some smallest and simplest game mechanics aka Terr
 
 :: The app do its work only at "start mode" (minimum WASD + UpDownLeftRight keyboard control, not touchscreen event yet, sadly...) 
 
-:: No sound (wavebank WMA support not recovered, sadly), but save / restore settings (player/genworld data storage) fixed :)
+:: Sounds ok, and Music ok (wavebank consists of 5 Terraria-themed WAV)
+
+:: Game save / restore settings (player/genworld data storage) seem to be fixed (?) too
 
 ### Content
 This repo contains the decompiled source of the Terraria client binaries, from version 1.0-beta founded at [Terraria-pc-version-archive site](https://archive.org/details/terraria-pc-version-archive). Decompiled with [JetBrains dotPeek](https://www.jetbrains.com/decompiler/). 
@@ -44,7 +43,8 @@ I am just providing the decompiled code as a reference and making it easily acce
 - Research game mechanics : :
 - Add your own game mech
 - Fix music : :
-- Add touchscreen event handlers : :
+- Upprove touchscreen event handlers : :
+- Mouse handling (for desktop mode) also needed  : :
 - Do something else (deploy to old swwet Lumia phones... why not?) : :
 
 ## Add. info / References
