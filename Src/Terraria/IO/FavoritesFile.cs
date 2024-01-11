@@ -1,13 +1,4 @@
-﻿/*
-  _____                 ____                 
- | ____|_ __ ___  _   _|  _ \  _____   _____ 
- |  _| | '_ ` _ \| | | | | | |/ _ \ \ / / __|
- | |___| | | | | | |_| | |_| |  __/\ V /\__ \
- |_____|_| |_| |_|\__,_|____/ \___| \_/ |___/
-          <http://emudevs.com>
-             Terraria 1.3
-*/
-
+﻿
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Text;
@@ -17,7 +8,8 @@ namespace GameManager.IO
 {
     public class FavoritesFile
     {
-        private Dictionary<string, Dictionary<string, bool>> _data = new Dictionary<string, Dictionary<string, bool>>();
+        private Dictionary<string, Dictionary<string, bool>> _data 
+            = new Dictionary<string, Dictionary<string, bool>>();
         public readonly string Path;
         public readonly bool IsCloudSave;
 
@@ -59,7 +51,8 @@ namespace GameManager.IO
 
         public void Save()
         {
-            FileUtilities.WriteAllBytes(Path, Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(_data, (Formatting)1)));
+            FileUtilities.WriteAllBytes(Path, 
+                Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(_data, (Formatting)1)));
         }
 
         public void Load()
@@ -68,7 +61,11 @@ namespace GameManager.IO
                 _data.Clear();
             else
             {
-                _data = (Dictionary<string, Dictionary<string, bool>>)JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, bool>>>(Encoding.ASCII.GetString(FileUtilities.ReadAllBytes(Path)));
+                _data = (Dictionary<string, 
+                    Dictionary<string, bool>>)JsonConvert
+                    .DeserializeObject<Dictionary<string, Dictionary<string, bool>>>(
+                        Encoding.ASCII.GetString(FileUtilities.ReadAllBytes(Path)));
+
                 if (_data != null)
                     return;
 

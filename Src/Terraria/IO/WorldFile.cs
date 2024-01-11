@@ -1883,13 +1883,16 @@ namespace GameManager.IO
                         {
                             Directory.CreateDirectory(Game1.WorldPath);
                         }
-                        catch
+                        catch (Exception ex)
                         {
+                            Debug.WriteLine("[ex] saveWorld ex.: " + ex.Message);
                         }
+
                         if (Game1.skipMenu)
                         {
                             return;
                         }
+
                         if (HasCache)
                         {
                             HasCache = false;
@@ -1933,15 +1936,17 @@ namespace GameManager.IO
                                 writer.Flush();
 
                                 //RnD
-
-                                data = default;//stream.GetBuffer();
+                                data = stream.ToArray();//stream.GetBuffer();
                                 length = (int)stream.Length;
                             }
                         }
+                        
+                        //RnD
                         if (data == null)
                         {
                             return;
                         }
+
                         byte[] buffer2 = null;
                         if (FileUtilities.Exists(Game1.worldPathName))
                         {

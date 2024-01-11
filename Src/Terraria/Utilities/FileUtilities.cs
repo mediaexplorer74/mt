@@ -59,11 +59,14 @@ namespace GameManager.Utilities
         public static void Write(string path, byte[] data, int length)
         {
             string parentFolderPath = FileUtilities.GetParentFolderPath(path, true);
+
             if (parentFolderPath != "")
                 Directory.CreateDirectory(parentFolderPath);
 
             using (FileStream fileStream = File.Open(path, FileMode.Create))
+            {
                 fileStream.Write(data, 0, length);
+            }
         }
 
         public static string GetFileName(string path, bool includeExtension = true)

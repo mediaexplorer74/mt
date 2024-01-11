@@ -22,14 +22,18 @@
     <LangVersion>latest</LangVersion>
     <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
-    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>arm</AppxBundlePlatforms>
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
-    <PackageCertificateThumbprint>3F1467B17D8E8E6714B9F555C1E86334F332B21A</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>
+    </PackageCertificateThumbprint>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
     <!--PackageCertificateThumbprint>
     </PackageCertificateThumbprint>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
@@ -334,13 +338,11 @@
     <Compile Include="Main\Lighting.cs" />
     <Compile Include="Main\Liquid.cs" />
     <Compile Include="Main\LiquidBuffer.cs" />
-    <Compile Include="Main\Game_1.cs" />
     <Compile Include="Main\Message.cs" />
     <Compile Include="Main\MessageBuffer.cs" />
     <Compile Include="Main\Minecart.cs" />
     <Compile Include="Main\NetMessage.cs" />
     <Compile Include="Main\Netplay.cs" />
-    <Compile Include="Main\Program.cs" />
     <Compile Include="Main\Rain.cs" />
     <Compile Include="Main\Recipe.cs" />
     <Compile Include="Main\Ref.cs" />
@@ -429,10 +431,6 @@
     <Compile Include="World\Tile\Tile.cs" />
     <Compile Include="World\Tile\TileObject.cs" />
     <Compile Include="World\Tile\TileObjectData.cs" />
-    <Compile Include="_Managers\GameManager.cs" />
-    <Compile Include="_Models\Hero.cs" />
-    <Compile Include="_Models\Map.cs" />
-    <Compile Include="_Models\Sprite.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -529,10 +527,10 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.8</Version>
+      <Version>6.0.8</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.3</Version>
+      <Version>13.0.1</Version>
     </PackageReference>
     <PackageReference Include="System.Threading.Thread">
       <Version>4.3.0</Version>

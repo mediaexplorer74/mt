@@ -4,7 +4,7 @@
 
 ## Tech. details
 
-:: Terraria 1.3.x.x , UWP edition ::
+:: "Modded" Terraria 1.3 (full build ver = 1.3.1.0), UWP edition ::
 
 :: Min. Win. os build (SDK): 10240 (Astoria compatibility added)
 

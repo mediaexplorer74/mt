@@ -11,6 +11,7 @@ using System.Security.Cryptography;
 using System.Text;
 using GameManager;
 using GameManager.Utilities;
+using System.Diagnostics;
 
 namespace GameManager.Achievements
 {
@@ -28,7 +29,7 @@ namespace GameManager.Achievements
 
         public AchievementManager()
         {
-            _savePath = "Data\\achievements.dat";
+            _savePath = Game1.SavePath+"Data\\achievements.dat";
             byte[] numArray = Encoding.ASCII.GetBytes("RELOGIC-TERRARIA");
 
             //RnD
@@ -46,21 +47,24 @@ namespace GameManager.Achievements
                 {
                     using (MemoryStream ms = new MemoryStream())
                     {
-                        using (CryptoStream cs = new CryptoStream(ms, _encryptor, CryptoStreamMode.Write))
-                        {
-                            using (BsonWriter writer = new BsonWriter(cs))
+                        //using (CryptoStream cs = new CryptoStream(ms, _encryptor, CryptoStreamMode.Write))
+                        //{
+                            using (BsonWriter writer = new BsonWriter(/*cs*/ms))
                             {
                                 JsonSerializer.Create(_serializerSettings).Serialize((JsonWriter)writer, _achievements);
                                 ((JsonWriter)writer).Flush();
-                                cs.FlushFinalBlock();
+                                //cs.FlushFinalBlock();
 
                                 //RnD
-                                FileUtilities.Write(_savePath, default/*ms.GetBuffer()*/, (int)ms.Length);
+                                FileUtilities.Write(_savePath, /*ms.GetBuffer()*/ms.ToArray(), (int)ms.Length);
                             }
-                        }
+                        //}
                     }
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("[ex] Achievements write ex.: " + ex.Message);
+                }
             }
         }
 
@@ -82,15 +86,21 @@ namespace GameManager.Achievements
                 {
                     using (MemoryStream ms = new MemoryStream(bytes))
                     {
-                        using (CryptoStream cs = new CryptoStream(ms, _decryptor, CryptoStreamMode.Read))
+                        //using (CryptoStream cs = new CryptoStream(ms, _decryptor, CryptoStreamMode.Read))
+                        //{
+                        using (BsonReader reader = new BsonReader(/*cs*/ms))
                         {
-                            using (BsonReader reader = new BsonReader(cs))
-                                tempStoredList = (Dictionary<string, StoredAchievement>)JsonSerializer.Create(_serializerSettings).Deserialize<Dictionary<string, StoredAchievement>>((JsonReader)reader);
+                            tempStoredList = (Dictionary<string, StoredAchievement>)JsonSerializer.Create(
+                                _serializerSettings).Deserialize<Dictionary<string, StoredAchievement>>(
+                                (JsonReader)reader);
                         }
+                        //}
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
+                    Debug.WriteLine("[ex] Achievements read ex.: " + ex.Message);
+
                     FileUtilities.Delete(_savePath);
                     return;
                 }

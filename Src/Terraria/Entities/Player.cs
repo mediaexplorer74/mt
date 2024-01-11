@@ -27471,15 +27471,15 @@ namespace GameManager
             if (FileUtilities.Exists(path))
                 FileUtilities.Copy(path, path + ".bak");
 
-            RijndaelManaged rijndaelManaged = new RijndaelManaged();
+            //RijndaelManaged rijndaelManaged = new RijndaelManaged();
             
             using (Stream stream = new FileStream(path, FileMode.Create))
             {
-                using (CryptoStream cryptoStream = new CryptoStream(stream, 
-                    rijndaelManaged.CreateEncryptor(Player.ENCRYPTION_KEY, Player.ENCRYPTION_KEY), 
-                    CryptoStreamMode.Write))
+                //using (CryptoStream cryptoStream = new CryptoStream(stream, 
+                //    rijndaelManaged.CreateEncryptor(Player.ENCRYPTION_KEY, Player.ENCRYPTION_KEY), 
+//                    CryptoStreamMode.Write))
                 {
-                    using (BinaryWriter writer = new BinaryWriter(cryptoStream))
+                    using (BinaryWriter writer = new BinaryWriter(/*cryptoStream*/stream))
                     {
                         writer.Write(Game1.curRelease);
                         playerFile.Metadata.Write(writer);
@@ -27599,7 +27599,7 @@ namespace GameManager
                             writer.Write(player.hideInfo[index]);
                         writer.Write(player.anglerQuestsFinished);
                         writer.Flush();
-                        cryptoStream.FlushFinalBlock();
+                        //cryptoStream.FlushFinalBlock();
                         stream.Flush();
                     }
                 }
@@ -27618,195 +27618,171 @@ namespace GameManager
             {
                 RijndaelManaged rijndaelManaged = new RijndaelManaged();
                 rijndaelManaged.Padding = PaddingMode.None;
-                using (MemoryStream memoryStream = new MemoryStream(FileUtilities.ReadAllBytes(playerPath)))
+                using ( MemoryStream memoryStream = new MemoryStream( FileUtilities.ReadAllBytes(playerPath) ) )
                 {
-                    using (CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, rijndaelManaged.CreateDecryptor(Player.ENCRYPTION_KEY, Player.ENCRYPTION_KEY), CryptoStreamMode.Read))
+                    //using (CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, 
+                    //    rijndaelManaged.CreateDecryptor(Player.ENCRYPTION_KEY, Player.ENCRYPTION_KEY), 
+                    //    CryptoStreamMode.Read))
+                    //{
+                    //(Stream)cryptoStream
+                    using ( BinaryReader binaryReader = new BinaryReader((Stream)memoryStream) )
                     {
-                        using (BinaryReader binaryReader = new BinaryReader((Stream)cryptoStream))
+                        int release = binaryReader.ReadInt32();
+                        if (release >= 135)
+                            playerFileData.Metadata = FileMetadata.Read(binaryReader, FileType.Player);
+                        else
+                            playerFileData.Metadata = FileMetadata.FromCurrentSettings(FileType.Player);
+                        if (release > Game1.curRelease)
                         {
-                            int release = binaryReader.ReadInt32();
-                            if (release >= 135)
-                                playerFileData.Metadata = FileMetadata.Read(binaryReader, FileType.Player);
-                            else
-                                playerFileData.Metadata = FileMetadata.FromCurrentSettings(FileType.Player);
-                            if (release > Game1.curRelease)
-                            {
-                                player1.loadStatus = 1;
-                                player1.name = binaryReader.ReadString();
-                                playerFileData.Player = player1;
-                                return playerFileData;
-                            }
+                            player1.loadStatus = 1;
                             player1.name = binaryReader.ReadString();
-                            if (release >= 10)
+                            playerFileData.Player = player1;
+                            return playerFileData;
+                        }
+                        player1.name = binaryReader.ReadString();
+                        if (release >= 10)
+                        {
+                            if (release >= 17)
+                                player1.difficulty = binaryReader.ReadByte();
+                            else if (binaryReader.ReadBoolean())
+                                player1.difficulty = (byte)2;
+                        }
+                        if (release >= 138)
+                            playerFileData.SetPlayTime(new TimeSpan(binaryReader.ReadInt64()));
+                        else
+                            playerFileData.SetPlayTime(TimeSpan.Zero);
+                        player1.hair = binaryReader.ReadInt32();
+                        if (release >= 82)
+                            player1.hairDye = binaryReader.ReadByte();
+                        if (release >= 124)
+                        {
+                            BitsByte bitsByte = (BitsByte)binaryReader.ReadByte();
+                            for (int index = 0; index < 8; ++index)
+                                player1.hideVisual[index] = bitsByte[index];
+                            bitsByte = (BitsByte)binaryReader.ReadByte();
+                            for (int index = 0; index < 2; ++index)
+                                player1.hideVisual[index + 8] = bitsByte[index];
+                        }
+                        else if (release >= 83)
+                        {
+                            BitsByte bitsByte = (BitsByte)binaryReader.ReadByte();
+                            for (int index = 0; index < 8; ++index)
+                                player1.hideVisual[index] = bitsByte[index];
+                        }
+                        if (release >= 119)
+                            player1.hideMisc = (BitsByte)binaryReader.ReadByte();
+                        if (release <= 17)
+                            player1.Male = player1.hair != 5 && player1.hair != 6 && (player1.hair != 9 && player1.hair != 11);
+                        else if (release < 107)
+                            player1.Male = binaryReader.ReadBoolean();
+                        else
+                            player1.skinVariant = (int)binaryReader.ReadByte();
+                        player1.statLife = binaryReader.ReadInt32();
+                        player1.statLifeMax = binaryReader.ReadInt32();
+                        if (player1.statLifeMax > 500)
+                            player1.statLifeMax = 500;
+                        player1.statMana = binaryReader.ReadInt32();
+                        player1.statManaMax = binaryReader.ReadInt32();
+                        if (player1.statManaMax > 200)
+                            player1.statManaMax = 200;
+                        if (player1.statMana > 400)
+                            player1.statMana = 400;
+                        if (release >= 125)
+                            player1.extraAccessory = binaryReader.ReadBoolean();
+                        if (release >= 128)
+                            player1.taxMoney = binaryReader.ReadInt32();
+                        player1.hairColor = Utils.ReadRGB(binaryReader);
+                        player1.skinColor = Utils.ReadRGB(binaryReader);
+                        player1.eyeColor = Utils.ReadRGB(binaryReader);
+                        player1.shirtColor = Utils.ReadRGB(binaryReader);
+                        player1.underShirtColor = Utils.ReadRGB(binaryReader);
+                        player1.pantsColor = Utils.ReadRGB(binaryReader);
+                        player1.shoeColor = Utils.ReadRGB(binaryReader);
+                        Game1.player[Game1.myPlayer].shirtColor = player1.shirtColor;
+                        Game1.player[Game1.myPlayer].pantsColor = player1.pantsColor;
+                        Game1.player[Game1.myPlayer].hairColor = player1.hairColor;
+                        if (release >= 38)
+                        {
+                            if (release < 124)
                             {
-                                if (release >= 17)
-                                    player1.difficulty = binaryReader.ReadByte();
-                                else if (binaryReader.ReadBoolean())
-                                    player1.difficulty = (byte)2;
+                                int num = 11;
+                                if (release >= 81)
+                                    num = 16;
+                                for (int index1 = 0; index1 < num; ++index1)
+                                {
+                                    int index2 = index1;
+                                    if (index2 >= 8)
+                                        index2 += 2;
+                                    player1.armor[index2].netDefaults(binaryReader.ReadInt32());
+                                    player1.armor[index2].Prefix((int)binaryReader.ReadByte());
+                                }
                             }
-                            if (release >= 138)
-                                playerFileData.SetPlayTime(new TimeSpan(binaryReader.ReadInt64()));
                             else
-                                playerFileData.SetPlayTime(TimeSpan.Zero);
-                            player1.hair = binaryReader.ReadInt32();
-                            if (release >= 82)
-                                player1.hairDye = binaryReader.ReadByte();
-                            if (release >= 124)
                             {
-                                BitsByte bitsByte = (BitsByte)binaryReader.ReadByte();
-                                for (int index = 0; index < 8; ++index)
-                                    player1.hideVisual[index] = bitsByte[index];
-                                bitsByte = (BitsByte)binaryReader.ReadByte();
-                                for (int index = 0; index < 2; ++index)
-                                    player1.hideVisual[index + 8] = bitsByte[index];
+                                int num = 20;
+                                for (int index = 0; index < num; ++index)
+                                {
+                                    player1.armor[index].netDefaults(binaryReader.ReadInt32());
+                                    player1.armor[index].Prefix((int)binaryReader.ReadByte());
+                                }
                             }
-                            else if (release >= 83)
+                            if (release >= 47)
                             {
-                                BitsByte bitsByte = (BitsByte)binaryReader.ReadByte();
-                                for (int index = 0; index < 8; ++index)
-                                    player1.hideVisual[index] = bitsByte[index];
+                                int num = 3;
+                                if (release >= 81)
+                                    num = 8;
+                                if (release >= 124)
+                                    num = 10;
+                                for (int index1 = 0; index1 < num; ++index1)
+                                {
+                                    int index2 = index1;
+                                    player1.dye[index2].netDefaults(binaryReader.ReadInt32());
+                                    player1.dye[index2].Prefix((int)binaryReader.ReadByte());
+                                }
                             }
-                            if (release >= 119)
-                                player1.hideMisc = (BitsByte)binaryReader.ReadByte();
-                            if (release <= 17)
-                                player1.Male = player1.hair != 5 && player1.hair != 6 && (player1.hair != 9 && player1.hair != 11);
-                            else if (release < 107)
-                                player1.Male = binaryReader.ReadBoolean();
-                            else
-                                player1.skinVariant = (int)binaryReader.ReadByte();
-                            player1.statLife = binaryReader.ReadInt32();
-                            player1.statLifeMax = binaryReader.ReadInt32();
-                            if (player1.statLifeMax > 500)
-                                player1.statLifeMax = 500;
-                            player1.statMana = binaryReader.ReadInt32();
-                            player1.statManaMax = binaryReader.ReadInt32();
-                            if (player1.statManaMax > 200)
-                                player1.statManaMax = 200;
-                            if (player1.statMana > 400)
-                                player1.statMana = 400;
-                            if (release >= 125)
-                                player1.extraAccessory = binaryReader.ReadBoolean();
-                            if (release >= 128)
-                                player1.taxMoney = binaryReader.ReadInt32();
-                            player1.hairColor = Utils.ReadRGB(binaryReader);
-                            player1.skinColor = Utils.ReadRGB(binaryReader);
-                            player1.eyeColor = Utils.ReadRGB(binaryReader);
-                            player1.shirtColor = Utils.ReadRGB(binaryReader);
-                            player1.underShirtColor = Utils.ReadRGB(binaryReader);
-                            player1.pantsColor = Utils.ReadRGB(binaryReader);
-                            player1.shoeColor = Utils.ReadRGB(binaryReader);
-                            Game1.player[Game1.myPlayer].shirtColor = player1.shirtColor;
-                            Game1.player[Game1.myPlayer].pantsColor = player1.pantsColor;
-                            Game1.player[Game1.myPlayer].hairColor = player1.hairColor;
-                            if (release >= 38)
+                            if (release >= 58)
                             {
-                                if (release < 124)
+                                for (int index = 0; index < 58; ++index)
                                 {
-                                    int num = 11;
-                                    if (release >= 81)
-                                        num = 16;
-                                    for (int index1 = 0; index1 < num; ++index1)
+                                    int type = binaryReader.ReadInt32();
+                                    if (type >= 3601)
                                     {
-                                        int index2 = index1;
-                                        if (index2 >= 8)
-                                            index2 += 2;
-                                        player1.armor[index2].netDefaults(binaryReader.ReadInt32());
-                                        player1.armor[index2].Prefix((int)binaryReader.ReadByte());
-                                    }
-                                }
-                                else
-                                {
-                                    int num = 20;
-                                    for (int index = 0; index < num; ++index)
-                                    {
-                                        player1.armor[index].netDefaults(binaryReader.ReadInt32());
-                                        player1.armor[index].Prefix((int)binaryReader.ReadByte());
-                                    }
-                                }
-                                if (release >= 47)
-                                {
-                                    int num = 3;
-                                    if (release >= 81)
-                                        num = 8;
-                                    if (release >= 124)
-                                        num = 10;
-                                    for (int index1 = 0; index1 < num; ++index1)
-                                    {
-                                        int index2 = index1;
-                                        player1.dye[index2].netDefaults(binaryReader.ReadInt32());
-                                        player1.dye[index2].Prefix((int)binaryReader.ReadByte());
-                                    }
-                                }
-                                if (release >= 58)
-                                {
-                                    for (int index = 0; index < 58; ++index)
-                                    {
-                                        int type = binaryReader.ReadInt32();
-                                        if (type >= 3601)
-                                        {
-                                            player1.inventory[index].netDefaults(0);
-                                        }
-                                        else
-                                        {
-                                            player1.inventory[index].netDefaults(type);
-                                            player1.inventory[index].stack = binaryReader.ReadInt32();
-                                            player1.inventory[index].Prefix((int)binaryReader.ReadByte());
-                                            if (release >= 114)
-                                                player1.inventory[index].favorited = binaryReader.ReadBoolean();
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    for (int index = 0; index < 48; ++index)
-                                    {
-                                        int type = binaryReader.ReadInt32();
-                                        if (type >= 3601)
-                                        {
-                                            player1.inventory[index].netDefaults(0);
-                                        }
-                                        else
-                                        {
-                                            player1.inventory[index].netDefaults(type);
-                                            player1.inventory[index].stack = binaryReader.ReadInt32();
-                                            player1.inventory[index].Prefix((int)binaryReader.ReadByte());
-                                        }
-                                    }
-                                }
-                                if (release >= 117)
-                                {
-                                    if (release < 136)
-                                    {
-                                        for (int index = 0; index < 5; ++index)
-                                        {
-                                            if (index != 1)
-                                            {
-                                                int type1 = binaryReader.ReadInt32();
-                                                if (type1 >= 3601)
-                                                {
-                                                    player1.miscEquips[index].netDefaults(0);
-                                                }
-                                                else
-                                                {
-                                                    player1.miscEquips[index].netDefaults(type1);
-                                                    player1.miscEquips[index].Prefix((int)binaryReader.ReadByte());
-                                                }
-                                                int type2 = binaryReader.ReadInt32();
-                                                if (type2 >= 3601)
-                                                {
-                                                    player1.miscDyes[index].netDefaults(0);
-                                                }
-                                                else
-                                                {
-                                                    player1.miscDyes[index].netDefaults(type2);
-                                                    player1.miscDyes[index].Prefix((int)binaryReader.ReadByte());
-                                                }
-                                            }
-                                        }
+                                        player1.inventory[index].netDefaults(0);
                                     }
                                     else
                                     {
-                                        for (int index = 0; index < 5; ++index)
+                                        player1.inventory[index].netDefaults(type);
+                                        player1.inventory[index].stack = binaryReader.ReadInt32();
+                                        player1.inventory[index].Prefix((int)binaryReader.ReadByte());
+                                        if (release >= 114)
+                                            player1.inventory[index].favorited = binaryReader.ReadBoolean();
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                for (int index = 0; index < 48; ++index)
+                                {
+                                    int type = binaryReader.ReadInt32();
+                                    if (type >= 3601)
+                                    {
+                                        player1.inventory[index].netDefaults(0);
+                                    }
+                                    else
+                                    {
+                                        player1.inventory[index].netDefaults(type);
+                                        player1.inventory[index].stack = binaryReader.ReadInt32();
+                                        player1.inventory[index].Prefix((int)binaryReader.ReadByte());
+                                    }
+                                }
+                            }
+                            if (release >= 117)
+                            {
+                                if (release < 136)
+                                {
+                                    for (int index = 0; index < 5; ++index)
+                                    {
+                                        if (index != 1)
                                         {
                                             int type1 = binaryReader.ReadInt32();
                                             if (type1 >= 3601)
@@ -27831,152 +27807,179 @@ namespace GameManager
                                         }
                                     }
                                 }
-                                if (release >= 58)
-                                {
-                                    for (int index = 0; index < 40; ++index)
-                                    {
-                                        player1.bank.item[index].netDefaults(binaryReader.ReadInt32());
-                                        player1.bank.item[index].stack = binaryReader.ReadInt32();
-                                        player1.bank.item[index].Prefix((int)binaryReader.ReadByte());
-                                    }
-                                    for (int index = 0; index < 40; ++index)
-                                    {
-                                        player1.bank2.item[index].netDefaults(binaryReader.ReadInt32());
-                                        player1.bank2.item[index].stack = binaryReader.ReadInt32();
-                                        player1.bank2.item[index].Prefix((int)binaryReader.ReadByte());
-                                    }
-                                }
                                 else
                                 {
-                                    for (int index = 0; index < 20; ++index)
+                                    for (int index = 0; index < 5; ++index)
                                     {
-                                        player1.bank.item[index].netDefaults(binaryReader.ReadInt32());
-                                        player1.bank.item[index].stack = binaryReader.ReadInt32();
-                                        player1.bank.item[index].Prefix((int)binaryReader.ReadByte());
+                                        int type1 = binaryReader.ReadInt32();
+                                        if (type1 >= 3601)
+                                        {
+                                            player1.miscEquips[index].netDefaults(0);
+                                        }
+                                        else
+                                        {
+                                            player1.miscEquips[index].netDefaults(type1);
+                                            player1.miscEquips[index].Prefix((int)binaryReader.ReadByte());
+                                        }
+                                        int type2 = binaryReader.ReadInt32();
+                                        if (type2 >= 3601)
+                                        {
+                                            player1.miscDyes[index].netDefaults(0);
+                                        }
+                                        else
+                                        {
+                                            player1.miscDyes[index].netDefaults(type2);
+                                            player1.miscDyes[index].Prefix((int)binaryReader.ReadByte());
+                                        }
                                     }
-                                    for (int index = 0; index < 20; ++index)
-                                    {
-                                        player1.bank2.item[index].netDefaults(binaryReader.ReadInt32());
-                                        player1.bank2.item[index].stack = binaryReader.ReadInt32();
-                                        player1.bank2.item[index].Prefix((int)binaryReader.ReadByte());
-                                    }
+                                }
+                            }
+                            if (release >= 58)
+                            {
+                                for (int index = 0; index < 40; ++index)
+                                {
+                                    player1.bank.item[index].netDefaults(binaryReader.ReadInt32());
+                                    player1.bank.item[index].stack = binaryReader.ReadInt32();
+                                    player1.bank.item[index].Prefix((int)binaryReader.ReadByte());
+                                }
+                                for (int index = 0; index < 40; ++index)
+                                {
+                                    player1.bank2.item[index].netDefaults(binaryReader.ReadInt32());
+                                    player1.bank2.item[index].stack = binaryReader.ReadInt32();
+                                    player1.bank2.item[index].Prefix((int)binaryReader.ReadByte());
                                 }
                             }
                             else
                             {
-                                for (int index = 0; index < 8; ++index)
+                                for (int index = 0; index < 20; ++index)
+                                {
+                                    player1.bank.item[index].netDefaults(binaryReader.ReadInt32());
+                                    player1.bank.item[index].stack = binaryReader.ReadInt32();
+                                    player1.bank.item[index].Prefix((int)binaryReader.ReadByte());
+                                }
+                                for (int index = 0; index < 20; ++index)
+                                {
+                                    player1.bank2.item[index].netDefaults(binaryReader.ReadInt32());
+                                    player1.bank2.item[index].stack = binaryReader.ReadInt32();
+                                    player1.bank2.item[index].Prefix((int)binaryReader.ReadByte());
+                                }
+                            }
+                        }
+                        else
+                        {
+                            for (int index = 0; index < 8; ++index)
+                            {
+                                player1.armor[index].SetDefaults(Item.VersionName(binaryReader.ReadString(), release));
+                                if (release >= 36)
+                                    player1.armor[index].Prefix((int)binaryReader.ReadByte());
+                            }
+                            if (release >= 6)
+                            {
+                                for (int index = 8; index < 11; ++index)
                                 {
                                     player1.armor[index].SetDefaults(Item.VersionName(binaryReader.ReadString(), release));
                                     if (release >= 36)
                                         player1.armor[index].Prefix((int)binaryReader.ReadByte());
                                 }
-                                if (release >= 6)
-                                {
-                                    for (int index = 8; index < 11; ++index)
-                                    {
-                                        player1.armor[index].SetDefaults(Item.VersionName(binaryReader.ReadString(), release));
-                                        if (release >= 36)
-                                            player1.armor[index].Prefix((int)binaryReader.ReadByte());
-                                    }
-                                }
-                                for (int index = 0; index < 44; ++index)
+                            }
+                            for (int index = 0; index < 44; ++index)
+                            {
+                                player1.inventory[index].SetDefaults(Item.VersionName(binaryReader.ReadString(), release));
+                                player1.inventory[index].stack = binaryReader.ReadInt32();
+                                if (release >= 36)
+                                    player1.inventory[index].Prefix((int)binaryReader.ReadByte());
+                            }
+                            if (release >= 15)
+                            {
+                                for (int index = 44; index < 48; ++index)
                                 {
                                     player1.inventory[index].SetDefaults(Item.VersionName(binaryReader.ReadString(), release));
                                     player1.inventory[index].stack = binaryReader.ReadInt32();
                                     if (release >= 36)
                                         player1.inventory[index].Prefix((int)binaryReader.ReadByte());
                                 }
-                                if (release >= 15)
-                                {
-                                    for (int index = 44; index < 48; ++index)
-                                    {
-                                        player1.inventory[index].SetDefaults(Item.VersionName(binaryReader.ReadString(), release));
-                                        player1.inventory[index].stack = binaryReader.ReadInt32();
-                                        if (release >= 36)
-                                            player1.inventory[index].Prefix((int)binaryReader.ReadByte());
-                                    }
-                                }
+                            }
+                            for (int index = 0; index < 20; ++index)
+                            {
+                                player1.bank.item[index].SetDefaults(Item.VersionName(binaryReader.ReadString(), release));
+                                player1.bank.item[index].stack = binaryReader.ReadInt32();
+                                if (release >= 36)
+                                    player1.bank.item[index].Prefix((int)binaryReader.ReadByte());
+                            }
+                            if (release >= 20)
+                            {
                                 for (int index = 0; index < 20; ++index)
                                 {
-                                    player1.bank.item[index].SetDefaults(Item.VersionName(binaryReader.ReadString(), release));
-                                    player1.bank.item[index].stack = binaryReader.ReadInt32();
+                                    player1.bank2.item[index].SetDefaults(Item.VersionName(binaryReader.ReadString(), release));
+                                    player1.bank2.item[index].stack = binaryReader.ReadInt32();
                                     if (release >= 36)
-                                        player1.bank.item[index].Prefix((int)binaryReader.ReadByte());
+                                        player1.bank2.item[index].Prefix((int)binaryReader.ReadByte());
                                 }
-                                if (release >= 20)
-                                {
-                                    for (int index = 0; index < 20; ++index)
-                                    {
-                                        player1.bank2.item[index].SetDefaults(Item.VersionName(binaryReader.ReadString(), release));
-                                        player1.bank2.item[index].stack = binaryReader.ReadInt32();
-                                        if (release >= 36)
-                                            player1.bank2.item[index].Prefix((int)binaryReader.ReadByte());
-                                    }
-                                }
-                            }
-                            if (release < 58)
-                            {
-                                for (int index = 40; index < 48; ++index)
-                                {
-                                    player1.inventory[index + 10] = player1.inventory[index].Clone();
-                                    player1.inventory[index].SetDefaults(0, false);
-                                }
-                            }
-                            if (release >= 11)
-                            {
-                                int num = 22;
-                                if (release < 74)
-                                    num = 10;
-                                for (int index = 0; index < num; ++index)
-                                {
-                                    player1.buffType[index] = binaryReader.ReadInt32();
-                                    player1.buffTime[index] = binaryReader.ReadInt32();
-                                    if (player1.buffType[index] == 0)
-                                    {
-                                        --index;
-                                        --num;
-                                    }
-                                }
-                            }
-                            for (int index = 0; index < 200; ++index)
-                            {
-                                int num = binaryReader.ReadInt32();
-                                if (num != -1)
-                                {
-                                    player1.spX[index] = num;
-                                    player1.spY[index] = binaryReader.ReadInt32();
-                                    player1.spI[index] = binaryReader.ReadInt32();
-                                    player1.spN[index] = binaryReader.ReadString();
-                                }
-                                else
-                                    break;
-                            }
-                            if (release >= 16)
-                                player1.hbLocked = binaryReader.ReadBoolean();
-                            if (release >= 115)
-                            {
-                                int num = 13;
-                                for (int index = 0; index < num; ++index)
-                                    player1.hideInfo[index] = binaryReader.ReadBoolean();
-                            }
-                            if (release >= 98)
-                                player1.anglerQuestsFinished = binaryReader.ReadInt32();
-                            player1.skinVariant = (int)MathHelper.Clamp((float)player1.skinVariant, 0.0f, 7f);
-                            for (int index = 3; index < 8 + player1.extraAccessorySlots; ++index)
-                            {
-                                int num = player1.armor[index].itemId;
-                                if (num == 908)
-                                    player1.lavaMax += 420;
-                                if (num == 906)
-                                    player1.lavaMax += 420;
-                                if (player1.wingsLogic == 0 && (int)player1.armor[index].wingSlot >= 0)
-                                    player1.wingsLogic = (int)player1.armor[index].wingSlot;
-                                if (num == 158 || num == 396 || (num == 1250 || num == 1251) || num == 1252)
-                                    player1.noFallDmg = true;
-                                player1.lavaTime = player1.lavaMax;
                             }
                         }
+                        if (release < 58)
+                        {
+                            for (int index = 40; index < 48; ++index)
+                            {
+                                player1.inventory[index + 10] = player1.inventory[index].Clone();
+                                player1.inventory[index].SetDefaults(0, false);
+                            }
+                        }
+                        if (release >= 11)
+                        {
+                            int num = 22;
+                            if (release < 74)
+                                num = 10;
+                            for (int index = 0; index < num; ++index)
+                            {
+                                player1.buffType[index] = binaryReader.ReadInt32();
+                                player1.buffTime[index] = binaryReader.ReadInt32();
+                                if (player1.buffType[index] == 0)
+                                {
+                                    --index;
+                                    --num;
+                                }
+                            }
+                        }
+                        for (int index = 0; index < 200; ++index)
+                        {
+                            int num = binaryReader.ReadInt32();
+                            if (num != -1)
+                            {
+                                player1.spX[index] = num;
+                                player1.spY[index] = binaryReader.ReadInt32();
+                                player1.spI[index] = binaryReader.ReadInt32();
+                                player1.spN[index] = binaryReader.ReadString();
+                            }
+                            else
+                                break;
+                        }
+                        if (release >= 16)
+                            player1.hbLocked = binaryReader.ReadBoolean();
+                        if (release >= 115)
+                        {
+                            int num = 13;
+                            for (int index = 0; index < num; ++index)
+                                player1.hideInfo[index] = binaryReader.ReadBoolean();
+                        }
+                        if (release >= 98)
+                            player1.anglerQuestsFinished = binaryReader.ReadInt32();
+                        player1.skinVariant = (int)MathHelper.Clamp((float)player1.skinVariant, 0.0f, 7f);
+                        for (int index = 3; index < 8 + player1.extraAccessorySlots; ++index)
+                        {
+                            int num = player1.armor[index].itemId;
+                            if (num == 908)
+                                player1.lavaMax += 420;
+                            if (num == 906)
+                                player1.lavaMax += 420;
+                            if (player1.wingsLogic == 0 && (int)player1.armor[index].wingSlot >= 0)
+                                player1.wingsLogic = (int)player1.armor[index].wingSlot;
+                            if (num == 158 || num == 396 || (num == 1250 || num == 1251) || num == 1252)
+                                player1.noFallDmg = true;
+                            player1.lavaTime = player1.lavaMax;
+                        }
                     }
+                    //}
                 }
                 player1.PlayerFrame();
                 player1.loadStatus = 0;

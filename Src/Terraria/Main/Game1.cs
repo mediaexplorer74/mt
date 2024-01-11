@@ -38,6 +38,7 @@ using GameManager.UI;
 using GameManager.UI.Chat;
 using GameManager.Utilities;
 using GameManager.World.Generation;
+using Windows.Storage;
 
 namespace GameManager
 {
@@ -116,7 +117,12 @@ namespace GameManager
         public static string versionNumber = "v1.3.0.3";
         public static string versionNumber2 = "v1.3.0.3";
         public static Vector2 destroyerHB = new Vector2(0f, 0f);
-        public static FavoritesFile LocalFavoriteData = new FavoritesFile("Data\\favorites.json");
+
+        public static string SavePath = ApplicationData.Current.LocalFolder.Path;//Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\My Games\\Terraria";
+
+        public static FavoritesFile LocalFavoriteData = new FavoritesFile(
+            Game1.SavePath+"\\Data\\favorites.json");
+
         public static FileMetadata WorldFileMetadata;
         public static FileMetadata MapFileMetadata;
         private AchievementManager _achievements;
@@ -679,7 +685,7 @@ namespace GameManager
         public static float invAlpha = 1f;
         public static float invDir = 1f;
 
-        //[ThreadStatic]
+        [ThreadStatic]
         public static Random rand;
         public static Texture2D[] chestStackTexture = new Texture2D[2];
         private static bool allChestStackHover = false;
@@ -1169,7 +1175,8 @@ namespace GameManager
         public static bool editSign = false;
         public static bool editChest = false;
         public static bool blockInput = false;
-        public static Microsoft.Xna.Framework.Input.Keys blockKey = Microsoft.Xna.Framework.Input.Keys.None;
+        public static Microsoft.Xna.Framework.Input.Keys blockKey 
+            = Microsoft.Xna.Framework.Input.Keys.None;
         public static string defaultChestName = string.Empty;
         public static string npcChatText = "";
         public static bool npcChatFocus1 = false;
@@ -1242,9 +1249,11 @@ namespace GameManager
         public static Player PendingPlayer = null;
         public static List<WorldFileData> WorldList = new List<WorldFileData>();
         public static WorldFileData ActiveWorldFileData = new WorldFileData();
-        public static string WorldPath = "Data\\Worlds";
-        public static string PlayerPath = "Data\\Players";
-        public static Preferences Configuration = new Preferences("Data\\config.json", false, false);
+
+        public static string WorldPath = Game1.SavePath+"\\Data\\Worlds";
+        public static string PlayerPath = Game1.SavePath+"\\Data\\Players";
+        public static Preferences Configuration = new Preferences(Game1.SavePath+"\\Data\\config.json", false, false);
+
         public static string[] itemName = new string[3601];
         public static string[] npcName = new string[540];
         private static KeyboardState inputText;
@@ -2246,9 +2255,10 @@ namespace GameManager
         {
             try
             {
-                if (File.Exists("Data\\servers.dat"))
+                if (File.Exists(Game1.SavePath+"\\Data\\servers.dat"))
                 {
-                    using (FileStream fileStream = new FileStream("Data\\servers.dat", FileMode.Open))
+                    using (FileStream fileStream = new FileStream(Game1.SavePath+"\\Data\\servers.dat", 
+                        FileMode.Open))
                     {
                         using (BinaryReader binaryReader = new BinaryReader(fileStream))
                         {
@@ -2276,8 +2286,9 @@ namespace GameManager
             Directory.CreateDirectory("Data");
             try
             {
-                File.SetAttributes("Data\\servers.dat", FileAttributes.Normal);
-                using (FileStream fileStream = new FileStream("Data\\servers.dat", FileMode.Create))
+                File.SetAttributes(Game1.SavePath+"\\Data\\servers.dat", System.IO.FileAttributes.Normal);
+                using (FileStream fileStream = new FileStream(Game1.SavePath+"\\Data\\servers.dat", 
+                    FileMode.Create))
                 {
                     using (BinaryWriter binaryWriter = new BinaryWriter(fileStream))
                     {
@@ -2387,11 +2398,11 @@ namespace GameManager
         // OpenSettings
         protected void OpenSettings()
         {
-            if (File.Exists("Data\\config.dat"))
+            if (File.Exists(Game1.SavePath+"\\Data\\config.dat"))
             {
                 this.OpenLegacySettings();
                 if (Game1.SaveSettings())
-                    File.Delete("Data\\config.dat");
+                    File.Delete(Game1.SavePath+"\\Data\\config.dat");
                 Lighting.LightingThreads = 0;
                 return;
             }
@@ -2484,9 +2495,10 @@ namespace GameManager
         {
             try
             {
-                if (File.Exists("Data\\config.dat"))
+                if (File.Exists(Game1.SavePath+"\\Data\\config.dat"))
                 {
-                    using (FileStream fileStream = new FileStream("Data\\config.dat", FileMode.Open))
+                    using (FileStream fileStream = new FileStream(Game1.SavePath+"\\Data\\config.dat", 
+                        FileMode.Open))
                     {
                         using (BinaryReader binaryReader = new BinaryReader(fileStream))
                         {
@@ -2652,7 +2664,27 @@ namespace GameManager
             {
                 string text2 = playerName.Substring(i, 1);
                 string str;
-                if (text2 == "a" || text2 == "b" || text2 == "c" || text2 == "d" || text2 == "e" || text2 == "f" || text2 == "g" || text2 == "h" || text2 == "i" || text2 == "j" || text2 == "k" || text2 == "l" || text2 == "m" || text2 == "n" || text2 == "o" || text2 == "p" || text2 == "q" || text2 == "r" || text2 == "s" || text2 == "t" || text2 == "u" || text2 == "v" || text2 == "w" || text2 == "x" || text2 == "y" || text2 == "z" || text2 == "A" || text2 == "B" || text2 == "C" || text2 == "D" || text2 == "E" || text2 == "F" || text2 == "G" || text2 == "H" || text2 == "I" || text2 == "J" || text2 == "K" || text2 == "L" || text2 == "M" || text2 == "N" || text2 == "O" || text2 == "P" || text2 == "Q" || text2 == "R" || text2 == "S" || text2 == "T" || text2 == "U" || text2 == "V" || text2 == "W" || text2 == "X" || text2 == "Y" || text2 == "Z" || text2 == "1" || text2 == "2" || text2 == "3" || text2 == "4" || text2 == "5" || text2 == "6" || text2 == "7" || text2 == "8" || text2 == "9" || text2 == "0")
+                if ( text2 == "a" || text2 == "b" || text2 == "c" 
+                    || text2 == "d" || text2 == "e" || text2 == "f" 
+                    || text2 == "g" || text2 == "h" || text2 == "i" 
+                    || text2 == "j" || text2 == "k" || text2 == "l" 
+                    || text2 == "m" || text2 == "n" || text2 == "o" 
+                    || text2 == "p" || text2 == "q" || text2 == "r" 
+                    || text2 == "s" || text2 == "t" || text2 == "u" 
+                    || text2 == "v" || text2 == "w" || text2 == "x"
+                    || text2 == "y" || text2 == "z" || text2 == "A"
+                    || text2 == "B" || text2 == "C" || text2 == "D" 
+                    || text2 == "E" || text2 == "F" || text2 == "G"
+                    || text2 == "H" || text2 == "I" || text2 == "J" 
+                    || text2 == "K" || text2 == "L" || text2 == "M" 
+                    || text2 == "N" || text2 == "O" || text2 == "P" 
+                    || text2 == "Q" || text2 == "R" || text2 == "S" 
+                    || text2 == "T" || text2 == "U" || text2 == "V"
+                    || text2 == "W" || text2 == "X" || text2 == "Y"
+                    || text2 == "Z" || text2 == "1" || text2 == "2" 
+                    || text2 == "3" || text2 == "4" || text2 == "5" 
+                    || text2 == "6" || text2 == "7" || text2 == "8" 
+                    || text2 == "9" || text2 == "0" )
                 {
                     str = text2;
                 }
@@ -2666,6 +2698,7 @@ namespace GameManager
                 }
                 text += str;
             }
+
             string text3 = Game1.PlayerPath;
             string path = string.Concat(new object[]
             {
@@ -2755,11 +2788,14 @@ namespace GameManager
                 text,
                 ".wld"
             });
+
             string fullPath = FileUtilities.GetFullPath(path);
+
             if (fullPath.StartsWith("\\\\.\\", StringComparison.Ordinal))
             {
                 text += "_";
             }
+
             if (FileUtilities.Exists(string.Concat(new object[]
             {
                 text3,
@@ -2782,6 +2818,7 @@ namespace GameManager
                 }
                 text += num;
             }
+
             return string.Concat(new object[]
             {
                 text3,
@@ -6499,12 +6536,34 @@ namespace GameManager
             try
             {
                 this.mapSectionTexture = new RenderTarget2D(base.GraphicsDevice, 200, 150);
-                Game1.pixelShader = base.Content.Load<Effect>("PixelShader");
-                Game1.tileShader = base.Content.Load<Effect>("TileShader");
-                Game1.screenShader = base.Content.Load<Effect>("ScreenShader");
+
+                try
+                {
+                    //Game1.pixelShader = base.Content.Load<Effect>("PixelShader");
+                }
+                catch { }
+
+                try
+                {
+                    //Game1.tileShader = base.Content.Load<Effect>("TileShader");
+                }
+                catch { }
+
+                try
+                {
+                    //Game1.screenShader = base.Content.Load<Effect>("ScreenShader");
+                }
+                catch { }
+
                 Game1.engine = new AudioEngine("Content" + Path.DirectorySeparatorChar + "TerrariaMusic.xgs");
                 Game1.soundBank = new SoundBank(Game1.engine, "Content" + Path.DirectorySeparatorChar + "Sound Bank.xsb");
-                Game1.waveBank = new WaveBank(Game1.engine, "Content" + Path.DirectorySeparatorChar + "Wave Bank.xwb");
+
+                try
+                {
+                    Game1.waveBank = new WaveBank(Game1.engine, "Content" + Path.DirectorySeparatorChar + "Wave Bank.xwb");
+                }
+                catch { }
+
                 for (int i = 1; i < 40; i++)
                 {
                     Game1.music[i] = Game1.soundBank.GetCue("Music_" + i);
@@ -6665,8 +6724,10 @@ namespace GameManager
                 }
                 Game1.soundInstanceMoonlordCry = Game1.soundNPCKilled[10].CreateInstance();
             }
-            catch
+            catch (Exception ex)
             {
+                Debug.WriteLine(ex.Message);
+
                 Game1.musicVolume = 0f;
                 Game1.soundVolume = 0f;
             }
@@ -12745,7 +12806,8 @@ namespace GameManager
             return default;
         }
 
-        // GetInputText
+        // 
+        /*
         public static string GetInputText(string oldString)
         {
             if (!Game1.hasFocus)
@@ -12931,6 +12993,202 @@ namespace GameManager
             return text;
 
         }//GetInputText
+        */
+
+        public static string GetInputText(string oldString)
+        {
+            if (!Game1.hasFocus)
+                return oldString;
+
+            Game1.inputTextEnter = false;
+            string inputText = oldString ?? "";
+
+            Game1.oldInputText = Game1.inputText;
+
+            //RnD
+            /*
+            Game1.inputText = Keyboard.GetState();
+            bool flag1 = ((int) (ushort) Game1.GetKeyState(20) & (int) ushort.MaxValue) != 0;
+            bool flag2 = false;
+            if (Game1.inputText.IsKeyDown(Keys.LeftShift) || Game1.inputText.IsKeyDown(Keys.RightShift))
+              flag2 = true;
+            Keys[] pressedKeys1 = Game1.inputText.GetPressedKeys();
+            Keys[] pressedKeys2 = Game1.oldInputText.GetPressedKeys();
+            bool flag3 = false;
+            if (Game1.inputText.IsKeyDown(Keys.Back) && Game1.oldInputText.IsKeyDown(Keys.Back))
+            {
+              if (Game1.backSpaceCount == 0)
+              {
+                Game1.backSpaceCount = 7;
+                flag3 = true;
+              }
+              --Game1.backSpaceCount;
+            }
+            else
+              Game1.backSpaceCount = 15;
+            for (int index1 = 0; index1 < pressedKeys1.Length; ++index1)
+            {
+              bool flag4 = true;
+              for (int index2 = 0; index2 < pressedKeys2.Length; ++index2)
+              {
+                if (pressedKeys1[index1] == pressedKeys2[index2])
+                  flag4 = false;
+              }
+              string str = string.Concat((object) pressedKeys1[index1]);
+              if (str == "Back" && (flag4 || flag3))
+              {
+                if (inputText.Length > 0)
+                  inputText = inputText.Substring(0, inputText.Length - 1);
+              }
+              else if (flag4)
+              {
+                if (str == "Space")
+                  str = " ";
+                else if (str.Length == 1)
+                {
+                  int int32 = Convert.ToInt32(Convert.ToChar(str));
+                  if (int32 >= 65 && int32 <= 90 && (!flag2 && !flag1 || flag2 && flag1))
+                    str = string.Concat((object) Convert.ToChar(int32 + 32));
+                }
+                else if (str.Length == 2 && str.Substring(0, 1) == "D")
+                {
+                  str = str.Substring(1, 1);
+                  if (flag2)
+                  {
+                    if (str == "1")
+                      str = "!";
+                    if (str == "2")
+                      str = "@";
+                    if (str == "3")
+                      str = "#";
+                    if (str == "4")
+                      str = "$";
+                    if (str == "5")
+                      str = "%";
+                    if (str == "6")
+                      str = "^";
+                    if (str == "7")
+                      str = "&";
+                    if (str == "8")
+                      str = "*";
+                    if (str == "9")
+                      str = "(";
+                    if (str == "0")
+                      str = ")";
+                  }
+                }
+                else if (str.Length == 7 && str.Substring(0, 6) == "NumPad")
+                {
+                  str = str.Substring(6, 1);
+                }
+                else
+                {
+                  switch (str)
+                  {
+                    case "Divide":
+                      str = "/";
+                      goto label_82;
+                    case "Multiply":
+                      str = "*";
+                      goto label_82;
+                    case "Subtract":
+                      str = "-";
+                      goto label_82;
+                    case "Add":
+                      str = "+";
+                      goto label_82;
+                    case "Decimal":
+                      str = ".";
+                      goto label_82;
+                    case "OemSemicolon":
+                      str = ";";
+                      break;
+                    case "OemPlus":
+                      str = "=";
+                      break;
+                    case "OemComma":
+                      str = ",";
+                      break;
+                    case "OemMinus":
+                      str = "-";
+                      break;
+                    case "OemPeriod":
+                      str = ".";
+                      break;
+                    case "OemQuestion":
+                      str = "/";
+                      break;
+                    case "OemTilde":
+                      str = "`";
+                      break;
+                    case "OemOpenBrackets":
+                      str = "[";
+                      break;
+                    case "OemPipe":
+                      str = "\\";
+                      break;
+                    case "OemCloseBrackets":
+                      str = "]";
+                      break;
+                    case "OemQuotes":
+                      str = "'";
+                      break;
+                    case "OemBackslash":
+                      str = "\\";
+                      break;
+                  }
+                  if (flag2)
+                  {
+                    switch (str)
+                    {
+                      case ";":
+                        str = ":";
+                        break;
+                      case "=":
+                        str = "+";
+                        break;
+                      case ",":
+                        str = "<";
+                        break;
+                      case "-":
+                        str = "_";
+                        break;
+                      case ".":
+                        str = ">";
+                        break;
+                      case "/":
+                        str = "?";
+                        break;
+                      case "`":
+                        str = "~";
+                        break;
+                      case "[":
+                        str = "{";
+                        break;
+                      case "\\":
+                        str = "|";
+                        break;
+                      case "]":
+                        str = "}";
+                        break;
+                      case "'":
+                        str = "\"";
+                        break;
+                    }
+                  }
+                }
+      label_82:
+                if (str == "Enter")
+                  Game1.inputTextEnter = true;
+                if (str.Length == 1)
+                  inputText += str;
+              }
+            }
+            */
+            inputText = "TEST";
+            return inputText;
+        }
+
 
         public void MouseText(string cursorText, int rare = 0, byte diff = 0)
         {
@@ -26610,7 +26868,9 @@ namespace GameManager
                 DrawData value = new DrawData(Game1.armorHeadTexture[drawPlayer.head], new Vector2(drawPlayer.position.X - Game1.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2), drawPlayer.position.Y - Game1.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f) + drawPlayer.headPosition + vector, new Microsoft.Xna.Framework.Rectangle?(drawPlayer.bodyFrame), color5, drawPlayer.headRotation, vector, Scale, spriteEffects, 0);
                 GameShaders.Armor.Apply(shaderId, drawPlayer, new DrawData?(value));
                 value.Draw(Game1.spriteBatch);
-                Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
+    
+                //Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
+
                 if (!drawPlayer.invis)
                 {
                     Microsoft.Xna.Framework.Rectangle bodyFrame2 = drawPlayer.bodyFrame;
@@ -26622,7 +26882,8 @@ namespace GameManager
                     value = new DrawData(Game1.playerHairTexture[drawPlayer.hair], new Vector2(drawPlayer.position.X - Game1.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2), drawPlayer.position.Y - Game1.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f) + drawPlayer.headPosition + vector, new Microsoft.Xna.Framework.Rectangle?(bodyFrame2), color3, drawPlayer.headRotation, vector, Scale, spriteEffects, 0);
                     GameShaders.Hair.Apply(hairDye, drawPlayer, new DrawData?(value));
                     value.Draw(Game1.spriteBatch);
-                    Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
+
+                    //Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
                 }
             }
             if (drawPlayer.head == 161 || drawPlayer.head == 14 || drawPlayer.head == 15 || drawPlayer.head == 16 || drawPlayer.head == 18 || drawPlayer.head == 21 || drawPlayer.head == 24 || drawPlayer.head == 25 || drawPlayer.head == 26 || drawPlayer.head == 40 || drawPlayer.head == 44 || drawPlayer.head == 51 || drawPlayer.head == 56 || drawPlayer.head == 59 || drawPlayer.head == 60 || drawPlayer.head == 67 || drawPlayer.head == 68 || drawPlayer.head == 69 || drawPlayer.head == 114 || drawPlayer.head == 121 || drawPlayer.head == 126 || drawPlayer.head == 130 || drawPlayer.head == 136 || drawPlayer.head == 140 || drawPlayer.head == 145 || drawPlayer.head == 158 || drawPlayer.head == 159)
@@ -26638,7 +26899,7 @@ namespace GameManager
                     DrawData value2 = new DrawData(Game1.playerHairAltTexture[drawPlayer.hair], new Vector2(drawPlayer.position.X - Game1.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2), drawPlayer.position.Y - Game1.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f) + drawPlayer.headPosition + vector, new Microsoft.Xna.Framework.Rectangle?(bodyFrame3), color3, drawPlayer.headRotation, vector, Scale, spriteEffects, 0);
                     GameShaders.Hair.Apply(hairDye, drawPlayer, new DrawData?(value2));
                     value2.Draw(Game1.spriteBatch);
-                    Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
+                    //Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
                 }
             }
             if (drawPlayer.head == 23)
@@ -26655,12 +26916,12 @@ namespace GameManager
                     value3 = new DrawData(Game1.playerHairTexture[drawPlayer.hair], new Vector2(drawPlayer.position.X - Game1.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2), drawPlayer.position.Y - Game1.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f) + drawPlayer.headPosition + vector, new Microsoft.Xna.Framework.Rectangle?(bodyFrame4), color3, drawPlayer.headRotation, vector, Scale, spriteEffects, 0);
                     GameShaders.Hair.Apply(hairDye, drawPlayer, new DrawData?(value3));
                     value3.Draw(Game1.spriteBatch);
-                    Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
+                    //Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
                 }
                 value3 = new DrawData(Game1.armorHeadTexture[drawPlayer.head], new Vector2(drawPlayer.position.X - Game1.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2), drawPlayer.position.Y - Game1.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f) + drawPlayer.headPosition + vector, new Microsoft.Xna.Framework.Rectangle?(drawPlayer.bodyFrame), color5, drawPlayer.headRotation, vector, Scale, spriteEffects, 0);
                 GameShaders.Armor.Apply(shaderId, drawPlayer, new DrawData?(value3));
                 value3.Draw(Game1.spriteBatch);
-                Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
+                //Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
             }
             else if (drawPlayer.head == 14 || drawPlayer.head == 56 || drawPlayer.head == 158)
             {
@@ -26710,14 +26971,14 @@ namespace GameManager
                 DrawData value4 = new DrawData(Game1.armorHeadTexture[drawPlayer.head], new Vector2(drawPlayer.position.X - Game1.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2), drawPlayer.position.Y - Game1.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f + (float)num3) + drawPlayer.headPosition + vector, new Microsoft.Xna.Framework.Rectangle?(bodyFrame5), color5, drawPlayer.headRotation, vector, Scale, spriteEffects, 0);
                 GameShaders.Armor.Apply(shaderId, drawPlayer, new DrawData?(value4));
                 value4.Draw(Game1.spriteBatch);
-                Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
+                //Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
             }
             else if (drawPlayer.head > 0 && drawPlayer.head < 194 && drawPlayer.head != 28)
             {
                 DrawData value5 = new DrawData(Game1.armorHeadTexture[drawPlayer.head], new Vector2(drawPlayer.position.X - Game1.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2), drawPlayer.position.Y - Game1.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f) + drawPlayer.headPosition + vector, new Microsoft.Xna.Framework.Rectangle?(drawPlayer.bodyFrame), color5, drawPlayer.headRotation, vector, Scale, spriteEffects, 0);
                 GameShaders.Armor.Apply(shaderId, drawPlayer, new DrawData?(value5));
                 value5.Draw(Game1.spriteBatch);
-                Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
+                //Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
             }
             else
             {
@@ -26730,7 +26991,7 @@ namespace GameManager
                 DrawData value6 = new DrawData(Game1.playerHairTexture[drawPlayer.hair], new Vector2(drawPlayer.position.X - Game1.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2), drawPlayer.position.Y - Game1.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f) + drawPlayer.headPosition + vector, new Microsoft.Xna.Framework.Rectangle?(bodyFrame6), color3, drawPlayer.headRotation, vector, Scale, spriteEffects, 0);
                 GameShaders.Hair.Apply(hairDye, drawPlayer, new DrawData?(value6));
                 value6.Draw(Game1.spriteBatch);
-                Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
+                //Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
             }
             if (drawPlayer.face > 0 && drawPlayer.face < 9)
             {
@@ -26745,11 +27006,12 @@ namespace GameManager
                 }
                 GameShaders.Armor.Apply(shaderId, drawPlayer, new DrawData?(value7));
                 value7.Draw(Game1.spriteBatch);
-                Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
+                //Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
             }
             drawPlayer.position = position;
             drawPlayer.bodyFrame.Y = bodyFrame.Y;
         }
+
         protected void DrawPlayerStoned(Player drawPlayer, Vector2 Position)
         {
             if (drawPlayer.dead)
@@ -28832,7 +29094,7 @@ namespace GameManager
                 {
                     if (num92 != 0)
                     {
-                        Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
+                        //Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
                         num92 = 0;
                     }
                     Game1.projectile[drawPlayer.heldProj].gfxOffY = drawPlayer.gfxOffY;
@@ -28871,7 +29133,13 @@ namespace GameManager
                     value.Draw(Game1.spriteBatch);
                 }
             }
-            Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
+
+            try
+            {
+                //Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
+            }
+            catch { }
+
             if (drawPlayer.mount.Active && drawPlayer.mount.Type == 11)
             {
                 for (int num94 = 0; num94 < 1000; num94++)
@@ -29150,9 +29418,10 @@ namespace GameManager
                 }
             }
             Game1.spriteBatch.End();
-            Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
+            //Game1.pixelShader.CurrentTechnique.Passes[0].Apply();
             TimeLogger.DetailedDrawTime(25);
         }
+
         private static void HelpText()
         {
             bool flag = false;
@@ -46383,16 +46652,16 @@ namespace GameManager
                 if (c >= 28)
                 {
                     int index = 40 + c - 28;
-                    Game1.tileShader.CurrentTechnique.Passes[index].Apply();
+                    //Game1.tileShader.CurrentTechnique.Passes[index].Apply();
                 }
                 else if (c > 0 && c < 13)
                 {
                     int index2 = c + 27;
-                    Game1.tileShader.CurrentTechnique.Passes[index2].Apply();
+                    //Game1.tileShader.CurrentTechnique.Passes[index2].Apply();
                 }
                 else
                 {
-                    Game1.tileShader.CurrentTechnique.Passes[c].Apply();
+                    //Game1.tileShader.CurrentTechnique.Passes[c].Apply();
                 }
                 Game1.spriteBatch.Draw(Game1.woodTexture[t], new Microsoft.Xna.Framework.Rectangle(0, 0, Game1.woodTexture[t].Width, Game1.woodTexture[t].Height), Microsoft.Xna.Framework.Color.White);
                 Game1.spriteBatch.End();
@@ -46423,16 +46692,16 @@ namespace GameManager
                 if (c >= 28)
                 {
                     int index = 40 + c - 28;
-                    Game1.tileShader.CurrentTechnique.Passes[index].Apply();
+                    //Game1.tileShader.CurrentTechnique.Passes[index].Apply();
                 }
                 else if (c > 0 && c < 13 && (t == 0 || t == 2 || t == 5 || t == 23 || t == 59 || t == 60 || t == 70 || t == 109 || t == 199))
                 {
                     int index2 = c + 27;
-                    Game1.tileShader.CurrentTechnique.Passes[index2].Apply();
+                    //Game1.tileShader.CurrentTechnique.Passes[index2].Apply();
                 }
                 else
                 {
-                    Game1.tileShader.CurrentTechnique.Passes[c].Apply();
+                    //Game1.tileShader.CurrentTechnique.Passes[c].Apply();
                 }
                 Game1.spriteBatch.Draw(Game1.tileTexture[t], new Microsoft.Xna.Framework.Rectangle(0, 0, Game1.tileTexture[t].Width, Game1.tileTexture[t].Height), Microsoft.Xna.Framework.Color.White);
                 Game1.spriteBatch.End();
@@ -46460,16 +46729,16 @@ namespace GameManager
                 if (c >= 28)
                 {
                     int index = 40 + c - 28;
-                    Game1.tileShader.CurrentTechnique.Passes[index].Apply();
+                    //Game1.tileShader.CurrentTechnique.Passes[index].Apply();
                 }
                 else if (c > 0 && c < 13)
                 {
                     int index2 = c + 27;
-                    Game1.tileShader.CurrentTechnique.Passes[index2].Apply();
+                    //Game1.tileShader.CurrentTechnique.Passes[index2].Apply();
                 }
                 else
                 {
-                    Game1.tileShader.CurrentTechnique.Passes[c].Apply();
+                    //Game1.tileShader.CurrentTechnique.Passes[c].Apply();
                 }
                 Game1.spriteBatch.Draw(Game1.treeTopTexture[t], new Microsoft.Xna.Framework.Rectangle(0, 0, Game1.treeTopTexture[t].Width, Game1.treeTopTexture[t].Height), Microsoft.Xna.Framework.Color.White);
                 Game1.spriteBatch.End();
@@ -46480,16 +46749,16 @@ namespace GameManager
                 if (c >= 28)
                 {
                     int index3 = 40 + c - 28;
-                    Game1.tileShader.CurrentTechnique.Passes[index3].Apply();
+                    //Game1.tileShader.CurrentTechnique.Passes[index3].Apply();
                 }
                 else if (c > 0 && c < 13)
                 {
                     int index4 = c + 27;
-                    Game1.tileShader.CurrentTechnique.Passes[index4].Apply();
+                    //Game1.tileShader.CurrentTechnique.Passes[index4].Apply();
                 }
                 else
                 {
-                    Game1.tileShader.CurrentTechnique.Passes[c].Apply();
+                    //Game1.tileShader.CurrentTechnique.Passes[c].Apply();
                 }
                 Game1.spriteBatch.Draw(Game1.treeBranchTexture[t], new Microsoft.Xna.Framework.Rectangle(0, 0, Game1.treeBranchTexture[t].Width, Game1.treeBranchTexture[t].Height), Microsoft.Xna.Framework.Color.White);
                 Game1.spriteBatch.End();
@@ -46516,16 +46785,16 @@ namespace GameManager
                 Game1.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
                 if (c == 30)
                 {
-                    Game1.tileShader.CurrentTechnique.Passes[43].Apply();
+                    //Game1.tileShader.CurrentTechnique.Passes[43].Apply();
                 }
                 else if (c >= 28)
                 {
                     int index = 40 + c - 28;
-                    Game1.tileShader.CurrentTechnique.Passes[index].Apply();
+                    //Game1.tileShader.CurrentTechnique.Passes[index].Apply();
                 }
                 else
                 {
-                    Game1.tileShader.CurrentTechnique.Passes[c].Apply();
+                    //Game1.tileShader.CurrentTechnique.Passes[c].Apply();
                 }
                 Game1.spriteBatch.Draw(Game1.wallTexture[t], new Microsoft.Xna.Framework.Rectangle(0, 0, Game1.wallTexture[t].Width, Game1.wallTexture[t].Height), Microsoft.Xna.Framework.Color.White);
                 Game1.spriteBatch.End();

@@ -140,7 +140,7 @@ namespace GameManager.GameContent.UI.Elements
 
         private void PlayGame(UIMouseEvent evt, UIElement listeningElement)
         {
-            if (listeningElement != evt.Target || playerFileData.Player.loadStatus != 0)
+            if (listeningElement != evt.Target /*|| playerFileData.Player.loadStatus != 0*/)
                 return;
 
             Game1.SelectPlayer(playerFileData);

@@ -125,10 +125,11 @@ namespace GameManager
             {
                 TimeLogger.startLoggingNextFrame = false;
                 DateTime now = DateTime.Now;
-                string path = "Data\\TerrariaDrawLog.7z";
+                string path = Game1.SavePath + "Data\\TerrariaDrawLog.7z";
                 try
                 {
-                    TimeLogger.logWriter = new StreamWriter((Stream)new GZipStream((Stream)new FileStream(path, FileMode.Create), CompressionMode.Compress));
+                    TimeLogger.logWriter = new StreamWriter((Stream)new GZipStream(
+                        (Stream)new FileStream(path, FileMode.Create), CompressionMode.Compress));
                     TimeLogger.logBuilder = new StringBuilder(5000);
                     TimeLogger.framesToLog = 600;
                     TimeLogger.currentFrame = 1;

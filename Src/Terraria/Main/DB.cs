@@ -40,12 +40,21 @@ namespace GameManager
 
         public DB()
         {
+            //TEMP
+            return;
             
             SqliteDataReader tempReader = Load(
                 "terraria", "SELECT name, id FROM tiles");
 
-            while (tempReader.Read())
-                Tiles.Add(GetString(tempReader, 0), GetInt32(tempReader, 1));
+            try
+            {
+                while (tempReader.Read())
+                    Tiles.Add(GetString(tempReader, 0), GetInt32(tempReader, 1));
+            }
+            catch
+            {
+                return;
+            }
 
             tempReader = Load("terraria", "SELECT name, id FROM buffs");
 

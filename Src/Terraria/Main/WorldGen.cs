@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading;
+//using System.Threading;
 using GameManager.DataStructures;
 using GameManager.Enums;
 using GameManager.GameContent.Achievements;
@@ -61,7 +61,7 @@ namespace GameManager
         public static bool[] gem = new bool[6];
         public static bool gen = false;
 
-        //[ThreadStatic]
+        [ThreadStatic]
         public static Random genRand = new Random();
         public static int go = 0;
         public static int goldBar = 0x13;
@@ -38212,7 +38212,7 @@ namespace GameManager
             {
                 float num2 = ((float)Game1.loadMapLastX) / ((float)Game1.maxTilesX);
                 Game1.statusText = string.Concat(new object[] { Lang.gen[0x44], " ", (int)((num2 * 100f) + 1f), "%" });
-                Thread.Sleep(0);
+                //Thread.Sleep(0);
                 if (!Game1.mapEnabled)
                 {
                     break;
@@ -46773,10 +46773,32 @@ namespace GameManager
                         bool mergeDown = WorldGen.mergeDown;
                         bool mergeLeft = WorldGen.mergeLeft;
                         bool mergeRight = WorldGen.mergeRight;
-                        TileFrame(i - 1, j, false, false);
-                        TileFrame(i + 1, j, false, false);
-                        TileFrame(i, j - 1, false, false);
-                        TileFrame(i, j + 1, false, false);
+
+                        //RnD
+                        try
+                        {
+                            //TileFrame(i - 1, j, false, false);
+                        }
+                        catch { }
+
+                        try
+                        {
+                            //TileFrame(i + 1, j, false, false);
+                        }
+                        catch { }
+
+                        try
+                        {
+                            //TileFrame(i, j - 1, false, false);
+                        }
+                        catch { }
+
+                        try
+                        {
+                            //TileFrame(i, j + 1, false, false);
+                        }
+                        catch { }
+
                         WorldGen.mergeUp = mergeUp;
                         WorldGen.mergeDown = mergeDown;
                         WorldGen.mergeLeft = mergeLeft;
